@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+  <a href="system/login">进入系统</a>
+ <form th:attr="action='@{/logout}'"  method='post'>
+     <input type="submit" value="注销">
+ </form>
+</body>
+</html>
