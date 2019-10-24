@@ -95,6 +95,7 @@ public class MenuController {
         for (File f : listFiles) {
             if (f != null && f.getName().contains("png")) {
                 icons.add("icon-" + f.getName().substring(0, f.getName().indexOf(".")).replace("_", "-"));
+//                icons.add(f.getName().substring(0, f.getName().indexOf(".")).replace("_", "-"));
             }
         }
         System.out.println( "系统方法listFiles！"+listFiles);
