@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--引入抬头页面-->
+<div th:replace="common/header :: header"></div>
+
+<div class="easyui-layout" data-options="fit:true">
+    <!-- Begin of toolbar -->
+    <div id="wu-toolbar">
+        <div class="wu-toolbar-button">
+            <!--引入菜单页面-->
+            <div th:replace="common/menus :: menus"></div>
+        </div>
+    </div>
+    <label>转换信息:</label>
+    <div style="width: 100% ;height:800px">
+
+        <textarea  name="" id="search-name"  style="width:80%;height:300px;border: 1px black solid"></textarea>
+
+
+    </div>
+
+</div>
+
+
+<!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
+<div th:replace="common/footer :: myfooter"></div>
+
+
+<!-- End of easyui-dialog -->
+<script type="text/javascript" th:inline="none">
+
+    /**
+     * Name 修改记录
+     */
+    function edit() {
+        var info =$("#search-name").val();
+        alert(info);
+        $.ajax({
+            url: 'edit',
+            dataType: 'json',
+            type: 'post',
+            data: {info:info},
+            success: function (data) {
+                alert(data);
+                console.log(data);
+                if (data.type == 'success') {
+                    // alert(data.news);
+                    $("#search-name").val(data.news);
+                } else {
+
+                }
+            }
+        });
+    }
+</script>

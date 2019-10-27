@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.aaa.health.controller.toCamer;
+import com.aaa.health.page.admin.Page;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -191,4 +193,24 @@ public class SystemController {
             e.printStackTrace();
         }
     }
+
+    @RequestMapping(value = "/toC", method = RequestMethod.GET)
+    public String toCampert() {
+
+        return "system/list";
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> getList(String info) {
+        Map<String, String> ret = new HashMap<String, String>();
+        System.out.println(info);
+        String news = toCamer.lineToHump(info);
+
+        ret.put("news", news);
+        ret.put("type", "success");
+        ret.put("msg", "用户修改成功！");
+        return ret;
+    }
+
 }

@@ -60,6 +60,7 @@ public class MenuController {
     public Map<String, Object> getMenuList(Page page,
                                            @RequestParam(name = "name", required = false, defaultValue = "") String name
     ) {
+
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("offset", page.getOffset());
@@ -68,6 +69,7 @@ public class MenuController {
         List<Menu> findList = menuService.findList(queryMap);
         ret.put("rows", findList);
         ret.put("total", menuService.getTotal(queryMap));
+
         return ret;
     }
 
@@ -81,9 +83,7 @@ public class MenuController {
     @ResponseBody
     public Map<String, Object> getIconList(HttpServletRequest request) {
         Map<String, Object> ret = new HashMap<String, Object>();
-//        String realPath = request.getServletContext().getRealPath("/");
         String realPath = System.getProperty("user.dir");
-        //src\main\resources\public\admin\easyui\css\icons
         File file = new File(realPath + "\\src\\main\\resources\\public\\admin\\easyui\\css\\icons");
         List<String> icons = new ArrayList<String>();
         if (!file.exists()) {
@@ -95,7 +95,6 @@ public class MenuController {
         for (File f : listFiles) {
             if (f != null && f.getName().contains("png")) {
                 icons.add("icon-" + f.getName().substring(0, f.getName().indexOf(".")).replace("_", "-"));
-//                icons.add(f.getName().substring(0, f.getName().indexOf(".")).replace("_", "-"));
             }
         }
         System.out.println( "系统方法listFiles！"+listFiles);
@@ -182,7 +181,7 @@ public class MenuController {
     }
 
     /**
-     * 删除菜单失败
+     * 删除菜单
      *
      * @param id
      * @return

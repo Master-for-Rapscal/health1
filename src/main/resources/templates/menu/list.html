@@ -7,10 +7,13 @@
     <!-- Begin of toolbar -->
     <div id="wu-toolbar">
         <div class="wu-toolbar-button">
+
             <!--引入菜单页面-->
             <div th:replace="common/menus :: menus"  > </div>
         </div>
         <div class="wu-toolbar-search">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="collapseAll()">全部合并</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="expandAll()">全部展开</a>
             <label>菜单名称：</label><input id="search-name" class="wu-text" style="width:100px">
             <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
         </div>
@@ -404,31 +407,45 @@
     //搜索按钮监听
     $("#search-btn").click(function(){
         $('#data-datagrid').treegrid('reload',{
+
             name:$("#search-name").val()
+
         });
+        console.log($("#search-name").val());
     });
+    //控制菜单下拉框
+    function collapseAll(){
+        $('#data-datagrid').treegrid('collapseAll');
+    }
+    function expandAll(){
+        $('#data-datagrid').treegrid('expandAll');
+    }
 
     /**
      * 载入数据
      */
     $('#data-datagrid').treegrid({
         url:'../../admin/menu/list',
-        rownumbers:true,
-        singleSelect:true,
-        pageSize:20,
-        pagination:true,
+        rownumbers:true,//	设置为true将显示行数。
+        singleSelect:true,//设置为true将只允许选择一行。
+        pageSize:200,
+        pageList:[10,20,30,40,50,100,200],
+        pagination:true,//	设置true将在数据表格底部显示分页工具栏。
         multiSort:true,
-        fitColumns:true,
-        idField:'id',
+        animate: true,
+        collapsible: true,
+        fitColumns:true,//让列宽自动适应数据表格的宽度。
+        idField:'id',//表明该列是一个唯一列。
         treeField:'name',
         fit:true,
         columns:[[
             { field:'name',title:'菜单名称',width:100,sortable:true},
             { field:'url',title:'菜单URL',width:100,sortable:true},
             { field:'icon',title:'图标icon',width:100,formatter:function(value,index,row){
-                    var test = '<a class="' + value + '">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>'
+                    var test = '<a class="' + value + '">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>';
                     return test + value;
                 }},
         ]]
+
     });
 </script>

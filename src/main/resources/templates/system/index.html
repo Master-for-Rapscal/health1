@@ -16,7 +16,7 @@
         $.parser.onComplete = function () {
             if (pc) clearTimeout(pc);
             pc = setTimeout(closes, 1000);
-        }
+        };
 
         function closes() {
             $('#loading').fadeOut('normal', function () {
@@ -42,14 +42,15 @@
 </div>
 <!-- end of header -->
 <!-- begin of sidebar -->
-<div class="wu-sidebar" data-options="region:'west',split:false,border:true,title:'导航菜单'">
-    <div th:each="topMenu:${topMenuList}" class="easyui-accordion"  style="border: 0px" >
+<div class="wu-sidebar" data-options="region:'west',split:false,border:true,title:'导航菜单'" style="width: 200px">
+    <div  class="easyui-accordion"  style="border: 0px" >
+   <a th:each="topMenu:${topMenuList}">
             <div th:title="${topMenu.name }" th:attr="iconCls=${topMenu.icon },data-options='selected:true'" style="padding:2px;border: 0px">
                 <ul th:each="secondMenu:${secondMenuList}" class="easyui-tree wu-side-tree" style="border: 0px" >
                     <li th:if="${secondMenu.parentId == topMenu.id}" th:attr="iconCls=${secondMenu.icon }" style="border: 0px" >
                         <a href="javascript:void(0)"  th:attr="data-icon=${secondMenu.icon },data-link=${secondMenu.url }+'?_mid='+(${secondMenu.id })"  iframe="1"><span th:text="${secondMenu.name }"></span></a></li>
                 </ul>
-    </div></div>
+    </div></a></div>
 </div>
 <!-- end of sidebar -->
 <!-- begin of main -->
@@ -73,7 +74,7 @@
             var iframe = $(this).attr('iframe')==1?true:false;
             addTab(title,url,iconCls,iframe);
         });
-    })
+    });
 
     /**
      * Name 添加菜单选项
