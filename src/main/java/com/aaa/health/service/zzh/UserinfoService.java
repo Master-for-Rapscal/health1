@@ -10,4 +10,7 @@ import java.util.Map;
 public interface UserinfoService {
     List<Userinfo> findList(Map<String, Object> queryMap);
     int getTotal(Map<String, Object> queryMap);
+    int delete(String ids);
+    int add(Userinfo userinfo);
+    int edit(Userinfo userinfo);
 }

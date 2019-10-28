@@ -22,4 +22,19 @@ public class UserInfoServiceImpl implements UserinfoService {
     public int getTotal(Map<String, Object> queryMap) {
         return userinfoMapper.getTotal(queryMap);
     }
+
+    @Override
+    public int delete(String ids) {
+        return userinfoMapper.delete(ids);
+    }
+
+    @Override
+    public int add(Userinfo userinfo) {
+        return userinfoMapper.add(userinfo);
+    }
+
+    @Override
+    public int edit(Userinfo userinfo) {
+        return userinfoMapper.edit(userinfo);
+    }
 }

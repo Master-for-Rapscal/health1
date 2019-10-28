@@ -154,7 +154,7 @@
                 }
                 var ids = '';
                 for(var i=0;i<item.length;i++){
-                    ids += item[i].id + ',';
+                    ids += item[i].userId + ',';
                 }
                 $.ajax({
                     url:'delete',
@@ -264,19 +264,78 @@
     $('#data-datagrid').datagrid({
         url:'list',
         rownumbers:true,
-        singleSelect:false,
+        singleSelect:true,
         pageSize:20,
         pagination:true,
         multiSort:true,
         fitColumns:true,
-        idField:'id',
+        idField:'userId',
         treeField:'name',
         fit:true,
         columns:[[
             { field:'chk',checkbox:true},
-            { field:'RECORD_CREATEUSERID',title:'用户头像',width:100},
-            { field:'RECORD_UNIT',title:'用户名',width:100,sortable:true},
-            { field:'USER_BIRTHDAY',title:'密码',width:100},
+            { field:'userId',title:'档案编号',width:100},
+            { field:'userPapernumber',title:'纸质编号',width:100},
+            { field:'recordName',title:'姓名',width:100,sortable:true},
+            { field:'userNamtion',title:'名族',width:100,formatter:function(value,row,index){
+                    switch(value){
+                        case 0:{
+                            return '未知';
+                        }
+                        case 1:{
+                            return '汉族';
+                        }
+                        case 2:{
+                            return '少数民族';
+                        }
+                    }
+                    return value;
+                }},
+            { field:'userSex',title:'性别',width:100,formatter:function(value,row,index){
+                    switch(value){
+                        case 3:{
+                            return '未知';
+                        }
+                        case 1:{
+                            return '男';
+                        }
+                        case 2:{
+                            return '女';
+                        }
+                    }
+                    return value;
+                }},
+            { field:'recordPlaceadress',title:'户籍地址',width:100},
+            { field:'userPemanent',title:'户籍方式',width:100,formatter:function(value,row,index){
+                    switch(value){
+                        case 3:{
+                            return '未知';
+                        }
+                        case 1:{
+                            return '户籍';
+                        }
+                        case 2:{
+                            return '非户籍';
+                        }
+                    }
+                    return value;
+                }},
+            { field:'recordFamily',title:'家庭档案',width:100},
+            { field:'userMyphone',title:'本人电话',width:100},
+            { field:'recordBookbuilding',title:'建档方式',width:100,formatter:function(value,row,index){
+                    switch(value){
+                        case 3:{
+                            return '其他服务';
+                        }
+                        case 1:{
+                            return '诊疗服务';
+                        }
+                        case 2:{
+                            return '公卫服务';
+                        }
+                    }
+                    return value;
+                }},
         ]]
     });
 </script>

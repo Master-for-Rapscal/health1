@@ -96,7 +96,7 @@ pagehelper:
 
   #配置别名扫描
 mybatis:
-  type-aliases-package: com.aaa.health.entity.admin,com.aaa.health.entity.zzh
+  type-aliases-package: com.aaa.health.entity.admin,com.aaa.health.entity.zzh,com.aaa.health.entity.oldpeo,com.aaa.health.entity.othslow
 
 #  configuration:
 #    map-underscore-to-camel-case:
