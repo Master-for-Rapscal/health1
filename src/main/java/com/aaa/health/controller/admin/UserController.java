@@ -71,6 +71,8 @@ public class UserController {
         queryMap.put("sex", sex);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
+        ret.put("roleList", roleService.findList(queryMap));
+       // System.out.println(roleService.findList(queryMap));
         ret.put("rows", userService.findList(queryMap));
         ret.put("total", userService.getTotal(queryMap));
         return ret;

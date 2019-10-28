@@ -3,9 +3,8 @@
 <!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
 <div th:fragment="myfooter">
     <div class="footer">
-        <div id="loading" style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:100%;background:#F9F9F9;text-align :center;padding-top:20%;">
+        <div id="loading" style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:90%;background:#F9F9F9;text-align :center;padding-top:10%;">
             <img src="/admin/easyui/images/load-page.gif" width="50%">
-            <h1><font color="#15428B">加载中....</font></h1>
         </div>
         </body>
         <script>
@@ -14,7 +13,7 @@
             $.parser.onComplete = function () {
                 if (pc) clearTimeout(pc);
                 pc = setTimeout(closes, 1000);
-            }
+            };
 
             function closes() {
                 $('#loading').fadeOut('normal', function () {

@@ -6,18 +6,23 @@
 <div class="easyui-layout" data-options="fit:true">
     <!-- Begin of toolbar -->
     <div id="wu-toolbar">
-        <div class="wu-toolbar-button">
+
+
+        <div  class="wu-toolbar-button">
             <!--引入菜单页面-->
-            <div th:replace="common/menus :: menus"  > </div>
+            <div th:replace="common/menus :: menus"> </div>
         </div>
+
+
+
         <div class="wu-toolbar-search">
             <label>用户名:</label><input id="search-name" class="wu-text" style="width:100px">
             <label>所属角色:</label>
             <select id="search-role" class="easyui-combobox" panelHeight="auto" style="width:120px">
                 <option value="-1">全部</option>
-                <c:forEach items="${roleList }" var="role">
-                    <option value="${role.id }">${role.name }</option>
-                </c:forEach>
+                <a th:each="role:${roleList }" >
+                    <option   th:value="${role.id }" ><span th:text="${role.name }"></span></option>
+                    </a>
             </select>
             <label>性别:</label>
             <select id="search-sex" class="easyui-combobox" panelHeight="auto" style="width:120px">
@@ -59,9 +64,10 @@
                 <td width="60" align="right">所属角色:</td>
                 <td>
                     <select name="roleId" class="easyui-combobox" panelHeight="auto" style="width:268px" data-options="required:true, missingMessage:'请选择角色'">
-                        <c:forEach items="${roleList }" var="role">
-                            <option value="${role.id }">${role.name }</option>
-                        </c:forEach>
+                        <a th:each="role:${roleList }" >
+                            <option   th:value="${role.id }" ><span th:text="${role.name }"></span></option>
+                        </a>
+
                     </select>
                 </td>
             </tr>
@@ -110,7 +116,9 @@
                 <td width="60" align="right">所属角色:</td>
                 <td>
                     <select id="edit-roleId" name="roleId" class="easyui-combobox" panelHeight="auto" style="width:268px" data-options="required:true, missingMessage:'请选择角色'">
-                            <option th:each="role:${roleList }"  th:value="${role.id }" ><span th:text="${role.name }"></span></option>
+                           <a  th:each="role:${roleList }">
+                            <option   th:value="${role.id }" ><span th:text="${role.name }"></span></option>
+                           </a>
                     </select>
                 </td>
             </tr>
@@ -154,7 +162,7 @@
         }else{
             $('#p').progressbar('setValue',0)
         }
-    };
+    }
     function upload(){
         if($("#photo-file").val() == '')return;
         var formData = new FormData();
@@ -353,7 +361,7 @@
     //搜索按钮监听
     $("#search-btn").click(function(){
         var roleId = $("#search-role").combobox('getValue');
-        var sex = $("#search-sex").combobox('getValue')
+        var sex = $("#search-sex").combobox('getValue');
         var option = {username:$("#search-name").val()};
         if(roleId != -1){
             option.roleId = roleId;
@@ -387,9 +395,16 @@
             { field:'username',title:'用户名',width:100,sortable:true},
             { field:'password',title:'密码',width:100},
             { field:'roleId',title:'所属角色',width:100,formatter:function(value,row,index){
-                    var roleList = $("#search-role").combobox('getData');
-                    for(var i=0;i<roleList.length;i++){
-                        if(value == roleList[i].value)return roleList[i].text;
+                    switch(value){
+                        case 0:{
+                            return '超级管理员';
+                        }
+                        case 1:{
+                            return '普通用户';
+                        }
+                        case 2:{
+                            return '医生';
+                        }
                     }
                     return value;
                 }},

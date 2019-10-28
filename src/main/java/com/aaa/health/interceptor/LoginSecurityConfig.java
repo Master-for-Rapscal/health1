@@ -44,11 +44,8 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated();//都需要身份验证
         //开启自动配置的登录功能，如果没有登录就去登录页面
         http.formLogin()
-                .loginPage("/system/login")
-                .loginProcessingUrl("/system/login")//自定义 登录frome表单里的action路径
-                .successForwardUrl("/system/index")//登陆成功后无法跳转到指定页面 ,不定义的话就是默认页面
-                .usernameParameter("username")
-                .passwordParameter("password")
+               .loginProcessingUrl("/system/login")//自定义 登录frome表单里的action路径
+                .successForwardUrl("/system/box")//登陆成功后无法跳转到指定页面 ,不定义的话就是默认页面
                 .permitAll();
         //开启记住我功能
         http.rememberMe().rememberMeParameter("remember-me")
@@ -59,10 +56,18 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
         //ifrom 可以添加文件
         http.headers().frameOptions().sameOrigin();
         //开启自动配置的注销功能
-        http.logout().logoutSuccessUrl("/system/login").clearAuthentication(true)
+        http
+                .logout()
+                .logoutSuccessUrl("/system/login")
+                .clearAuthentication(true)
                 .invalidateHttpSession(true);
-        //开启记住我功能
-        http.rememberMe().rememberMeParameter("rememberMe");
+//                .deleteCookies("JSESSIONID");
+
+        http //session管理
+                .sessionManagement()
+                .maximumSessions(4).maxSessionsPreventsLogin(true);//设置一个用户允许登录的个数    maxSessionsPreventsLogin 启用超出报错。
+
+        //
         http.csrf().disable();
     }
 

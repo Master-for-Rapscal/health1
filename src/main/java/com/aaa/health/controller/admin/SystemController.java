@@ -16,6 +16,7 @@ import com.aaa.health.page.admin.Page;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,17 +62,23 @@ public class SystemController {
     @Autowired
     private LogService logService;
 
+    @RequestMapping(value = "/box", method = RequestMethod.POST)
+    public String index1() {
+
+        return "/index";
+    }
+
     /**
      * 获得主页
      * @param model
      * @return
      */
-    @RequestMapping(value = "/index", method = RequestMethod.POST)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Model model, HttpServletRequest request) {
         //(String) request.getSession().getAttribute("username");
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println("security获取用户信息" + user.getUsername());
-        System.out.println("security获取用户信息" + user);
+      //  System.out.println("security获取用户信息" + user.getUsername());
+//        System.out.println("security获取用户信息" + user);
         SysUser findByUsername = userService.findByUsername(user.getUsername());
         Role role = roleService.find(findByUsername.getRoleId());
         List<Authority> authorityList = authorityService.findListByRoleId(role.getId());//���ݽ�ɫ��ȡȨ���б�
@@ -86,6 +93,7 @@ public class SystemController {
         request.getSession().setAttribute("admin", findByUsername);
         request.getSession().setAttribute("role", role);
         request.getSession().setAttribute("userMenus", userMenus);
+//        System.out.println("用户所拥有的权限"+userMenus);
         model.addAttribute("topMenuList", MenuUtil.getAllTopMenu(userMenus));
         model.addAttribute("secondMenuList", MenuUtil.getAllSecondMenu(userMenus));
         System.out.println("进入登录");
@@ -112,19 +120,6 @@ public class SystemController {
     public String login(ModelAndView model) {
         return "system/login";
     }
-
-    /**
-     * post 登录页面
-     *
-     * @param user
-     * @return
-     */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @ResponseBody
-    public String loginAct(User user) {
-        return "redirect:index";
-    }
-
 
     /**
      * 修改密码

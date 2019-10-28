@@ -46,8 +46,8 @@ spring:
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/templates/
 
-  session:
-    store-type: redis
+#  session:
+#    store-type: redis
 #  main:
 #    allow-bean-definition-overriding: true
 #  mvc:

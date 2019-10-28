@@ -42,7 +42,7 @@
             <!--</div>-->
 
         <div class="login-center clearfix" >
-                <input type="checkbox" name="remember-me"  value="true">记住我，一周免登陆
+                <input type="checkbox" name="remember-me"   checked="true">记住我，一周免登陆
         </div>
             <input type="button" class="login-button" style=" width:80%;margin-left:8%"  onclick="submit()" th:value="登录" >
         </form>
@@ -62,6 +62,7 @@
     //     $("#cpacha-img").attr("src",'get_cpacha?vl=4&w=150&h=40&type=loginCpacha&t=' + new Date().getTime());
     // }
     document.querySelector(".login-button").onclick = function submit(){
+
         var username = $("#username").val();
         var password = $("#password").val();
         var cpacha = $("#cpacha").val();

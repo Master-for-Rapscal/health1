@@ -15,8 +15,6 @@ import java.util.List;
 public class UnauthorizedEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException {
-        String requestURI = httpServletRequest.getRequestURI();
-        System.out.println("LInk-" + requestURI + "-come in lanjieqi");
         if (isAjaxRequest(httpServletRequest)) {
             httpServletResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
         } else {

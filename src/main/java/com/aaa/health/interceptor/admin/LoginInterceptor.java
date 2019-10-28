@@ -38,6 +38,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
                              Object arg2) {
         //获取菜单id
+
         String mid = request.getParameter("_mid");
         if (!StringUtils.isEmpty(mid)) {
             List<Menu> allThirdMenu = MenuUtil.getAllThirdMenu((List<Menu>) request.getSession().getAttribute("userMenus"), Long.valueOf(mid));
