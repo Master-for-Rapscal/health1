@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.Children.ChildInfoMapper">
+    <delete id="delete" parameterType="String">
+        delete from userinfo where userId in(${value})
+    </delete>
+
+
+    <!-- 分页获取用户列表 -->
+    <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.Children.ChildInfo">
+        select * from userinfo join addnewborn on
+        userinfo.recordInputtingcard=addnewborn.addnewbornCardnum join
+        userPrivy on userPrivy.userId=userinfo.userId where 1 = 1
+
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select count(*) from userinfo join addnewborn on
+ userinfo.userId=addnewborn.recordId join
+userPrivy on userPrivy.userId=userinfo.userId where 1 = 1
+    </select>
+
+
+    <select id="queryCount" parameterType="Integer" resultType="Integer">
+        select COUNT(*) from insrecord where recordId=#{rid}
+    </select>
+</mapper>

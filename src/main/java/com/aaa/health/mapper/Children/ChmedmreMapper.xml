@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.Children.ChmedmreMapper">
+    <delete id="delete" parameterType="String">
+        delete from CHMEDMRE where RECORD_ID in(${value})
+    </delete>
+
+
+    <!-- 分页获取用户列表 -->
+    <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.Children.Chmedmre">
+        select RECORD_ID,CHMEDMRE_MONTHS,CHMEDMRE_FOLLOWDATE,CHMEDMRE_CHMED,CHMEDMRE_NEXTFOLLOW,CHMEDMRE_DOC from CHMEDMRE where 1 = 1
+
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select count(*) from CHMEDMRE where 1 = 1
+    </select>
+
+</mapper>
