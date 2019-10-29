@@ -6,24 +6,14 @@
 <div class="easyui-layout" data-options="fit:true">
     <!-- Begin of toolbar -->
     <div id="wu-toolbar">
-
-
-        <div  class="wu-toolbar-button">
+        <div class="wu-toolbar-button">
             <!--引入菜单页面-->
-            <div th:replace="common/menus :: menus"> </div>
+            <div th:replace="common/menus :: menus"  > </div>
         </div>
-
-
-
         <div class="wu-toolbar-search">
             <label>用户名:</label><input id="search-name" class="wu-text" style="width:100px">
             <label>所属角色:</label>
-            <select id="search-role" class="easyui-combobox" panelHeight="auto" style="width:120px">
-                <option value="-1">全部</option>
-                <a th:each="role:${roleList }" >
-                    <option   th:value="${role.id }" ><span th:text="${role.name }"></span></option>
-                    </a>
-            </select>
+
             <label>性别:</label>
             <select id="search-sex" class="easyui-combobox" panelHeight="auto" style="width:120px">
                 <option value="-1">全部</option>
@@ -66,14 +56,7 @@
             </tr>
             <tr>
                 <td width="60" align="right">所属角色:</td>
-                <td>
-                    <select name="roleId" class="easyui-combobox" panelHeight="auto" style="width:268px" data-options="required:true, missingMessage:'请选择角色'">
-                        <a th:each="role:${roleList }" >
-                            <option   th:value="${role.id }" ><span th:text="${role.name }"></span></option>
-                        </a>
 
-                    </select>
-                </td>
             </tr>
             <tr>
                 <td width="60" align="right">性别:</td>
@@ -119,13 +102,7 @@
             </tr>
             <tr>
                 <td width="60" align="right">所属角色:</td>
-                <td>
-                    <select id="edit-roleId" name="roleId" class="easyui-combobox" panelHeight="auto" style="width:268px" data-options="required:true, missingMessage:'请选择角色'">
-                           <a  th:each="role:${roleList }">
-                            <option   th:value="${role.id }" ><span th:text="${role.name }"></span></option>
-                           </a>
-                    </select>
-                </td>
+
             </tr>
             <tr>
                 <td width="60" align="right">性别:</td>
@@ -175,7 +152,7 @@
         }else{
             $('#p').progressbar('setValue',0)
         }
-    }
+    };
     function upload(){
         if($("#photo-file").val() == '')return;
         var formData = new FormData();
@@ -281,7 +258,7 @@
                 }
                 var ids = '';
                 for(var i=0;i<item.length;i++){
-                    ids += item[i].id + ',';
+                    ids += item[i].OLDPEO_ID + ',';
                 }
                 $.ajax({
                     url:'delete',
@@ -374,7 +351,7 @@
     //搜索按钮监听
     $("#search-btn").click(function(){
         var roleId = $("#search-role").combobox('getValue');
-        var sex = $("#search-sex").combobox('getValue');
+        var sex = $("#search-sex").combobox('getValue')
         var option = {username:$("#search-name").val()};
         if(roleId != -1){
             option.roleId = roleId;
@@ -389,7 +366,7 @@
      * 载入数据
      */
     $('#data-datagrid').datagrid({
-        url:'list',
+        url:'../othslow/list',
         rownumbers:true,
         singleSelect:false,
         pageSize:20,
@@ -401,42 +378,13 @@
         fit:true,
         columns:[[
             { field:'chk',checkbox:true},
-            { field:'photo',title:'用户头像',width:100,align:'center',formatter:function(value,row,index){
-                    var img = '<img src="'+value+'" width="50px" />';
-                    return img;
-                }},
-            { field:'username',title:'用户名',width:100,sortable:true},
-            { field:'password',title:'密码',width:100},
-            { field:'roleId',title:'所属角色',width:100,formatter:function(value,row,index){
-                    switch(value){
-                        case 0:{
-                            return '超级管理员';
-                        }
-                        case 1:{
-                            return '普通用户';
-                        }
-                        case 2:{
-                            return '医生';
-                        }
-                    }
-                    return value;
-                }},
-            { field:'sex',title:'性别',width:100,formatter:function(value,row,index){
-                    switch(value){
-                        case 0:{
-                            return '未知';
-                        }
-                        case 1:{
-                            return '男';
-                        }
-                        case 2:{
-                            return '女';
-                        }
-                    }
-                    return value;
-                }},
-            { field:'age',title:'年龄',width:100},
-            { field:'address',title:'地址',width:200}
+            { field:'recordName',title:'姓名',width:100,align:'center'},
+            { field:'userNumber',title:'个人健康档案号',width:100,align:'center'},
+            { field:'userIdnumber',title:'身份证号',width:100,align:'center'},
+            { field:'userBirthday',title:'出生日期',width:100,align:'center'},
+            { field:'recordAdress',title:'家庭地址',width:100,align:'center'},
+            { field:'userMyphone',title:'联系电话',width:100,align:'center'},
+            { field:'recordData',title:'建档日期',width:100,align:'center'},
         ]],
         onLoadSuccess:function(data){
             $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});

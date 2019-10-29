@@ -1,0 +1,42 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.tangniaon.TangMapper">
+    <select id="queryAll" parameterType="Map" resultType="Map">
+        SELECT
+        *
+        from dmsmcard dm join userinfo u on dm.recordId=u.userId join userPrivy pr on pr.userId=u.userId where 1=1
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="queryTotal" resultType="int"  parameterType="Map">
+        select count(*) from dmsmcard where 1 = 1
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <delete id="deleteById" parameterType="String">
+        delete from dmsmcard where dmsmcardId in (${value})
+    </delete>
+
+    <select id="queryAllUser" parameterType="Map" resultType="Map">
+        select  u.userId,u.recordName,u.userBirthday,u.recordAdress,u.userMyphone from userinfo u,dmsmcard where u.userId!=dmsmcard.recordId
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="queryUserTotal" parameterType="Map" resultType="Integer">
+        select  count(*) from userinfo u,dmsmcard where u.userId!=dmsmcard.recordId
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="queryUserById" parameterType="Integer" resultType="Map">
+        select * from userinfo,userPrivy WHERE userinfo.userId=#{uid}
+    </select>
+</mapper>

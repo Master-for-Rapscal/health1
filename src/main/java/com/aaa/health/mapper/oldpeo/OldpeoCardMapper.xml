@@ -1,0 +1,43 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.oldpeo.OldpeoCardMapper">
+
+    <select id="findList" parameterType="Map" resultType="map">
+        select count(u.userId) 人数,count(h.healthcheckId) 老年人体检次数,count(healthcheckAcpBloodroutineother) 血常规,
+        count(healthcheckAcpPro) 尿常规,count(healthcheckAcpFbg1) 血糖,count(healthcheckAcpEcg) 心电图,count(healthcheckAcpHbsag) 肝脏,
+        count(healthcheckAcpCreatinine) 肾功能,count(healthcheckAcpColesterolldl) 血脂检查次数,
+        count(healthcheckAcpChestxray) x线胸透数,count(healthcheckAcpBtypeultrasonic) B超检查次数,count(oldtcmId) 中医药服务次数
+        from oldpeo o,healthcheckFalicourse hk,oldtcm ot,healthcheckGuidance hg,healthcheckHisimmunpro hh,
+        healthcheckHoscourse hs,healthcheck h ,userinfo u where o.recordId=h.userinfoId and h.healthcheckId=hk.healthcheckId
+        and h.healthcheckId=hg.healthcheckId and h.healthcheckId=hh.healthcheckId and h.healthcheckId=hs.healthcheckId
+        and u.userId=o.recordId and ot.oldpeoId=o.oldpeoId
+        <if test="username != null">
+            and username like '%${username}%'
+        </if>
+        <if test="roleId != null">
+            and roleId = #{roleId}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <!-- 获取符合结果的总记录数 -->
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select count(*) from oldpeo where 1 = 1
+        <if test="username != null">
+            and username like '%${username}%'
+        </if>
+        <if test="roleId != null">
+            and roleId = #{roleId}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+    </select>
+
+</mapper>

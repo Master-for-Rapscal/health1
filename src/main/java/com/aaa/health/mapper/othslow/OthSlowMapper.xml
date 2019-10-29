@@ -1,0 +1,43 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.othslow.OthSlowMapper">
+
+    <delete id="delete" parameterType="String">
+        delete from othslow where othslowId in(${value})
+    </delete>
+
+    <select id="findList" parameterType="Map" resultType="map">
+        select o.othslowId,u.userNumber,u.userIdnumber,u.recordName,u.userSex,u.userBirthday,
+        u.recordAdress,u.userMyphone,u.recordData ,o.othslowClosestate,u.userMyphone,
+        oe.othslowNameName,oe.othslowNameState,o.othslowOrimed1,o.othslowOrimed2,o.othslowOrimed3
+        from userinfo u ,othslow o ,othslowName oe where 1=1 and o.recordId=u.userId and  o.othslowNameId=oe.othslowNameId
+        <if test="username != null">
+            and username like '%${username}%'
+        </if>
+        <if test="roleId != null">
+            and roleId = #{roleId}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <!-- 获取符合结果的总记录数 -->
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select count(*) from othslow where 1 = 1
+        <if test="username != null">
+            and username like '%${username}%'
+        </if>
+        <if test="roleId != null">
+            and roleId = #{roleId}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+    </select>
+
+</mapper>

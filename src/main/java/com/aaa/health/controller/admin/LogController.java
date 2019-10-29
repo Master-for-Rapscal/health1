@@ -61,7 +61,7 @@ public class LogController {
     }
 
     /**
-     * 获取日志列表传到首页信息
+     * 获取日志列表传到首页信息s
      *
      * @param log
      * @return

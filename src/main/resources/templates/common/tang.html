@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
+
+<body>
+<div th:fragment="tang">
+    <div class="tang">
+        <style>
+            input[type="text"]{
+                border: 0px;
+                width: 150px;
+            }
+            input[type="checkbox"]{
+                margin-left: 20px;
+            }
+        </style>
+
+    <table width="600" border="1" cellspacing="0" cellpadding="1" id="tab1">
+        <caption>
+            糖尿病专项管理卡
+        </caption>
+        <tr>
+            <td width="100px">管理卡编号:</td>
+            <td width="200px"><input type="text" name="userPapernumber" id="userPapernumber" readonly/></td>
+            <td width="94px">个人健康档案号:</td>
+            <td width="200px"><input type="text" name="userId" id="userId" readonly/></td>
+        </tr>
+        <tr>
+            <td>姓名:</td>
+            <td><input type="text" name="recordName" id="recordName" readonly/></td>
+            <td>性别:</td>
+            <td><input type="text" name="userSex" id="userSex" readonly/></td>
+        </tr>
+        <tr>
+            <td>婚姻:</td>
+            <td><input type="text" name="userGam" id="userGam" readonly/></td>
+            <td>职业:</td>
+            <td><input type="text" name="userWorKunit" id="userWorKunit" readonly/></td>
+        </tr>
+        <tr>
+            <td>出生日期:</td>
+            <td><input type="text" name="userBirthday" id="userBirthday" readonly/></td>
+            <td>本人电话:</td>
+            <td><input type="text" name="userMyphone" id="userMyphone" readonly/></td>
+        </tr>
+        <tr>
+            <td>联系人:</td>
+            <td><input type="text" name="userPrivyName" id="userPrivyName" readonly/></td>
+            <td>联系电话:</td>
+            <td><input type="text" name="userPrivyPhone" id="userPrivyPhone" readonly/></td>
+        </tr>
+        <tr>
+            <td>现住址:</td>
+            <td><input type="text" name="recordAdress" id="recordAdress" readonly/></td>
+            <td>建档机构;</td>
+            <td><input type="text" name="recordUnit" id="recordUnit" readonly/></td>
+        </tr>
+
+
+        <form>
+            <tr rowspan="3">
+                <td>家族史:</td>
+                <td colspan="3">
+                    <input type="checkbox" name="fam" value="1"/>无
+                    <input type="checkbox" name="fam" value="2"/>高血压
+                    <input type="checkbox" name="fam" value="3"/>糖尿病
+                    <input type="checkbox" name="fam" value="4"/>冠心病
+                    <input type="checkbox" name="fam" value="5"/>慢性阻塞性肺炎<br>
+                    <input type="checkbox" name="fam" value="6"/>恶性肿瘤
+                    <input type="checkbox" name="fam" value="7"/>脑卒中
+                    <input type="checkbox" name="fam" value="8"/>重型精神疾病
+                    <input type="checkbox" name="fam" value="9"/>结核病
+                    <input type="checkbox" name="fam" value="10"/>肺炎<br>
+                    <input type="checkbox" name="fam" value="11"/>先天畸形
+                    <input type="checkbox" name="fam" value="12"/>其他<input style="border-bottom:2px; " />
+
+                </td>
+            </tr>
+            <tr>
+                <td>确诊单位:</td>
+                <td colspan="3"><input type="text" name="dmsmcardConunit" /></td>
+            </tr>
+            <tr>
+                <td>发病日期:</td>
+                <td><input type="date" name="dmsmcardAccidate" /></td>
+                <td>确诊日期:</td>
+                <td><input type="date" name="dmsmcardCondate" /></td>
+            </tr>
+            <tr rowspan="2">
+                <td>目前症状:</td>
+                <td colspan="3"><checkbox></checkbox></td>
+            </tr>
+            <tr>
+                <td>日吸烟量:</td>
+                <td><input type="text" name="dmsmcardSmoking" />支</td>
+                <td>日饮酒量:</td>
+                <td><input type="text" name="dmsmcardDrinking" />T</td>
+            </tr>
+            <tr>
+                <td>运动量:</td>
+                <td><input type="text" name="dmsmcardExercise" />次/周</td>
+                <td>运动量时间:</td>
+                <td><input type="text" name="dmsmcardExetime" />分/次</td>
+            </tr>
+            <tr>
+                <td>身高:</td>
+                <td><input type="text" name="dmsmcardHeight" />CM</td>
+                <td>体重:</td>
+                <td><input type="text" name="dmsmcardWeight" />kg</td>
+            </tr>
+            <tr>
+                <td>体质指数:</td>
+                <td colspan="3"><input type="text" name="dmsmcardBmi" readonly/>kg/m^2</td>
+            </tr>
+            <tr>
+                <td>血压:</td>
+                <td>高<input type="text" name="dmsmcardBp1"/>&nbsp;&nbsp;&nbsp;&nbsp;低<input type="text" name="dmsmcardBp2"/></td>
+                <td>糖尿病类型:</td>
+                <td><select name="dmsmcardDiatype"></select></td>
+            </tr>
+            <tr>
+                <td>病例来源:</td>
+                <td colspan="3"><select  name="dmsmcardSources"></select></td>
+
+            </tr>
+            <tr>
+                <td>危险因素:</td>
+                <td colspan="3"><input type="text" name="dmsmcardHazards" /></td>
+            </tr>
+            <tr>
+                <td>管理级别:</td>
+                <td colspan="3"><select name="dmsmcardAdminid"></select></td>
+            </tr>
+            <tr>
+                <td>空腹血糖:</td>
+                <td><input type="text" name="dmsmcardFbg" /></td>
+                <td>餐后两小时血糖:</td>
+                <td><input type="text" name="dmsmcardHpg" /></td>
+            </tr>
+            <tr>
+                <td>随机血糖:</td>
+                <td><input type="text" name="dmsmcardRbg" /></td>
+                <td>糖化血红蛋白:</td>
+                <td><input type="text" name="dmsmcardHbalc" /></td>
+            </tr>
+            <tr>
+                <td>转归原因:</td>
+                <td><input type="text" name="dmsmcardOutfor" readonly /></td>
+                <td>转归日期:</td>
+                <td><input  type="date" name="dmsmcardOutdate" readonly/></td>
+            </tr>
+            <tr>
+                <td>建档医生:</td>
+                <td><select name="dmsmcardDoctor"></select></td>
+                <td>建档日期:</td>
+                <td><input type="date" name="dmsmcardJkcard" /></td>
+            </tr>
+        </form>
+    </table>
+
+
+
+    </div>
+</div>
+</body>
+</html>
