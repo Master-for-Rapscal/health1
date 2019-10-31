@@ -22,7 +22,7 @@
                 <option value="-1">全部</option>
                 <a th:each="role:${roleList }" >
                     <option   th:value="${role.id }" ><span th:text="${role.name }"></span></option>
-                    </a>
+                </a>
             </select>
             <label>性别:</label>
             <select id="search-sex" class="easyui-combobox" panelHeight="auto" style="width:120px">

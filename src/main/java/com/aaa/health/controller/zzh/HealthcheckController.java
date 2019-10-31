@@ -39,12 +39,12 @@ public class HealthcheckController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getList(Page page) {
+
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", userinfoService.findList(queryMap));
-        //System.out.println(userinfoService.findList(queryMap));
         ret.put("total", userinfoService.getTotal(queryMap));
         return ret;
     }

@@ -385,14 +385,14 @@
 }
 .layout {
   position: relative;
-  overflow: hidden;
+  overflow: auto;
   margin: 0;
   padding: 0;
   z-index: 0;
 }
 .layout-panel {
   position: absolute;
-  overflow: hidden;
+  overflow: auto;
 }
 .layout-panel-east,
 .layout-panel-west {
@@ -413,7 +413,7 @@
 .layout-expand .panel-body {
   background: transparent;
   filter: none;
-  overflow: hidden;
+  overflow: auto;
 }
 .layout-expand .panel-header {
   border-bottom-width: 0px;
@@ -2044,6 +2044,37 @@ a.s-btn-plain-active {
 .tree-hit {
   cursor: pointer;
 }
+.radiobutton {
+
+  position: relative;
+  border: 2px solid #6a6a6a;
+  border-radius: 80%;
+  margin-left: 3px;
+  margin-right: 2px;
+}
+.radiobutton-inner {
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  width: 80%;
+  height: 80%;
+  background: #6a6a6a;
+  border-radius: 80%;
+  transform: scale(.6);
+}
+.radiobutton-disabled {
+  opacity: 0.6;
+}
+.radiobutton-value {
+  position: absolute;
+  overflow: hidden;
+  width: 10px;
+  height: 10px;
+  left: -999px;
+}
+
+
+
 .tree-expanded,
 .tree-collapsed,
 .tree-folder,
