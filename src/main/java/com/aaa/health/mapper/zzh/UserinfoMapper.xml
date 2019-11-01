@@ -43,10 +43,18 @@
 
     <!-- 添加用户 -->
     <insert id="add" parameterType="Userinfo">
---         insert into userinfo(id,username,password,roleId,photo,sex,age,address) values(null,#{username},#{password},#{roleId},#{photo},#{sex},#{age},#{address})
+INSERT into userinfo(recordName,recordUnit,recordAdress,recordPostalcode,recordPlaceadress,recordCreateuserid,recordResponuserid,recordData,recordMedical,recordResident,
+recordBookbuilding,recordCategory,recordInputtingcard) VALUES(#{recordName},#{recordUnit},#{recordAdress},#{recordPostalcode},#{recordPlaceadress},
+#{recordCreateuserid},#{recordResponuserid},#{recordData},#{recordMedical},#{recordResident},
+#{recordBookbuilding},#{recordCategory},#{recordInputtingcard})
     </insert>
     <!-- 修改用户 -->
     <update id="edit" parameterType="Userinfo">
 --         update userinfo set username = #{username},roleId = #{roleId},photo = #{photo},sex = #{sex},age = #{age},address = #{address} where id = #{id}
     </update>
+
+    <select id="findById" parameterType="Long" resultType="Userinfo">
+        SELECT * from userinfo where  userId=#{id}
+
+    </select>
 </mapper>

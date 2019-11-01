@@ -199,8 +199,21 @@ public class SystemController {
     @ResponseBody
     public Map<String, String> getList(String info) {
         Map<String, String> ret = new HashMap<String, String>();
-        System.out.println(info);
         String news = toCamer.lineToHump(info);
+
+        ret.put("news", news);
+        ret.put("type", "success");
+        ret.put("msg", "用户修改成功！");
+        return ret;
+    }
+/*
+* 转换#{}工具
+* */
+    @RequestMapping(value = "/edit2", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> getList2(String info) {
+        Map<String, String> ret = new HashMap<String, String>();
+        String news = toCamer.caseToCase(info);
 
         ret.put("news", news);
         ret.put("type", "success");

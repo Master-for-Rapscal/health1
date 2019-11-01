@@ -35,91 +35,164 @@
 <!-- Begin of easyui-dialog -->
 <div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:800px; padding:0px;">
     <form id="add-form" method="post">
-        <table width="650px" border="0" style="margin:10px auto; font-size: 12px">
-           <tr>
-               <td><input class="easyui-textbox tdText_h"  type="text"  value="姓名:" ></input> </td>
-               <td> <input class="easyui-textbox tdText_h" type="text" name="recordName" style="border:0px;border-bottom: 1px solid black"></input></td>
-               <td><input class="easyui-textbox tdText_h" type="text"  value="所属单位:" ></input></td>
-               <td><select class="easyui-combobox tdText_h" donli name="recordUnit"  style="width:120px">
-                   <option   value="1" ><span >长葛市</span></option>
-                   <option   value="2" ><span >李良店村</span></option>
-                   <option   value="3" ><span >马屯村</span></option>
-               </select></td>
-           </tr>
-           <tr>
-               <td><input class="easyui-textbox tdText_h" readonly="true" type="text" value="现住地址:"></input></td>
-               <td> <input class="easyui-textbox tdText_h" type="text" name="userinfoId"  style="border:0px;border-bottom: 1px solid black"></input></td>
-               <td><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="邮政编码:" ></input></td>
-               <td> <input class="easyui-textbox tdText_h" type="text" name="userinfoId" style="border:0px;border-bottom: 1px solid black"></input></td>
-           </tr>
-           <tr>
-               <td><input class="easyui-textbox tdText_h"  type="text"  value="户籍地址:" ></input></td>
-               <!--<td> <input class="easyui-textbox" type="text" onblur="function e(){ $('#two').val(this.val())}" name="userinfoId" style="border:0px;border-bottom: 1px solid black"></input></td>-->
-               <td> <input class="easyui-textbox tdText_h" type="text"  name="userinfoId" style="border:0px;border-bottom: 1px solid black"></input></td>
-               <td><input class="easyui-textbox tdText_h" type="text"  value="建档医生:" ></input></td>
-               <td>
-                   <select class="easyui-combobox tdText_h" donli name="userinfoId" panelHeight="auto" style="width:120px; border:0px;border-bottom: 1px solid black">
-                       <option   value="2" ><span >金峰</span></option>
-                       <option   value="4" ><span >张承天</span></option>
-                       <option   value="3" ><span >曾子墨</span></option>
-                   </select>
-                   </td>
-           </tr>
-           <tr>
-               <td><input class="easyui-textbox tdText_h" readonly="true" type="text" value="责任医生:"></input></td>
-               <td> <input class="easyui-textbox tdText_h" type="text" name="userinfoId" style="border:0px;border-bottom: 1px solid black"></input></td>
-               <td><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="建档日期:" ></input></td>
-               <td> <input class="easyui-textbox tdText_h" type="text" name="userinfoId" style="border:0px;border-bottom: 1px solid black"></input></td>
-           </tr>
-           <tr>
-               <td><input class="easyui-textbox tdText_h"  type="text"  value="查重范围:" ></input></td>
-               <td>
-                   <select class="easyui-combobox tdText_h" donli name="userinfoId" panelHeight="auto" style="width:120px; border:0px;border-bottom: 1px solid black">
-                       <option   value="2" ><span >村内</span></option>
-                       <option   value="4" ><span >县内</span></option>
-                       <option   value="3" ><span >室内</span></option>
-                   </select>
-               </td>
-               <td><input class="easyui-textbox tdText_h" type="text"  value="医疗卡号:" ></input></td>
-               <td> <input class="easyui-textbox tdText_h" type="text" name="userinfoId" style="border:0px;border-bottom: 1px solid black"></input></td>
-           </tr>
-           <tr>
-               <td><input class="easyui-textbox tdText_h" readonly="true" type="text" value="常住类别:"></input></td>
-               <td> <input class="easyui-textbox tdText_h" type="text" id="two" name="userinfoId" style="border:0px;border-bottom: 1px solid black"></input></td>
-               <td><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="建档方式:" ></input></td>
-               <td> <input class="easyui-textbox tdText_h" type="text" name="userinfoId" style="border:0px;border-bottom: 1px solid black"></input></td>
-           </tr>
-           <tr>
-               <td><input class="easyui-textbox tdText_h" readonly="true" type="text" value="人员类别:"></input></td>
-               <td>
-                   <input type="radio" name="healthcheckVisceraPharynx" value="1">港澳台人员
-                   <input type="radio" name="healthcheckVisceraPharynx" value="2">贫困人员
-                   <input class="easyui-radiobutton" name="healthcheckVisceraPharynx" value="3">1
-               </td>
-               <td><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="建档立卡号:" ></input></td>
-               <td> <input class="easyui-textbox tdText_h" type="text" disabled="true" name="userinfoId" style="border:0px;border-bottom: 1px solid black"></input></td>
-           </tr>
-
-       </table>
-
-        <div style="width: 100%; text-align: center;"><h3>个人基本信息表</h3></div>
-        <div style="width: 100%; text-align: center;">
-            姓名：<input class="easyui-textbox" type="text"  style="border:0px;border-bottom: 1px solid black; margin-right: 10px;"></input>
-            纸质编号：<input class="easyui-textbox" type="text"  style="border:0px;border-bottom: 1px solid black;margin-right: 10px;"></input>
-            编号：<input class="easyui-textbox" type="text"  style="border:0px;border-bottom: 1px solid black;margin-right: 10px;"></input>
-        </div>
-        <table style="width: 100%; height: auto; text-align: center;">
+        <table width="90%" border="1" style="margin:10px auto; font-size: 12px">
             <tr>
-                <td></td>
+                <td><input class="easyui-textbox tdText_h" readonly="ture"  type="text"  value="姓名:" ></input> </td>
+                <td> <input class="easyui-textbox tdText_h" type="text" name="recordName" style="border:0px;border-bottom: 1px solid black"></input></td>
+                <td><input class="easyui-textbox tdText_h"  readonly="ture" type="text"  value="所属单位:" ></input></td>
+                <td><select class=""  name="recordUnit"  style=" border:0px;border-bottom: 1px solid black">
+                    <option   value="1" ><span >长葛市</span></option>
+                    <option   value="2" ><span >李良店村</span></option>
+                    <option   value="3" ><span >马屯村</span></option>
+                </select></td>
+            </tr>
+            <tr>
+                <td><input class="easyui-textbox tdText_h" readonly="true" type="text" value="现住地址:"></input></td>
+                <td> <input class="easyui-textbox tdText_h" type="text" name="recordAdress"  style="border:0px;border-bottom: 1px solid black"></input></td>
+                <td><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="邮政编码:" ></input></td>
+                <td> <input class="easyui-textbox tdText_h" type="text" name="recordPostalcode" style="border:0px;border-bottom: 1px solid black"></input></td>
+            </tr>
+            <tr>
+                <td><input class="easyui-textbox tdText_h"  type="text"  value="户籍地址:" ></input></td>
+                <!--<td> <input class="easyui-textbox" type="text" onblur="function e(){ $('#two').val(this.val())}" name="userinfoId" style="border:0px;border-bottom: 1px solid black"></input></td>-->
+                <td> <input class="easyui-textbox tdText_h" type="text"  name="recordPlaceadress" style="border:0px;border-bottom: 1px solid black"></input></td>
+                <td><input class="easyui-textbox tdText_h" type="text"  value="建档医生:" ></input></td>
+                <td>
+                    <select class="" donli name="recordCreateuserid" panelHeight="auto" style="width:100%; border:0px;border-bottom: 1px solid black">
+                        <option   value="2" ><span >金峰</span></option>
+                        <option   value="4" ><span >张承天</span></option>
+                        <option   value="3" ><span >曾子墨</span></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><input class="easyui-textbox tdText_h" readonly="true" type="text" value="责任医生:"></input></td>
+                <td> <input class="easyui-textbox tdText_h" type="text" name="recordResponuserid" style="border:0px;border-bottom: 1px solid black"></input></td>
+                <td><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="建档日期:" ></input></td>
+                <td> <input class="easyui-datetimebox tdText_h" type="text" name="recordData" style="border:0px;border-bottom: 1px solid black"></input></td>
+            </tr>
+            <tr>
+                <td><input class="easyui-textbox tdText_h"  type="text"  value="查重范围:" ></input></td>
+                <td>
+                    <select class="" donli name="userinfoId" style="width:100%; border:0px;border-bottom: 1px solid black">
+                        <option   value="2" ><span >村内</span></option>
+                        <option   value="4" ><span >县内</span></option>
+                        <option   value="3" ><span >室内</span></option>
+                    </select>
+                </td>
+                <td><input class="easyui-textbox tdText_h" type="text"  value="医疗卡号:" ></input></td>
+                <td> <input class="easyui-textbox tdText_h" type="text" name="recordMedical" style="border:0px;border-bottom: 1px solid black"></input></td>
+            </tr>
+            <tr>
+                <td><input class="easyui-textbox tdText_h" readonly="true" type="text" value="常住类别:"></input></td>
+                <td> <input class="easyui-textbox tdText_h" type="text" id="two" name="recordResident" style="border:0px;border-bottom: 1px solid black"></input></td>
+                <td><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="建档方式:" ></input></td>
+                <td> <input class="easyui-textbox tdText_h" type="text" name="recordBookbuilding" style="border:0px;border-bottom: 1px solid black"></input></td>
+            </tr>
+            <tr>
+                <td><input class="easyui-textbox tdText_h" readonly="true" type="text" value="人员类别:"></input></td>
+                <td>
+                    <input type="radio" name="recordCategory" value="1">港澳台人员
+                    <input type="radio" name="recordCategory" value="2">贫困人员
+                </td>
+                <td><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="建档立卡号:" ></input></td>
+                <td> <input class="easyui-textbox tdText_h" type="text" disabled="true" name="recordInputtingcard" style="border:0px;border-bottom: 1px solid black"></input></td>
             </tr>
 
-
         </table>
+
+        <!--<div style="width: 100%; text-align: center;"><h3>个人基本信息表</h3></div>-->
+        <!--<div style="width: 100%; text-align: center;">-->
+            <!--姓名：<input class="easyui-textbox" type="text"  style="border:0px;border-bottom: 1px solid black; margin-right: 10px;"></input>-->
+            <!--纸质编号：<input class="easyui-textbox" type="text"  style="border:0px;border-bottom: 1px solid black;margin-right: 10px;"></input>-->
+            <!--编号：<input class="easyui-textbox" type="text"  style="border:0px;border-bottom: 1px solid black;margin-right: 10px;"></input>-->
+        <!--</div>-->
+        <!--<table style="width: 100%; height: auto; text-align: center;">-->
+            <!--<tr>-->
+                <!--<td></td>-->
+            <!--</tr>-->
+
+
+        <!--</table>-->
     </form>
 </div>
 <!-- 修改窗口 -->
-<div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:450px; padding:10px;">
+<div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:800px; padding:10px;">
     <form id="edit-form" method="post">
+        <table width="90%" border="1" style="margin:10px auto; font-size: 12px">
+            <tr>
+                <td><input class="easyui-textbox tdText_h" readonly="ture"  type="text"  value="姓名:" ></input> </td>
+                <td> <input class="easyui-textbox tdText_h" type="text" name="recordName" style="border:0px;border-bottom: 1px solid black"></input></td>
+                <td><input class="easyui-textbox tdText_h"  readonly="ture" type="text"  value="所属单位:" ></input></td>
+                <td><select class=""  name="recordUnit"  style=" border:0px;border-bottom: 1px solid black">
+                    <option   value="1" ><span >长葛市</span></option>
+                    <option   value="2" ><span >李良店村</span></option>
+                    <option   value="3" ><span >马屯村</span></option>
+                </select></td>
+            </tr>
+            <tr>
+                <td><input class="easyui-textbox tdText_h" readonly="true" type="text" value="现住地址:"></input></td>
+                <td> <input class="easyui-textbox tdText_h" type="text" name="recordAdress"  style="border:0px;border-bottom: 1px solid black"></input></td>
+                <td><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="邮政编码:" ></input></td>
+                <td> <input class="easyui-textbox tdText_h" type="text" name="recordPostalcode" style="border:0px;border-bottom: 1px solid black"></input></td>
+            </tr>
+            <tr>
+                <td><input class="easyui-textbox tdText_h"  type="text"  value="户籍地址:" ></input></td>
+                <!--<td> <input class="easyui-textbox" type="text" onblur="function e(){ $('#two').val(this.val())}" name="userinfoId" style="border:0px;border-bottom: 1px solid black"></input></td>-->
+                <td> <input class="easyui-textbox tdText_h" type="text"  name="recordPlaceadress" style="border:0px;border-bottom: 1px solid black"></input></td>
+                <td><input class="easyui-textbox tdText_h" type="text"  value="建档医生:" ></input></td>
+                <td>
+                    <select class="" donli name="recordCreateuserid" panelHeight="auto" style="width:100%; border:0px;border-bottom: 1px solid black">
+                        <option   value="2" ><span >金峰</span></option>
+                        <option   value="4" ><span >张承天</span></option>
+                        <option   value="3" ><span >曾子墨</span></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><input class="easyui-textbox tdText_h" readonly="true" type="text" value="责任医生:"></input></td>
+                <td> <input class="easyui-textbox tdText_h" type="text" name="recordResponuserid" style="border:0px;border-bottom: 1px solid black"></input></td>
+                <td><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="建档日期:" ></input></td>
+                <td> <input class="easyui-datetimebox tdText_h" type="text" name="recordData" style="border:0px;border-bottom: 1px solid black"></input></td>
+            </tr>
+            <tr>
+                <td><input class="easyui-textbox tdText_h"  type="text"  value="查重范围:" ></input></td>
+                <td>
+                    <select class="" donli name="userinfoId" style="width:100%; border:0px;border-bottom: 1px solid black">
+                        <option   value="2" ><span >村内</span></option>
+                        <option   value="4" ><span >县内</span></option>
+                        <option   value="3" ><span >室内</span></option>
+                    </select>
+                </td>
+                <td><input class="easyui-textbox tdText_h" type="text"  value="医疗卡号:" ></input></td>
+                <td> <input class="easyui-textbox tdText_h" type="text" name="recordMedical" style="border:0px;border-bottom: 1px solid black"></input></td>
+            </tr>
+            <tr>
+                <td><input class="easyui-textbox tdText_h" readonly="true" type="text" value="常住类别:"></input></td>
+                <td> <input class="easyui-textbox tdText_h" type="text" id="two2" name="recordResident" style="border:0px;border-bottom: 1px solid black"></input></td>
+                <td><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="建档方式:" ></input></td>
+                <td> <input class="easyui-textbox tdText_h" type="text" name="recordBookbuilding" style="border:0px;border-bottom: 1px solid black"></input></td>
+            </tr>
+            <tr>
+                <td><input class="easyui-textbox tdText_h" readonly="true" type="text" value="人员类别:"></input></td>
+                <td>
+                    <input type="radio" name="recordCategory" value="1">港澳台人员
+                    <input type="radio" name="recordCategory" value="2">贫困人员
+                </td>
+                <td><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="建档立卡号:" ></input></td>
+                <td> <input class="easyui-textbox tdText_h" type="text" disabled="true" name="recordInputtingcard" style="border:0px;border-bottom: 1px solid black"></input></td>
+            </tr>
+            <!--测试多选-->
+
+            <tr>
+                <td><input class="easyui-textbox tdText_h" readonly="true" type="text" value="人员类别:"></input></td>
+                <td>
+                    <input type="checkbox" name="recordCategory" value="1">港澳台人员
+                    <input type="checkbox" name="recordCategory" value="2">贫困人员
+                </td>
+            </tr>
+
+        </table>
     </form>
 </div>
 
@@ -276,14 +349,31 @@
                 }
             }],
             onBeforeOpen:function(){
-                $("#edit-id").val(item.id);
-                $("#edit-preview-photo").attr('src',item.photo);
-                $("#edit-photo").val(item.photo);
-                $("#edit-username").val(item.username);
-                $("#edit-roleId").combobox('setValue',item.roleId);
-                $("#edit-sex").combobox('setValue',item.sex);
-                $("#edit-age").val(item.age);
-                $("#edit-address").val(item.address);
+
+              //  $('#ff').form('load','findById');
+                $.ajax({
+                    url:'findById',
+                    dataType:'json',
+                    type:'post',
+                    data:{id:item.userId},
+                    success:function(data){
+                        if(data.type == 'success'){
+                            // $.messager.alert('信息提示',data.datainfo,'info');
+                            $('#edit-form').form('load',data.datainfo);
+                        }else{
+                            $.messager.alert('信息提示',data.msg,'warning');
+                        }
+                    }
+                });
+
+                // $("#edit-id").val(item.id);
+                // $("#edit-preview-photo").attr('src',item.photo);
+                // $("#edit-photo").val(item.photo);
+                // $("#edit-username").val(item.username);
+                // $("#edit-roleId").combobox('setValue',item.roleId);
+                // $("#edit-sex").combobox('setValue',item.sex);
+                // $("#edit-age").val(item.age);
+                // $("#edit-address").val(item.address);
             }
         });
     }

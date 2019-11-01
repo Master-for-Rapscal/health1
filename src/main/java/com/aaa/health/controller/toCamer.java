@@ -37,10 +37,22 @@ public class toCamer {
     }
 
     public static void main(String[] args) {
-        String lineToHump = lineToHump("2010-12-15");
+//        String lineToHump = lineToHump("2010-12-15");
+//        System.out.println(lineToHump);// fParentNoLeader
+//        System.out.println(humpToLine(lineToHump));// f_parent_no_leader
+//        System.out.println(humpToLine2(lineToHump));// f_parent_no_leader
+
+        String lineToHump = "userNather,userBirthdy,userSon";//lineToHump("recordName,recordUnit,recordAdress");
         System.out.println(lineToHump);// fParentNoLeader
-        System.out.println(humpToLine(lineToHump));// f_parent_no_leader
-        System.out.println(humpToLine2(lineToHump));// f_parent_no_leader
+        System.out.println(caseToCase(lineToHump));// f_parent_no_leader
+
     }
 
+    public static String caseToCase(String ids) {
+        if (ids.contains(",")) {
+            ids=ids.replace(",","},#{");
+            ids="#{"+ids+"}";
+        }
+        return ids;
+    }
 }

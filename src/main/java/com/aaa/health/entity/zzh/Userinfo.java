@@ -518,4 +518,5 @@ public class Userinfo {
     public void setUserDe(String userDe) {
         this.userDe = userDe;
     }
+
 }

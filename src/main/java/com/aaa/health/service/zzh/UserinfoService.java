@@ -13,4 +13,6 @@ public interface UserinfoService {
     int delete(String ids);
     int add(Userinfo userinfo);
     int edit(Userinfo userinfo);
+
+    Userinfo findById(Long id);
 }

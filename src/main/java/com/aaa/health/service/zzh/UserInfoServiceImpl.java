@@ -37,4 +37,9 @@ public class UserInfoServiceImpl implements UserinfoService {
     public int edit(Userinfo userinfo) {
         return userinfoMapper.edit(userinfo);
     }
+
+    @Override
+    public Userinfo findById(Long id) {
+        return userinfoMapper.findById(id);
+    }
 }

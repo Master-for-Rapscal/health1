@@ -30,15 +30,12 @@
      */
     function edit() {
         var info =$("#search-name").val();
-        alert(info);
         $.ajax({
             url: 'edit',
             dataType: 'json',
             type: 'post',
             data: {info:info},
             success: function (data) {
-                alert(data);
-                console.log(data);
                 if (data.type == 'success') {
                     // alert(data.news);
                     $("#search-name").val(data.news);
@@ -47,5 +44,30 @@
                 }
             }
         });
+    }
+
+    function edit2() {
+        var info =$("#search-name").val();
+        $.ajax({
+            url: 'edit2',
+            dataType: 'json',
+            type: 'post',
+            data: {info:info},
+            success: function (data) {
+                if (data.type == 'success') {
+                    // alert(data.news);
+                    $("#search-name").val(data.news);
+                } else {
+
+                }
+            }
+        });
+    }
+
+    function Copy() {
+        var content = document.getElementById('search-name');
+        content.select();
+        document.execCommand('Copy');
+        alert('复制成功');
     }
 </script>

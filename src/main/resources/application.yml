@@ -1,16 +1,18 @@
 #server.servlet.context-path=/demo
 
-#spring:
-#  datasource:
-#    username: root
-#    password: Dipper
-#    url: jdbc:mysql://115.238.27.106/health?serverTimezone=UTC
 spring:
   datasource:
     username: root
-    password: 123456
-    url: jdbc:mysql://localhost/health?serverTimezone=UTC
+    password: Dipper
+    url: jdbc:mysql://115.238.27.106/health?serverTimezone=UTC
+
+
+#spring:
+#  datasource:
+#    username: root
+#    password: 123456
 #    url: jdbc:mysql://localhost/health?serverTimezone=UTC
+
     driver-Class-Name: com.mysql.cj.jdbc.Driver
     #连接池初始化时创建的连接数,default : 3（建议使用）?useUnicode\: true&characterEncoding\: UTF-8&useSSL\: false&serverTimezone\: UTC
     initialPoolSize: 5
