@@ -10,8 +10,15 @@ import java.util.Map;
 public interface ChildInsercord {
     int delete(String insrecordId);
 
-    //添加
-    List<Childinsrecord> findList(Map<String, Object> queryMap);
+
+    List<Childinsrecord> findList(Integer recordId);
 
     int getTotal(Map<String, Object> queryMap);
+
+    //修改
+    int edit(Childinsrecord childinsrecord);
+    List<ChildInsercord> findBymentalMessage(Long insrecordId);
+
+    //添加
+    int add(Childinsrecord childinsrecord);
 }

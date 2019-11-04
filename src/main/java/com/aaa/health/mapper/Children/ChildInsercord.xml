@@ -9,16 +9,53 @@
 
 
     <!-- 分页获取用户列表 -->
-    <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.Children.Childinsrecord">
-        select * from insrecord where 1 = 1
+    <select id="findList" parameterType="Integer" resultType="com.aaa.health.entity.Children.Childinsrecord">
+        select * from insrecord where recordId=#{recordId} /*where 1 = 1*/
 
-        <if test="offset != null and pageSize != null">
+        <!--<if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
-        </if>
+        </if>-->
     </select>
 
-    <select id="getTotal" parameterType="Map" resultType="Integer">
+
+    <insert id="add" parameterType="com.aaa.health.entity.Children.Childinsrecord">
+insert into insrecord(
+recordId,insrecordDate,insrecordWeight,insrecordWeiassess,insrecordHeight,
+insrecordHeiassess,insrecordHeadsize,insrecordFace,insrecordSkin,insrecordFontane,
+insrecordFonlong,insrecordFonwidth,insrecordMasses,insrecordEyes,insrecordEars,
+insrecordListen,insrecordOral,insrecordTeeth,insrecordChest,insrecordBelly,
+insrecordNavel,insrecordLimbs,insrecordRickets,insrecordRicksign,insrecordAnus,
+insrecordHgb,insrecordOutdoors,insrecordTakevd,insrecordGrowassess,insrecordTwofollow,
+insrecordTranadvice,insrecordTranreason,insrecordTrandivision,insrecordGuide,insrecordNextdate,insrecordDoctor
+)values(
+#{recordId},#{insrecordDate},#{insrecordWeight},#{insrecordWeiassess},#{insrecordHeight},
+#{insrecordHeiassess},#{insrecordHeadsize},#{insrecordFace},#{insrecordSkin},#{insrecordFontane},
+#{insrecordFonlong},#{insrecordFonwidth},#{insrecordMasses},#{insrecordEyes},#{insrecordEars},
+#{insrecordListen},#{insrecordOral},#{insrecordTeeth},#{insrecordChest},#{insrecordBelly},
+#{insrecordNavel},#{insrecordLimbs},#{insrecordRickets},#{insrecordRicksign},#{insrecordAnus},
+#{insrecordHgb},#{insrecordOutdoors},#{insrecordTakevd},#{insrecordGrowassess},#{insrecordTwofollow},
+#{insrecordTranadvice},#{insrecordTranreason},#{insrecordTrandivision},#{insrecordGuide},#{insrecordNextdate},#{insrecordDoctor}
+)
+
+    </insert>
+   <!-- <select id="getTotal" parameterType="Map" resultType="Integer">
         select count(*) from insrecord where 1 = 1
+    </select>
+-->
+    <update id="edit" parameterType="com.aaa.health.entity.Children.Childinsrecord">
+        update insrecord set insrecordDate=#{insrecordDate},insrecordWeight=#{insrecordWeight},
+insrecordWeiassess=#{insrecordWeiassess},insrecordHeight=#{insrecordHeight},insrecordHeiassess=#{insrecordHeiassess},
+insrecordHeadsize=#{insrecordHeadsize},insrecordFace=#{insrecordFace},insrecordSkin=#{insrecordSkin},insrecordFontane=#{insrecordFontane},
+insrecordFonlong=#{insrecordFonlong},insrecordFonwidth=#{insrecordFonwidth},insrecordMasses=#{insrecordMasses},insrecordEyes=#{insrecordEyes},
+insrecordEars=#{insrecordEars},insrecordListen=#{insrecordListen},insrecordOral=#{insrecordOral},insrecordTeeth=#{insrecordTeeth},
+insrecordChest=#{insrecordChest},insrecordBelly=#{insrecordBelly},insrecordNavel=#{insrecordNavel},insrecordLimbs=#{insrecordLimbs},
+insrecordRickets=#{insrecordRickets},insrecordRicksign=#{insrecordRicksign},insrecordAnus=#{insrecordAnus},insrecordHgb=#{insrecordHgb},
+insrecordOutdoors=#{insrecordOutdoors},insrecordTakevd=#{insrecordTakevd},insrecordGrowassess=#{insrecordGrowassess},insrecordTwofollow=#{insrecordTwofollow},
+insrecordTranadvice=#{insrecordTranadvice},insrecordTranreason=#{insrecordTranreason},insrecordTrandivision=#{insrecordTrandivision},
+insrecordGuide=#{insrecordGuide},insrecordNextdate=#{insrecordNextdate},insrecordDoctor=#{insrecordDoctor} where insrecordId=#{insrecordId}
+    </update>
+    <select id="findBymentalMessage" parameterType="long" resultType="com.aaa.health.entity.Children.Childinsrecord">
+ select * from insrecord where insrecordId = #{insrecordId}
     </select>
 
 </mapper>

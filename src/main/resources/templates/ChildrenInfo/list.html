@@ -22,106 +22,393 @@
     <table id="data-datagrid" class="easyui-datagrid" toolbar="#wu-toolbar"></table>
 
 </div>
-<!--&lt;!&ndash; Begin of easyui-dialog &ndash;&gt;-->
-<!--<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:420px; padding:10px;">-->
-    <!--<form id="add-form" method="post">-->
-        <!--<table>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">头像预览:</td>-->
-                <!--<td valign="middle">-->
-                    <!--<img id="preview-photo" style="float:left;" src="/admin/easyui/images/user_photo.jpg" width="100px">-->
-                    <!--<a style="float:left;margin-top:40px;" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-upload" onclick="uploadPhoto()" plain="true">上传图片</a>-->
-                <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">头像:</td>-->
-                <!--<td><input type="text" id="add-photo" name="photo" value="/admin/easyui/images/user_photo.jpg" readonly="readonly" class="wu-text " /></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">用户名:</td>-->
-                <!--<td><input type="text" name="username" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写用户名'" /></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">密码:</td>-->
-                <!--<td><input type="password" name="password" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写密码'" /></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">所属角色:</td>-->
-                <!--<td>-->
-                    <!--<select name="roleId" class="easyui-combobox" panelHeight="auto" style="width:268px" data-options="required:true, missingMessage:'请选择角色'">-->
 
-                    <!--</select>-->
-                <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">性别:</td>-->
-                <!--<td>-->
-                    <!--<select name="sex" class="easyui-combobox" panelHeight="auto" style="width:268px">-->
-                        <!--<option value="0">未知</option>-->
-                        <!--<option value="1">男</option>-->
-                        <!--<option value="2">女</option>-->
-                    <!--</select>-->
-                <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">年龄:</td>-->
-                <!--<td><input type="text" name="age" class="wu-text easyui-numberbox easyui-validatebox" data-options="required:true,min:1,precision:0, missingMessage:'请填写年龄'" /></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">地址:</td>-->
-                <!--<td><input type="text" name="address" class="wu-text easyui-validatebox" /></td>-->
-            <!--</tr>-->
-        <!--</table>-->
-    <!--</form>-->
-<!--</div>-->
-<!--&lt;!&ndash; 修改窗口 &ndash;&gt;-->
-<!--<div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:450px; padding:10px;">-->
-    <!--<form id="edit-form" method="post">-->
-        <!--<input type="hidden" name="id" id="edit-id">-->
-        <!--<table>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">头像预览:</td>-->
-                <!--<td valign="middle">-->
-                    <!--<img id="edit-preview-photo" style="float:left;" src="/admin/easyui/images/user_photo.jpg" width="100px">-->
-                    <!--<a style="float:left;margin-top:40px;" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-upload" onclick="uploadPhoto()" plain="true">上传图片</a>-->
-                <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">头像:</td>-->
-                <!--<td><input type="text" id="edit-photo" name="photo" value="/BaseProjectSSM/resources/admin/easyui/images/user_photo.jpg" readonly="readonly" class="wu-text " /></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">用户名:</td>-->
-                <!--<td><input type="text" id="edit-username" name="username" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写用户名'" /></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">所属角色:</td>-->
-                <!--<td>-->
-                    <!--<select id="edit-roleId" name="roleId" class="easyui-combobox" panelHeight="auto" style="width:268px" data-options="required:true, missingMessage:'请选择角色'">-->
-                    <!--</select>-->
-                <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">性别:</td>-->
-                <!--<td>-->
-                    <!--<select id="edit-sex" name="sex" class="easyui-combobox" panelHeight="auto" style="width:268px">-->
-                        <!--<option value="0">未知</option>-->
-                        <!--<option value="1">男</option>-->
-                        <!--<option value="2">女</option>-->
-                    <!--</select>-->
-                <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">年龄:</td>-->
-                <!--<td><input type="text" id="edit-age" name="age" value="1" class="wu-text easyui-numberbox easyui-validatebox" data-options="required:true,min:1,precision:0, missingMessage:'请填写年龄'" /></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">地址:</td>-->
-                <!--<td><input type="text" id="edit-address" name="address" class="wu-text easyui-validatebox" /></td>-->
-            <!--</tr>-->
-        <!--</table>-->
-    <!--</form>-->
-<!--</div>-->
+<div id="add-dialog"  style="width: 840px;height: 500px;">
+    <form id="add-form" method="post">
+        <table border="1">
+            <thead><input type="text" id="Crd" name="recordId"></thead>
+            <tr>
+                <td>卡号</td>
+                <td colspan="2"><input type="text" id="Ccard" name="addnewbornCardnum"></td>
+                <td>建册日期</td>
+                <td colspan="2"><input type="text" id="Cdate" name="addnewbornConstructiondate" class="easyui-datebox" required="required"></td>
+            </tr>
+            <tr>
+                <td>姓名</td>
+                <td colspan="2"><input type="text" id="Cname"></td>
+                <td>性别</td>
+                <td colspan="2"><input type="text" id="Csex"></td>
+            </tr>
+
+            <tr>
+                <td>分娩孕周</td>
+                <td colspan="2"><input type="text" name="addnewbornLaborweek"></td>
+                <td>分娩地点</td>
+                <td colspan="2"><input type="text" name="addnewbornLaborarea"></td>
+            </tr>
+
+            <tr>
+                <td>分娩时间</td>
+                <td colspan="2"><input type="text" id="Cbd"  class="easyui-datebox" required="required" name="addnewbornLabordate"></td>
+                <td>分娩方式</td>
+                <td colspan="2"><input type="text" name="addnewbornLaborstyle"></td>
+            </tr>
+
+
+            <tr>
+                <td>第几胎</td>
+                <td><input type="text" name="addnewbornTyrenum"></td>
+                <td>第几产</td>
+                <td><input type="text" name="addnewbornProducenum"></td>
+                <td>胎数</td>
+                <td><input type="text" name="addnewbornTyrenumber"></td>
+            </tr>
+
+            <tr>
+                <td>身长</td>
+                <td colspan="2"><input type="text" name="addnewbornHeight">cm</td>
+                <td>体重</td>
+                <td colspan="2"><input type="text" name="addnewbornWeight">kg</td>
+            </tr>
+
+            <tr>
+                <td>Apgar评分：1分钟</td>
+                <td><input type="text" name="addnewbornApgarone"></td>
+                <td>5分钟</td>
+                <td><input type="text" name="addnewbornApgarfive"></td>
+                <td>10分钟</td>
+                <td><input type="text" name="addnewbornApgarten"></td>
+            </tr>
+
+            <tr><td>早接触,早吸允</td><td colspan="5">产后<input type="text" name="addnewbornSuckmin">分钟</td></tr>
+
+            <tr>
+                <td>维生素k1使用次数</td>
+                <td colspan="2"><input type="text" value="0" name="addnewbornKnum">次</td>
+                <td>使用数量</td>
+                <td colspan="2"><input type="text" name="addnewbornKscale">ml</td>
+            </tr>
+
+
+            <tr>
+                <td>存活情况</td>
+                <td colspan="5">
+                    <input type="radio" name="addnewbornSurvival" value="1"/>1活产
+                    <input type="radio" name="addnewbornSurvival" value="2"/>2死胎
+                    <input type="radio" name="addnewbornSurvival" value="3"/>3死产
+                </td>
+            </tr>
+
+            <tr>
+                <td>新生儿死亡原因</td>
+                <td colspan="5">
+                    <input type="checkbox" name="addnewbornDeathcauses"/>1前置胎盘
+                    <input type="checkbox" name="addnewbornDeathcauses"/>2胎盘早剥
+                    <input type="checkbox" name="addnewbornDeathcauses"/>3脐带因素
+                    <input type="checkbox" name="addnewbornDeathcauses"/>4胎儿窘迫
+                    <input type="checkbox" name="addnewbornDeathcauses"/>5新生儿窒息
+                    <input type="checkbox" name="addnewbornDeathcauses"/>6口腔保健指导
+                    <input type="checkbox" name="addnewbornDeathcauses"/>7产伤
+                    <input type="checkbox" name="addnewbornDeathcauses"/>8早产
+                    <input type="checkbox" name="addnewbornDeathcauses"/>9出生缺陷
+                    <input type="checkbox" name="addnewbornDeathcauses"/>10其他
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>出生缺陷</td>
+                <td colspan="5">
+                    <input type="checkbox" name="addnewbornBirthdefect"/>1神经管畸形
+                    <input type="checkbox" name="addnewbornBirthdefect"/>2唇腭裂
+                    <input type="checkbox" name="addnewbornBirthdefect"/>3先天愚型
+                    <input type="checkbox" name="addnewbornBirthdefect"/>4肢体畸形
+                    <input type="checkbox" name="addnewbornBirthdefect"/>5其他
+                </td>
+            </tr>
+
+            <tr>
+                <td>新生儿并发症</td>
+                <td colspan="5">
+                    <input type="checkbox" name="addnewbornNeonatalcom"/>1重度窒息
+                    <input type="checkbox" name="addnewbornNeonatalcom"/>2肺炎
+                    <input type="checkbox" name="addnewbornNeonatalcom"/>3产伤
+                    <input type="checkbox" name="addnewbornNeonatalcom"/>4呼吸窘迫综合症
+                    <input type="checkbox" name="addnewbornNeonatalcom"/>5脐部感染
+                    <input type="checkbox" name="addnewbornNeonatalcom"/>6硬肿症
+                    <input type="checkbox" name="addnewbornNeonatalcom"/>7病理性黄疸
+                    <input type="checkbox" name="addnewbornNeonatalcom"/>8颅内出血
+                    <input type="checkbox" name="addnewbornNeonatalcom"/>9其他
+                </td>
+            </tr>
+
+            <tr><td rowspan="3">新生儿疾病筛选</td></tr>
+
+            <tr><td>pku</td><td><input type="radio" name="addnewbornPku" value="1">1已做<input type="radio" name="addnewbornPku" value="2">2未做</td>
+                <td></td><td>CH</td>
+                <td><input type="radio" name="addnewbornCh" value="1">1已做<input type="radio" name="addnewbornCh" value="2">2未做</td>
+            </tr>
+
+            <tr><td>听力筛选</td><td colspan="4">
+                <input type="radio" name="addnewbornHearing" value="1">1通过
+                <input type="radio" name="addnewbornHearing" value="2">2未通过
+                <input type="radio" name="addnewbornHearing" value="3">3未筛查
+                <input type="radio" name="addnewbornHearing" value="4">4不详
+            </td></tr>
+
+            <tr>
+                <td>卡介苗接种</td>
+                <td><input type="radio" name="addnewbornBcgvacc" value="1">1已种
+                    <input type="radio" name="addnewbornBcgvacc" value="2">2未种</td>
+                <td></td>
+                <td>乙肝疫苗接种</td>
+                <td><input type="radio" name="addnewbornHepatitisvacc" value="1">1已种
+                    <input type="radio" name="addnewbornHepatitisvacc" value="2">2未种</td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>其它疫苗接种</td>
+                <td colspan="5"><input type="text" name="addnewbornOtersacc"></td>
+            </tr>
+
+            <tr>
+                <td>体弱儿情况</td>
+                <td colspan="5"><input type="text" value="无" name="addnewbornWeakson"></td>
+            </tr>
+
+            <tr>
+                <td>体弱原因</td>
+                <td colspan="5"><input type="text" name="addnewbornWeakcase"></td>
+            </tr>
+
+            <tr>
+                <td>体弱原因</td>
+                <td colspan="5">
+                    <input type="checkbox" name="addnewbornGuidance">1喂养指导
+                    <input type="checkbox" name="addnewbornGuidance">2发育指导
+                    <input type="checkbox" name="addnewbornGuidance">3防病指导
+                    <input type="checkbox" name="addnewbornGuidance">4预防伤害指导
+                    、<input type="checkbox" name="addnewbornGuidance">5口腔保健指导
+                </td>
+            </tr>
+
+            <tr>
+                <td>新生儿出院日期</td>
+                <td colspan="2"><input type="text"  class="easyui-datebox" required="required" name="addnewbornDischargeddate"></td>
+                <td>接产医院</td>
+                <td colspan="2"><input type="text" name="addnewbornMidwiferyhosp"></td>
+            </tr>
+
+            <tr>
+                <td>接产者主手</td>
+                <td colspan="2"><input type="text" name="addnewbornMidwiferymain "></td>
+                <td>接产者副手</td>
+                <td colspan="2"><input type="text" name="addnewbornMidwiferyport"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+
+
+
+<div id="ULM" style="width: 600px;height: 500px">
+    <table id="data-datagrid1" class="easyui-datagrid"></table>
+</div>
+
+
+
+<!--修改-->
+<div id="edit-dialog"   style="width: 800px;height: 500px;">
+    <form id="edit-form" method="post">
+        <table border="1">
+            <thead><input type="text" id="Crd1" name="recordId"></thead>
+            <tr>
+                <td>卡号</td>
+                <td colspan="2"><input type="text" id="Ccard1" name="addnewbornCardnum">
+                <input type="text" name="addnewbornId" id="aid" hidden="hidden"/>
+                </td>
+                <td>建册日期</td>
+                <td colspan="2"><input type="text" id="Cdate1"  class="easyui-datebox" required="required" name="addnewbornConstructiondate"></td>
+            </tr>
+            <tr>
+                <td>姓名</td>
+                <td colspan="2"><input type="text" id="Cname1"></td>
+                <td>性别</td>
+                <td colspan="2"><input type="text" id="Csex1"></td>
+            </tr>
+
+            <tr>
+                <td>分娩孕周</td>
+                <td colspan="2"><input type="text" name="addnewbornLaborweek"></td>
+                <td>分娩地点</td>
+                <td colspan="2"><input type="text" name="addnewbornLaborarea"></td>
+            </tr>
+
+            <tr>
+                <td>分娩时间</td>
+                <td colspan="2"><input type="text"  class="easyui-datebox" required="required" id="Cbd1" name="addnewbornLabordate"></td>
+                <td>分娩方式</td>
+                <td colspan="2"><input type="text" name="addnewbornLaborstyle"></td>
+            </tr>
+
+
+            <tr>
+                <td>第几胎</td>
+                <td><input type="text" name="addnewbornTyrenum"></td>
+                <td>第几产</td>
+                <td><input type="text" name="addnewbornProducenum"></td>
+                <td>胎数</td>
+                <td><input type="text" name="addnewbornTyrenumber"></td>
+            </tr>
+
+            <tr>
+                <td>身长</td>
+                <td colspan="2"><input type="text" name="addnewbornHeight">cm</td>
+                <td>体重</td>
+                <td colspan="2"><input type="text" name="addnewbornWeight">kg</td>
+            </tr>
+
+            <tr>
+                <td>Apgar评分：1分钟</td>
+                <td><input type="text" name="addnewbornApgarone"></td>
+                <td>5分钟</td>
+                <td><input type="text" name="addnewbornApgarfive"></td>
+                <td>10分钟</td>
+                <td><input type="text" name="addnewbornApgarten"></td>
+            </tr>
+
+            <tr><td>早接触,早吸允</td><td colspan="5">产后<input type="text" name="addnewbornSuckmin">分钟</td></tr>
+
+            <tr>
+                <td>维生素k1使用次数</td>
+                <td colspan="2"><input type="text" value="0" name="addnewbornKnum">次</td>
+                <td>使用数量</td>
+                <td colspan="2"><input type="text" name="addnewbornKscale">ml</td>
+            </tr>
+
+
+            <tr>
+                <td>存活情况</td>
+                <td colspan="5">
+                    <input type="radio" name="addnewbornSurvival" value="1"/>1活产
+                    <input type="radio" name="addnewbornSurvival" value="2"/>2死胎
+                    <input type="radio" name="addnewbornSurvival" value="3"/>3死产
+                </td>
+            </tr>
+
+            <tr>
+                <td>新生儿死亡原因</td>
+                <td colspan="5">
+                    <input type="checkbox" name="addnewbornDeathcauses" value="1"/>1前置胎盘
+                    <input type="checkbox" name="addnewbornDeathcauses" value="2"/>2胎盘早剥
+                    <input type="checkbox" name="addnewbornDeathcauses" value="3"/>3脐带因素
+                    <input type="checkbox" name="addnewbornDeathcauses" value="4"/>4胎儿窘迫
+                    <input type="checkbox" name="addnewbornDeathcauses" value="5"/>5新生儿窒息
+                    <input type="checkbox" name="addnewbornDeathcauses" value="6"/>6口腔保健指导
+                    <input type="checkbox" name="addnewbornDeathcauses" value="7"/>7产伤
+                    <input type="checkbox" name="addnewbornDeathcauses" value="8"/>8早产
+                    <input type="checkbox" name="addnewbornDeathcauses" value="9"/>9出生缺陷
+                    <input type="checkbox" name="addnewbornDeathcauses" value="10"/>10其他
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>出生缺陷</td>
+                <td colspan="5">
+                    <input type="checkbox" name="addnewbornBirthdefect" value="1"/>1神经管畸形
+                    <input type="checkbox" name="addnewbornBirthdefect" value="2"/>2唇腭裂
+                    <input type="checkbox" name="addnewbornBirthdefect" value="3"/>3先天愚型
+                    <input type="checkbox" name="addnewbornBirthdefect" value="4"/>4肢体畸形
+                    <input type="checkbox" name="addnewbornBirthdefect" value="5"/>5其他
+                </td>
+            </tr>
+
+            <tr>
+                <td>新生儿并发症</td>
+                <td colspan="5">
+                    <input type="checkbox" name="addnewbornNeonatalcom" value="1"/>1重度窒息
+                    <input type="checkbox" name="addnewbornNeonatalcom" value="2"/>2肺炎
+                    <input type="checkbox" name="addnewbornNeonatalcom" value="3"/>3产伤
+                    <input type="checkbox" name="addnewbornNeonatalcom" value="4"/>4呼吸窘迫综合症
+                    <input type="checkbox" name="addnewbornNeonatalcom" value="5"/>5脐部感染
+                    <input type="checkbox" name="addnewbornNeonatalcom" value="6"/>6硬肿症
+                    <input type="checkbox" name="addnewbornNeonatalcom" value="7"/>7病理性黄疸
+                    <input type="checkbox" name="addnewbornNeonatalcom" value="8"/>8颅内出血
+                    <input type="checkbox" name="addnewbornNeonatalcom" value="9"/>9其他
+                </td>
+            </tr>
+
+            <tr><td rowspan="3">新生儿疾病筛选</td></tr>
+
+            <tr><td>pku</td><td><input type="radio" name="addnewbornPku" value="1">1已做<input type="radio" name="addnewbornPku" value="2">2未做</td>
+                <td></td><td>CH</td>
+                <td><input type="radio" name="addnewbornCh" value="1">1已做<input type="radio" name="addnewbornCh" value="2">2未做</td>
+            </tr>
+
+            <tr><td>听力筛选</td><td colspan="4">
+                <input type="radio" name="addnewbornHearing" value="1">1通过
+                <input type="radio" name="addnewbornHearing" value="2">2未通过
+                <input type="radio" name="addnewbornHearing" value="3">3未筛查
+                <input type="radio" name="addnewbornHearing" value="4">4不详
+            </td></tr>
+
+            <tr>
+                <td>卡介苗接种</td>
+                <td><input type="radio" name="addnewbornBcgvacc" value="1">1已种
+                    <input type="radio" name="addnewbornBcgvacc" value="2">2未种</td>
+                <td></td>
+                <td>乙肝疫苗接种</td>
+                <td><input type="radio" name="addnewbornHepatitisvacc" value="1">1已种
+                    <input type="radio" name="addnewbornHepatitisvacc" value="2">2未种</td></td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>其它疫苗接种</td>
+                <td colspan="5"><input type="text" name="addnewbornOtersacc"></td>
+            </tr>
+
+            <tr>
+                <td>体弱儿情况</td>
+                <td colspan="5"><input type="text" value="无" name="addnewbornWeakson"></td>
+            </tr>
+
+            <tr>
+                <td>体弱原因</td>
+                <td colspan="5"><input type="text" name="addnewbornWeakcase"></td>
+            </tr>
+
+            <tr>
+                <td>体弱原因</td>
+                <td colspan="5">
+                    <input type="checkbox" name="addnewbornGuidance" value="1">1喂养指导
+                    <input type="checkbox" name="addnewbornGuidance" value="2">2发育指导
+                    <input type="checkbox" name="addnewbornGuidance" value="3">3防病指导
+                    <input type="checkbox" name="addnewbornGuidance" value="4">4预防伤害指导
+                    、<input type="checkbox" name="addnewbornGuidance" value="5">5口腔保健指导
+                </td>
+            </tr>
+
+            <tr>
+                <td>新生儿出院日期</td>
+                <td colspan="2"><input type="text"  class="easyui-datebox" required="required" name="addnewbornDischargeddate"></td>
+                <td>接产医院</td>
+                <td colspan="2"><input type="text" name="addnewbornMidwiferyhosp"></td>
+            </tr>
+
+            <tr>
+                <td>接产者主手</td>
+                <td colspan="2"><input type="text" name="addnewbornMidwiferymain"></td>
+                <td>接产者副手</td>
+                <td colspan="2"><input type="text" name="addnewbornMidwiferyport"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
 
 
 
@@ -137,60 +424,8 @@
 <script type="text/javascript" th:inline="none">
 
 
-    /**
-     *  添加记录
-     */
-  /*  function add(){
-        var validate = $("#add-form").form("validate");
-        if(!validate){
-            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
-            return;
-        }
-        var data = $("#add-form").serialize();
-        $.ajax({
-            url:'add',
-            dataType:'json',
-            type:'post',
-            data:data,
-            success:function(data){
-                if(data.type == 'success'){
-                    $.messager.alert('信息提示','添加成功！','info');
-                    $('#add-dialog').dialog('close');
-                    $('#data-datagrid').datagrid('reload');
-                }else{
-                    $.messager.alert('信息提示',data.msg,'warning');
-                }
-            }
-        });
-    }
-*/
-    /**
-     * Name 修改记录
-     */
-   /* function edit(){
-        var validate = $("#edit-form").form("validate");
-        if(!validate){
-            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
-            return;
-        }
-        var data = $("#edit-form").serialize();
-        $.ajax({
-            url:'edit',
-            dataType:'json',
-            type:'post',
-            data:data,
-            success:function(data){
-                if(data.type == 'success'){
-                    $.messager.alert('信息提示','修改成功！','info');
-                    $('#edit-dialog').dialog('close');
-                    $('#data-datagrid').datagrid('reload');
-                }else{
-                    $.messager.alert('信息提示',data.msg,'warning');
-                }
-            }
-        });
-    }
-*/
+
+
     /**
      * 删除记录
      */
@@ -224,90 +459,7 @@
         });
     }
 
-    /**
-     * Name 打开添加窗口
-     */
-  /*  function openAdd(){
-        //$('#add-form').form('clear');
-        $('#add-dialog').dialog({
-            closed: false,
-            modal:true,
-            title: "添加用户信息",
-            buttons: [{
-                text: '确定',
-                iconCls: 'icon-ok',
-                handler: add
-            }, {
-                text: '取消',
-                iconCls: 'icon-cancel',
-                handler: function () {
-                    $('#add-dialog').dialog('close');
-                }
-            }],
-            onBeforeOpen:function(){
-                //$("#add-form input").val('');
-            }
-        });
-    }
-*/
-    /**
-     * 打开修改窗口
-     */
-  /** function openEdit(){
-        //$('#edit-form').form('clear');
-        var item = $('#data-datagrid').datagrid('getSelections');
-        if(item == null || item.length == 0){
-            $.messager.alert('信息提示','请选择要修改的数据！','info');
-            return;
-        }
-        if(item.length > 1){
-            $.messager.alert('信息提示','请选择一条数据进行修改！','info');
-            return;
-        }
-        item = item[0];
-        $('#edit-dialog').dialog({
-            closed: false,
-            modal:true,
-            title: "修改用户信息",
-            buttons: [{
-                text: '确定',
-                iconCls: 'icon-ok',
-                handler: edit
-            }, {
-                text: '取消',
-                iconCls: 'icon-cancel',
-                handler: function () {
-                    $('#edit-dialog').dialog('close');
-                }
-            }],
-            onBeforeOpen:function(){
-                $("#edit-id").val(item.id);
-                $("#edit-preview-photo").attr('src',item.photo);
-                $("#edit-photo").val(item.photo);
-                $("#edit-username").val(item.username);
-                $("#edit-roleId").combobox('setValue',item.roleId);
-                $("#edit-sex").combobox('setValue',item.sex);
-                $("#edit-age").val(item.age);
-                $("#edit-address").val(item.address);
-            }
-        });
-    }
 
-
-    //搜索按钮监听
-    $("#search-btn").click(function(){
-        var roleId = $("#search-role").combobox('getValue');
-        var sex = $("#search-sex").combobox('getValue')
-        var option = {username:$("#search-name").val()};
-        if(roleId != -1){
-            option.roleId = roleId;
-        }
-        if(sex != -1){
-            option.sex = sex;
-        }
-        $('#data-datagrid').datagrid('reload',option);
-    });
-**/
     /**
      * 载入数据
      */
@@ -322,77 +474,62 @@
         idField:'id',
         treeField:'name',
         fit:true,
+        onDblClickRow: function (rowIndex, row) {
+            $("#Cname1").val(row.recordName);
+            $("#Csex1").val(row.userSex);
+            $("#aid").val(row.addnewbornId);
+            $('#edit-dialog').dialog({
+                closed: false,
+                modal: true,
+                title: "修改",
+                buttons: [{
+                    text: '确定',
+                    iconCls: 'icon-ok',
+                    handler: edit
+                }, {
+                    text: '取消',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        $('#edit-dialog').dialog('close');
+                    }
+                }],
+                onBeforeOpen: function () {
+                    alert(row.addnewbornId);
+                    $.ajax({
+                        url: '../ChildCard/findByid',
+                        dataType: 'json',
+                        type: 'post',
+                        data: 'addnewbornId=' + row.addnewbornId,
+                        success: function (d) {
+                            $('#edit-form').form('load', d[0]);
+                        }
+                    });
+                }
+            });
+        },
         columns:[[
             { field:'userId',checkbox:true},
             { field:'recordInputtingcard',title:'建档立卡号',width:100},
-          /*  { field:'USER_NUMBER',title:'编号',width:100,align:'center'},*/
             { field:'recordName',title:'姓名',width:100,align:'center'},
-            { field:'userSex',title:'性别',width:100,sortable:true},
+            { field:'userSex',title:'性别',width:100,sortable:true,formatter:function(value,row,index){
+                    switch(value){
+                        case 0:{
+                            return '未知';
+                        }
+                        case 1:{
+                            return '男';
+                        }
+                        case 2:{
+                            return '女';
+                        }
+                    }
+                    return value;
+                }},
             { field:'userBirthday',title:'出生日期',width:100},
-
-            /*{ field:'FATHER',title:'父亲姓名',width:100,align:'center'},
-            { field:'NATHER',title:'母亲姓名',width:100,sortable:true},*/
-
             { field:'recordAdress',title:'联系地址',width:100},
             { field:'userMyphone',title:'联系电话',width:100,sortable:true},
-
-          /*  { field:'RECORD_People',title:'录入人',width:100},*/
-
-            { field:'recordData',title:'建册日期',width:100,sortable:true},
-           /* { field:'USER_ID',checkbox:true},
-            { field:'RECORD_NAME',title:'姓名',width:100,align:'center'},
-            { field:'RECORD_UNIT',title:'所属单位',width:100,sortable:true},
-            { field:'RECORD_ADRESS',title:'现住地址',width:100},
-            { field:'RECORD_POSTALCODE',title:'邮政编码',width:100},
-            { field:'RECORD_PLACEADRESS',title:'户籍地址',width:100},
-            { field:'RECORD_CREATEUSERID',title:'建档医生',width:100},
-            { field:'RECORD_RESPONUSERID',title:'责任医生',width:100,align:'center'},
-            { field:'RECORD_DATA',title:'建档日期',width:100,sortable:true},
-            { field:'RECORD_MEDICAL',title:'医疗卡号',width:100},
-
-            { field:'RECORD_RESIDENT',title:'常住类型',width:100,sortable:true},
-            { field:'RECORD_BOOKBUILDING',title:'建档方式',width:100,align:'center'},
-            { field:'RECORD_CATEGORY',title:'人员类别',width:100,sortable:true},
-            { field:'RECORD_INPUTTINGCARD',title:'建档立卡号',width:100},
-            { field:'RECORD_PICURL',title:'上传图片',width:100},
-            { field:'RECORD_FAMILY',title:'家庭信息关联ID',width:100},
-            { field:'USER_PAPERNUMBER',title:'纸质编号',width:100},
-            { field:'USER_NUMBER',title:'编号',width:100,align:'center'},
-            { field:'USER_SEX',title:'性别',width:100,sortable:true},
-            { field:'USER_BIRTHDAY',title:'出生日期',width:100},
-            { field:'USER_IDNUMBER',title:'身份证号',width:100},
-            { field:'USER_WORKUNIT',title:'工作单位',width:100,align:'center'},
-            { field:'USER_MYPHONE',title:'本人电话',width:100,sortable:true},
-            { field:'USER_PEMANENT',title:'常驻类型',width:100},
-            { field:'USER_NAMTION',title:'民族',width:100},
-            { field:'USER_BLOODTYPE',title:'血型',width:100,},
-            { field:'USER_RH',title:'RH血型',width:100},
-            { field:'USER_CULTURE',title:'文化程度',width:100,align:'center'},
-            { field:'USER_CAREER',title:'职业',width:100,sortable:true},
-            { field:'USER_GAM',title:'婚姻状况',width:100},
-
-            { field:'USER_PAYWAY',title:'支付方式',width:100},
-            { field:'USER_ALLERGY',title:'药物过敏史',width:100,align:'center'},
-            { field:'USER_EXPOSE',title:'暴露史',width:100,sortable:true},
-            { field:'USER_ILLNESS',title:'疾病',width:100},
-            { field:'USER_SURGERY',title:'手术',width:100},
-            { field:'USER_TRAUMA',title:'外伤',width:100,},
-            { field:'USER_BLOOD',title:'输血',width:100},
-            { field:'USER_FATHER',title:'家族史 父',width:100,align:'center'},
-            { field:'USER_NATHER',title:'家族史 母',width:100,sortable:true},
-            { field:'USER_BIRTHDY',title:'家族史 兄妹',width:100},
-
-            { field:'USER_SON',title:'家族史 子女',width:100},
-            { field:'USER_HEREDITY',title:'遗传病',width:100,align:'center'},
-            { field:'USER_DISABILITY',title:'残疾情况',width:100,sortable:true},
-            { field:'USER_KITCHEN',title:'厨房排风',width:100},
-            { field:'USER_FUEL',title:'燃料',width:100},
-            { field:'USER_WATER',title:'饮水',width:100,},
-            { field:'USER_WC',title:'厕所',width:100},
-            { field:'USER_LINESTOCK',title:'禽畜栏',width:100,align:'center'},
-            { field:'USER_STATE',title:'状态',width:100,sortable:true},*/
-            { field:'USER_STATE',title:'结案状态',width:100,sortable:true}
-          /*  { field:'userDe',title:'备用列',width:100}*/
+            { field:'recordData',title:'建册日期',width:100,sortable:true}
+           /* { field:'userState',title:'结案状态',width:100,sortable:true}*/
         ]],
         onLoadSuccess:function(data){
             $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
@@ -400,6 +537,171 @@
     });
 
 
+    function openAdd(){
+        $('#data-datagrid1').datagrid({
+            url:'../ChildCard/list',
+            rownumbers:true,
+            singleSelect:false,
+            pageSize:20,
+            pagination:true,
+            multiSort:true,
+            fitColumns:true,
+            idField:'id',
+            treeField:'name',
+            fit:true,
+            onDblClickRow:function(rowIndex,row){
+              $("#Cname").val(row.recordName);
+              $("#Csex").val(row.userSex);
+              $("#Cbd").val(row.userBirthday);
+              $("#Crd").val(row.userId);
+              $("#Ccard").val(row.recordInputtingcard);
 
 
+                $('#add-dialog').dialog({
+                    closed: false,
+                    modal:true,
+                    title: "新增对象登记",
+                    buttons: [{
+                        text: '确定',
+                        iconCls: 'icon-ok',
+                        handler: add
+                    }, {
+                        text: '取消',
+                        iconCls: 'icon-cancel',
+                        handler: function () {
+                            $('#add-dialog').dialog('close');
+                        }
+                    }],
+                    onBeforeOpen:function(){
+
+                    }
+                });
+
+                var now = new Date();
+                var h = now.getFullYear();
+                var m = (now.getMonth() + 1>9) ? now.getMonth() + 1 : "0"+(now.getMonth() + 1);
+                var s = (now.getDate()>9)  ? now.getDate()  : "0"+now.getDate();
+                document.getElementById("Cdate").value = h+'-'+m+'-'+s;
+            },
+            columns:[[
+                { field:'userId',checkbox:true},
+                { field:'recordInputtingcard',title:'建档立卡号',width:100},
+                { field:'recordName',title:'姓名',width:100,align:'center'},
+                { field:'userBirthday',title:'出生日期',width:100},
+                { field:'recordAdress',title:'现住地址',width:100},
+                { field:'userMyphone',title:'联系电话',width:100,sortable:true}
+            ]],
+            onLoadSuccess:function(data){
+                $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
+            }
+        });
+        $("#ULM").dialog({
+            closed: false,
+            modal:true,
+            title: "健康档案选取",
+            buttons: [{
+                text: '确定',
+                iconCls: 'icon-ok'
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#ULM').dialog('close');
+                }
+            }],
+            onBeforeOpen:function(){
+
+            }
+        });
+
+
+    }
+    function add(){
+        var validate = $("#add-form").form("validate");
+
+        if(!validate){
+            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
+            return;
+        }
+
+        var data = $("#add-form").serialize();
+
+        $.ajax({
+            url:'../ChildCard/add',
+            dataType:'json',
+            type:'post',
+            data:data,
+            success:function(data){
+              /*  alert( document.getElementById("ANd").value);
+                if(data>0){*/
+                    $.messager.alert('信息提示','添加成功！','info');
+                    $('#add-dialog').dialog('close');
+                    $('#add-dialog').treegrid('reload');
+               /* }else{
+                    $.messager.alert('信息提示',data.msg,'warning');
+                }*/
+
+            }
+        });
+    }
+
+    /**
+     * 打开修改窗口
+     */
+    function openEdit(){
+        $('#edit-dialog').dialog({
+            closed: false,
+            modal:true,
+            title: "修改",
+            buttons: [{
+                text: '确定',
+                iconCls: 'icon-ok',
+                handler: edit
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#edit-dialog').dialog('close');
+                }
+            }],
+            onBeforeOpen:function(){
+
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+    /**
+     * Name 修改记录
+     */
+    function edit(){
+        var validate = $("#edit-form").form("validate");
+        if(!validate){
+            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
+            return;
+        }
+        var data = $("#edit-form").serialize();
+        $.ajax({
+            url:'../ChildCard/edit',
+            dataType:'json',
+            type:'post',
+            data:data,
+            success:function(data) {
+              //  alert(data);
+                if (data > 0) {
+                    $.messager.alert('信息提示', '修改成功！', 'info');
+                    $('#edit-dialog').dialog('close');
+                    $('#edit-dialog').treegrid('reload');
+                } else {
+                    $.messager.alert('信息提示','失败', 'warning');
+                }
+            }
+        });
+    }
 </script>

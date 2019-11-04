@@ -30,9 +30,9 @@ public class MetalController {
      * 获取用户信息列表
      *
      * @param page
-     * @param username
-     * @param roleId
-     * @param sex
+     * @param
+     * @param
+     * @param
      * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
@@ -46,7 +46,7 @@ public class MetalController {
         ret.put("rows", metalService.findList(queryMap));
         ret.put("total", metalService.getTotal(queryMap));
 
-        System.out.println(metalService.findList(queryMap));
+        System.out.println("精神病检测==========="+metalService.findList(queryMap));
         return ret;
     }
 

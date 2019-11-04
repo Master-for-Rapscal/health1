@@ -1,6 +1,10 @@
 package com.aaa.health.entity.mental;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
+
 
 public class mentalMessage {
     public int userId,userSex,recordBookbuilding,recordCategory,
@@ -8,16 +12,26 @@ public class mentalMessage {
             ,userCulture,userCareer,userGam,userPemanent,userNamtion,userKitchen
             ,userFuel,userWater,userWc,userLinestock
             ,recordResident,
-            recordState;
+            recordState,
+            followForm,followLoss,followDiereason,followDisability,
+            followAssess,followInsight,followSleep,followDiet,followPersonal,
+            followHousework,followLabour,followStuability,followInterpersonal,followAffray,
+            followAccident,followAccidentcause,followHazard,followAutolesion,followSuicide,
+            followLockcase,followHospital,followLabcheck,followPharmacy,
+            followDrugeffect,followTreatres,followTransfer,followDaily,followDose,
+            followRecordsid,followSort;
 
     public String recordInputtingcard,recordName,recordPostalcode,recordPlaceadress
             ,userDisability,recordMedical,recordPicurl,userMyphone,
             userWorkunit,userPayway,userAllergy,userExpose,userIllness,userHeredity,
-            userPapernumber,userNumber,userIdnumber,
-            recordAdress,userDe;
-
-    public Date userBirthday,recordData;
-
+            recordAdress,userDe,
+            followName,followNumber,followCusym,followTrareason,followTraorgan,followMedname,
+            followMeduse,followDirect,followRecover,
+            followDoctorsign,followDe;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    public Date userBirthday,recordData,
+    followDate,followDietime,followNextdate,followOuthospital;
 
     public int getUserId() {
         return userId;
@@ -187,6 +201,246 @@ public class mentalMessage {
         this.recordState = recordState;
     }
 
+    public int getFollowForm() {
+        return followForm;
+    }
+
+    public void setFollowForm(int followForm) {
+        this.followForm = followForm;
+    }
+
+    public int getFollowLoss() {
+        return followLoss;
+    }
+
+    public void setFollowLoss(int followLoss) {
+        this.followLoss = followLoss;
+    }
+
+    public int getFollowDiereason() {
+        return followDiereason;
+    }
+
+    public void setFollowDiereason(int followDiereason) {
+        this.followDiereason = followDiereason;
+    }
+
+    public int getFollowDisability() {
+        return followDisability;
+    }
+
+    public void setFollowDisability(int followDisability) {
+        this.followDisability = followDisability;
+    }
+
+    public int getFollowAssess() {
+        return followAssess;
+    }
+
+    public void setFollowAssess(int followAssess) {
+        this.followAssess = followAssess;
+    }
+
+    public int getFollowInsight() {
+        return followInsight;
+    }
+
+    public void setFollowInsight(int followInsight) {
+        this.followInsight = followInsight;
+    }
+
+    public int getFollowSleep() {
+        return followSleep;
+    }
+
+    public void setFollowSleep(int followSleep) {
+        this.followSleep = followSleep;
+    }
+
+    public int getFollowDiet() {
+        return followDiet;
+    }
+
+    public void setFollowDiet(int followDiet) {
+        this.followDiet = followDiet;
+    }
+
+    public int getFollowPersonal() {
+        return followPersonal;
+    }
+
+    public void setFollowPersonal(int followPersonal) {
+        this.followPersonal = followPersonal;
+    }
+
+    public int getFollowHousework() {
+        return followHousework;
+    }
+
+    public void setFollowHousework(int followHousework) {
+        this.followHousework = followHousework;
+    }
+
+    public int getFollowLabour() {
+        return followLabour;
+    }
+
+    public void setFollowLabour(int followLabour) {
+        this.followLabour = followLabour;
+    }
+
+    public int getFollowStuability() {
+        return followStuability;
+    }
+
+    public void setFollowStuability(int followStuability) {
+        this.followStuability = followStuability;
+    }
+
+    public int getFollowInterpersonal() {
+        return followInterpersonal;
+    }
+
+    public void setFollowInterpersonal(int followInterpersonal) {
+        this.followInterpersonal = followInterpersonal;
+    }
+
+    public int getFollowAffray() {
+        return followAffray;
+    }
+
+    public void setFollowAffray(int followAffray) {
+        this.followAffray = followAffray;
+    }
+
+    public int getFollowAccident() {
+        return followAccident;
+    }
+
+    public void setFollowAccident(int followAccident) {
+        this.followAccident = followAccident;
+    }
+
+    public int getFollowAccidentcause() {
+        return followAccidentcause;
+    }
+
+    public void setFollowAccidentcause(int followAccidentcause) {
+        this.followAccidentcause = followAccidentcause;
+    }
+
+    public int getFollowHazard() {
+        return followHazard;
+    }
+
+    public void setFollowHazard(int followHazard) {
+        this.followHazard = followHazard;
+    }
+
+    public int getFollowAutolesion() {
+        return followAutolesion;
+    }
+
+    public void setFollowAutolesion(int followAutolesion) {
+        this.followAutolesion = followAutolesion;
+    }
+
+    public int getFollowSuicide() {
+        return followSuicide;
+    }
+
+    public void setFollowSuicide(int followSuicide) {
+        this.followSuicide = followSuicide;
+    }
+
+    public int getFollowLockcase() {
+        return followLockcase;
+    }
+
+    public void setFollowLockcase(int followLockcase) {
+        this.followLockcase = followLockcase;
+    }
+
+    public int getFollowHospital() {
+        return followHospital;
+    }
+
+    public void setFollowHospital(int followHospital) {
+        this.followHospital = followHospital;
+    }
+
+    public int getFollowLabcheck() {
+        return followLabcheck;
+    }
+
+    public void setFollowLabcheck(int followLabcheck) {
+        this.followLabcheck = followLabcheck;
+    }
+
+    public int getFollowPharmacy() {
+        return followPharmacy;
+    }
+
+    public void setFollowPharmacy(int followPharmacy) {
+        this.followPharmacy = followPharmacy;
+    }
+
+    public int getFollowDrugeffect() {
+        return followDrugeffect;
+    }
+
+    public void setFollowDrugeffect(int followDrugeffect) {
+        this.followDrugeffect = followDrugeffect;
+    }
+
+    public int getFollowTreatres() {
+        return followTreatres;
+    }
+
+    public void setFollowTreatres(int followTreatres) {
+        this.followTreatres = followTreatres;
+    }
+
+    public int getFollowTransfer() {
+        return followTransfer;
+    }
+
+    public void setFollowTransfer(int followTransfer) {
+        this.followTransfer = followTransfer;
+    }
+
+    public int getFollowDaily() {
+        return followDaily;
+    }
+
+    public void setFollowDaily(int followDaily) {
+        this.followDaily = followDaily;
+    }
+
+    public int getFollowDose() {
+        return followDose;
+    }
+
+    public void setFollowDose(int followDose) {
+        this.followDose = followDose;
+    }
+
+    public int getFollowRecordsid() {
+        return followRecordsid;
+    }
+
+    public void setFollowRecordsid(int followRecordsid) {
+        this.followRecordsid = followRecordsid;
+    }
+
+    public int getFollowSort() {
+        return followSort;
+    }
+
+    public void setFollowSort(int followSort) {
+        this.followSort = followSort;
+    }
+
     public String getRecordInputtingcard() {
         return recordInputtingcard;
     }
@@ -299,30 +553,6 @@ public class mentalMessage {
         this.userHeredity = userHeredity;
     }
 
-    public String getUserPapernumber() {
-        return userPapernumber;
-    }
-
-    public void setUserPapernumber(String userPapernumber) {
-        this.userPapernumber = userPapernumber;
-    }
-
-    public String getUserNumber() {
-        return userNumber;
-    }
-
-    public void setUserNumber(String userNumber) {
-        this.userNumber = userNumber;
-    }
-
-    public String getUserIdnumber() {
-        return userIdnumber;
-    }
-
-    public void setUserIdnumber(String userIdnumber) {
-        this.userIdnumber = userIdnumber;
-    }
-
     public String getRecordAdress() {
         return recordAdress;
     }
@@ -339,6 +569,94 @@ public class mentalMessage {
         this.userDe = userDe;
     }
 
+    public String getFollowName() {
+        return followName;
+    }
+
+    public void setFollowName(String followName) {
+        this.followName = followName;
+    }
+
+    public String getFollowNumber() {
+        return followNumber;
+    }
+
+    public void setFollowNumber(String followNumber) {
+        this.followNumber = followNumber;
+    }
+
+    public String getFollowCusym() {
+        return followCusym;
+    }
+
+    public void setFollowCusym(String followCusym) {
+        this.followCusym = followCusym;
+    }
+
+    public String getFollowTrareason() {
+        return followTrareason;
+    }
+
+    public void setFollowTrareason(String followTrareason) {
+        this.followTrareason = followTrareason;
+    }
+
+    public String getFollowTraorgan() {
+        return followTraorgan;
+    }
+
+    public void setFollowTraorgan(String followTraorgan) {
+        this.followTraorgan = followTraorgan;
+    }
+
+    public String getFollowMedname() {
+        return followMedname;
+    }
+
+    public void setFollowMedname(String followMedname) {
+        this.followMedname = followMedname;
+    }
+
+    public String getFollowMeduse() {
+        return followMeduse;
+    }
+
+    public void setFollowMeduse(String followMeduse) {
+        this.followMeduse = followMeduse;
+    }
+
+    public String getFollowDirect() {
+        return followDirect;
+    }
+
+    public void setFollowDirect(String followDirect) {
+        this.followDirect = followDirect;
+    }
+
+    public String getFollowRecover() {
+        return followRecover;
+    }
+
+    public void setFollowRecover(String followRecover) {
+        this.followRecover = followRecover;
+    }
+
+    public String getFollowDoctorsign() {
+        return followDoctorsign;
+    }
+
+    public void setFollowDoctorsign(String followDoctorsign) {
+        this.followDoctorsign = followDoctorsign;
+    }
+
+    public String getFollowDe() {
+        return followDe;
+    }
+
+    public void setFollowDe(String followDe) {
+        this.followDe = followDe;
+    }
+
     public Date getUserBirthday() {
         return userBirthday;
     }
@@ -353,6 +671,38 @@ public class mentalMessage {
 
     public void setRecordData(Date recordData) {
         this.recordData = recordData;
+    }
+
+    public Date getFollowDate() {
+        return followDate;
+    }
+
+    public void setFollowDate(Date followDate) {
+        this.followDate = followDate;
+    }
+
+    public Date getFollowDietime() {
+        return followDietime;
+    }
+
+    public void setFollowDietime(Date followDietime) {
+        this.followDietime = followDietime;
+    }
+
+    public Date getFollowNextdate() {
+        return followNextdate;
+    }
+
+    public void setFollowNextdate(Date followNextdate) {
+        this.followNextdate = followNextdate;
+    }
+
+    public Date getFollowOuthospital() {
+        return followOuthospital;
+    }
+
+    public void setFollowOuthospital(Date followOuthospital) {
+        this.followOuthospital = followOuthospital;
     }
 
     @Override
@@ -379,6 +729,36 @@ public class mentalMessage {
                 ", userLinestock=" + userLinestock +
                 ", recordResident=" + recordResident +
                 ", recordState=" + recordState +
+                ", followForm=" + followForm +
+                ", followLoss=" + followLoss +
+                ", followDiereason=" + followDiereason +
+                ", followDisability=" + followDisability +
+                ", followAssess=" + followAssess +
+                ", followInsight=" + followInsight +
+                ", followSleep=" + followSleep +
+                ", followDiet=" + followDiet +
+                ", followPersonal=" + followPersonal +
+                ", followHousework=" + followHousework +
+                ", followLabour=" + followLabour +
+                ", followStuability=" + followStuability +
+                ", followInterpersonal=" + followInterpersonal +
+                ", followAffray=" + followAffray +
+                ", followAccident=" + followAccident +
+                ", followAccidentcause=" + followAccidentcause +
+                ", followHazard=" + followHazard +
+                ", followAutolesion=" + followAutolesion +
+                ", followSuicide=" + followSuicide +
+                ", followLockcase=" + followLockcase +
+                ", followHospital=" + followHospital +
+                ", followLabcheck=" + followLabcheck +
+                ", followPharmacy=" + followPharmacy +
+                ", followDrugeffect=" + followDrugeffect +
+                ", followTreatres=" + followTreatres +
+                ", followTransfer=" + followTransfer +
+                ", followDaily=" + followDaily +
+                ", followDose=" + followDose +
+                ", followRecordsid=" + followRecordsid +
+                ", followSort=" + followSort +
                 ", recordInputtingcard='" + recordInputtingcard + '\'' +
                 ", recordName='" + recordName + '\'' +
                 ", recordPostalcode='" + recordPostalcode + '\'' +
@@ -393,13 +773,25 @@ public class mentalMessage {
                 ", userExpose='" + userExpose + '\'' +
                 ", userIllness='" + userIllness + '\'' +
                 ", userHeredity='" + userHeredity + '\'' +
-                ", userPapernumber='" + userPapernumber + '\'' +
-                ", userNumber='" + userNumber + '\'' +
-                ", userIdnumber='" + userIdnumber + '\'' +
                 ", recordAdress='" + recordAdress + '\'' +
                 ", userDe='" + userDe + '\'' +
+                ", followName='" + followName + '\'' +
+                ", followNumber='" + followNumber + '\'' +
+                ", followCusym='" + followCusym + '\'' +
+                ", followTrareason='" + followTrareason + '\'' +
+                ", followTraorgan='" + followTraorgan + '\'' +
+                ", followMedname='" + followMedname + '\'' +
+                ", followMeduse='" + followMeduse + '\'' +
+                ", followDirect='" + followDirect + '\'' +
+                ", followRecover='" + followRecover + '\'' +
+                ", followDoctorsign='" + followDoctorsign + '\'' +
+                ", followDe='" + followDe + '\'' +
                 ", userBirthday=" + userBirthday +
                 ", recordData=" + recordData +
+                ", followDate=" + followDate +
+                ", followDietime=" + followDietime +
+                ", followNextdate=" + followNextdate +
+                ", followOuthospital=" + followOuthospital +
                 '}';
     }
 }

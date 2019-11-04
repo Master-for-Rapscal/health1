@@ -4,6 +4,9 @@ package com.aaa.health.entity.Children;
  * 新生儿健康检查记录
  */
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Childinsrecord {
@@ -13,18 +16,18 @@ public class Childinsrecord {
             insrecordTeeth,insrecordChest,insrecordBelly,insrecordNavel,
             insrecordLimbs,insrecordRicksign,insrecordAnus,
             insrecordTranadvice
-           ,insrecordDoctor,insrecordState;
+           ,insrecordState;
 
     public String insrecordWeiassess,insrecordHeiassess,insrecordRickets,
             insrecordGrowassess,
     insrecordTrandivision,insrecordGuide,
-    insrecordHgb,insrecordTranreason,insrecordTwofollow,insrecordDe;
+    insrecordHgb,insrecordTranreason,insrecordTwofollow,insrecordDe,insrecordDoctor;
 
-
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     public Date insrecordDate,insrecordNextdate;
 
 
-    public float insrecordWeight,insrecordFonlong,insrecordFonwidth
+    public BigDecimal insrecordWeight,insrecordFonlong,insrecordFonwidth
             , insrecordOutdoors,insrecordTakevd;
 
     public int getInsrecordId() {
@@ -187,14 +190,6 @@ public class Childinsrecord {
         this.insrecordTranadvice = insrecordTranadvice;
     }
 
-    public int getInsrecordDoctor() {
-        return insrecordDoctor;
-    }
-
-    public void setInsrecordDoctor(int insrecordDoctor) {
-        this.insrecordDoctor = insrecordDoctor;
-    }
-
     public int getInsrecordState() {
         return insrecordState;
     }
@@ -283,6 +278,14 @@ public class Childinsrecord {
         this.insrecordDe = insrecordDe;
     }
 
+    public String getInsrecordDoctor() {
+        return insrecordDoctor;
+    }
+
+    public void setInsrecordDoctor(String insrecordDoctor) {
+        this.insrecordDoctor = insrecordDoctor;
+    }
+
     public Date getInsrecordDate() {
         return insrecordDate;
     }
@@ -299,43 +302,43 @@ public class Childinsrecord {
         this.insrecordNextdate = insrecordNextdate;
     }
 
-    public float getInsrecordWeight() {
+    public BigDecimal getInsrecordWeight() {
         return insrecordWeight;
     }
 
-    public void setInsrecordWeight(float insrecordWeight) {
+    public void setInsrecordWeight(BigDecimal insrecordWeight) {
         this.insrecordWeight = insrecordWeight;
     }
 
-    public float getInsrecordFonlong() {
+    public BigDecimal getInsrecordFonlong() {
         return insrecordFonlong;
     }
 
-    public void setInsrecordFonlong(float insrecordFonlong) {
+    public void setInsrecordFonlong(BigDecimal insrecordFonlong) {
         this.insrecordFonlong = insrecordFonlong;
     }
 
-    public float getInsrecordFonwidth() {
+    public BigDecimal getInsrecordFonwidth() {
         return insrecordFonwidth;
     }
 
-    public void setInsrecordFonwidth(float insrecordFonwidth) {
+    public void setInsrecordFonwidth(BigDecimal insrecordFonwidth) {
         this.insrecordFonwidth = insrecordFonwidth;
     }
 
-    public float getInsrecordOutdoors() {
+    public BigDecimal getInsrecordOutdoors() {
         return insrecordOutdoors;
     }
 
-    public void setInsrecordOutdoors(float insrecordOutdoors) {
+    public void setInsrecordOutdoors(BigDecimal insrecordOutdoors) {
         this.insrecordOutdoors = insrecordOutdoors;
     }
 
-    public float getInsrecordTakevd() {
+    public BigDecimal getInsrecordTakevd() {
         return insrecordTakevd;
     }
 
-    public void setInsrecordTakevd(float insrecordTakevd) {
+    public void setInsrecordTakevd(BigDecimal insrecordTakevd) {
         this.insrecordTakevd = insrecordTakevd;
     }
 
@@ -362,7 +365,6 @@ public class Childinsrecord {
                 ", insrecordRicksign=" + insrecordRicksign +
                 ", insrecordAnus=" + insrecordAnus +
                 ", insrecordTranadvice=" + insrecordTranadvice +
-                ", insrecordDoctor=" + insrecordDoctor +
                 ", insrecordState=" + insrecordState +
                 ", insrecordWeiassess='" + insrecordWeiassess + '\'' +
                 ", insrecordHeiassess='" + insrecordHeiassess + '\'' +
@@ -374,6 +376,7 @@ public class Childinsrecord {
                 ", insrecordTranreason='" + insrecordTranreason + '\'' +
                 ", insrecordTwofollow='" + insrecordTwofollow + '\'' +
                 ", insrecordDe='" + insrecordDe + '\'' +
+                ", insrecordDoctor='" + insrecordDoctor + '\'' +
                 ", insrecordDate=" + insrecordDate +
                 ", insrecordNextdate=" + insrecordNextdate +
                 ", insrecordWeight=" + insrecordWeight +

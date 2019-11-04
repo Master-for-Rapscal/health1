@@ -1,10 +1,7 @@
 package com.aaa.health.controller.Children;
 
-import com.aaa.health.entity.Children.ChildInfo;
 import com.aaa.health.entity.Children.ChildTCM;
-import com.aaa.health.entity.Children.Chmedmre;
 import com.aaa.health.page.admin.Page;
-import com.aaa.health.service.Children.ChildInfoService;
 import com.aaa.health.service.Children.ChildTCMService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +15,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * (河南)儿童中医药服务管理
- */
-@RequestMapping("/ChildTCM")
+@RequestMapping("/ChildTCMRecord")
 @Controller
-public class ChildTCMController {
-    @Autowired
-    private ChildInfoService childInfoService;
-
+public class ChildTCMRecordController {
     @Autowired
     private ChildTCMService childTCMService;
+
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
@@ -41,30 +33,30 @@ public class ChildTCMController {
      * 获取用户信息列表
      *
      * @param page
-     * @param
-     * @param
-     * @param
+
      * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getList(Page page ) {
+        System.out.println(page);
+        if(page.getRows()==0){
+            page.setRows(100);
+        }
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
+        ret.put("rows", childTCMService.findList(queryMap));
+        System.out.println(queryMap);
+        System.out.println(childTCMService.findList(queryMap));
         List<ChildTCM> list=childTCMService.findList(queryMap);
         for (int i=0;i<list.size();i++){
             list.get(i).setCishu(childTCMService.queryCount(list.get(i).getChmedmrenum()));
-
         }
-
-
         ret.put("rows", list);
         ret.put("total", childTCMService.getTotal(queryMap));
-
-
+        System.out.println("--------------------------测试医生服务记录数据------------------------"+ret);
         return ret;
     }
 

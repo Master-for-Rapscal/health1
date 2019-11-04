@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.mental.UserListMapper">
+
+    <insert id="add" parameterType="com.aaa.health.entity.mental.mentalMessage">
+        insert into followInsanityrecords(followName,followNumber,followDate,followForm,followLoss,
+
+followDietime,followDiereason,followDisability,followAssess,followCusym,
+
+followInsight,followSleep,followDiet,followPersonal,followHousework,
+
+followLabour,followStuability,followInterpersonal,followAffray,followAccident,
+
+followAccidentcause,followHazard,followAutolesion,followSuicide,followLockcase,
+
+followHospital,followOuthospital,followLabcheck,followPharmacy,followDrugeffect,
+
+followTreatres,followTransfer,followTrareason,followTraorgan,followMedname,
+
+followMeduse,followDaily,followDose,followDirect,followRecover,
+
+followSort,followNextdate,followDoctorsign,followDe)
+values(#{followName},#{followNumber},#{followDate},#{followForm},#{followLoss},
+#{followDietime},#{followDiereason},#{followDisability},#{followAssess},#{followCusym},
+#{followInsight},#{followSleep},#{followDiet},#{followPersonal},#{followHousework},
+#{followLabour},#{followStuability},#{followInterpersonal},#{followAffray},#{followAccident},
+#{followAccidentcause},#{followHazard},#{followAutolesion},#{followSuicide},#{followLockcase},
+#{followHospital},#{followOuthospital},#{followLabcheck},#{followPharmacy},#{followDrugeffect},
+#{followTreatres},#{followTransfer},#{followTrareason},#{followTraorgan},#{followMedname},
+#{followMeduse},#{followDaily},#{followDose},#{followDirect},#{followRecover},
+#{followSort},#{followNextdate},#{followDoctorsign},#{followDe}
+)
+    </insert>
+    <!-- 分页获取用户列表 -->
+    <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.mental.mentalMessage">
+       /* select * from userinfo where 1=1
+*/
+        SELECT * from userinfo WHERE recordInputtingcard not in (SELECT  followNumber from followInsanityrecords)
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <update id="edit" parameterType="com.aaa.health.entity.mental.mentalMessage">
+     update followInsanityrecords set followName=#{followName},followDate=#{followDate},followForm=#{followForm},followLoss=#{followLoss},
+
+followDietime=#{followDietime},followDiereason=#{followDiereason},followDisability=#{followDisability},followAssess=#{followAssess},followCusym=#{followCusym},
+
+followInsight=#{followInsight},followSleep=#{followSleep},followDiet=#{followDiet},followPersonal=#{followPersonal},followHousework=#{followHousework},
+
+followLabour=#{followLabour},followStuability=#{followStuability},followInterpersonal=#{followInterpersonal},followAffray=#{followAffray},followAccident=#{followAccident},
+
+followAccidentcause=#{followAccidentcause},followHazard=#{followHazard},followAutolesion=#{followAutolesion},followSuicide=#{followSuicide},followLockcase=#{followLockcase},
+
+followHospital=#{followHospital},followOuthospital=#{followOuthospital},followLabcheck=#{followLabcheck},followPharmacy=#{followPharmacy},followDrugeffect=#{followDrugeffect},
+
+followTreatres=#{followTreatres},followTransfer=#{followTransfer},followTrareason=#{followTrareason},followTraorgan=#{followTraorgan},followMedname=#{followMedname},
+
+followMeduse=#{followMeduse},followDaily=#{followDaily},followDose=#{followDose},followDirect=#{followDirect},followRecover=#{followRecover},
+
+followSort=#{followSort},followNextdate=#{followNextdate},followDoctorsign=#{followDoctorsign},followDe=#{followDe} where followNumber=#{followNumber}
+    </update>
+
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select count(*) from userinfo where 1 = 1
+    </select>
+
+
+    <select id="findBymentalMessage" parameterType="long" resultType="com.aaa.health.entity.mental.mentalMessage">
+                     select * from followInsanityrecords where followRecordsid=#{followRecordsid}
+    </select>
+
+</mapper>

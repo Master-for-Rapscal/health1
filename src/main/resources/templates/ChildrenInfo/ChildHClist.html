@@ -22,12 +22,192 @@
     <table id="data-datagrid" class="easyui-datagrid" toolbar="#wu-toolbar"></table>
 
 </div>
-<div class="wu-toolbar-button" id="CR" STYLE="width: 1000px;height: 500px">
+<!--<div class="wu-toolbar-button" STYLE="width: 1000px;height: 500px">-->
 
-    <table id="data-datagrid1" class="easyui-datagrid" toolbar="#wu-toolbar" hidden="hidden">
-        <tr><td>113</td></tr>
+    <!--<table id="data-datagrid1" class="easyui-datagrid" toolbar="#wu-toolbar" hidden="hidden">-->
+       <!-- <tr><td>113</td></tr>
+    </table>-->
+
+
+
+</table>
+<div id="add-dialog"  style="width: 840px;height: 500px;">
+    <form id="add-form" method="post">
+        <table border="1px" style="width: 800px;height: 300px;">
+            <thead>姓名：<input type="text" style="border:none;outline:medium;" id="Aname"/>  编号：<input type="text" style="border:none;outline:medium;" id="Anum"><input type="text" name="recordId" id="AreD" hidden="hidden"></thead>
+            <tr><td>随访日期*</td><td colspan="2"><input type="text"  class="easyui-datebox" required="required" id="Adate" name="insrecordDate"></td></tr>
+            <tr><td>体重/kg</td><td><input type="text" id="Aweight" name="insrecordWeight"></td><td>评价：<input type="text" id="Awa" name="insrecordWeiassess"></td><tr>
+            <tr><td>身长/cm</td><td><input type="text" id="Aheight" name="insrecordHeight"></td><td>评价：<input type="text" id="Aha" name="insrecordHeiassess"></td><tr>
+            <tr><td>头围/cm</td><td colspan="2"><input type="text" name="insrecordHeadsize"></td><tr>
+            <tr><td rowspan="17">体格检查</td></tr>
+            <tr><td>面色</td><td><input type="radio" name="insrecordFace" value="1"/>1红润<input type="radio" name="insrecordFace" value="2"/>2黄染<input type="radio" name="insrecordFace" value="3"/>3其他</td></tr>
+            <tr><td>皮肤</td><td><input type="radio" name="insrecordSkin" value="1"/>1未见异常<input type="radio" name="insrecordSkin" value="2"/>2异常</td></tr>
+            <tr><td>前囟</td><td><input type="radio" name="insrecordFontane" value="1"/>1闭合<input type="radio" name="insrecordFontane" value="2"/>2未闭 <input type="text" style="border:none;outline:medium;text-align:right" name="insrecordFonlong">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cm×<input type="text" style="width: 25px;border:none;outline:medium;" name="insrecordFonwidth">cm</td></tr>
+            <tr><td>颈部包块</td><td><input type="radio" name="insrecordMasses" value="1"/>1有<input type="radio" name="insrecordMasses" value="2"/>2无</td></tr>
+
+            <tr><td>眼睛</td><td><input type="radio" name="insrecordEyes" value="1"/>1未见异常<input type="radio" name="insrecordEyes" value="2"/>2异常</td></tr>
+            <tr><td>耳</td><td><input type="radio" name="insrecordEars" value="1"/>1未见异常<input type="radio" name="insrecordEars" value="2"/>2异常</td></tr>
+            <tr><td>听力</td><td><input type="radio" name="insrecordListen" value="1"/>1通过<input type="radio" name="insrecordListen" value="2"/>2未通过</td></tr>
+            <tr><td>口腔</td><td><input type="radio" name="insrecordOral" value="1"/>1未见异常<input type="radio" name="insrecordOral" value="2"/>2异常</td></tr>
+            <tr><td>胸部</td><td><input type="radio" name="insrecordChest" value="1"/>1未见异常<input type="radio" name="insrecordChest" value="2"/>2异常</td></tr>
+            <tr><td>腹部</td><td><input type="radio" name="insrecordBelly" value="1"/>1未见异常<input type="radio" name="insrecordBelly" value="2"/>2异常</td></tr>
+            <tr><td>脐部</td><td><input type="radio" name="insrecordNavel" value="1"/>1未见异常<input type="radio" name="insrecordNavel" value="2"/>2异常</td></tr>
+            <tr><td>四肢</td><td><input type="radio" name="insrecordLimbs" value="1"/>1未见异常<input type="radio" name="insrecordLimbs" value="2"/>2异常</td></tr>
+            <tr><td>可疑佝偻病症状</td><td>
+                <input type="checkbox" name="insrecordRickets" value="1">1无
+                <input type="checkbox" name="insrecordRickets" value="2">2夜惊
+                <input type="checkbox" name="insrecordRickets" value="3">3多汗
+                <input type="checkbox" name="insrecordRickets" value="4">4烦躁
+            </td></tr>
+            <tr><td>可疑佝偻病体征</td><td>
+                <input type="checkbox" name="insrecordRicksign" value="1">1无
+                <input type="checkbox" name="insrecordRicksign" value="2">2颅骨软化
+
+            </td></tr>
+            <tr><td>肛门/外生殖</td><td><input type="radio" name="insrecordAnus" value="1"/>1未见异常<input type="radio" name="insrecordAnus" value="2"/>2异常</td></tr>
+            <tr><td>血红蛋白</td><td colspan="2"><input type="text" name="insrecordHgb">g/L</td></tr>
+
+            <tr><td>户外活动</td><td colspan="2"><input type="text" name="insrecordOutdoors">小时/日</td></tr>
+
+            <tr><td>服用维生素D</td><td colspan="2"><input type="text" name="insrecordTakevd">IU/日</td></tr>
+            <tr><td>发育评估</td><td colspan="2">
+                <input type="checkbox" name="insrecordGrowassess" value="1"/>1对很大声音没反应
+                <input type="checkbox" name="insrecordGrowassess" value="2"/>2逗引时不发音或不会微笑
+                <input type="checkbox" name="insrecordGrowassess" value="3"/>3不注视人脸,不追视移动人或物品
+                <input type="checkbox" name="insrecordGrowassess" value="4"/>4俯卧时不会抬头
+            </td></tr>
+
+
+            <tr><td>两次随访间患病情况</td><td colspan="2">
+                <input type="checkbox" name="insrecordTwofollow" value="1"/>1无
+                <input type="checkbox" name="insrecordTwofollow" value="2"/>2肺炎
+                <input type="checkbox" name="insrecordTwofollow" value="3"/>3腹泻
+                <input type="checkbox" name="insrecordTwofollow" value="4"/>4外伤
+                <input type="checkbox" name="insrecordTwofollow" value="5"/>5其他
+            </td></tr>
+
+            <tr><td rowspan="4">转诊建议</td></tr>
+
+            <tr><td colspan="2"><input type="radio" name="insrecordTranadvice" value="1"/>1无 <input type="radio" name="insrecordTranadvice" value="2"/>2有</td></tr>
+            <tr><td>原因：</td><td><input type="text" name="insrecordTranreason"/></td></tr>
+            <tr><td>机构及科室：</td><td><input type="text" name="insrecordTrandivision"/></td></tr>
+            <tr><td>指导</td><td colspan="2">
+                <input type="checkbox" name="insrecordGuide" value="1"/>1科学喂养
+                <input type="checkbox" name="insrecordGuide" value="2"/>2生长发育
+                <input type="checkbox" name="insrecordGuide" value="3"/>3疾病预防
+                <input type="checkbox" name="insrecordGuide" value="4"/>4预防伤害
+                <input type="checkbox" name="insrecordGuide" value="5"/>5口腔保健
+                <input type="checkbox" name="insrecordGuide" value="6"/>6其他_
+            </td></tr>
+
+            <tr><td>下次随访时间</td><td colspan="2"><input type="text"  class="easyui-datebox" required="required" insrecordNextdate></td></tr>
+
+            <tr><td>随访医生签名</td><td colspan="2">
+
+               <!-- <input type="text" id="Adoc" name="insrecordDoctor"/>-->
+            <select name="insrecordDoctor">
+                <option value="左冬恩">左冬恩</option>
+                <option value="左冬恩1">左冬恩1</option>
+                <option value="左冬恩2">左冬恩2</option>
+            </select>
+            </td></tr>
+        </table>
+    </form>
+</div>
+
+
+
+
+
+<div id="CR1" style="width: 1000px;height: 500px">
+<div id="CR11"></div>
+</div>
+<!--</div>-->
+<div id="edit-dialog" style="width: 830px;height: 600px;">
+    <form id="edit-form" method="post">
+<!--<div id="cc" style="width: 830px;height: 600px;">-->
+    <table border="1px" style="width: 800px;height: 300px;">
+        <thead>姓名：<input type="text" style="border:none;outline:medium;" id="cname"/>  编号：<input type="text" style="border:none;outline:medium;" id="cnum"><input type="text" name="insrecordId" id="CD" hidden="hidden"><input type="text" name="recordId" id="creD" hidden/></thead>
+        <tr><td>随访日期*</td><td colspan="2"><input type="text"  class="easyui-datebox" required="required" id="cdate" name="insrecordDate"></td></tr>
+        <tr><td>体重/kg</td><td><input type="text" id="cweight" name="insrecordWeight"></td><td>评价：<input type="text" id="cwa" name="insrecordWeiassess"></td><tr>
+        <tr><td>身长/cm</td><td><input type="text" id="cheight" name="insrecordHeight"></td><td>评价：<input type="text" id="cha" name="insrecordHeiassess"></td><tr>
+        <tr><td>头围/cm</td><td colspan="2"><input type="text" name="insrecordHeadsize"></td><tr>
+        <tr><td rowspan="17">体格检查</td></tr>
+        <tr><td>面色</td><td><input type="radio" name="insrecordFace" value="1"/>1红润<input type="radio" name="insrecordFace" value="2"/>2黄染<input type="radio" name="insrecordFace" value="3"/>3其他</td></tr>
+        <tr><td>皮肤</td><td><input type="radio" name="insrecordSkin" value="1"/>1未见异常<input type="radio" name="insrecordSkin" value="2"/>2异常</td></tr>
+        <tr><td>前囟</td><td><input type="radio" name="insrecordFontane" value="1"/>1闭合<input type="radio" name="insrecordFontane" value="2"/>2未闭  <input type="text" style="border:none;outline:medium;text-align:right" name="insrecordFonlong">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cm×<input type="text" style="width: 25px;border:none;outline:medium;" name="insrecordFonwidth">cm</td></tr>
+        <tr><td>颈部包块</td><td><input type="radio" name="insrecordMasses" value="1"/>1有<input type="radio" name="insrecordMasses" value="2"/>2无</td></tr>
+
+        <tr><td>眼睛</td><td><input type="radio" name="insrecordEyes" value="1"/>1未见异常<input type="radio" name="insrecordEyes" value="2"/>2异常</td></tr>
+        <tr><td>耳</td><td><input type="radio" name="insrecordEars" value="1"/>1未见异常<input type="radio" name="insrecordEars" value="2"/>2异常</td></tr>
+        <tr><td>听力</td><td><input type="radio" name="insrecordListen" value="1"/>1通过<input type="radio" name="insrecordListen" value="2"/>2未通过</td></tr>
+        <tr><td>口腔</td><td><input type="radio" name="insrecordOral" value="1"/>1未见异常<input type="radio" name="insrecordOral" value="2"/>2异常</td></tr>
+        <tr><td>胸部</td><td><input type="radio" name="insrecordChest" value="1"/>1未见异常<input type="radio" name="insrecordChest" value="2"/>2异常</td></tr>
+        <tr><td>腹部</td><td><input type="radio" name="insrecordBelly" value="1"/>1未见异常<input type="radio" name="insrecordBelly" value="2"/>2异常</td></tr>
+        <tr><td>脐部</td><td><input type="radio" name="insrecordNavel" value="1"/>1未见异常<input type="radio" name="insrecordNavel" value="2"/>2异常</td></tr>
+        <tr><td>四肢</td><td><input type="radio" name="insrecordLimbs" value="1"/>1未见异常<input type="radio" name="insrecordLimbs" value="2"/>2异常</td></tr>
+        <tr><td>可疑佝偻病症状</td><td>
+            <input type="checkbox" name="insrecordRickets" value="1">1无
+            <input type="checkbox" name="insrecordRickets" value="2">2夜惊
+            <input type="checkbox" name="insrecordRickets" value="3">3多汗
+            <input type="checkbox" name="insrecordRickets" value="4">4烦躁
+        </td></tr>
+        <tr><td>可疑佝偻病体征</td><td>
+            <input type="checkbox" name="insrecordRicksign" value="1">1无
+            <input type="checkbox" name="insrecordRicksign" value="2">2颅骨软化
+
+        </td></tr>
+        <tr><td>肛门/外生殖</td><td><input type="radio" name="insrecordAnus" value="1"/>1未见异常<input type="radio" name="insrecordAnus" value="2"/>2异常</td></tr>
+        <tr><td>血红蛋白</td><td colspan="2"><input type="text" name="insrecordHgb">g/L</td></tr>
+
+        <tr><td>户外活动</td><td colspan="2"><input type="text" name="insrecordOutdoors">小时/日</td></tr>
+
+        <tr><td>服用维生素D</td><td colspan="2"><input type="text" name="insrecordTakevd">IU/日</td></tr>
+        <tr><td>发育评估</td><td colspan="2">
+            <input type="checkbox" name="insrecordGrowassess" value="1"/>1对很大声音没反应
+            <input type="checkbox" name="insrecordGrowassess" value="2"/>2逗引时不发音或不会微笑
+            <input type="checkbox" name="insrecordGrowassess" value="3"/>3不注视人脸,不追视移动人或物品
+            <input type="checkbox" name="insrecordGrowassess" value="4"/>4俯卧时不会抬头
+        </td></tr>
+
+
+        <tr><td>两次随访间患病情况</td><td colspan="2">
+            <input type="checkbox" name="insrecordTwofollow" value="1"/>1无
+            <input type="checkbox" name="insrecordTwofollow" value="2"/>2肺炎
+            <input type="checkbox" name="insrecordTwofollow" value="3"/>3腹泻
+            <input type="checkbox" name="insrecordTwofollow" value="4"/>4外伤
+            <input type="checkbox" name="insrecordTwofollow" value="5"/>5其他
+        </td></tr>
+
+        <tr><td rowspan="4">转诊建议</td></tr>
+
+        <tr><td colspan="2"><input type="radio" name="insrecordTranadvice" value="1"/>1无 <input type="radio" name="insrecordTranadvice" value="2"/>2有</td></tr>
+        <tr><td>原因：</td><td><input type="text" name="insrecordTranreason"/></td></tr>
+        <tr><td>机构及科室：</td><td><input type="text" name="insrecordTrandivision"/></td></tr>
+        <tr><td>指导</td><td colspan="2">
+            <input type="checkbox" name="insrecordGuide" value="1"/>1科学喂养
+            <input type="checkbox" name="insrecordGuide" value="2"/>2生长发育
+            <input type="checkbox" name="insrecordGuide" value="3"/>3疾病预防
+            <input type="checkbox" name="insrecordGuide" value="4"/>4预防伤害
+            <input type="checkbox" name="insrecordGuide" value="5"/>5口腔保健
+            <input type="checkbox" name="insrecordGuide" value="6"/>6其他_
+        </td></tr>
+
+        <tr><td>下次随访时间</td><td colspan="2"><input type="text"  class="easyui-datebox" required="required" insrecordNextdate
+        ></td></tr>
+
+        <tr><td>随访医生签名</td><td colspan="2">
+
+          <!--  <input type="text" id="cdoc" name="insrecordDoctor"/>-->
+            <select name="insrecordDoctor">
+                <option value="左冬恩">左冬恩</option>
+                <option value="左冬恩1">左冬恩1</option>
+                <option value="左冬恩2">左冬恩2</option>
+            </select>
+        </td></tr>
     </table>
-
+<!--</div>-->
+    </form>
 </div>
 
 <!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
@@ -73,10 +253,68 @@
     }
 
 
+    function openAdd(){
+        $("#CR1").dialog('close');
+        var now = new Date();
+        var h = now.getFullYear();
+        var m = (now.getMonth() + 1>9) ? now.getMonth() + 1 : "0"+(now.getMonth() + 1);
+        var s = (now.getDate()>9)  ? now.getDate()  : "0"+now.getDate();
+        document.getElementById("Adate").value = h+'-'+m+'-'+s;
 
+        $('#add-dialog').dialog({
+            closed: false,
+            modal:true,
+            title: "新增对象登记",
+            buttons: [{
+                text: '确定',
+                iconCls: 'icon-ok',
+                handler: add
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#add-dialog').dialog('close');
+                }
+            }],
+            onBeforeOpen:function(){
+
+            }
+        });
+    }
+
+
+    function add(){
+        var validate = $("#add-form").form("validate");
+
+        if(!validate){
+            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
+            return;
+        }
+
+        var data = $("#add-form").serialize();
+
+        $.ajax({
+            url:'../ChildRecord/add',
+            dataType:'json',
+            type:'post',
+            data:data,
+            success:function(data){
+                /*  alert( document.getElementById("ANd").value);
+                  if(data>0){*/
+                $.messager.alert('信息提示','添加成功！','info');
+                $('#add-dialog').dialog('close');
+                $('#add-dialog').treegrid('reload');
+                /* }else{
+                     $.messager.alert('信息提示',data.msg,'warning');
+                 }*/
+
+            }
+        });
+    }
     /**
      * 载入数据
      */
+    var dt;
     $('#data-datagrid').datagrid({
         url:'list',
         rownumbers:true,
@@ -88,10 +326,83 @@
         idField:'id',
         treeField:'name',
         fit:true,
-        onDblClickRow:function(){
-           $("#CR").dialog(function(){
+        onDblClickRow:function(rowIndex,row){
+            $("#cname").val(row.recordName);
+            $("#cnum").val(row.recordInputtingcard);
+            //alert(row.recordName);
+//alert(row.userId);
+var recordId =row.userId;
+//alert(recordId);
+            $.post("../ChildRecord/list","recordId="+recordId,function(data){
 
-           })
+                var d="";
+                if(data.length==0){
+                    $("#CR1").html( "<input type='button' value='新增随访记录' onclick='openAdd()'>");
+                    $("#Aname").val(row.recordName);
+                    $("#Anum").val(row.recordInputtingcard);
+                    $("#AreD").val(row.userId);
+                }else {
+                    for (var i = 0; i < data.length; i++) {
+                    //    alert("IDDDDD");
+                      //  alert("00000000000000000000"+data[0].recordId);
+                          dt=data[i].insrecordDoctor;
+                        d += "<div id='cm' ondblclick='openInfo("+data[i].insrecordId+","+ data[i].recordId+ "," + data[i].insrecordDate+ "," + data[i].insrecordWeight+ "," + data[i].insrecordWeiassess+ "," + data[i].insrecordHeight+ "," + data[i].insrecordHeiassess+ ")'>";
+                        d += "<div><span>编号：</span><span>";
+                        d += data[i].recordId;
+                        d += "</span></div>";
+
+                        d += "<div><span>检查日期：</span><span>";
+                        d += data[i].insrecordDate;
+                        d += "</span></div>";
+
+                        d += "<div><span>体重：</span><span>";
+                        d += data[i].insrecordWeight;
+                        d += "</span>";
+                        d += "<span>评价：</span><span>";
+                        d += data[i].insrecordWeiassess;
+                        d += "</span></div>";
+
+                        d += "<div><span>身长：</span><span>";
+                        d += data[i].insrecordHeight;
+                        d += "</span>";
+                        d += "<span>评价：</span><span>";
+                        d += data[i].insrecordHeiassess;
+                        d += "</span></div>";
+                        d += "<div><span>检查者：</span><span>";
+                        d += data[i].insrecordDoctor;
+                        d += "</span></div>";
+                        d+="<div>";
+                        d+="<input type='button' value='新增随访记录' onclick='openAdd()'>";
+                        $("#Aname").val(row.recordName);
+                        $("#Anum").val(row.recordInputtingcard);
+                        $("#AreD").val(row.userId);
+                        d += "</div>";
+                        d += "</div>";
+
+                    }
+
+                    $("#CR1").html(d);
+
+                }
+            });
+           $("#CR1").dialog({
+               closed: false,
+               modal:true,
+               title: "健康检查记录",
+               buttons: [{
+                   text: '确定',
+                   iconCls: 'icon-ok'
+               }, {
+                   text: '取消',
+                   iconCls: 'icon-cancel',
+                   handler: function () {
+                       $('#edit-dialog').dialog('close');
+                   }
+               }],
+               onBeforeOpen:function(){
+
+               }
+           });
         },
         columns:[[
             { field:'userId',checkbox:true},
@@ -100,26 +411,78 @@
             { field:'recordName',title:'姓名',width:100,align:'center'},
             { field:'userSex',title:'性别',width:100,sortable:true},
             { field:'userBirthday',title:'出生日期',width:100},
-
-            /*{ field:'FATHER',title:'父亲姓名',width:100,align:'center'},
-            { field:'NATHER',title:'母亲姓名',width:100,sortable:true},*/
-
             { field:'recordAdress',title:'联系地址',width:100},
             { field:'userMyphone',title:'联系电话',width:100,sortable:true},
-
              { field:'RECORD_People',title:'录入人',width:100},
-
             { field:'recordData',title:'建档日期',width:100,sortable:true},
-
             { field:'userState',title:'结案状态',width:100,sortable:true},
             { field:'cishu',title:'随访次数',width:100,align:'center'},
-              { field:'userDe',title:'备注',width:100},
+            { field:'userDe',title:'备注',width:100},
             { field:'USER_LINESTOCK',title:'下次检查时间',width:100,align:'center'}
         ]],
         onLoadSuccess:function(data){
             $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
         }
     });
+
+
+  function openInfo(insrecordId,recordId,insrecordDate,insrecordWeight,insrecordWeiassess,insrecordHeight,insrecordHeiassess){
+      $("#CD").val(insrecordId);
+      $("#creD").val(recordId);
+    $("#cdate").val(insrecordDate);  //随访日期
+    $("#cweight").val(insrecordWeight); //体重
+    $("#cwa").val(insrecordWeiassess);//体重评价
+    $("#cheight").val(insrecordHeight);//身长
+    $("#cha").val(insrecordHeiassess);//身长评价
+    $("#cdoc").val(dt);//随访医生
+
+  /*  $("#cc").dialog(function(){
+       // $("#cname").val(recordId);
+
+  })*/
+      $("#CR1").dialog('close');
+      $('#edit-dialog').dialog({
+          closed: false,
+          modal:true,
+          title: "修改",
+          buttons: [{
+              text: '确定',
+              iconCls: 'icon-ok',
+              handler: edit
+          }, {
+              text: '取消',
+              iconCls: 'icon-cancel',
+              handler: function () {
+                  $('#edit-dialog').dialog('close');
+              }
+          }],
+          onBeforeOpen:function(){
+              $.ajax({
+                  url:'../ChildRecord/findByid',
+                  dataType:'json',
+                  type:'post',
+                  data:'insrecordId='+insrecordId,
+                  success:function(d){
+
+                      $('#edit-form').form('load',d[0]);
+                  }
+              });
+          }
+      });
+
+        // for(var i =0;i<data.rows.length;i++) {
+        //
+        //     alert(data.rows[i].recordId);
+        //
+        //
+        // }
+    };
+
+ /*   1.post
+   2. date
+    3.div*/
+
+
 
 
     $('#data-datagrid1').datagrid({
@@ -136,7 +499,7 @@
         columns:[[
             { field:'insrecordId',checkbox:true},
             { field:'insrecordDate',title:'随访日期',width:100},
-            { field:'insrecordWeiassess',title:'体重',width:100,align:'center'},
+            { field:'insrecordWeight',title:'体重',width:100,align:'center'},
             { field:'insrecordWeiassess',title:'评价',width:100,sortable:true},
             { field:'insrecordHeight',title:'身长',width:100},
             { field:'insrecordHeiassess',title:'评价',width:100},
@@ -149,6 +512,32 @@
 
 
 
-
+    /**
+     * Name 修改记录
+     */
+    function edit(){
+        var validate = $("#edit-form").form("validate");
+        if(!validate){
+            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
+            return;
+        }
+        var data = $("#edit-form").serialize();
+        $.ajax({
+            url:'../ChildRecord/edit',
+            dataType:'json',
+            type:'post',
+            data:data,
+            success:function(data) {
+               // alert(data);
+                if (data > 0) {
+                    $.messager.alert('信息提示', '修改成功！', 'info');
+                    $('#edit-dialog').dialog('close');
+                    $('#edit-dialog').treegrid('reload');
+                } else {
+                    $.messager.alert('信息提示','失败', 'warning');
+                }
+            }
+        });
+    }
 
 </script>

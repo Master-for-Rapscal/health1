@@ -3,6 +3,7 @@ package com.aaa.health.controller.Children;
 import com.aaa.health.entity.Children.ChildInfo;
 import com.aaa.health.page.admin.Page;
 import com.aaa.health.service.Children.ChildInfoService;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import java.util.Map;
 /**
  * 河南健康体检(散居儿童)2017
  */
+
 @RequestMapping("/ChildHC")
 @Controller
 public class ChildHealthCheckController {
@@ -36,9 +38,9 @@ public class ChildHealthCheckController {
      * 获取用户信息列表
      *
      * @param page
-     * @param username
-     * @param roleId
-     * @param sex
+     * @param
+     * @param
+     * @param
      * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
@@ -59,7 +61,7 @@ public class ChildHealthCheckController {
         ret.put("rows", list);
         ret.put("total", childInfoService.getTotal(queryMap));
 
-        System.out.println("=================================="+ret);
+
         return ret;
     }
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.Children.ChildTCMMapper">
+    <delete id="delete" parameterType="String">
+        delete from chmedmre where chmedmreId in(${value})
+    </delete>
+
+
+    <!-- 分页获取用户列表 -->
+    <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.Children.ChildTCM">
+        /*select * from chmedmre where 1 = 1*/
+
+        select * from userinfo  join chmedmre  on userinfo.recordInputtingcard=chmedmre.chmedmrerecordId
+
+
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        /*select count(*) from chmedmre where 1 = 1*/
+       select count(*) from userinfo  join chmedmre  on userinfo.userId=chmedmre.chmedmrenum
+
+    </select>
+
+    <select id="queryCount" parameterType="Integer" resultType="Integer">
+       select COUNT(*) from chmedmre where chmedmrenum=#{rid}
+    </select>
+</mapper>

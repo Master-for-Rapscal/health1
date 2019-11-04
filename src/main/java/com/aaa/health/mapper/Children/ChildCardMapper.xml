@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.Children.ChildCardMapper">
+
+    <insert id="add" parameterType="com.aaa.health.entity.Children.ChildInfo">
+insert into addnewborn(recordId,addnewbornCardnum,addnewbornConstructiondate,addnewbornLaborweek,addnewbornLaborarea,addnewbornLabordate,
+addnewbornLaborstyle,addnewbornTyrenum,addnewbornProducenum,addnewbornTyrenumber,addnewbornHeight,
+addnewbornWeight,addnewbornApgarone,addnewbornApgarfive,addnewbornApgarten,addnewbornSuckmin,
+addnewbornKnum,addnewbornKscale,addnewbornSurvival,addnewbornDeathcauses,addnewbornBirthdefect,
+addnewbornNeonatalcom,addnewbornPku,addnewbornCh,addnewbornHearing,addnewbornBcgvacc,
+addnewbornHepatitisvacc,addnewbornOtersacc,addnewbornWeakson,addnewbornWeakcase,addnewbornGuidance,
+addnewbornDischargeddate,addnewbornMidwiferyhosp,addnewbornMidwiferymain,addnewbornMidwiferyport,addnewbornDe
+)values(#{recordId},
+#{addnewbornCardnum},#{addnewbornConstructiondate},#{addnewbornLaborweek},#{addnewbornLaborarea},#{addnewbornLabordate},
+#{addnewbornLaborstyle},#{addnewbornTyrenum},#{addnewbornProducenum},#{addnewbornTyrenumber},#{addnewbornHeight},
+#{addnewbornWeight},#{addnewbornApgarone},#{addnewbornApgarfive},#{addnewbornApgarten},#{addnewbornSuckmin},
+#{addnewbornKnum},#{addnewbornKscale},#{addnewbornSurvival},#{addnewbornDeathcauses},#{addnewbornBirthdefect},
+#{addnewbornNeonatalcom},#{addnewbornPku},#{addnewbornCh},#{addnewbornHearing},#{addnewbornBcgvacc},
+#{addnewbornHepatitisvacc},#{addnewbornOtersacc},#{addnewbornWeakson},#{addnewbornWeakcase},#{addnewbornGuidance},
+#{addnewbornDischargeddate},#{addnewbornMidwiferyhosp},#{addnewbornMidwiferymain},#{addnewbornMidwiferyport},#{addnewbornDe}
+)
+    </insert>
+
+    <!-- 分页获取用户列表 -->
+    <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.Children.ChildInfo">
+       /* SELECT * from userinfo WHERE userId not in (SELECT recordId  from addnewborn)*/
+        SELECT * from userinfo WHERE userId not in (SELECT recordId  from addnewborn) and
+        (date_format('2019-11-05','%Y')-DATE_FORMAT(userinfo.userBirthday,'%Y')) BETWEEN 0 and 6
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select count(*) from chmedmre where 1 = 1
+    </select>
+
+    <update id="edit" parameterType="com.aaa.health.entity.Children.ChildInfo">
+        update addnewborn set addnewbornCardnum=#{addnewbornCardnum},addnewbornConstructiondate=#{addnewbornConstructiondate},addnewbornLaborweek=#{addnewbornLaborweek},addnewbornLaborarea=#{addnewbornLaborarea},addnewbornLabordate=#{addnewbornLabordate},
+
+addnewbornLaborstyle=#{addnewbornLaborstyle},addnewbornTyrenum=#{addnewbornTyrenum},addnewbornProducenum=#{addnewbornProducenum},addnewbornTyrenumber=#{addnewbornTyrenumber},addnewbornHeight=#{addnewbornHeight},
+
+addnewbornWeight=#{addnewbornWeight},addnewbornApgarone=#{addnewbornApgarone},addnewbornApgarfive=#{addnewbornApgarfive},addnewbornApgarten=#{addnewbornApgarten},addnewbornSuckmin=#{addnewbornSuckmin},
+
+addnewbornKnum=#{addnewbornKnum},addnewbornKscale=#{addnewbornKscale},addnewbornSurvival=#{addnewbornSurvival},addnewbornDeathcauses=#{addnewbornDeathcauses},addnewbornBirthdefect=#{addnewbornBirthdefect},
+
+addnewbornNeonatalcom=#{addnewbornNeonatalcom},addnewbornPku=#{addnewbornPku},addnewbornCh=#{addnewbornCh},addnewbornHearing=#{addnewbornHearing},addnewbornBcgvacc=#{addnewbornBcgvacc},
+
+addnewbornHepatitisvacc=#{addnewbornHepatitisvacc},addnewbornOtersacc=#{addnewbornOtersacc},addnewbornWeakson=#{addnewbornWeakson},addnewbornWeakcase=#{addnewbornWeakcase},addnewbornGuidance=#{addnewbornGuidance},
+
+addnewbornDischargeddate=#{addnewbornDischargeddate},addnewbornMidwiferyhosp=#{addnewbornMidwiferyhosp},addnewbornMidwiferymain=#{addnewbornMidwiferymain},addnewbornMidwiferyport=#{addnewbornMidwiferyport},addnewbornDe=#{addnewbornDe}
+  where addnewbornId=#{addnewbornId}
+    </update>
+
+
+    <select id="findByChildCard" parameterType="long" resultType="com.aaa.health.entity.Children.ChildInfo">
+                     select * from addnewborn where addnewbornId=#{addnewbornId}
+    </select>
+</mapper>

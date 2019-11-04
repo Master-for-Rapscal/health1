@@ -1,5 +1,8 @@
 package com.aaa.health.entity.Children;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class ChildInfo {
@@ -8,15 +11,32 @@ public class ChildInfo {
             ,userCulture,userCareer,userGam,userPemanent,userNamtion,userKitchen
         ,userFuel,userWater,userWc,userLinestock
             ,recordResident,
-    recordState,cishu;
+          recordState,cishu,
+    addnewbornId,addnewbornLaborstyle,addnewbornTyrenum,addnewbornProducenum
+    ,addnewbornTyrenumber,addnewbornHeight,addnewbornApgarone,
+            addnewbornApgarfive,addnewbornApgarten,addnewbornSuckmin
+,addnewbornKnum,addnewbornKscale,addnewbornSurvival,addnewbornPku
+,addnewbornCh,addnewbornHearing,addnewbornBcgvacc,addnewbornHepatitisvacc
+    ,addnewbornState,recordId;
+
+    public BigDecimal addnewbornWeight;
 
     public String recordInputtingcard,recordName,recordPostalcode,recordPlaceadress
             ,userDisability,recordMedical,recordPicurl,userMyphone,
             userWorkunit,userPayway,userAllergy,userExpose,userIllness,userHeredity,
-    userPapernumber,userNumber,userIdnumber,
-            recordAdress,userDe;
-
-    public Date userBirthday,recordData;
+            userPapernumber,userNumber,userIdnumber,
+            recordAdress,userDe
+ ,addnewbornCardnum,addnewbornLaborweek,addnewbornLaborarea,
+            addnewbornDeathcauses,addnewbornBirthdefect,
+            addnewbornNeonatalcom,addnewbornOtersacc,
+            addnewbornWeakson,addnewbornWeakcase,addnewbornGuidance
+           ,addnewbornMidwiferyhosp,addnewbornMidwiferymain
+           ,addnewbornMidwiferyport,addnewbornDe
+            ;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
+    public Date userBirthday,recordData
+,addnewbornConstructiondate,addnewbornLabordate,addnewbornDischargeddate
+            ;
 
     public int getUserId() {
         return userId;
@@ -24,14 +44,6 @@ public class ChildInfo {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public int getCishu() {
-        return cishu;
-    }
-
-    public void setCishu(int cishu) {
-        this.cishu = cishu;
     }
 
     public int getUserSex() {
@@ -194,6 +206,182 @@ public class ChildInfo {
         this.recordState = recordState;
     }
 
+    public int getCishu() {
+        return cishu;
+    }
+
+    public void setCishu(int cishu) {
+        this.cishu = cishu;
+    }
+
+    public int getAddnewbornId() {
+        return addnewbornId;
+    }
+
+    public void setAddnewbornId(int addnewbornId) {
+        this.addnewbornId = addnewbornId;
+    }
+
+    public int getAddnewbornLaborstyle() {
+        return addnewbornLaborstyle;
+    }
+
+    public void setAddnewbornLaborstyle(int addnewbornLaborstyle) {
+        this.addnewbornLaborstyle = addnewbornLaborstyle;
+    }
+
+    public int getAddnewbornTyrenum() {
+        return addnewbornTyrenum;
+    }
+
+    public void setAddnewbornTyrenum(int addnewbornTyrenum) {
+        this.addnewbornTyrenum = addnewbornTyrenum;
+    }
+
+    public int getAddnewbornProducenum() {
+        return addnewbornProducenum;
+    }
+
+    public void setAddnewbornProducenum(int addnewbornProducenum) {
+        this.addnewbornProducenum = addnewbornProducenum;
+    }
+
+    public int getAddnewbornTyrenumber() {
+        return addnewbornTyrenumber;
+    }
+
+    public void setAddnewbornTyrenumber(int addnewbornTyrenumber) {
+        this.addnewbornTyrenumber = addnewbornTyrenumber;
+    }
+
+    public int getAddnewbornHeight() {
+        return addnewbornHeight;
+    }
+
+    public void setAddnewbornHeight(int addnewbornHeight) {
+        this.addnewbornHeight = addnewbornHeight;
+    }
+
+    public int getAddnewbornApgarone() {
+        return addnewbornApgarone;
+    }
+
+    public void setAddnewbornApgarone(int addnewbornApgarone) {
+        this.addnewbornApgarone = addnewbornApgarone;
+    }
+
+    public int getAddnewbornApgarfive() {
+        return addnewbornApgarfive;
+    }
+
+    public void setAddnewbornApgarfive(int addnewbornApgarfive) {
+        this.addnewbornApgarfive = addnewbornApgarfive;
+    }
+
+    public int getAddnewbornApgarten() {
+        return addnewbornApgarten;
+    }
+
+    public void setAddnewbornApgarten(int addnewbornApgarten) {
+        this.addnewbornApgarten = addnewbornApgarten;
+    }
+
+    public int getAddnewbornSuckmin() {
+        return addnewbornSuckmin;
+    }
+
+    public void setAddnewbornSuckmin(int addnewbornSuckmin) {
+        this.addnewbornSuckmin = addnewbornSuckmin;
+    }
+
+    public int getAddnewbornKnum() {
+        return addnewbornKnum;
+    }
+
+    public void setAddnewbornKnum(int addnewbornKnum) {
+        this.addnewbornKnum = addnewbornKnum;
+    }
+
+    public int getAddnewbornKscale() {
+        return addnewbornKscale;
+    }
+
+    public void setAddnewbornKscale(int addnewbornKscale) {
+        this.addnewbornKscale = addnewbornKscale;
+    }
+
+    public int getAddnewbornSurvival() {
+        return addnewbornSurvival;
+    }
+
+    public void setAddnewbornSurvival(int addnewbornSurvival) {
+        this.addnewbornSurvival = addnewbornSurvival;
+    }
+
+    public int getAddnewbornPku() {
+        return addnewbornPku;
+    }
+
+    public void setAddnewbornPku(int addnewbornPku) {
+        this.addnewbornPku = addnewbornPku;
+    }
+
+    public int getAddnewbornCh() {
+        return addnewbornCh;
+    }
+
+    public void setAddnewbornCh(int addnewbornCh) {
+        this.addnewbornCh = addnewbornCh;
+    }
+
+    public int getAddnewbornHearing() {
+        return addnewbornHearing;
+    }
+
+    public void setAddnewbornHearing(int addnewbornHearing) {
+        this.addnewbornHearing = addnewbornHearing;
+    }
+
+    public int getAddnewbornBcgvacc() {
+        return addnewbornBcgvacc;
+    }
+
+    public void setAddnewbornBcgvacc(int addnewbornBcgvacc) {
+        this.addnewbornBcgvacc = addnewbornBcgvacc;
+    }
+
+    public int getAddnewbornHepatitisvacc() {
+        return addnewbornHepatitisvacc;
+    }
+
+    public void setAddnewbornHepatitisvacc(int addnewbornHepatitisvacc) {
+        this.addnewbornHepatitisvacc = addnewbornHepatitisvacc;
+    }
+
+    public int getAddnewbornState() {
+        return addnewbornState;
+    }
+
+    public void setAddnewbornState(int addnewbornState) {
+        this.addnewbornState = addnewbornState;
+    }
+
+    public int getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(int recordId) {
+        this.recordId = recordId;
+    }
+
+    public BigDecimal getAddnewbornWeight() {
+        return addnewbornWeight;
+    }
+
+    public void setAddnewbornWeight(BigDecimal addnewbornWeight) {
+        this.addnewbornWeight = addnewbornWeight;
+    }
+
     public String getRecordInputtingcard() {
         return recordInputtingcard;
     }
@@ -346,6 +534,118 @@ public class ChildInfo {
         this.userDe = userDe;
     }
 
+    public String getAddnewbornCardnum() {
+        return addnewbornCardnum;
+    }
+
+    public void setAddnewbornCardnum(String addnewbornCardnum) {
+        this.addnewbornCardnum = addnewbornCardnum;
+    }
+
+    public String getAddnewbornLaborweek() {
+        return addnewbornLaborweek;
+    }
+
+    public void setAddnewbornLaborweek(String addnewbornLaborweek) {
+        this.addnewbornLaborweek = addnewbornLaborweek;
+    }
+
+    public String getAddnewbornLaborarea() {
+        return addnewbornLaborarea;
+    }
+
+    public void setAddnewbornLaborarea(String addnewbornLaborarea) {
+        this.addnewbornLaborarea = addnewbornLaborarea;
+    }
+
+    public String getAddnewbornDeathcauses() {
+        return addnewbornDeathcauses;
+    }
+
+    public void setAddnewbornDeathcauses(String addnewbornDeathcauses) {
+        this.addnewbornDeathcauses = addnewbornDeathcauses;
+    }
+
+    public String getAddnewbornBirthdefect() {
+        return addnewbornBirthdefect;
+    }
+
+    public void setAddnewbornBirthdefect(String addnewbornBirthdefect) {
+        this.addnewbornBirthdefect = addnewbornBirthdefect;
+    }
+
+    public String getAddnewbornNeonatalcom() {
+        return addnewbornNeonatalcom;
+    }
+
+    public void setAddnewbornNeonatalcom(String addnewbornNeonatalcom) {
+        this.addnewbornNeonatalcom = addnewbornNeonatalcom;
+    }
+
+    public String getAddnewbornOtersacc() {
+        return addnewbornOtersacc;
+    }
+
+    public void setAddnewbornOtersacc(String addnewbornOtersacc) {
+        this.addnewbornOtersacc = addnewbornOtersacc;
+    }
+
+    public String getAddnewbornWeakson() {
+        return addnewbornWeakson;
+    }
+
+    public void setAddnewbornWeakson(String addnewbornWeakson) {
+        this.addnewbornWeakson = addnewbornWeakson;
+    }
+
+    public String getAddnewbornWeakcase() {
+        return addnewbornWeakcase;
+    }
+
+    public void setAddnewbornWeakcase(String addnewbornWeakcase) {
+        this.addnewbornWeakcase = addnewbornWeakcase;
+    }
+
+    public String getAddnewbornGuidance() {
+        return addnewbornGuidance;
+    }
+
+    public void setAddnewbornGuidance(String addnewbornGuidance) {
+        this.addnewbornGuidance = addnewbornGuidance;
+    }
+
+    public String getAddnewbornMidwiferyhosp() {
+        return addnewbornMidwiferyhosp;
+    }
+
+    public void setAddnewbornMidwiferyhosp(String addnewbornMidwiferyhosp) {
+        this.addnewbornMidwiferyhosp = addnewbornMidwiferyhosp;
+    }
+
+    public String getAddnewbornMidwiferymain() {
+        return addnewbornMidwiferymain;
+    }
+
+    public void setAddnewbornMidwiferymain(String addnewbornMidwiferymain) {
+        this.addnewbornMidwiferymain = addnewbornMidwiferymain;
+    }
+
+    public String getAddnewbornMidwiferyport() {
+        return addnewbornMidwiferyport;
+    }
+
+    public void setAddnewbornMidwiferyport(String addnewbornMidwiferyport) {
+        this.addnewbornMidwiferyport = addnewbornMidwiferyport;
+    }
+
+    public String getAddnewbornDe() {
+        return addnewbornDe;
+    }
+
+    public void setAddnewbornDe(String addnewbornDe) {
+        this.addnewbornDe = addnewbornDe;
+    }
+
     public Date getUserBirthday() {
         return userBirthday;
     }
@@ -362,6 +662,29 @@ public class ChildInfo {
         this.recordData = recordData;
     }
 
+    public Date getAddnewbornConstructiondate() {
+        return addnewbornConstructiondate;
+    }
+
+    public void setAddnewbornConstructiondate(Date addnewbornConstructiondate) {
+        this.addnewbornConstructiondate = addnewbornConstructiondate;
+    }
+
+    public Date getAddnewbornLabordate() {
+        return addnewbornLabordate;
+    }
+
+    public void setAddnewbornLabordate(Date addnewbornLabordate) {
+        this.addnewbornLabordate = addnewbornLabordate;
+    }
+
+    public Date getAddnewbornDischargeddate() {
+        return addnewbornDischargeddate;
+    }
+
+    public void setAddnewbornDischargeddate(Date addnewbornDischargeddate) {
+        this.addnewbornDischargeddate = addnewbornDischargeddate;
+    }
 
     @Override
     public String toString() {
@@ -388,6 +711,27 @@ public class ChildInfo {
                 ", recordResident=" + recordResident +
                 ", recordState=" + recordState +
                 ", cishu=" + cishu +
+                ", addnewbornId=" + addnewbornId +
+                ", addnewbornLaborstyle=" + addnewbornLaborstyle +
+                ", addnewbornTyrenum=" + addnewbornTyrenum +
+                ", addnewbornProducenum=" + addnewbornProducenum +
+                ", addnewbornTyrenumber=" + addnewbornTyrenumber +
+                ", addnewbornHeight=" + addnewbornHeight +
+                ", addnewbornApgarone=" + addnewbornApgarone +
+                ", addnewbornApgarfive=" + addnewbornApgarfive +
+                ", addnewbornApgarten=" + addnewbornApgarten +
+                ", addnewbornSuckmin=" + addnewbornSuckmin +
+                ", addnewbornKnum=" + addnewbornKnum +
+                ", addnewbornKscale=" + addnewbornKscale +
+                ", addnewbornSurvival=" + addnewbornSurvival +
+                ", addnewbornPku=" + addnewbornPku +
+                ", addnewbornCh=" + addnewbornCh +
+                ", addnewbornHearing=" + addnewbornHearing +
+                ", addnewbornBcgvacc=" + addnewbornBcgvacc +
+                ", addnewbornHepatitisvacc=" + addnewbornHepatitisvacc +
+                ", addnewbornState=" + addnewbornState +
+                ", recordId=" + recordId +
+                ", addnewbornWeight=" + addnewbornWeight +
                 ", recordInputtingcard='" + recordInputtingcard + '\'' +
                 ", recordName='" + recordName + '\'' +
                 ", recordPostalcode='" + recordPostalcode + '\'' +
@@ -407,8 +751,25 @@ public class ChildInfo {
                 ", userIdnumber='" + userIdnumber + '\'' +
                 ", recordAdress='" + recordAdress + '\'' +
                 ", userDe='" + userDe + '\'' +
+                ", addnewbornCardnum='" + addnewbornCardnum + '\'' +
+                ", addnewbornLaborweek='" + addnewbornLaborweek + '\'' +
+                ", addnewbornLaborarea='" + addnewbornLaborarea + '\'' +
+                ", addnewbornDeathcauses='" + addnewbornDeathcauses + '\'' +
+                ", addnewbornBirthdefect='" + addnewbornBirthdefect + '\'' +
+                ", addnewbornNeonatalcom='" + addnewbornNeonatalcom + '\'' +
+                ", addnewbornOtersacc='" + addnewbornOtersacc + '\'' +
+                ", addnewbornWeakson='" + addnewbornWeakson + '\'' +
+                ", addnewbornWeakcase='" + addnewbornWeakcase + '\'' +
+                ", addnewbornGuidance='" + addnewbornGuidance + '\'' +
+                ", addnewbornMidwiferyhosp='" + addnewbornMidwiferyhosp + '\'' +
+                ", addnewbornMidwiferymain='" + addnewbornMidwiferymain + '\'' +
+                ", addnewbornMidwiferyport='" + addnewbornMidwiferyport + '\'' +
+                ", addnewbornDe='" + addnewbornDe + '\'' +
                 ", userBirthday=" + userBirthday +
                 ", recordData=" + recordData +
+                ", addnewbornConstructiondate=" + addnewbornConstructiondate +
+                ", addnewbornLabordate=" + addnewbornLabordate +
+                ", addnewbornDischargeddate=" + addnewbornDischargeddate +
                 '}';
     }
 }

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--引入抬头页面-->
+<div th:replace="common/header :: header"  ></div>
+
+<div class="easyui-layout" data-options="fit:true">
+    <!-- Begin of toolbar -->
+    <div id="wu-toolbar">
+        <div class="wu-toolbar-button">
+            <!--引入菜单页面-->
+            <div th:replace="common/menus :: menus"  > </div>
+        </div>
+
+        <!--条件搜索-->
+        <div class="wu-toolbar-search">
+            <label>用户名:</label><input id="search-name" class="wu-text" style="width:100px">
+            <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+        </div>
+
+    </div>
+
+    <!-- End of toolbar 数据table表格 -->
+    <table id="data-datagrid" class="easyui-datagrid" toolbar="#wu-toolbar"></table>
+
+
+</div>
+
+
+
+<!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
+<div th:replace="common/footer :: myfooter"  ></div>
+
+
+<!-- End of easyui-dialog -->
+<script type="text/javascript" th:inline="none">
+
+
+
+
+
+    $('#data-datagrid').datagrid({
+        url:'list',
+        rownumbers:true,
+        singleSelect:false,
+        pageSize:20,
+        pagination:true,
+        multiSort:true,
+        fitColumns:true,
+        idField:'id',
+        treeField:'name',
+        fit:true,
+        onDblClickRow:function(rowIndex,row){
+            alert(666);
+        },
+        columns:[[
+            { field:'userId',checkbox:true},
+            { field:'recordInputtingcard',title:'建档立卡号',width:100},
+            { field:'recordName',title:'姓名',width:100,align:'center'},
+            { field:'userBirthday',title:'出生日期',width:100},
+            { field:'recordAdress',title:'现住地址',width:100},
+            { field:'userMyphone',title:'联系电话',width:100,sortable:true}
+        ]],
+        onLoadSuccess:function(data){
+            $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
+        }
+    });
+
+
+
+
+</script>

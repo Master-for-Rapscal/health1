@@ -10,12 +10,14 @@
 
     <!-- 分页获取用户列表 -->
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.mental.mentalMessage">
-        select * from userinfo u join psychosisManagement p on u.recordInputtingcard=p.psychosisNumber where 1 = 1
-
+       /* select * from userinfo u join psychosisManagement p on u.recordInputtingcard=p.psychosisNumber where 1 = 1*/
+        select * from userinfo u join followInsanityrecords f on u.recordInputtingcard=f.followNumber where 1=1
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
     </select>
+
+
 
     <select id="getTotal" parameterType="Map" resultType="Integer">
         select count(*) from userinfo where 1 = 1

@@ -1,11 +1,13 @@
 package com.aaa.health.entity.Children;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Chmedmre {
 
    public int RECORD_ID ,CHMEDMRE_MONTHS  ,CHMEDMRE_DOC,CHMEDMRE_STATE  ;
-
+   @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
    public Date CHMEDMRE_FOLLOWDATE ,CHMEDMRE_NEXTFOLLOW ;
    public String CHMEDMRE_CHMED ,CHMEDMRE_DE;
 
