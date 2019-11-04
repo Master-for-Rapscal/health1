@@ -141,8 +141,8 @@ public class HealthcheckController {
             return ret;
         }
 
-        System.out.println(id);
-        System.out.println(healthcheckService.findById(id));
+//        System.out.println(id);
+//        System.out.println(healthcheckService.findById(id));
         Healthcheck data1=healthcheckService.findById(id);
         ret.put("datainfo",data1);
         ret.put("type", "success");
@@ -162,6 +162,8 @@ public class HealthcheckController {
             ret.put("msg", "后台获取用户信息失败！");
             return ret;
         }
+        System.out.println(healthcheck.getHealthcheckDate());
+//        System.out.println(healthcheck);
 //        System.out.println(healthcheck);
         if (healthcheckService.edit(healthcheck) <= 0) {
             ret.put("type", "error");

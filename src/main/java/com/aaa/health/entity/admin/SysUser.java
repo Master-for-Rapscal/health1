@@ -12,11 +12,21 @@ public class SysUser {
 	private Long id;//�û�id����������
 	private String username;//�û�������¼��
 	private String password;//��¼����
+	private String lastname;//��¼����
 	private Long roleId;//������ɫid
 	private String photo;//ͷ����Ƭ��ַ
 	private int sex;//�Ա�0,����δ֪��1�����У�2����Ů
 	private Integer age;//����
 	private String address;//��ͥסַ
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
 	public Long getId() {
 		return id;
 	}

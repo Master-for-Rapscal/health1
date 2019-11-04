@@ -66,6 +66,8 @@
 <!-- End of easyui-dialog -->
 <script type="text/javascript" th:inline="none">
 
+
+    
     /**
      *  添加记录
      */
@@ -98,12 +100,13 @@
      * Name 修改记录
      */
     function edit() {
-        var validate = $("#edit-form").form("validate");
+        var validate = $("#add-form1").form("validate");
         if (!validate) {
             $.messager.alert("消息提醒", "请检查你输入的数据!", "warning");
             return;
         }
-        var data = $("#edit-form").serialize();
+        var data = $("#add-form1").serialize();
+        // alert(data)
         $.ajax({
             url: 'edit',
             dataType: 'json',
@@ -318,6 +321,8 @@
                         pageSize: 20,
                         pagination: true,
                         multiSort: true,
+                        sortOrder:'desc',
+                        sortName:'healthcheckDate',
                         fitColumns: true,
                         idField: 'healthcheckId',
                         treeField: 'name',
@@ -325,7 +330,7 @@
                         columns: [[
                             {field: 'chk', checkbox: true},
                             {field: 'healthcheckId', title: '档案编号', width: 100,hidden:'true'},
-                            {field: 'healthcheckDate', title: '体检日期', width: 100,formatter:function(value,row,index){
+                            {field: 'healthcheckDate', title: '体检日期',sortable:true, width: 100,formatter:function(value,row,index){
                                     return format(value);
                                 }},
                             {field: 'healthcheckDoctor', title: '责任医生', width: 100, formatter: function (value, row, index) {

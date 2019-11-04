@@ -93,12 +93,12 @@
                         </tr>
                         <tr>
                             <td colspan="1"><input type="text" readonly="true" class="tdText_h" value="身高"></td>
-                            <td colspan="3"><input class="easyui-numberbox" type="text" name="healthcheckStatusHeight"
-                                                   data-options="suffix:'CM'" value="180"
+                            <td colspan="3"><input  class="easyui-numberbox" type="text" name="healthcheckStatusHeight"
+                                                   data-options="suffix:'CM'" value="180"  onkeyup="conuntBMI()" id="healthcheckStatusHeight"
                                                    style="width:100%; height:100%;border: 0px"></input></td>
                             <td colspan="1"><input type="text" readonly="true" class="tdText_h" value="体重"></td>
                             <td colspan="4"><input class="easyui-numberbox" type="text" name="healthcheckStatusWeight"
-                                                   data-options="suffix:'KG'" value="70"
+                                                   data-options="suffix:'KG'" value="70" onkeyup="conuntBMI()" id="healthcheckStatusWeight"
                                                    style="width:100%; height:100%;border: 0px"></input></td>
                         </tr>
                         <tr>
@@ -107,10 +107,18 @@
                                                    value="42"  data-options="suffix:'CM'"
                                                    style="width:100%; height:100%; border: 0px"></input></td>
                             <td colspan="2"><input type="text" readonly="true" class="tdText_h" value="体质指数(BMI)"></td>
-                            <td colspan="3"><input class="easyui-textbox"  value="22.5"
-                                                   name="healthcheckStatusConstitution" readonly="true"
+                            <td colspan="3"><input type="text" name="healthcheckStatusConstitution" value="0" readonly="true" id="healthcheckStatusConstitution"
                                                    style="width:100%; height:100%;border: 0px"></input></td>
                         </tr>
+                        <script>
+                            function conuntBMI() {
+                                var KG1 =$("#healthcheckStatusWeight").val();
+                                KG1=KG1.substring(0,KG1.length-2);
+                                var M1= $("#healthcheckStatusHeight").val();
+                                M1=M1.substring(0,M1.length-2)/100;
+                                $("#healthcheckStatusConstitution").val((KG1/(M1*M1)).toFixed(2))
+                            }
+                        </script>
                         <tr>
                             <td colspan="3"><input type="text" readonly="true" class="tdText_h" value="老年人健康状况自我评估">
                             </td>
