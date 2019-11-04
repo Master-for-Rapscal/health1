@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
+<div th:fragment="UserTable">
+    <div class="UserTable">
+
+
+<input type="hidden" name="recordPicurl" value="/admin/imgin/use.png" ><!--图片框-->
+<input type="hidden" name="recordFamily" value="0" ><!--图片框-->
+<input type="hidden" name="userState" value="100" ><!--状态-->
+<input type="hidden" name="userDe" value="000" ><!--备用-->
+<input type="hidden" name="userNumber" value="0" ><!--备用-->
+<table class="zuo-table-head" >
+    <tr>
+        <td><input class="easyui-textbox tdText_h" readonly="ture"   value="姓名:" ></input> </td>
+        <td> <input class="easyui-textbox tdText_h easyui-validatebox" data-options="required:true, missingMessage:'请填写姓名'" type="text" name="recordName" style="border:0px;border-bottom: 1px solid black;"></input></td>
+        <td><input class="easyui-textbox tdText_h"  readonly="ture"  value="所属单位:" ></input></td>
+        <td><select class=""  name="recordUnit"  style=" border:0px; border-bottom: 1px solid black;">
+            <option   value="1" ><span >长葛市</span></option>
+            <option   value="2" ><span >李良店村</span></option>
+            <option   value="3" ><span >马屯村</span></option>
+        </select>
+        </td>
+    </tr>
+    <tr>
+        <td><input class="easyui-textbox tdText_h" readonly="true" type="text" value="现住地址:"></input></td>
+        <td> <input class="easyui-textbox tdText_h easyui-validatebox" data-options="required:true, missingMessage:'请填写现住地址'" type="text" name="recordAdress"  style="border:0px;border-bottom: 1px solid black"></input></td>
+        <td><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="邮政编码:" ></input></td>
+        <td> <input class="easyui-textbox tdText_h easyui-validatebox" data-options="required:true, missingMessage:'请填写邮政编码'" type="text" name="recordPostalcode" style="border:0px;border-bottom: 1px solid black"></input></td>
+    </tr>
+    <tr>
+        <td><input class="easyui-textbox tdText_h"  readonly="true"  type="text"  value="户籍地址:" ></input></td>
+        <td> <input class="easyui-textbox tdText_h easyui-validatebox" data-options="required:true, missingMessage:'请填写户籍地址'" type="text"  name="recordPlaceadress" style="border:0px;border-bottom: 1px solid black"></input></td>
+        <td><input class="easyui-textbox tdText_h"  readonly="true" type="text"  value="建档医生:" ></input></td>
+        <td>
+            <select class=""  name="recordCreateuserid"  style="width:100%; border:0px;border-bottom: 1px solid black">
+                <option   value="2" ><span >金峰</span></option>
+                <option   value="4" ><span >张承天</span></option>
+                <option   value="3" ><span >曾子墨</span></option>
+            </select>
+
+        </td>
+    </tr>
+    <tr>
+        <td><input class="easyui-textbox tdText_h" readonly="true" type="text" value="责任医生:"></input></td>
+        <td>
+            <select class="" name="recordResponuserid" style="width:100%; border:0px;border-bottom: 1px solid black">
+                <option   value="2" ><span >金峰</span></option>
+                <option   value="4" ><span >张承天</span></option>
+                <option   value="3" ><span >曾子墨</span></option>
+            </select>
+        </td>
+        <td><input class="easyui-textbox tdText_h"  readonly="true" type="text"  value="建档日期:" ></input></td>
+        <td>
+            <input class="easyui-datebox zuo-text" type="text" name="recordData" ></input>
+        </td>
+    </tr>
+    <tr>
+        <td><input class="easyui-textbox tdText_h"  type="text"  value="查重范围:" ></input></td>
+        <td>
+            <select class="" donli name="userinfoId" style="width:100%; border:0px;border-bottom: 1px solid black">
+                <option   value="2" ><span >村内</span></option>
+                <option   value="4" ><span >县内</span></option>
+                <option   value="3" ><span >室内</span></option>
+            </select>
+        </td>
+        <td><input class="easyui-textbox tdText_h" type="text"  value="医疗卡号:" ></input></td>
+        <td> <input class="easyui-textbox tdText_h" type="text" name="recordMedical" style="border:0px;border-bottom: 1px solid black"></input></td>
+    </tr>
+    <tr>
+        <td><input class="easyui-textbox tdText_h" readonly="true" type="text" value="常住类别:"></input></td>
+        <td>
+            <select class="" donli name="recordResident" panelHeight="auto" style="width:100%; border:0px;border-bottom: 1px solid black">
+                <option   value="1" >常驻</option>
+                <option   value="2" >流动</option>
+                <option   value="3" >外来</option>
+            </select>
+        </td>
+        <td><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="建档方式:" ></input></td>
+        <td>
+            <select class="" donli name="recordResident" panelHeight="auto" style="width:100%; border:0px;border-bottom: 1px solid black">
+                <option   value="1" >诊疗服务</option>
+                <option   value="2" >公卫服务</option>
+                <option   value="3" >其他服务</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td><input class="easyui-textbox tdText_h" readonly="true" type="text" value="人员类别:"></input></td>
+        <td>
+            <input type="radio" name="recordCategory" value="1" checked="true">港澳台人员
+            <input type="radio" name="recordCategory" value="2">贫困人员
+        </td>
+        <td><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="建档立卡号:" ></input></td>
+        <td> <input class="easyui-textbox tdText_h" type="text" disabled="true" name="recordInputtingcard" style="border:0px;border-bottom: 1px solid black"></input></td>
+    </tr>
+</table>
+
+<div style="width: 100%; text-align: center;"><h3>个人基本信息表</h3></div>
+<div style="width: 100%; text-align: center;">
+    姓名：<input class="easyui-textbox" type="text" name="userInfoName"  style="border:0px;border-bottom: 1px solid black; margin-right: 10px;"></input>
+    纸质编号：<input class="easyui-textbox " type="text" name="userPapernumber"  style="border:0px;border-bottom: 1px solid black;margin-right: 10px;"></input>
+    编号：<input class="easyui-nu " type="text" name="userId" value="0" style="border:0px;border-bottom: 1px solid black;margin-right: 10px;"></input>
+</div>
+<table class="zuo-UsInfo-left">
+    <tr>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="性别:" ></input></td>
+        <td colspan="5">
+            <input type="radio" name="userSex" value="1">男
+            <input type="radio" name="userSex" value="2">女
+            <input type="radio" name="userSex" value="3" checked="true">未知
+        </td>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="出生日期:" ></input></td>
+        <td colspan="3">
+            <input class="easyui-datebox zuo-text" type="text" name="userBirthday" ></input></td>
+    </tr>
+    <tr>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="身份证号:" ></input></td>
+        <td colspan="3">
+            <input class="easyui-textbox zuo-text easyui-validatebox" data-options="required:true, missingMessage:'请填写身份证号'" type="text" name="userIdnumber"  >
+        </td>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="工作单位:" ></input></td>
+        <td colspan="2">
+            <input class="easyui-textbox zuo-text easyui-validatebox" data-options="required:true, missingMessage:'请填写工作单位'" type="text" name="userWorkunit" >
+        </td>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="本人电话:" ></input></td>
+        <td colspan="2">
+            <input class="easyui-textbox zuo-text easyui-validatebox" data-options="required:true, missingMessage:'请填写户籍地址'" type="text" name="userMyphone">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="常驻类型" ></input></td>
+        <td colspan="6">
+            <input type="radio" name="userPemanent" value="1" checked="true">户籍
+            <input type="radio" name="userPemanent" value="2">非户籍(流动人口)
+        </td>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="民族" ></input></td>
+        <td colspan="2">
+            <input type="radio" name="userNamtion" value="1"  checked="true">汉族
+            <input type="radio" name="userNamtion" value="2">少数民族
+        </td>
+    </tr></table>
+   <!--<table name="userPrivy"  class="zuo-UsInfo-left">-->
+    <!--<tr>-->
+        <!--<td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="联系人姓名(一)" ></input></td>-->
+        <!--<td colspan="3">-->
+            <!--<input class="easyui-textbox zuo-text easyui-validatebox" data-options="required:true,  missingMessage:'请填写第一个联系人姓名'" type="text" name="userPrivyName" >-->
+        <!--</td>-->
+        <!--<td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="关系:" ></input></td>-->
+        <!--<td colspan="2">-->
+            <!--<input class="easyui-textbox zuo-text easyui-validatebox" data-options="required:true,  missingMessage:'请填写与第一个联系人的关系'" type="text" name="userPrivyConcern" >-->
+        <!--</td>-->
+        <!--<td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="联系人电话:" ></input></td>-->
+        <!--<td colspan="2">-->
+            <!--<input class="easyui-numberbox zuo-text easyui-validatebox" data-options="required:true,  missingMessage:'请填写第一个联系人姓名电话'"  name="userPrivyPhone" >-->
+        <!--</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="联系人姓名(二)" ></input></td>-->
+        <!--<td colspan="3">-->
+            <!--<input class="easyui-textbox zuo-text easyui-validatebox" data-options="required:true,  missingMessage:'请填写第二个联系人姓名'" type="text" name="userPrivyName" >-->
+        <!--</td>-->
+        <!--<td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="关系:" ></input></td>-->
+        <!--<td colspan="2">-->
+            <!--<input class="easyui-textbox zuo-text easyui-validatebox" data-options="required:true,  missingMessage:'请填写与第二个联系人的关系'" type="text" name="userPrivyConcern" >-->
+        <!--</td>-->
+        <!--<td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="联系人电话:" ></input></td>-->
+        <!--<td colspan="2">-->
+            <!--<input class="easyui-numberbox zuo-text easyui-validatebox" data-options="required:true,  missingMessage:'请填写第二个联系人姓名电话'"  name="userPrivyPhone" >-->
+
+        <!--</td>-->
+    <!--</tr></table>-->
+        <table class="zuo-UsInfo-left">
+    <tr>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="血型" ></input></td>
+        <td colspan="5">
+            <input type="radio" name="userBloodtype" value="1" checked="true">A型
+            <input type="radio" name="userBloodtype" value="2">B型
+            <input type="radio" name="userBloodtype" value="3">O型
+            <input type="radio" name="userBloodtype" value="4">AB型
+            <input type="radio" name="userBloodtype" value="5">不详
+        </td>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="Rh阴性" ></input></td>
+        <td colspan="3">
+            <input type="radio" name="userRh" value="1"  checked="true">阴性
+            <input type="radio" name="userRh" value="2">阳性
+            <input type="radio" name="userRh" value="3">不详
+        </td>
+    </tr>
+    <tr>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="学历" ></input></td>
+        <td colspan="9">
+            <input type="radio" name="userCulture" value="1" checked="true">研究生
+            <input type="radio" name="userCulture" value="2">本科
+            <input type="radio" name="userCulture" value="3">专科
+            <input type="radio" name="userCulture" value="4">技工学校
+            <input type="radio" name="userCulture" value="5">高中
+            <input type="radio" name="userCulture" value="6">初中
+            <input type="radio" name="userCulture" value="7">小学
+            <input type="radio" name="userCulture" value="8">文盲
+            <input type="radio" name="userCulture" value="9">不详
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="职业" ></input></td>
+        <td colspan="9">
+            <input type="radio" name="userCareer" value="1" checked="true">无职业
+            <input type="radio" name="userCareer" value="2">专业技术人员
+            <input type="radio" name="userCareer" value="3">办事人员和有关人员
+            <input type="radio" name="userCareer" value="4">商业，服务业人员
+            <input type="radio" name="userCareer" value="5">农、林、牧、渔、水利业生产人员<br>
+            <input type="radio" name="userCareer" value="6">生产、运输设备操作员
+            <input type="radio" name="userCareer" value="7">军人
+            <input type="radio" name="userCareer" value="8">国家机关，党群组织，事业单位负责人
+            <input type="radio" name="userCareer" value="9">不便分类的其他人员
+        </td>
+    </tr>
+    <tr>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="婚姻状况" ></input></td>
+        <td colspan="9">
+            <input type="radio" name="userGam" value="1" checked="true">未婚
+            <input type="radio" name="userGam" value="2">已婚
+            <input type="radio" name="userGam" value="3">丧偶
+            <input type="radio" name="userGam" value="4">离婚
+            <input type="radio" name="userGam" value="5">未说明婚姻状况
+        </td>
+    </tr>
+    <tr>
+        <td colspan="1">
+            <input class="easyui-textbox tdText_h" readonly="true" type="text"  value="医疗费用"  style="height: 45%;"></input><br>
+            <input class="easyui-textbox tdText_h" readonly="true" type="text"  value="支付方式"  style="height: 45%;"></input>
+        </td>
+        <td colspan="9">
+            <input type="checkbox" name="userPayway"  onclick="checkItem1(this)" checked="true"
+                   value="1">城镇职工基本医疗保险
+            <input type="checkbox" name="userPayway" value="2">城镇居民基本医疗保险
+            <input type="checkbox" name="userPayway" value="3">新型农村合作医疗
+            <input type="checkbox" name="userPayway" value="4">贫困扶助<br>
+            <input type="checkbox" name="userPayway" value="5">商业医疗保险
+            <input type="checkbox" name="userPayway" value="6">全公费
+            <input type="checkbox" name="userPayway" value="7">全自费
+            <input type="checkbox" name="userPayway" value="8">其他
+        </td>
+    </tr>
+    <tr>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text" value="药物过敏史:"></input></td>
+        <td colspan="9">
+            <input type="checkbox" name="userAllergy" onclick="checkItem1(this)" checked="true"
+                   value="1">无
+            <input type="checkbox" name="userAllergy" value="2">青霉素
+            <input type="checkbox" name="userAllergy" value="3">磺胺
+            <input type="checkbox" name="userAllergy" value="4">链霉素
+            <input type="checkbox" name="userAllergy" value="5">其他
+        </td>
+    </tr>
+    <tr>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text" value="暴露史:"></input></td>
+        <td colspan="9">
+            <input type="checkbox" name="userExpose" onclick="checkItem1(this)" checked="true"
+                   value="1">无
+            <input type="checkbox" name="userExpose" value="2">化学品
+            <input type="checkbox" name="userExpose" value="3">毒物
+            <input type="checkbox" name="userExpose" value="4">射线
+        </td>
+    </tr>
+    <tr>
+        <td colspan="1" rowspan="4"><input class="easyui-textbox tdText_h" readonly="true" type="text" value="既往史:"></input></td>
+        <td colspan="1" >疾病</td>
+        <td colspan="9">
+            <input type="checkbox" name="userIllness" onclick="checkItem1(this)" checked="true"
+                   value="1"><input class="easyui-textbox" readonly="true" type="text" value="无" style="border: 0px;width: 25%;overflow:hidden;">
+            <input type="checkbox" name="userIllness" value="2"><input class="easyui-textbox" readonly="true" value="高血压" style="border: 0px;width: 25%;overflow:hidden;">
+            <input type="checkbox" name="userIllness" value="3"><input class="easyui-textbox" readonly="true" value="糖尿病" style="border: 0px;width: 25%;overflow:hidden;"><br>
+            <input type="checkbox" name="userIllness" value="4"><input class="easyui-textbox" readonly="true" value="冠心病" style="border: 0px;width: 25%;overflow:hidden;">
+            <input type="checkbox" name="userIllness" value="5"><input class="easyui-textbox" readonly="true" value="慢性阻塞性肺炎" style="border: 0px;width: 25%;overflow:hidden;">
+            <input type="checkbox" name="userIllness" value="6"><input class="easyui-textbox" readonly="true" value="恶性肿瘤" style="border: 0px;width: 25%;overflow:hidden;"><br>
+            <input type="checkbox" name="userIllness" value="7"><input class="easyui-textbox" readonly="true" value="脑卒中" style="border: 0px;width: 25%;overflow:hidden;">
+            <input type="checkbox" name="userIllness" value="8"><input class="easyui-textbox" readonly="true" value="重型精神病" style="border: 0px;width: 25%;overflow:hidden;">
+            <input type="checkbox" name="userIllness" value="9"><input class="easyui-textbox" readonly="true" value="结核病" style="border: 0px;width: 25%;overflow:hidden;"><br>
+            <input type="checkbox" name="userIllness" value="10"><input class="easyui-textbox" readonly="true" value="肝炎" style="border: 0px;width: 25%;overflow:hidden;">
+            <input type="checkbox" name="userIllness" value="11"><input class="easyui-textbox" readonly="true" value="其他法定传染病" style="border: 0px;width: 25%;overflow:hidden;">
+            <input type="checkbox" name="userIllness" value="12"><input class="easyui-textbox" readonly="true" value="职业病" style="border: 0px;width: 25%;overflow:hidden;">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text" value="手术"></input></td>
+        <td colspan="3" >
+            <input type="radio" name="userSurgery" checked="true" value="1">无
+            <input type="radio" name="userSurgery" value="2">有</td>
+        <td colspan="1" ><input class="easyui-textbox tdText_h" readonly="true" type="text" value="原因"></input></td>
+        <td colspan="1"></td>
+        <td colspan="1" ><input class="easyui-textbox tdText_h" readonly="true" type="text" value="时间"></input></td>
+        <td colspan="1"></td>
+    </tr>
+    <tr>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text" value="外伤"></input></td>
+        <td colspan="3" >
+            <input type="radio" name="userTrauma" checked="true" value="1">无
+            <input type="radio" name="userTrauma" value="2">有</td>
+        <td colspan="1" ><input class="easyui-textbox tdText_h" readonly="true" type="text" value="原因"></input></td>
+        <td colspan="1"></td>
+        <td colspan="1" ><input class="easyui-textbox tdText_h" readonly="true" type="text" value="时间"></input></td>
+        <td colspan="1"></td>
+    </tr>
+    <tr>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text" value="输血"></input></td>
+        <td colspan="3" >
+            <input type="radio" name="userBlood" checked="true" value="1">无
+            <input type="radio" name="userBlood" value="2">有</td>
+        <td colspan="1" ><input class="easyui-textbox tdText_h" readonly="true" type="text" value="原因"></input></td>
+        <td colspan="1"></td>
+        <td colspan="1" ><input class="easyui-textbox tdText_h" readonly="true" type="text" value="时间"></input></td>
+        <td colspan="1"></td>
+    </tr>
+
+    <tr>
+        <td colspan="1" rowspan="2">家庭</td>
+        <td colspan="1" >父亲</td>
+        <td colspan="4" > <select class="easyui-combobox" name="userFather" multiple="true" multiline="true"  style="width:200%;height:25%;">
+            <option value="1">无残疾</option>
+            <option value="2">视力残疾</option>
+            <option value="3">听力残疾</option>
+            <option value="4">言语残疾</option>
+            <option value="5">肢体残疾</option>
+            <option value="6">智力残疾</option>
+            <option value="7">精神残疾</option>
+            <option value="8">其他残疾</option>
+        </select></td>
+        <td colspan="1">母亲</td>
+        <td colspan="3" ><select class="easyui-combobox" name="userNather" multiple="true" multiline="true"  style="width:200%;height:25%;">
+            <option value="1">无残疾</option>
+            <option value="2">视力残疾</option>
+            <option value="3">听力残疾</option>
+            <option value="4">言语残疾</option>
+            <option value="5">肢体残疾</option>
+            <option value="6">智力残疾</option>
+            <option value="7">精神残疾</option>
+            <option value="8">其他残疾</option>
+        </select></td>
+    </tr>
+    <tr>
+        <td colspan="1" >兄妹</td>
+        <td colspan="4" > <select class="easyui-combobox" name="userBirthdy" multiple="true" multiline="true" style="width:200%;height:25%;">
+            <option value="1">无残疾</option>
+            <option value="2">视力残疾</option>
+            <option value="3">听力残疾</option>
+            <option value="4">言语残疾</option>
+            <option value="5">肢体残疾</option>
+            <option value="6">智力残疾</option>
+            <option value="7">精神残疾</option>
+            <option value="8">其他残疾</option>
+        </select></td>
+        <td colspan="1">子女</td>
+        <td colspan="3" ><select class="easyui-combobox" name="userSon" multiple="true" multiline="true"  style="width:200%;height:25%;">
+            <option value="1">无残疾</option>
+            <option value="2">视力残疾</option>
+            <option value="3">听力残疾</option>
+            <option value="4">言语残疾</option>
+            <option value="5">肢体残疾</option>
+            <option value="6">智力残疾</option>
+            <option value="7">精神残疾</option>
+            <option value="8">其他残疾</option>
+        </select></td>
+    </tr>
+
+    <tr>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text" value="遗传病史"></input></td>
+        <td colspan="9" >
+            <input type="radio" name="userHeredity" checked="true" value="1">无
+            <input type="radio" name="userHeredity" value="2">有</td>
+
+    </tr>
+    <tr>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text" value="残疾情况"></input></td>
+        <td colspan="9" >
+            <input type="checkbox" name="userDisability" onclick="checkItem1(this)" checked="true"
+                   value="1">无残疾
+            <input type="checkbox" name="userDisability" value="2">视力残疾
+            <input type="checkbox" name="userDisability" value="3">听力残疾
+            <input type="checkbox" name="userDisability" value="4">言语残疾
+            <input type="checkbox" name="userDisability" value="5">肢体残疾
+            <input type="checkbox" name="userDisability" value="6">智力残疾
+            <input type="checkbox" name="userDisability" value="7">精神残疾
+            <input type="checkbox" name="userDisability" value="8">其他
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="1" rowspan="5"><input class="easyui-textbox tdText_h" readonly="true" type="text" value="生活环境"></input></td>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text" value="排风"></input></td>
+        <td colspan="8" >
+            <input type="radio" name="userKitchen" checked="true" value="1">无
+            <input type="radio" name="userKitchen" value="2">油烟机
+            <input type="radio" name="userKitchen" value="3">换风扇
+            <input type="radio" name="userKitchen" value="4">烟囱
+        </td>
+
+    </tr>
+    <tr>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text" value="燃料"></input></td>
+        <td colspan="8" >
+            <input type="radio" name="userFuel" checked="true" value="1">柴火
+            <input type="radio" name="userFuel" value="2">液化气
+            <input type="radio" name="userFuel" value="3">煤
+            <input type="radio" name="userFuel" value="4">天然气
+            <input type="radio" name="userFuel" value="5">沼气
+            <input type="radio" name="userFuel" value="6">其他
+        </td>
+
+    </tr>
+    <tr>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text" value="饮水"></input></td>
+        <td colspan="8" >
+            <input type="radio" name="userWater" checked="true" value="1">自来水
+            <input type="radio" name="userWater" value="2">过滤水
+            <input type="radio" name="userWater" value="3">井水
+            <input type="radio" name="userWater" value="4">河湖水
+            <input type="radio" name="userWater" value="5">塘水
+        </td>
+
+    </tr>
+    <tr>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text" value="厕所"></input></td>
+        <td colspan="8" >
+            <input type="radio" name="userWc" checked="true" value="1">卫生厕所
+            <input type="radio" name="userWc" value="2">一格/二格粪池
+            <input type="radio" name="userWc" value="3">马桶
+            <input type="radio" name="userWc" value="4">露天粪坑
+        </td>
+
+    </tr>
+    <tr>
+        <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text" value="畜栏"></input></td>
+        <td colspan="8" >
+            <input type="radio" name="userLinestock" checked="true" value="1">无
+            <input type="radio" name="userLinestock" value="2">单设
+            <input type="radio" name="userLinestock" value="3">室内
+            <input type="radio" name="userLinestock" value="4">室外
+        </td>
+
+    </tr>
+</table>
+
+</div>
+</div>
+</html>

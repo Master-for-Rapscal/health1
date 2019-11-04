@@ -44,13 +44,25 @@
     <!-- 添加用户 -->
     <insert id="add" parameterType="Userinfo">
 INSERT into userinfo(recordName,recordUnit,recordAdress,recordPostalcode,recordPlaceadress,recordCreateuserid,recordResponuserid,recordData,recordMedical,recordResident,
-recordBookbuilding,recordCategory,recordInputtingcard) VALUES(#{recordName},#{recordUnit},#{recordAdress},#{recordPostalcode},#{recordPlaceadress},
-#{recordCreateuserid},#{recordResponuserid},#{recordData},#{recordMedical},#{recordResident},
-#{recordBookbuilding},#{recordCategory},#{recordInputtingcard})
+recordBookbuilding,recordCategory,recordInputtingcard,recordPicurl,recordFamily,userPapernumber,userNumber,userSex,userBirthday,userIdnumber,userWorkunit,
+userMyphone,userPemanent,userNamtion,userBloodtype,userRh,userCulture,userCareer,userGam,userPayway,userAllergy,userExpose,userIllness,userSurgery,userTrauma,
+userBlood,userFather,userNather,userBirthdy,userSon,userHeredity,userDisability,userKitchen,userFuel,userWater,userWc,userLinestock,userState,userDe ) VALUES(#{recordName},#{recordUnit},#{recordAdress},#{recordPostalcode},#{recordPlaceadress},#{recordCreateuserid},#{recordResponuserid},#{recordData},#{recordMedical},#{recordResident},#{
+recordBookbuilding},#{recordCategory},#{recordInputtingcard},#{recordPicurl},#{recordFamily},#{userPapernumber},#{userNumber},#{userSex},#{userBirthday},#{userIdnumber},#{userWorkunit},#{
+userMyphone},#{userPemanent},#{userNamtion},#{userBloodtype},#{userRh},#{userCulture},#{userCareer},#{userGam},#{userPayway},#{userAllergy},#{userExpose},#{userIllness},#{userSurgery},#{userTrauma},#{
+userBlood},#{userFather},#{userNather},#{userBirthdy},#{userSon},#{userHeredity},#{userDisability},#{userKitchen},#{userFuel},#{userWater},#{userWc},#{userLinestock},#{userState},#{userDe})
+
+-- call pAdduserinfo()
     </insert>
     <!-- 修改用户 -->
     <update id="edit" parameterType="Userinfo">
---         update userinfo set username = #{username},roleId = #{roleId},photo = #{photo},sex = #{sex},age = #{age},address = #{address} where id = #{id}
+         update userinfo set recordName=#{recordName},recordUnit=#{recordUnit},recordAdress=#{recordAdress},recordPostalcode=#{recordPostalcode},recordPlaceadress=#{recordPlaceadress},recordCreateuserid=#{recordCreateuserid},recordResponuserid=#{recordResponuserid},recordData=#{recordData},recordMedical=#{recordMedical},recordResident=#{recordResident},
+recordBookbuilding=#{
+recordBookbuilding},recordCategory=#{recordCategory},recordInputtingcard=#{recordInputtingcard},recordPicurl=#{recordPicurl},recordFamily=#{recordFamily},userPapernumber=#{userPapernumber},userNumber=#{userNumber},userSex=#{userSex},userBirthday=#{userBirthday},userIdnumber=#{userIdnumber},userWorkunit=#{userWorkunit},
+userMyphone=#{
+userMyphone},userPemanent=#{userPemanent},userNamtion=#{userNamtion},userBloodtype=#{userBloodtype},userRh=#{userRh},userCulture=#{userCulture},userCareer=#{userCareer},userGam=#{userGam},userPayway=#{userPayway},userAllergy=#{userAllergy},userExpose=#{userExpose},userIllness=#{userIllness},userSurgery=#{userSurgery},userTrauma=#{userTrauma},
+userBlood=#{
+userBlood},userFather=#{userFather},userNather=#{userNather},userBirthdy=#{userBirthdy},userSon=#{userSon},userHeredity=#{userHeredity},userDisability=#{userDisability},userKitchen=#{userKitchen},userFuel=#{userFuel},userWater=#{userWater},userWc=#{userWc},userLinestock=#{userLinestock},userState=#{userState},userDe=#{userDe}
+where userId = #{userId}
     </update>
 
     <select id="findById" parameterType="Long" resultType="Userinfo">

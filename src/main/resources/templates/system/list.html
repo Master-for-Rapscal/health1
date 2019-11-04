@@ -64,10 +64,57 @@
         });
     }
 
+    function edit3(){
+        var info =$("#search-name").val();
+
+        if (info.indexOf("varchar")!= -1||info.indexOf("int")!= -1||info.indexOf("decimal")!= -1||info.indexOf("date")!= -1) {
+            $.ajax({
+                url: 'edit3',
+                dataType: 'json',
+                type: 'post',
+                data: {info:info},
+                success: function (data) {
+                    if (data.type == 'success') {
+                        // alert(data.news);
+                        $("#search-name").val(data.news);
+                    } else {
+
+                    }
+                }
+            });
+        }else {
+            $.messager.alert('信息提示','请添加正确格式数据；例如recordName varchar(100),recordUnit  int,Visionr decimal(10,2),seFromdate date','info');
+        }
+
+    }
+
+    function edit4(){
+        var info =$("#search-name").val();
+
+
+            $.ajax({
+                url: 'edit4',
+                dataType: 'json',
+                type: 'post',
+                data: {info:info},
+                success: function (data) {
+                    if (data.type == 'success') {
+                        // alert(data.news);
+                        $("#search-name").val(data.news);
+                    } else {
+
+                    }
+                }
+            });
+
+
+    }
+
     function Copy() {
         var content = document.getElementById('search-name');
         content.select();
         document.execCommand('Copy');
         alert('复制成功');
+       $("#search-name").val("");
     }
 </script>

@@ -42,15 +42,61 @@ public class toCamer {
 //        System.out.println(humpToLine(lineToHump));// f_parent_no_leader
 //        System.out.println(humpToLine2(lineToHump));// f_parent_no_leader
 
-        String lineToHump = "userNather,userBirthdy,userSon";//lineToHump("recordName,recordUnit,recordAdress");
-        System.out.println(lineToHump);// fParentNoLeader
-        System.out.println(caseToCase(lineToHump));// f_parent_no_leader
+        String lineToHump = "recordPlaceadress,recordCreateuserid,recordPlaceadress,recordCreateuserid";//lineToHump("recordName,recordUnit,recordAdress");
 
+        System.out.println(lineToHump);// fParentNoLeader
+        System.out.println(caseToCase4(lineToHump));// f_parent_no_leader
+
+    }
+    public static String caseToCase4(String ids) {
+
+        int n =0;
+        String[] words;
+        if (ids.contains(",")) {
+        for(int i=0;i<ids.length();i++){
+            if(ids.charAt(i)==',') n++;
+        }
+        words=ids.trim().split(",");
+        ids="";
+        for(int i=0; i<=n; i++) {
+            ids+=words[i]+"="+"#{"+words[i]+"},";
+        }
+
+        }else {
+            ids=ids+"="+"#{"+ids+"}";
+        }
+
+        return ids;
+    }
+
+
+    public static String caseToCase3(String ids) {
+
+        if (ids.contains(",")) {
+//
+//            剔除数字
+            Pattern p = Pattern.compile("[\\d]");
+            Matcher matcher = p.matcher(ids);
+             ids= matcher.replaceAll("");
+            ids=ids.replace(",","},#{");
+//            、、
+            ids=ids.replace(" varchar()",",jdbcType=VARCHAR");
+            ids=ids.replace(" int",",jdbcType=INTEGER");
+            ids=ids.replace(" decimal(},#{)",",jdbcType=NUMERIC ");
+            ids=ids.replace(" date",",jdbcType=DATE ");
+
+
+            ids="#{"+ids+"}";
+        }
+        return ids;
     }
 
     public static String caseToCase(String ids) {
+
         if (ids.contains(",")) {
             ids=ids.replace(",","},#{");
+            ids="#{"+ids+"}";
+        }else {
             ids="#{"+ids+"}";
         }
         return ids;

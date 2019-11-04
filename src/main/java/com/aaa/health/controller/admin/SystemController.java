@@ -220,5 +220,30 @@ public class SystemController {
         ret.put("msg", "用户修改成功！");
         return ret;
     }
+    /*
+     * 转换#{}工具
+     * */
+    @RequestMapping(value = "/edit3", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> getList3(String info) {
+        Map<String, String> ret = new HashMap<String, String>();
+        String news = toCamer.caseToCase3(info);
+
+        ret.put("news", news);
+        ret.put("type", "success");
+        ret.put("msg", "数据修改成功！");
+        return ret;
+    }
+    @RequestMapping(value = "/edit4", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> getList4(String info) {
+        Map<String, String> ret = new HashMap<String, String>();
+        String news = toCamer.caseToCase4(info);
+
+        ret.put("news", news);
+        ret.put("type", "success");
+        ret.put("msg", "数据修改成功！");
+        return ret;
+    }
 
 }

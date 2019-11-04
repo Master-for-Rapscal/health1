@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.zzh.HealthcheckMapper">
+    <!-- 分页获取用户列表 -->
+    <select id="findList" parameterType="Map" resultType="Healthcheck">
+        SELECT * from healthcheck where 1 = 1
+        <if test="userinfoId != null">
+            and userinfoId = #{userinfoId}
+        </if>
+
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <!-- 获取符合结果的总记录数 -->
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select count(*) from healthcheck where 1 = 1
+        <if test="userinfoId != null">
+            and userinfoId = #{userinfoId}
+        </if>
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+    <!-- 删除用户 -->
+    <delete id="delete" parameterType="Healthcheck">
+        delete from healthcheck where healthcheckId in(${value})
+    </delete>
+
+    <!-- 添加用户 -->
+    <insert id="add" parameterType="Healthcheck">
+     INSERT into healthcheck(healthcheckDate, healthcheckStyleDaydrink, healthcheckStatusWaist, healthcheckStatusConstitution, healthcheckStatusWeight, healthcheckVisceraVisionl,
+healthcheckVisceraVisionr, healthcheckVisceraCval, healthcheckVisceraCvar, healthcheckAcpHemoglobin, healthcheckAcpHemameba, healthcheckAcpSoterocyte,
+healthcheckAcpFbg1, healthcheckAcpFbg2, healthcheckAcpHbalc, healthcheckAcpDbil, healthcheckAcpBun, healthcheckAcpPotasiosangre, healthcheckAcpTch,
+healthcheckAcpColesterolldl, healthcheckAcpColesterolhdl, userinfoId, healthcheckDoctor, healthcheckStatusHeight, healthcheckStatusStateevaluation,
+healthcheckStatusSelf, healthcheckStatusPerceive, healthcheckStatusEmotion, healthcheckStyleExfrequency, healthcheckStyleEverytime, healthcheckStyleInsisttime,
+healthcheckStyleSmokingstate, healthcheckStyleSmokingnum, healthcheckStyleSmokingage, healthcheckStyleCessationage, healthcheckStyleDrink,
+healthcheckCheckupVulva, healthcheckCheckupVagina, healthcheckCheckupCervix, healthcheckCheckupCorpus, healthcheckCheckupAdjunct,
+healthcheckAcpOccultbloodstool, healthcheckAcpHbsag, healthcheckAcpSgpt, healthcheckAcpSgot, healthcheckAcpAlb, healthcheckAcpTbil, healthcheckAcpTrig,
+healthcheckAcpChestxray, healthcheckAcpOthers, healthcheckStatusGrade, healthcheckStatusState, healthcheckAcpCreatinine, healthcheckAcpSerumsodium,
+healthcheckAcpUalb, healthcheckStyleTemperance, healthcheckStyleTemperanceage, healthcheckStyleBegintemperance, healthcheckStyleEbriety,
+healthcheckVisceraMotor, healthcheckCheckupBarrelchest, healthcheckCheckupHeartrate, healthcheckCheckupEdema, healthcheckCheckupAcrotarsium,
+healthcheckVisceraLips, healthcheckVisceraPharynx, healthcheckStyleOccupational, healthcheckStyleWorkyear, healthcheckSymptomSympotom,
+healthcheckStatusHeat, healthcheckStatusPr, healthcheckStatusRr, healthcheckStatusBrl, healthcheckStatusBrr, healthcheckStyleExercise, healthcheckStyleDietary,
+healthcheckStyleDrinktype, healthcheckStyleCraft, healthcheckStyleDust, healthcheckStyleDustfence, healthcheckStyleRadiate, healthcheckStyleRadiatefence,
+healthcheckStylePhysics, healthcheckStylePhysicsfence, healthcheckStyleChemistry, healthcheckStyleChemistryfence, healthcheckStyleOthers,
+healthcheckStyleOthersfence, healthcheckVisceraDentrue, healthcheckVisceraEar, healthcheckCheckupEye, healthcheckCheckupSkin, healthcheckCheckupSclera,
+healthcheckCheckupLymphaden, healthcheckCheckupBreathsounds, healthcheckCheckupRale, healthcheckCheckupNoise, healthcheckCheckupTenderness,
+healthcheckCheckupMasses, healthcheckCheckupHepatomegaly, healthcheckCheckupSplenauxe, healthcheckCheckupDevoice, healthcheckCheckupAnus,
+healthcheckCheckupBreast, healthcheckCheckupOthers, healthcheckAcpBloodroutineother, healthcheckAcpPro, healthcheckAcpUglu, healthcheckAcpKet,
+healthcheckAcpEry, healthcheckAcpEcg, healthcheckAcpBtypeultrasonic, healthcheckAcpBultrasoundothers, healthcheckAcpPapsmear, healthcheckProblemaCered,
+healthcheckProblemaKidneyd, healthcheckProblemaHeartd, healthcheckProblemaVarsculard, healthcheckProblemaEyed, healthcheckProblemaNervousystem,
+healthcheckProblemaOthersdis)VALUES(#{healthcheckDate},#{ healthcheckStyleDaydrink},#{ healthcheckStatusWaist},#{ healthcheckStatusConstitution},#{ healthcheckStatusWeight},#{ healthcheckVisceraVisionl},#{
+healthcheckVisceraVisionr},#{ healthcheckVisceraCval},#{ healthcheckVisceraCvar},#{ healthcheckAcpHemoglobin},#{ healthcheckAcpHemameba},#{ healthcheckAcpSoterocyte},#{
+healthcheckAcpFbg1},#{ healthcheckAcpFbg2},#{ healthcheckAcpHbalc},#{ healthcheckAcpDbil},#{ healthcheckAcpBun},#{ healthcheckAcpPotasiosangre},#{ healthcheckAcpTch},#{
+healthcheckAcpColesterolldl},#{ healthcheckAcpColesterolhdl},#{ userinfoId},#{ healthcheckDoctor},#{ healthcheckStatusHeight},#{ healthcheckStatusStateevaluation},#{
+healthcheckStatusSelf},#{ healthcheckStatusPerceive},#{ healthcheckStatusEmotion},#{ healthcheckStyleExfrequency},#{ healthcheckStyleEverytime},#{ healthcheckStyleInsisttime},#{
+healthcheckStyleSmokingstate},#{ healthcheckStyleSmokingnum},#{ healthcheckStyleSmokingage},#{ healthcheckStyleCessationage},#{ healthcheckStyleDrink},#{
+healthcheckCheckupVulva},#{ healthcheckCheckupVagina},#{ healthcheckCheckupCervix},#{ healthcheckCheckupCorpus},#{ healthcheckCheckupAdjunct},#{
+healthcheckAcpOccultbloodstool},#{ healthcheckAcpHbsag},#{ healthcheckAcpSgpt},#{ healthcheckAcpSgot},#{ healthcheckAcpAlb},#{ healthcheckAcpTbil},#{ healthcheckAcpTrig},#{
+healthcheckAcpChestxray},#{ healthcheckAcpOthers},#{ healthcheckStatusGrade},#{ healthcheckStatusState},#{ healthcheckAcpCreatinine},#{ healthcheckAcpSerumsodium},#{
+healthcheckAcpUalb},#{ healthcheckStyleTemperance},#{ healthcheckStyleTemperanceage},#{ healthcheckStyleBegintemperance},#{ healthcheckStyleEbriety},#{
+healthcheckVisceraMotor},#{ healthcheckCheckupBarrelchest},#{ healthcheckCheckupHeartrate},#{ healthcheckCheckupEdema},#{ healthcheckCheckupAcrotarsium},#{
+healthcheckVisceraLips},#{ healthcheckVisceraPharynx},#{ healthcheckStyleOccupational},#{ healthcheckStyleWorkyear},#{ healthcheckSymptomSympotom},#{
+healthcheckStatusHeat},#{ healthcheckStatusPr},#{ healthcheckStatusRr},#{ healthcheckStatusBrl},#{ healthcheckStatusBrr},#{ healthcheckStyleExercise},#{ healthcheckStyleDietary},#{
+healthcheckStyleDrinktype},#{ healthcheckStyleCraft},#{ healthcheckStyleDust},#{ healthcheckStyleDustfence},#{ healthcheckStyleRadiate},#{ healthcheckStyleRadiatefence},#{
+healthcheckStylePhysics},#{ healthcheckStylePhysicsfence},#{ healthcheckStyleChemistry},#{ healthcheckStyleChemistryfence},#{ healthcheckStyleOthers},#{
+healthcheckStyleOthersfence},#{ healthcheckVisceraDentrue},#{ healthcheckVisceraEar},#{ healthcheckCheckupEye},#{ healthcheckCheckupSkin},#{ healthcheckCheckupSclera},#{
+healthcheckCheckupLymphaden},#{ healthcheckCheckupBreathsounds},#{ healthcheckCheckupRale},#{ healthcheckCheckupNoise},#{ healthcheckCheckupTenderness},#{
+healthcheckCheckupMasses},#{ healthcheckCheckupHepatomegaly},#{ healthcheckCheckupSplenauxe},#{ healthcheckCheckupDevoice},#{ healthcheckCheckupAnus},#{
+healthcheckCheckupBreast},#{ healthcheckCheckupOthers},#{ healthcheckAcpBloodroutineother},#{ healthcheckAcpPro},#{ healthcheckAcpUglu},#{ healthcheckAcpKet},#{
+healthcheckAcpEry},#{ healthcheckAcpEcg},#{ healthcheckAcpBtypeultrasonic},#{ healthcheckAcpBultrasoundothers},#{ healthcheckAcpPapsmear},#{ healthcheckProblemaCered},#{
+healthcheckProblemaKidneyd},#{ healthcheckProblemaHeartd},#{ healthcheckProblemaVarsculard},#{ healthcheckProblemaEyed},#{ healthcheckProblemaNervousystem},#{
+healthcheckProblemaOthersdis})
+
+-- call pAdduserinfo()
+    </insert>
+    <!-- 修改用户 -->
+    <update id="edit" parameterType="Healthcheck">
+         update healthcheck set
+          healthcheckDate=#{healthcheckDate}, healthcheckStyleDaydrink=#{ healthcheckStyleDaydrink}, healthcheckStatusWaist=#{ healthcheckStatusWaist}, healthcheckStatusConstitution=#{ healthcheckStatusConstitution}, healthcheckStatusWeight=#{ healthcheckStatusWeight}, healthcheckVisceraVisionl=#{ healthcheckVisceraVisionl},
+healthcheckVisceraVisionr=#{healthcheckVisceraVisionr}, healthcheckVisceraCval=#{ healthcheckVisceraCval}, healthcheckVisceraCvar=#{ healthcheckVisceraCvar}, healthcheckAcpHemoglobin=#{ healthcheckAcpHemoglobin}, healthcheckAcpHemameba=#{ healthcheckAcpHemameba}, healthcheckAcpSoterocyte=#{ healthcheckAcpSoterocyte},
+healthcheckAcpFbg1=#{healthcheckAcpFbg1}, healthcheckAcpFbg2=#{ healthcheckAcpFbg2}, healthcheckAcpHbalc=#{ healthcheckAcpHbalc}, healthcheckAcpDbil=#{ healthcheckAcpDbil}, healthcheckAcpBun=#{ healthcheckAcpBun}, healthcheckAcpPotasiosangre=#{ healthcheckAcpPotasiosangre}, healthcheckAcpTch=#{ healthcheckAcpTch},
+healthcheckAcpColesterolldl=#{healthcheckAcpColesterolldl}, healthcheckAcpColesterolhdl=#{ healthcheckAcpColesterolhdl}, userinfoId=#{ userinfoId}, healthcheckDoctor=#{ healthcheckDoctor}, healthcheckStatusHeight=#{ healthcheckStatusHeight}, healthcheckStatusStateevaluation=#{ healthcheckStatusStateevaluation},
+healthcheckStatusSelf=#{healthcheckStatusSelf}, healthcheckStatusPerceive=#{ healthcheckStatusPerceive}, healthcheckStatusEmotion=#{ healthcheckStatusEmotion}, healthcheckStyleExfrequency=#{ healthcheckStyleExfrequency}, healthcheckStyleEverytime=#{ healthcheckStyleEverytime}, healthcheckStyleInsisttime=#{ healthcheckStyleInsisttime},
+healthcheckStyleSmokingstate=#{healthcheckStyleSmokingstate}, healthcheckStyleSmokingnum=#{ healthcheckStyleSmokingnum}, healthcheckStyleSmokingage=#{ healthcheckStyleSmokingage}, healthcheckStyleCessationage=#{ healthcheckStyleCessationage}, healthcheckStyleDrink=#{ healthcheckStyleDrink},
+healthcheckCheckupVulva=#{healthcheckCheckupVulva}, healthcheckCheckupVagina=#{ healthcheckCheckupVagina}, healthcheckCheckupCervix=#{ healthcheckCheckupCervix}, healthcheckCheckupCorpus=#{ healthcheckCheckupCorpus}, healthcheckCheckupAdjunct=#{ healthcheckCheckupAdjunct},
+healthcheckAcpOccultbloodstool=#{healthcheckAcpOccultbloodstool}, healthcheckAcpHbsag=#{ healthcheckAcpHbsag}, healthcheckAcpSgpt=#{ healthcheckAcpSgpt}, healthcheckAcpSgot=#{ healthcheckAcpSgot}, healthcheckAcpAlb=#{ healthcheckAcpAlb}, healthcheckAcpTbil=#{ healthcheckAcpTbil}, healthcheckAcpTrig=#{ healthcheckAcpTrig},
+healthcheckAcpChestxray=#{healthcheckAcpChestxray}, healthcheckAcpOthers=#{ healthcheckAcpOthers}, healthcheckStatusGrade=#{ healthcheckStatusGrade}, healthcheckStatusState=#{ healthcheckStatusState}, healthcheckAcpCreatinine=#{ healthcheckAcpCreatinine}, healthcheckAcpSerumsodium=#{ healthcheckAcpSerumsodium},
+healthcheckAcpUalb=#{healthcheckAcpUalb}, healthcheckStyleTemperance=#{ healthcheckStyleTemperance}, healthcheckStyleTemperanceage=#{ healthcheckStyleTemperanceage}, healthcheckStyleBegintemperance=#{ healthcheckStyleBegintemperance}, healthcheckStyleEbriety=#{ healthcheckStyleEbriety},
+healthcheckVisceraMotor=#{healthcheckVisceraMotor}, healthcheckCheckupBarrelchest=#{ healthcheckCheckupBarrelchest}, healthcheckCheckupHeartrate=#{ healthcheckCheckupHeartrate}, healthcheckCheckupEdema=#{ healthcheckCheckupEdema}, healthcheckCheckupAcrotarsium=#{ healthcheckCheckupAcrotarsium},
+healthcheckVisceraLips=#{healthcheckVisceraLips}, healthcheckVisceraPharynx=#{ healthcheckVisceraPharynx}, healthcheckStyleOccupational=#{ healthcheckStyleOccupational}, healthcheckStyleWorkyear=#{ healthcheckStyleWorkyear}, healthcheckSymptomSympotom=#{ healthcheckSymptomSympotom},
+healthcheckStatusHeat=#{healthcheckStatusHeat}, healthcheckStatusPr=#{ healthcheckStatusPr}, healthcheckStatusRr=#{ healthcheckStatusRr}, healthcheckStatusBrl=#{ healthcheckStatusBrl}, healthcheckStatusBrr=#{ healthcheckStatusBrr}, healthcheckStyleExercise=#{ healthcheckStyleExercise}, healthcheckStyleDietary=#{ healthcheckStyleDietary},
+healthcheckStyleDrinktype=#{healthcheckStyleDrinktype}, healthcheckStyleCraft=#{ healthcheckStyleCraft}, healthcheckStyleDust=#{ healthcheckStyleDust}, healthcheckStyleDustfence=#{ healthcheckStyleDustfence}, healthcheckStyleRadiate=#{ healthcheckStyleRadiate}, healthcheckStyleRadiatefence=#{ healthcheckStyleRadiatefence},
+healthcheckStylePhysics=#{healthcheckStylePhysics}, healthcheckStylePhysicsfence=#{ healthcheckStylePhysicsfence}, healthcheckStyleChemistry=#{ healthcheckStyleChemistry}, healthcheckStyleChemistryfence=#{ healthcheckStyleChemistryfence}, healthcheckStyleOthers=#{ healthcheckStyleOthers},
+healthcheckStyleOthersfence=#{healthcheckStyleOthersfence}, healthcheckVisceraDentrue=#{ healthcheckVisceraDentrue}, healthcheckVisceraEar=#{ healthcheckVisceraEar}, healthcheckCheckupEye=#{ healthcheckCheckupEye}, healthcheckCheckupSkin=#{ healthcheckCheckupSkin}, healthcheckCheckupSclera=#{ healthcheckCheckupSclera},
+healthcheckCheckupLymphaden=#{healthcheckCheckupLymphaden}, healthcheckCheckupBreathsounds=#{ healthcheckCheckupBreathsounds}, healthcheckCheckupRale=#{ healthcheckCheckupRale}, healthcheckCheckupNoise=#{ healthcheckCheckupNoise}, healthcheckCheckupTenderness=#{ healthcheckCheckupTenderness},
+healthcheckCheckupMasses=#{healthcheckCheckupMasses}, healthcheckCheckupHepatomegaly=#{ healthcheckCheckupHepatomegaly}, healthcheckCheckupSplenauxe=#{ healthcheckCheckupSplenauxe}, healthcheckCheckupDevoice=#{ healthcheckCheckupDevoice}, healthcheckCheckupAnus=#{ healthcheckCheckupAnus},
+healthcheckCheckupBreast=#{healthcheckCheckupBreast}, healthcheckCheckupOthers=#{ healthcheckCheckupOthers}, healthcheckAcpBloodroutineother=#{ healthcheckAcpBloodroutineother}, healthcheckAcpPro=#{ healthcheckAcpPro}, healthcheckAcpUglu=#{ healthcheckAcpUglu}, healthcheckAcpKet=#{ healthcheckAcpKet},
+healthcheckAcpEry=#{healthcheckAcpEry}, healthcheckAcpEcg=#{ healthcheckAcpEcg}, healthcheckAcpBtypeultrasonic=#{ healthcheckAcpBtypeultrasonic}, healthcheckAcpBultrasoundothers=#{ healthcheckAcpBultrasoundothers}, healthcheckAcpPapsmear=#{ healthcheckAcpPapsmear}, healthcheckProblemaCered=#{ healthcheckProblemaCered},
+healthcheckProblemaKidneyd=#{healthcheckProblemaKidneyd}, healthcheckProblemaHeartd=#{ healthcheckProblemaHeartd}, healthcheckProblemaVarsculard=#{ healthcheckProblemaVarsculard}, healthcheckProblemaEyed=#{ healthcheckProblemaEyed}, healthcheckProblemaNervousystem=#{ healthcheckProblemaNervousystem},
+healthcheckProblemaOthersdis=#{healthcheckProblemaOthersdis}
+      where healthcheckId = #{healthcheckId}
+    </update>
+
+    <select id="findById" parameterType="Long" resultType="Healthcheck">
+        SELECT * from healthcheck where  healthcheckId=#{healthcheckId}
+
+    </select>
+</mapper>

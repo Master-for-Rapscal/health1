@@ -4,6 +4,7 @@ package com.aaa.health.entity.zzh;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class Userinfo {
@@ -36,7 +37,6 @@ public class Userinfo {
     userBirthday   ;
     private  String
     recordName    ,
-
     recordAdress    ,
     recordPostalcode    ,
     recordPlaceadress    ,
@@ -518,5 +518,4 @@ public class Userinfo {
     public void setUserDe(String userDe) {
         this.userDe = userDe;
     }
-
 }

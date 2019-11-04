@@ -65,7 +65,7 @@ public class UserinfoController {
     /**
      * 添加用户方法
      *
-     * @param user
+     * @param userinfo
      * @return
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -77,10 +77,7 @@ public class UserinfoController {
             ret.put("msg", "后台获取用户信息失败！");
             return ret;
         }
-
-
         System.out.println(userinfo);
-
         if (userinfoService.add(userinfo) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "添加用户信息失败，请联系管理员！");
@@ -153,7 +150,7 @@ public class UserinfoController {
             ret.put("msg", "后台获取用户信息失败！");
             return ret;
         }
-
+        System.out.println(userinfo.getRecordName());
         if (userinfoService.edit(userinfo) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "用户信息修改失败，请联系管理员！");
