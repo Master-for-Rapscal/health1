@@ -1,0 +1,109 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.oldpeo.OldpeoSelfMapper">
+
+    <insert id="add" parameterType="com.aaa.health.entity.oldpeo.Oldself">
+insert into oldself(oldpeoId,oldselfDine,oldselfToilet,oldselfDress,oldselfClean,oldselfEvent,oldselfState,oldselfDe)
+values(#{oldpeoId},#{oldselfDine},#{oldselfToilet},#{oldselfDress},#{oldselfClean},#{oldselfEvent},#{oldselfState},CURDATE())
+    </insert>
+
+    <update id="edit" parameterType="com.aaa.health.entity.oldpeo.Oldself">
+update oldself set oldselfDine=#{oldselfDine},oldselfToilet= #{oldselfToilet},oldselfDress=#{oldselfDress},
+oldselfClean= #{oldselfClean},oldselfEvent=#{oldselfEvent}  where oldselfId=#{oldselfId}
+    </update>
+
+
+    <delete id="delete" parameterType="String">
+        delete from oldself where oldselfId in(${value})
+    </delete>
+    <select id="queryAllUser" parameterType="map" resultType="Map">
+        select * from oldself where oldpeoId=#{oldpeoId}
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="queryUserTotal" parameterType="Map" resultType="Integer">
+        select count(* ) from oldself where oldpeoId=#{oldpeoId}
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="queryId" resultType="com.aaa.health.entity.oldpeo.Oldself" parameterType="int">
+ select * from oldself where oldselfId=#{oldselfId}
+  </select>
+
+    <select id="findList" parameterType="Map" resultType="map">
+        select *
+        from userinfo u ,oldpeo o where 1=1 and o.recordId=u.userId and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
+        <if test="userId != null and userId != 0">
+            and u.userId LIKE '%${userId}%'
+        </if>
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
+        </if>
+        <if test="userMyphone != null and userMyphone != ''">
+            AND userMyphone LIKE '%${userMyphone}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND u.recordAdress LIKE '%${recordAdress}%'
+        </if>
+        <if test="userIdnumber != null and userIdnumber != ''">
+            AND u.userIdnumber LIKE '%${userIdnumber}%'
+        </if>
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <!-- 获取符合结果的总记录数 -->
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select *
+        from userinfo u ,oldpeo o where 1=1 and o.recordId=u.userId and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
+        <if test="username != null">
+            and username like '%${username}%'
+        </if>
+        <if test="roleId != null">
+            and roleId = #{roleId}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+    </select>
+
+    <select id="queryUserById" parameterType="Integer" resultType="Map">
+          select * from userinfo u,oldpeo o WHERE  o.recordId=u.userId and o.oldpeoId=#{uid}
+    </select>
+    <select id="queryAll" parameterType="Map" resultType="Map">
+        select * from userinfo
+    </select>
+
+
+        <select id="queryLike" parameterType="Map" resultType="Map">
+        SELECT * from dmsmcard dm join userinfo u on dm.recordId=u.userId where 1=1
+        <if test="userId != null and userId != 0">
+            and u.userId LIKE '%${userId}%'
+        </if>
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
+        </if>
+        <if test="usersex != null and usersex != 0">
+            AND u.usersex = ${usersex}
+        </if>
+        <if test="userMyphone != null and userMyphone != ''">
+            AND u.userMyphone LIKE '%${userMyphone}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND recordAdress LIKE '%${recordAdress}%'
+        </if>
+        <if test="userIdnumber != null and userIdnumber != ''">
+            AND userIdnumber LIKE '%${userIdnumber}%'
+        </if>
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+        </select>
+
+    </mapper>

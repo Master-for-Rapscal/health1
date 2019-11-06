@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
+
+<body>
+<div th:fragment="editoldtcm" style="height: 580px">
+    <div class="editoldtcm">
+        <style>
+            input[type="text"] {
+                border: 0px;
+                width: 50px;
+            }
+
+            input[type="checkbox"] {
+                margin-left: 15px;
+            }
+        </style>
+        <form id="editform" method="post">
+            <table width="600" style="height:500px; margin-bottom: 40px" border="1" cellspacing="0" cellpadding="1" id="tab1">
+                <caption>
+                    <h3>修改</h3>
+                </caption>
+                <input type="hidden" name="oldtcmId"  id="editoldtcmId">
+                <input type="hidden" name="oldpeoId"  id="editoldpeoId">
+                <tr>
+                    <td>姓名</td>
+                    <td colspan="4"><input type="text" style="width: 200px" name="recordName" id="recordName2" readonly></td>
+                    <td>编号</td>
+                    <td colspan="4"><input type="text" style="width: 200px" name="userNumber" id="userNumber2" readonly></td>
+                </tr>
+                <tr style="height: 100px;">
+                    <td colspan="5" style="width:300px;">请根据最近的体检和感觉回答以下问题</td>
+                    <td style="width:50px;">没有（根本不/从来没有）</td>
+                    <td style="width:50px;">很少（有一点/偶尔）</td>
+                    <td style="width:50px;">有时（有些/少数时间）</td>
+                    <td style="width:50px;">经常（相当/多数时间）</td>
+                    <td style="width:50px;">总是（非常/每天）</td>
+                </tr>
+                <tr>
+                    <td colspan="5">(1)你精力充沛吗？（指精神头足，乐于做事）</td>
+                    <td><input type="radio" name="oldtcmVigor" value="1">1</td>
+                    <td><input type="radio" name="oldtcmVigor" value="2">2</td>
+                    <td><input type="radio" name="oldtcmVigor" value="3">3</td>
+                    <td><input type="radio" name="oldtcmVigor" value="5">4</td>
+                    <td><input type="radio" name="oldtcmVigor" value="5">5</td>
+                </tr>
+                <tr>
+                    <td colspan="5">(2)您容易疲乏吗？（指体力如何，是否稍微活动一下或做一点家务就感到累）</td>
+                    <td><input type="radio" name="oldtcmFatigue" value="1">1</td>
+                    <td><input type="radio" name="oldtcmFatigue" value="2">2</td>
+                    <td><input type="radio" name="oldtcmFatigue" value="3">3</td>
+                    <td><input type="radio" name="oldtcmFatigue" value="5">4</td>
+                    <td><input type="radio" name="oldtcmFatigue" value="5">5</td>
+                </tr>
+                <tr>
+                    <td colspan="5">(3)您容易气短，呼吸短促，接不上气吗？</td>
+                    <td><input type="radio" name="oldtcmPant" value="1">1</td>
+                    <td><input type="radio" name="oldtcmPant" value="2">2</td>
+                    <td><input type="radio" name="oldtcmPant" value="3">3</td>
+                    <td><input type="radio" name="oldtcmPant" value="5">4</td>
+                    <td><input type="radio" name="oldtcmPant" value="5">5</td>
+                </tr>
+                <tr>
+                    <td colspan="5">(4)您说话低声无力吗？（指说活没有力气）</td>
+                    <td><input type="radio" name="oldtcmVox" value="1">1</td>
+                    <td><input type="radio" name="oldtcmVox" value="2">2</td>
+                    <td><input type="radio" name="oldtcmVox" value="3">3</td>
+                    <td><input type="radio" name="oldtcmVox" value="5">4</td>
+                    <td><input type="radio" name="oldtcmVox" value="5">5</td>
+                </tr>
+                <tr>
+                    <td colspan="5">(5)您感到闷闷不乐、情绪低落吗？（指心情不愉快、情绪低落）</td>
+                    <td><input type="radio" name="oldtcmMood" value="1">1</td>
+                    <td><input type="radio" name="oldtcmMood" value="2">2</td>
+                    <td><input type="radio" name="oldtcmMood" value="3">3</td>
+                    <td><input type="radio" name="oldtcmMood" value="5">4</td>
+                    <td><input type="radio" name="oldtcmMood" value="5">5</td>
+                </tr>
+                <tr>
+                    <td colspan="5">(6)您容易精神紧张、焦虑不安吗？（指遇事是否是否心情紧张）</td>
+                    <td><input type="radio" name="oldtcmMind" value="1">1</td>
+                    <td><input type="radio" name="oldtcmMind" value="2">2</td>
+                    <td><input type="radio" name="oldtcmMind" value="3">3</td>
+                    <td><input type="radio" name="oldtcmMind" value="5">4</td>
+                    <td><input type="radio" name="oldtcmMind" value="5">5</td>
+                </tr>
+                <tr>
+                    <td colspan="5">(7)您因生活状态改变而感到孤独、失落吗？</td>
+                    <td><input type="radio" name="oldtcmAnimation" value="1">1</td>
+                    <td><input type="radio" name="oldtcmAnimation" value="2">2</td>
+                    <td><input type="radio" name="oldtcmAnimation" value="3">3</td>
+                    <td><input type="radio" name="oldtcmAnimation" value="5">4</td>
+                    <td><input type="radio" name="oldtcmAnimation" value="5">5</td>
+                </tr>
+                <tr>
+                    <td colspan="5">(8)您容易感到害怕或受到惊吓吗？</td>
+                    <td><input type="radio" name="oldtcmFear" value="1">1</td>
+                    <td><input type="radio" name="oldtcmFear" value="2">2</td>
+                    <td><input type="radio" name="oldtcmFear" value="3">3</td>
+                    <td><input type="radio" name="oldtcmFear" value="5">4</td>
+                    <td><input type="radio" name="oldtcmFear" value="5">5</td>
+                </tr>
+                <tr>
+                    <td colspan="5">(9)您感到身体超重不轻松吗？</td>
+                    <td><input type="radio" name="oldtcmBody" value="1">1</td>
+                    <td><input type="radio" name="oldtcmBody" value="2">2</td>
+                    <td><input type="radio" name="oldtcmBody" value="3">3</td>
+                    <td><input type="radio" name="oldtcmBody" value="5">4</td>
+                    <td><input type="radio" name="oldtcmBody" value="5">5</td>
+                </tr>
+
+                <tr>
+                    <td colspan="5">(10)您眼睛干涩吗？</td>
+                    <td><input type="radio" name="oldtcmEyes" value="1">1</td>
+                    <td><input type="radio" name="oldtcmEyes" value="2">2</td>
+                    <td><input type="radio" name="oldtcmEyes" value="3">3</td>
+                    <td><input type="radio" name="oldtcmEyes" value="5">4</td>
+                    <td><input type="radio" name="oldtcmEyes" value="5">5</td>
+                </tr>
+
+                <tr>
+                    <td colspan="5">(11)您手脚发凉吗？（不包括因周围低温或穿的少导致的手脚发凉）</td>
+                    <td><input type="radio" name="oldtcmHandfoot" value="1">1</td>
+                    <td><input type="radio" name="oldtcmHandfoot" value="2">2</td>
+                    <td><input type="radio" name="oldtcmHandfoot" value="3">3</td>
+                    <td><input type="radio" name="oldtcmHandfoot" value="5">4</td>
+                    <td><input type="radio" name="oldtcmHandfoot" value="5">5</td>
+                </tr>
+
+                <tr>
+                    <td colspan="5">(12)您胃脘部、背部或腰膝部怕冷吗？（指上腹部、背部、腰部或膝关节等）</td>
+                    <td><input type="radio" name="oldtcmCold" value="1">1</td>
+                    <td><input type="radio" name="oldtcmCold" value="2">2</td>
+                    <td><input type="radio" name="oldtcmCold" value="3">3</td>
+                    <td><input type="radio" name="oldtcmCold" value="5">4</td>
+                    <td><input type="radio" name="oldtcmCold" value="5">5</td>
+                </tr>
+
+                <tr>
+                    <td colspan="5">(13)您比一般人耐受不了寒冷吗？（指比别人容易害怕冬天或夏天的冷空调）</td>
+                    <td><input type="radio" name="oldtcmChill" value="1">1</td>
+                    <td><input type="radio" name="oldtcmChill" value="2">2</td>
+                    <td><input type="radio" name="oldtcmChill" value="3">3</td>
+                    <td><input type="radio" name="oldtcmChill" value="5">4</td>
+                    <td><input type="radio" name="oldtcmChill" value="5">5</td>
+                </tr>
+                <tr>
+                    <td colspan="5">(14)您容易患感冒吗？（指每年的感冒次数）</td>
+                    <td><input type="radio" name="oldtcmHavecold" value="1">1</td>
+                    <td><input type="radio" name="oldtcmHavecold" value="2">2</td>
+                    <td><input type="radio" name="oldtcmHavecold" value="3">3</td>
+                    <td><input type="radio" name="oldtcmHavecold" value="5">4</td>
+                    <td><input type="radio" name="oldtcmHavecold" value="5">5</td>
+                </tr>
+                <tr>
+                    <td colspan="5">(15)您没有感冒也会鼻塞、流鼻涕吗？</td>
+                    <td><input type="radio" name="oldtcmNose" value="1">1</td>
+                    <td><input type="radio" name="oldtcmNose" value="2">2</td>
+                    <td><input type="radio" name="oldtcmNose" value="3">3</td>
+                    <td><input type="radio" name="oldtcmNose" value="5">4</td>
+                    <td><input type="radio" name="oldtcmNose" value="5">5</td>
+                </tr>
+                <tr>
+                    <td colspan="5">(16)您有口粘口腻、或睡眠打鼾吗？</td>
+                    <td><input type="radio" name="oldtcmMouth" value="1">1</td>
+                    <td><input type="radio" name="oldtcmMouth" value="2">2</td>
+                    <td><input type="radio" name="oldtcmMouth" value="3">3</td>
+                    <td><input type="radio" name="oldtcmMouth" value="5">4</td>
+                    <td><input type="radio" name="oldtcmMouth" value="5">5</td>
+                </tr>
+                <tr>
+                    <td colspan="5">(17)您容易过敏吗？（对药物、食物、气味、花粉或在季节交替、气候变化时）</td>
+                    <td><input type="radio" name="oldtcmAllergy" value="1">1</td>
+                    <td><input type="radio" name="oldtcmAllergy" value="2">2</td>
+                    <td><input type="radio" name="oldtcmAllergy" value="3">3</td>
+                    <td><input type="radio" name="oldtcmAllergy" value="5">4</td>
+                    <td><input type="radio" name="oldtcmAllergy" value="5">5</td>
+                </tr>
+                <tr>
+                    <td colspan="5">(18)您的皮肤容易起荨麻疹吗？（包括风团、风疹块、风疙瘩）</td>
+                    <td><input type="radio" name="oldtcmHives" value="1">1</td>
+                    <td><input type="radio" name="oldtcmHives" value="2">2</td>
+                    <td><input type="radio" name="oldtcmHives" value="3">3</td>
+                    <td><input type="radio" name="oldtcmHives" value="5">4</td>
+                    <td><input type="radio" name="oldtcmHives" value="5">5</td>
+                </tr>
+                <tr>
+                    <td colspan="5">(19)您的皮肤在不知不觉中会出现青紫瘀斑、皮下出血吗？</td>
+                    <td><input type="radio" name="oldtcmBruising" value="1">1</td>
+                    <td><input type="radio" name="oldtcmBruising" value="2">2</td>
+                    <td><input type="radio" name="oldtcmBruising" value="3">3</td>
+                    <td><input type="radio" name="oldtcmBruising" value="5">4</td>
+                    <td><input type="radio" name="oldtcmBruising" value="5">5</td>
+                </tr>
+                <tr>
+                    <td colspan="5">(20)您的皮肤一抓就红、并出现抓痕吗？</td>
+                    <td><input type="radio" name="oldtcmExcori" value="1">1</td>
+                    <td><input type="radio" name="oldtcmExcori" value="2">2</td>
+                    <td><input type="radio" name="oldtcmExcori" value="3">3</td>
+                    <td><input type="radio" name="oldtcmExcori" value="5">4</td>
+                    <td><input type="radio" name="oldtcmExcori" value="5">5</td>
+                </tr>
+                <tr>
+                    <td colspan="5">(21)您的皮肤或嘴唇干吗？</td>
+                    <td><input type="radio" name="oldtcmDry" value="1">1</td>
+                    <td><input type="radio" name="oldtcmDry" value="2">2</td>
+                    <td><input type="radio" name="oldtcmDry" value="3">3</td>
+                    <td><input type="radio" name="oldtcmDry" value="5">4</td>
+                    <td><input type="radio" name="oldtcmDry" value="5">5</td>
+                </tr>
+                <tr>
+                    <td colspan="5">(22)您有肢体麻木或固定部位疼痛的感觉吗？</td>
+                    <td><input type="radio" name="oldtcmLimb" value="1">1</td>
+                    <td><input type="radio" name="oldtcmLimb" value="2">2</td>
+                    <td><input type="radio" name="oldtcmLimb" value="3">3</td>
+                    <td><input type="radio" name="oldtcmLimb" value="5">4</td>
+                    <td><input type="radio" name="oldtcmLimb" value="5">5</td>
+                </tr>
+                <tr>
+                    <td>填表日期</td>
+                    <td colspan="4"><input type="text" class="easyui-datebox"  id="oldtcmFilldate" name="oldtcmFilldate" style="width: 200px;"/></td>
+                    <td>医生签名</td>
+                    <td colspan="4">
+                        <select name="healthcheckDoctor" id="healthcheckDoctor2" class="easyui-combobox"  style="width:100%;" >
+                    </select></td>
+                </tr>
+                <tr style="margin-bottom: 40px">
+                    <td colspan="3" align="center" style="border: none;"><a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="update()">保存</a></td>
+                    <td colspan="3" align="center"  style="border: none;"><a class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px" onclick="Close()">取消</a></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

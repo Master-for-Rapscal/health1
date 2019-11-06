@@ -11,127 +11,80 @@
             <div th:replace="common/menus :: menus"  > </div>
         </div>
         <div class="wu-toolbar-search">
-            <label>用户名:</label><input id="search-name" class="wu-text" style="width:100px">
-            <label>所属角色:</label>
-
-            <label>性别:</label>
-            <select id="search-sex" class="easyui-combobox" panelHeight="auto" style="width:120px">
-                <option value="-1">全部</option>
-                <option value="0">未知</option>
-                <option value="1">男</option>
-                <option value="2">女</option>
-            </select>
-            <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+            <label> 个人编号:</label><input  name="userId"/>
+            <label> 姓名:</label><input name="userName"/>
+            <label> 联系电话:</label><input  name="userMyphone"/>
+            <a href="#" id="userSearch" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
         </div>
     </div>
-
-
 
     <!-- End of toolbar -->
     <table id="data-datagrid" class="easyui-datagrid" toolbar="#wu-toolbar"></table>
 </div>
 <!-- Begin of easyui-dialog -->
 
-<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:420px; padding:10px;">
-    <form id="add-form" method="post">
-        <table>
-            <tr>
-                <td width="60" align="right">头像预览:</td>
-                <td valign="middle">
-                    <img id="preview-photo" style="float:left;" src="/admin/easyui/images/user_photo.jpg" width="100px">
-                    <a style="float:left;margin-top:40px;" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-upload" onclick="uploadPhoto()" plain="true">上传图片</a>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">头像:</td>
-                <td><input type="text" id="add-photo" name="photo" value="/admin/easyui/images/user_photo.jpg" readonly="readonly" class="wu-text " /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">用户名:</td>
-                <td><input type="text" name="username" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写用户名'" /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">密码:</td>
-                <td><input type="password" name="password" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写密码'" /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">所属角色:</td>
+<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:620px; padding:10px;">
+        <!-- 查询个人档案-->
+        <table id="data-ins" class="easyui-datagrid" style="width: 600px; height: 500px;"></table>
+</div>
+<div id="othslowname" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:500px; padding:10px;">
+    <!-- 查询所有慢病-->
+    <table id="othname" class="easyui-datagrid" style="width: 450px; height: 400px;"></table>
+</div>
 
-            </tr>
-            <tr>
-                <td width="60" align="right">性别:</td>
-                <td>
-                    <select name="sex" class="easyui-combobox" panelHeight="auto" style="width:268px">
-                        <option value="0">未知</option>
-                        <option value="1">男</option>
-                        <option value="2">女</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">年龄:</td>
-                <td><input type="text" name="age" class="wu-text easyui-numberbox easyui-validatebox" data-options="required:true,min:1,precision:0, missingMessage:'请填写年龄'" /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">地址:</td>
-                <td><input type="text" name="address" class="wu-text easyui-validatebox" /></td>
-            </tr>
-        </table>
-    </form>
+<div id="addoth" class="easyui-dialog" style="width: 740px;height: 600px; padding:10px;">
+    <div th:replace="common/othslow :: othslow"></div>
 </div>
 <!-- 修改窗口 -->
-
-<div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:450px; padding:10px;">
-    <form id="edit-form" method="post">
-        <input type="hidden" name="id" id="edit-id">
+<div id="edit-dialog" class="easyui-dialog" style="width: 740px;height: 600px; padding:10px;">
+    <div th:replace="common/editslow :: editslow"></div>
+</div>
+<div id="upState" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:300px; padding:10px; margin: auto">
+    <form id="edit-form" method="post" >
+        <input type="hidden" name="othslowId" id="othslowId">
         <table>
             <tr>
-                <td width="60" align="right">头像预览:</td>
-                <td valign="middle">
-                    <img id="edit-preview-photo" style="float:left;" src="/admin/easyui/images/user_photo.jpg" width="100px">
-                    <a style="float:left;margin-top:40px;" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-upload" onclick="uploadPhoto()" plain="true">上传图片</a>
+                <td>是否转归：</td>
+                <td><input type="radio" name="othslowClosestate" checked=＂checked＂ value="1" onclick="on()"/>是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio"  onclick="off()" id="bs" name="othslowClosestate" value="0"/>否
                 </td>
             </tr>
             <tr>
-                <td width="60" align="right">头像:</td>
-                <td><input type="text" id="edit-photo" name="photo" value="/BaseProjectSSM/resources/admin/easyui/images/user_photo.jpg" readonly="readonly" class="wu-text " /></td>
+                <td>转归日期：</td>
+                <td><input id="othslowOutdate"  class="easyui-datebox" style="width: 150px;border: 1px solid;" name="othslowOutdate" /> </td>
             </tr>
             <tr>
-                <td width="60" align="right">用户名:</td>
-                <td><input type="text" id="edit-username" name="username" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写用户名'" /></td>
+                <td>转归原因：</td>
+                <td><select name="othslowOutfor"  id="othslowOutfor" style="width: 150px" >
+                    <option value=""></option>
+                    <option value="好转">好转</option>
+                    <option value="外出">外出</option>
+                    <option value="失访">失访</option>
+                    <option value="暂时失访">暂时失访</option>
+                    <option value="拒绝">拒绝</option>
+                    <option value="死亡">死亡</option>
+                </select> </td>
             </tr>
-            <tr>
-                <td width="60" align="right">所属角色:</td>
 
-            </tr>
-            <tr>
-                <td width="60" align="right">性别:</td>
-                <td>
-                    <select id="edit-sex" name="sex" class="easyui-combobox" panelHeight="auto" style="width:268px">
-                        <option value="0">未知</option>
-                        <option value="1">男</option>
-                        <option value="2">女</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">年龄:</td>
-                <td><input type="text" id="edit-age" name="age" value="1" class="wu-text easyui-numberbox easyui-validatebox" data-options="required:true,min:1,precision:0, missingMessage:'请填写年龄'" /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">地址:</td>
-                <td><input type="text" id="edit-address" name="address" class="wu-text easyui-validatebox" /></td>
-            </tr>
+
         </table>
     </form>
 </div>
+<script>
 
+    function on(){//是
+        $("#othslowOutdate.easyui-datebox").datebox({ disabled: false});
+        $("#othslowOutfor").removeAttr("disabled");
+    }
 
+    function off(){//否
+        $("#othslowOutdate.easyui-datebox").datebox({ disabled: true});
+        $("#othslowOutdate").datebox('clear');
+        $("#othslowOutfor").attr({ disabled: 'true' });
+        /*    $("#form").form("clear");*/
+    }
 
-
-
-
-
+</script>
 
 <div id="process-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-upload',title:'正在上传图片'" style="width:450px; padding:10px;">
     <div id="p" class="easyui-progressbar" style="width:400px;" data-options="text:'正在上传中...'"></div>
@@ -140,9 +93,100 @@
 <!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
 <div th:replace="common/footer :: myfooter"  ></div>
 
-
 <!-- End of easyui-dialog -->
 <script type="text/javascript" th:inline="none">
+    function othslowname(){
+        $("#othslowname").dialog('close');
+    }
+    $(function () {
+        $("#othslowname").dialog('close');
+    })
+
+    $(function () {
+        $("#edit-dialog").dialog('close');
+    })
+    $(function () {
+        $("#addoth").dialog('close');
+    })
+
+    function goBack(){
+        $("#addoth").dialog('close');
+    }
+//迷糊查询
+    $(function () {
+        $("#userSearch").click(function () {
+            $("#data-datagrid").datagrid({
+                queryParams: {
+                    userId: $("input[name=userId]").val(),
+                    userName: $("input[name=userName]").val(),
+                    userAdress: $("input[name=userAdress]").val(),
+                    userMyphone: $("input[name=userMyphone]").val()
+                }
+            });
+        });
+    });
+
+
+    function upState(){
+        var validate = $("#edit-form").form("validate");
+        if(!validate){
+            return;
+        }
+        var date=$("#edit-form").serialize();
+        $.ajax({
+            url:'upState',
+            dataType:'json',
+            type:'post',
+            data: date,
+            success:function(data){
+                if(data>0){
+                    $.messager.alert('信息提示','修改成功！','info');
+                    $('#upState').dialog('close');
+                    $('#data-datagrid').datagrid('reload');
+                }else{
+                    $.messager.alert('信息提示',data.msg,'warning');
+                }
+            }
+        });
+    }
+    function openupState(){
+        var item = $('#data-datagrid').datagrid('getSelections');
+
+        if(item == null || item.length == 0){
+            $.messager.alert('信息提示','请选择要修改的数据！','info');
+            return;
+        }
+        if(item.length > 1){
+            $.messager.alert('信息提示','请选择一条数据进行修改！','info');
+            return;
+        }
+        item = item[0];
+
+        $('#upState').dialog({
+            closed: false,
+            modal:true,
+            title: "转归",
+            buttons: [{
+                text: '确定',
+                iconCls: 'icon-ok',
+                handler: upState
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#upStet').dialog('close');
+                }
+            }],onBeforeOpen:function (){
+            /*    alert(item.othslowId);*/
+                $("#othslowId").val(item.othslowId);
+                $("#othslowClosestate").val(item.othslowClosestate);
+                $("#othslowOutdate").val(item.othslowOutdate);
+                $("#othslowOutfor").val(item.othslowOutfor);
+
+            }
+        });
+    }
+
     //上传图片
     function start(){
         var value = $('#p').progressbar('getValue');
@@ -194,40 +238,86 @@
     /**
      *  添加记录
      */
-    function add(){
-        var validate = $("#add-form").form("validate");
-        if(!validate){
-            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
-            return;
-        }
-        var data = $("#add-form").serialize();
-        $.ajax({
-            url:'add',
-            dataType:'json',
-            type:'post',
-            data:data,
-            success:function(data){
-                if(data.type == 'success'){
-                    $.messager.alert('信息提示','添加成功！','info');
-                    $('#add-dialog').dialog('close');
-                    $('#data-datagrid').datagrid('reload');
-                }else{
-                    $.messager.alert('信息提示',data.msg,'warning');
-                }
+    function add(uid){
+  /*      alert(uid);*/
+        $('#add-dialog').dialog('close');
+        $("#addoth").dialog({
+            title : "其他慢病专项卡添加",
+            model : true,
+            onBeforeOpen: function(){
+                /*  $('#form1').form('clear');*/
+                fuzhi(uid);
             }
         });
     }
+    function fuzhi(uid){
+        $("#userId").val(uid);
+        $('#add-dialog').dialog('close');
+        $("#addoth").dialog({
+            title : "其他慢病专项卡添加",
+            model : true,
+            onBeforeOpen: function(){
+                $.ajax({
+                    url:'queryById',
+                    type:'post',
+                    data:"uid="+uid,
+                    dataType:'json',
+                    success:function(data){
+                        $("#recordName").val(data.recordName);
+                        $("#userBirthday").val(data.userBirthday);
+                        $("#userId").val(data.userId);
+                        $("#userWorKunit").val(data.userWorkunit);
+                        $("#recordAdress").val(data.recordAdress);
+                        $("#userMyphone").val(data.userMyphone);
+                        $("#recordPostalcode").val(data.recordPostalcode);
+                        $("#userIdnumber").val(data.userIdnumber);
+
+                        var blood="未知";
+                      if (data.userBloodtype==1) {
+                          blood="A型";
+
+                      }else if(data.userBloodtype==2){
+
+                          blood="B型";
+                      }else if(data.userBloodtype==3){
+
+                          blood="O型";
+                      }else if(data.userBloodtype==4){
+
+                          blood="AB型";
+                      }else if(data.userBloodtype==5){
+
+                          blood="未知";
+                      }
+                        $("#userBloodtype").val(blood);
+                        var sex="未知";
+                        if( data.userSex==1){
+                            sex= "男";
+                        }else if(data.userSex==2){
+                            sex= "女";
+                        }
+                        $("#userSex").val(sex);
+
+
+                    }
+
+                });
+            }
+        });
+
+    }
+
 
     /**
      * Name 修改记录
      */
-    function edit(){
-        var validate = $("#edit-form").form("validate");
+/*  function edit(){
+        var validate = $("#editothform").form("validate");
         if(!validate){
             $.messager.alert("消息提醒","请检查你输入的数据!","warning");
             return;
         }
-        var data = $("#edit-form").serialize();
+        var data = $("#editothform").serialize();
         $.ajax({
             url:'edit',
             dataType:'json',
@@ -243,7 +333,7 @@
                 }
             }
         });
-    }
+    }*/
 
     /**
      * 删除记录
@@ -277,39 +367,113 @@
             }
         });
     }
-
     /**
      * Name 打开添加窗口
      */
-    function openAdd(){
+    function openAdd() {
         //$('#add-form').form('clear');
         $('#add-dialog').dialog({
             closed: false,
-            modal:true,
+            modal: true,
             title: "添加用户信息",
             buttons: [{
-                text: '确定',
-                iconCls: 'icon-ok',
-                handler: add
-            }, {
                 text: '取消',
                 iconCls: 'icon-cancel',
                 handler: function () {
                     $('#add-dialog').dialog('close');
                 }
             }],
-            onBeforeOpen:function(){
-                //$("#add-form input").val('');
+            onBeforeOpen: function () {
+                $("#data-ins").datagrid({
+                    url: 'userList',
+                    fitColumns: true,
+                    striped: true,
+                    singleSelect: true,
+                    pagination: true,
+                    rownumbers: true,
+                    pageSize: 20,
+                    multiSort: true,
+                    idField: 'userId',
+                    onDblClickRow: function (index, row) {
+                        add(row.userId);
+                    },
+                    columns: [[
+                        {field: 'userId', title: '个人编号', width: 100, align: 'center'},
+                        {field: 'recordName', title: '姓名', width: 100, align: 'center'},
+                        {field: 'userBirthday', title: '出生日期', width: 100, align: 'center'},
+                        {field: 'recordAdress', title: '联系地址', width: 100, align: 'center'},
+                        {field: 'userWorKunit', hidden: true},
+                        {field: 'recordPostalcode', hidden: true},
+                        {field: 'userIdnumber', hidden: true}
+
+                    ]]
+                });
+                $.ajax({
+                    type: "post",
+                    url: "queryDoctor",
+                    dataType: "json",
+                    success: function (date) {
+                        $("#othslowResdoc").combobox({
+                            mode: 'remote',
+                            url: 'queryDoctor',
+                            valueField: 'id',
+                            textField: 'lastname',
+                            delay: 100
+                        });
+                        $.ajax({
+                            type: "post",
+                            url: "queryDis",
+                            dataType: "json",
+                            success: function (date) {
+                                $("#othslowNameId").combobox({
+                                    mode: 'remote',
+                                    url: 'queryDis',
+                                    valueField: 'othslowNameId',
+                                    textField: 'othslowNameName',
+                                    delay: 100
+                                });
+                            }
+                        });
+                    }
+                });
             }
         });
     }
 
+    function goAdd() {
+        // 验证
+        if( !$("#othform").form('validate')){
+            return;
+        }
+        var Dmsmdata=$("#othform").serialize();
+        console.log(Dmsmdata);
+        var uid= $("#userId").val();
+        $.ajax({
+            type : "post",
+            url : "add",
+            data : "uid="+uid+"&"+Dmsmdata,
+            dataType :"json",
+            success : function (date) {
+                if(date>0){
+                    $.messager.alert('信息提示','添加成功！','info');
+                    $('#data-datagrid').datagrid('reload');
+                    $("#addoth").dialog("close");
+                }else{
+                    $.messager.alert('信息提示',data.msg,'warning');
+                }
+            }
+        });
+    }
     /**
      * 打开修改窗口
      */
+
     function openEdit(){
         //$('#edit-form').form('clear');
-        var item = $('#data-datagrid').datagrid('getSelections');
+        $("#editothslowId").val(sss);
+        $('#edit-dialog').dialog('close');
+ /*       var item = $('#data-datagrid').datagrid('getSelections');
+
         if(item == null || item.length == 0){
             $.messager.alert('信息提示','请选择要修改的数据！','info');
             return;
@@ -318,7 +482,8 @@
             $.messager.alert('信息提示','请选择一条数据进行修改！','info');
             return;
         }
-        item = item[0];
+        item = item[0];*/
+        /*   alert(sss);*/
         $('#edit-dialog').dialog({
             closed: false,
             modal:true,
@@ -326,7 +491,7 @@
             buttons: [{
                 text: '确定',
                 iconCls: 'icon-ok',
-                handler: edit
+                handler: update
             }, {
                 text: '取消',
                 iconCls: 'icon-cancel',
@@ -335,17 +500,110 @@
                 }
             }],
             onBeforeOpen:function(){
-                $("#edit-id").val(item.id);
-                $("#edit-preview-photo").attr('src',item.photo);
-                $("#edit-photo").val(item.photo);
-                $("#edit-username").val(item.username);
-                $("#edit-roleId").combobox('setValue',item.roleId);
-                $("#edit-sex").combobox('setValue',item.sex);
-                $("#edit-age").val(item.age);
-                $("#edit-address").val(item.address);
+                /*   fuzhi(all);*/
+                /*  alert("all"+all);*/
+                $.ajax({
+                    url:'queryById',
+                    type:'post',
+                    data:"uid="+all,
+                    dataType:'json',
+                    success:function(data){
+                        $("#recordName2").val(data.recordName);
+                        $("#userBirthday2").val(data.userBirthday);
+                        $("#userId2").val(data.userId);
+                        $("#userWorKunit2").val(data.userWorkunit);
+                        $("#recordAdress2").val(data.recordAdress);
+                        $("#userMyphone2").val(data.userMyphone);
+                        $("#recordPostalcode2").val(data.recordPostalcode);
+                        $("#userIdnumber2").val(data.userIdnumber);
+                        var blood="未知";
+                        if (data.userBloodtype==1) {
+                            blood="A型";
+                        }else if(data.userBloodtype==2){
+                            blood="B型";
+                        }else if(data.userBloodtype==3){
+                            blood="O型";
+                        }else if(data.userBloodtype==4){
+                            blood="AB型";
+                        }else if(data.userBloodtype==5){
+                            blood="未知";
+                        }
+                        $("#userBloodtype2").val(blood);
+                        var sex="未知";
+                        if( data.userSex==1){
+                            sex= "男";
+                        }else if(data.userSex==2){
+                            sex= "女";
+                        }
+                        $("#userSex2").val(sex);
+                    }
+                });
+                $.ajax({
+                    url: 'queryEdit',
+                    type: 'post',
+                    data: "othslowId=" + sss,
+                    dataType: 'json',
+                    success: function (da) {
+              /*    alert("da"+da);*/
+                        $('#editothform').form('load', da[0]);
+                    }
+
+                });
+                $.ajax({
+                    type : "post",
+                    url : "queryDoctor",
+                    dataType : "json",
+                    success : function (date) {
+                        $("#othslowResdoc2").combobox({
+                            mode:'remote',
+                            url:'queryDoctor',
+                            valueField:'id',
+                            textField:'lastname',
+                            delay:100
+                        });
+                    }
+                });
+                $.ajax({
+                    type : "post",
+                    url : "queryDis",
+                    dataType : "json",
+                    success : function (date) {
+                        $("#othslowNameId2").combobox({
+                            mode:'remote',
+                            url:'queryDis',
+                            valueField:'othslowNameId',
+                            textField:'othslowNameName',
+                            delay:100
+                        });
+                    }
+                });
+
             }
         });
     }
+    function update(){
+        var validate = $("#editothform").form("validate");
+        if(!validate){
+            return;
+        }
+        var date=$("#editothform").serialize();
+        $.ajax({
+            url:'update',
+            dataType:'json',
+            type:'post',
+            data: date,
+            success:function(data){
+                if(data>0){
+                    $.messager.alert('信息提示','修改成功！','info');
+                    $('#edit-dialog').dialog('close');
+                    $('#data-datagrid').datagrid('reload');
+                }else{
+                    $.messager.alert('信息提示',data.msg,'warning');
+                }
+            }
+        });
+    }
+
 
 
     //搜索按钮监听
@@ -365,6 +623,9 @@
     /**
      * 载入数据
      */
+    var sta="管理中";
+    var sss;
+    var all;
     $('#data-datagrid').datagrid({
         url:'list',
         rownumbers:true,
@@ -378,9 +639,13 @@
         fit:true,
         columns:[[
             { field:'chk',checkbox:true},
-            { field:'userNumber',title:'个人健康档案号',width:100,align:'center'},
-            { field:'recordName',title:'姓名',width:100,align:'center'},
-            { field:'userSex',title:'性别',width:100,align:'center',formatter(value,row,index){
+            { field:'userId',hidden:true,formatter(value,row,index){
+        all=value;
+    }},
+            { field:'recordId',width:80,title:'个人健康档案号',title:'个人编号',width:80,align:'center'},
+            { field:'userNumber',title:'个人健康档案号',hidden:true},
+            { field:'recordName',title:'姓名',width:60,align:'center'},
+            { field:'userSex',title:'性别',width:60,align:'center',formatter(value,row,index){
                     switch(value){
                         case 0:{
                             return '未知';
@@ -394,39 +659,62 @@
                     }
                     return value;
                 }},
-            { field:'userBirthday',title:'出生日期',width:100,align:'center'},
-            { field:'recordAdress',title:'家庭地址',width:100,align:'center'},
-            { field:'userMyphone',title:'联系电话',width:100,align:'center'},
-            { field:'othslowNameName',title:'慢病名称',width:100,align:'center'},
-            { field:'othslowOrimed1',title:'原用药',width:100,align:'center'},
-            { field:'recordData',title:'建档日期',width:100,align:'center'},
-            { field:'othslowClosestate',title:'管理状态',width:100,align:'center',formatter(value,row,index){
-                    switch(value){
-                        case 0:{
-                            return '管理中';
-                        }
-                        case 1:{
-                            return '好转';
-                        }
-                        case 2:{
-                            return '外出';
-                        }
-                        case 3:{
-                            return '失访';
-                        }
-                        case 4:{
-                            return '暂时失访';
-                        }
-                        case 5:{
-                            return '拒绝';
-                        }
+            { field:'userBirthday',title:'出生日期',width:80,align:'center'},
+            { field:'recordAdress',title:'家庭地址',width:80,align:'center'},
+            { field:'userMyphone',title:'联系电话',width:90,align:'center'},
+            { field:'othslowNameName',title:'慢病名称',width:60,align:'center'},
+            { field:'othslowOrimed1',title:'原用药',width:30,align:'center'},
+            { field:'recordData',title:'建档日期',width:50,align:'center'},
+            { field:'othslowOutfor',title:'管理状态',width:30,align:'center',formatter(value,row,index){
 
-                    }
-                    return value;
+                   if(value==null||value==""){
+               /*        sta= value;*/
+                       /*alert(value);*/
+                       return sta;
+                   }
+                  return  value;
                 }},
+            { field:'othslowId',hidden:true,formatter(value,row,index){
+                    sss=value;
+                }},
+
+            { field:'othslowNameId',hidden:true},
+            { field:'othslowDiatime',hidden:true},
+            { field:'othslowDiabwh',hidden:true},
+            { field:'othslowOthbwh',hidden:true},
+            { field:'othslowMakegist',hidden:true},
+            { field:'othslowFamihis',hidden:true},
+            { field:'othslowSmostat',hidden:true},
+            { field:'othslowDrinking',hidden:true},
+            { field:'othslowExercise',hidden:true},
+            { field:'othslowWeekly',hidden:true},
+            { field:'othslowEveryday',hidden:true},
+            { field:'othslowEach',hidden:true},
+            { field:'othslowMeal',hidden:true},
+            { field:'othslowSmdays',hidden:true},
+            { field:'othslowLesslast',hidden:true},
+            { field:'othslowDrink',hidden:true},
+            { field:'othslowDriless',hidden:true},
+            { field:'othslowOrimed2',hidden:true},
+            { field:'othslowOrimed3',hidden:true},
+            { field:'othslowAdjmed1',hidden:true},
+            { field:'othslowAdjmed2',hidden:true},
+            { field:'othslowAdjmed3',hidden:true},
+            { field:'othslowFoot',hidden:true},
+            { field:'othslowGppaq',hidden:true},
+            { field:'othslowResdoc',hidden:true},
+            { field:'othslowJkdate',hidden:true},
+            { field:'othslowOutfor',hidden:true},
+            { field:'othslowOutdate',hidden:true},
+            { field:'othslowClosestate',hidden:true},
+            { field:'othslowClosesrtwhy',hidden:true},
+
+
+
         ]],
         onLoadSuccess:function(data){
             $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
         }
     });
+
 </script>

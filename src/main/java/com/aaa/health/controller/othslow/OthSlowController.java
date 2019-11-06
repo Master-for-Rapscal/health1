@@ -1,5 +1,7 @@
 package com.aaa.health.controller.othslow;
 
+import com.aaa.health.entity.oldpeo.Oldpeo;
+import com.aaa.health.entity.othslow.Othslow;
 import com.aaa.health.page.admin.Page;
 import com.aaa.health.service.othslow.OthSlowService;
 import org.apache.commons.lang.StringUtils;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -27,10 +30,18 @@ public class OthSlowController {
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page) {
+    public Map<String, Object> getList(Page page,
+                                       @RequestParam(name = "userId", required = false, defaultValue = "") Integer userId,
+                                       @RequestParam(name = "userName", required = false, defaultValue = "") String userName,
+                                       @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
+                                       @RequestParam(name = "userMyphone", required = false, defaultValue = "") String userMyphone
+    ) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-
+        queryMap.put("userId",userId);
+        queryMap.put("recordName",userName);
+        queryMap.put("recordAdress",userAdress);
+        queryMap.put("userMyphone",userMyphone);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", othSlowService.findList(queryMap));// 页面加载数据使用
@@ -59,5 +70,87 @@ public class OthSlowController {
         ret.put("msg", "删除成功！");
         return ret;
     }
+    @RequestMapping( "/userList")
+    @ResponseBody
+    public Object queryAllUser(Page page){
+        Map<String, Object> ret = new HashMap<String, Object>();
+        Map<String, Object> queryMap = new HashMap<String, Object>();
+        queryMap.put("offset", page.getOffset());
+        queryMap.put("pageSize", page.getRows());
+        ret.put("rows", othSlowService.queryAllUser(queryMap));// 页面加载数据使用
+        ret.put("total", othSlowService.queryUserTotal(queryMap));// 分页使用
+        return ret;
+    }
+
+
+    //根据用户ID来查询
+    @RequestMapping( "/queryById")
+    @ResponseBody
+    public Object queryById(Integer uid){
+/*        System.out.println(othSlowService.queryUserById(uid));*/
+        return othSlowService.queryUserById(uid);
+    }
+
+    //修改之前的查询ID来查询
+    @RequestMapping( "/queryEdit")
+    @ResponseBody
+    public Object queryEdit(Integer othslowId){
+        System.out.println("aaa"+othSlowService.queryEdit(othslowId));
+        return othSlowService.queryEdit(othslowId);
+    }
+
+ //添加
+    @RequestMapping( "/add")
+    @ResponseBody
+    public Object add(Integer uid, Othslow othslow){
+        othslow.setRecordId(uid);
+        Map<String,Object> map=new HashMap<String,Object>();
+        int num=othSlowService.add(othslow);
+/*        if(num>0){
+            map.put("success","添加成功");
+        }else{
+            map.put("error","添加失败");
+        }*/
+        return num;
+    }
+
+    @RequestMapping("/queryDoctor")
+    @ResponseBody
+    public Object queryDoctor(){
+        return othSlowService.queryDoctor();
+    }
+
+    @RequestMapping("/queryDis")
+    @ResponseBody
+    public Object queryDis(){
+        return othSlowService.queryDis();
+    }
+
+    @RequestMapping("/queryName")
+    @ResponseBody
+    public Object queryName(){
+        return othSlowService.queryName();
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public Object  edit(Othslow othslow) {
+        Map<String,Object> map=new HashMap<String,Object>();
+        /*        System.out.println(oldpeo);*/
+        int ret=othSlowService.edit(othslow);
+        return ret;
+    }
+
+    @RequestMapping(value = "/upState", method = RequestMethod.POST)
+    @ResponseBody
+    public Object  upState(Othslow othslow) {
+        Map<String,Object> map=new HashMap<String,Object>();
+                System.out.println(othslow);
+        int ret=othSlowService.upState(othslow);
+        return ret;
+    }
+
+
+
 }
 

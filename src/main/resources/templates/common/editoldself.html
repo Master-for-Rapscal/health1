@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
+
+<body>
+<div th:fragment="editoldzili" style="height:600px;">
+    <div class="editoldzili">
+        <style>
+            option{
+                text-align: center;
+            }
+
+            input[type="checkbox"] {
+                margin-left: 20px;
+            }
+            .td{
+                width:100px;
+                text-align: center;
+            }
+            /*   评分列*/
+            .pingfen{
+                width:120px;
+                text-align: center;
+                height:120px;
+            }
+            /*评分得分列*/
+            .fenshu{
+                width:78px;
+                text-align: center;
+            }
+        </style>
+        <form id="form2" method="post">
+            <table width="600" border="1" style="height:400px;" cellspacing="0" cellpadding="1" id="tab2">
+                <tr>
+                    <caption>
+                        <h1>老年人自理评估</h1>
+                    </caption>
+                    <input type="hidden" name="oldselfId" id="editoldselfId">
+                    <input type="hidden" name="oldpeoId" id="editoldpeoId" >
+
+                </tr>
+                <tr>
+                    <td  colspan="3" >姓名：<input type="text" name="recordName" id="recordName2" style="width: 200px" readonly></td>
+                    <td colspan="3" >健康档案号：<input type="text"name="userNumber" id="userNumber2"  style="width: 200px" readonly></td>
+
+                </tr>
+                <tr>
+                    <td  rowspan="2" class="pingfen">评估事项、内容与评分</td>
+                    <td colspan="5" style="text-align: center">程度等级</td>
+
+                </tr>
+                <tr>
+                    <td class="td">可自理</td>
+                    <td  class="td">轻度依赖</td>
+                    <td  class="td">中度依赖</td>
+                    <td  class="td">不能自理</td>
+                    <td  class="fenshu">判断评分</td>
+                </tr>
+                <tr>
+                    <td  class="pingfen">（1）进餐：使用餐具将饭菜送入口、咀嚼、吞咽等活动<br/><br/><span style="text-align: center;display: block">评分</span><br/></td>
+                    <td  class="td">独立完成<br/><br/><br/><br/><span style="text-align: center;display: block">0</span></td>
+                    <td  class="td">-<br/><br/><br/><br/><span style="text-align: center;display: block">0</span></td>
+                    <td  class="td">需要协助，如切碎、搅拌食物等<br/><br/><br/><span style="text-align: center;display: block">3</span></td>
+                    <td  class="td">完全需要帮助<br/><br/><br/><br/><span style="text-align: center;display: block">5</span></td>
+                    <td  class="fenshu"><select  class="easyui-combobox" onSelect="selectNumber()"  id="oldselfDine" name="oldselfDine" style="width: 50px; ">
+                        <option value="0">0</option>
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                    </select>  </td>
+
+                </tr>
+                <tr>
+                    <td  class="pingfen">（2）梳洗：梳头、洗脸、刷牙、剃须洗澡等活动<br/><br/><br/><span style="text-align: center;display: block">评分</span><br/></td>
+                    <td  class="td">独立完成<br/><br/><br/><br/><br/><br/><span style="text-align: center;display: block">0</span><br/></td>
+                    <td  class="td">能独立地洗头、梳头、洗脸、刷牙、剃须等；洗澡需要协助<br/><br/><br/><span style="text-align: center;display: block">1</span><br/></td>
+                    <td  class="td">在协助下和适当的时间内，能完成部分梳洗活动<br/><br/><br/><br/><span style="text-align: center;display: block">3</span><br/></td>
+                    <td  class="td">完全需要帮助<br/><br/><br/><br/><br/><br/><span style="text-align: center;display: block">7</span><br/></td>
+                    <td  class="fenshu"><select  class="easyui-combobox" onSelect="selectNumber()" id="oldselfToilet" name="oldselfToilet" style="width: 50px; text-align: center;">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="3">3</option>
+                        <option value="7">7</option>
+                    </select> </td>
+
+                </tr>
+                <tr>
+                    <td  class="pingfen">（3）穿衣：穿衣裤、袜子、鞋子等活动<br/><br/><span style="text-align: center;display: block">评分</span><br/></td>
+                    <td  class="td">独立完成<br/><br/><br/><br/><span style="text-align: center;display: block">0</span><br/></td>
+                    <td  class="td">-<br/><br/><br/><br/><span style="text-align: center;display: block">0</span><br/></td>
+                    <td  class="td">需要协助，在适当的时间内完成部分穿衣<br/><br/><span style="text-align: center;display: block">3</span><br/></td>
+                    <td  class="td">完全需要帮助<br/><br/><br/><br/><span style="text-align: center;display: block">5</span><br/></td>
+                    <td  class="fenshu"><select  class="easyui-combobox" onSelect="selectNumber()" id="oldselfDress" name="oldselfDress" style="width: 50px; text-align: center;">
+                        <option value="0">0</option>
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                    </select> </td>
+
+                </tr>
+                <tr>
+                    <td  class="pingfen">（4）如厕：小便、大便等活动及自控<br/><br/><span style="text-align: center;display: block">评分</span></td>
+                    <td  class="td">不需协助<br/><br/><br/><br/><br/><span style="text-align: center;display: block">0</span><br/></td>
+                    <td  class="td">偶尔失禁，但基本上能如厕或使用便具<br/><br/><br/><span style="text-align: center;display: block">1</span><br/></td>
+                    <td  class="td">经常失禁，在很多提示和协助下尚能如厕或使用便具<br/><br/><span style="text-align: center;display: block">5</span><br/></td>
+                    <td  class="td">完全失禁，完全需要帮助<br/><br/><br/><br/><span style="text-align: center;display: block">10</span><br/></td>
+                    <td  class="fenshu"><select  class="easyui-combobox" onSelect="selectNumber()" id="oldselfClean" name="oldselfClean" style="width: 50px; text-align: center;">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                    </select> </td>
+
+                </tr>
+                <tr>
+                    <td  class="pingfen">（5）活动：站立、室内行走、上下楼梯、户外活动<br/><br/><br/><span style="text-align: center;display: block">评分</span><br/></td>
+                    <td  class="td">独立完成所有活动<br/><br/><br/><br/><br/><span style="text-align: center;display: block">0</span><br/></td>
+                    <td  class="td">借助较小的外力或辅助装置能完成站立、行走、上下楼梯等<br/><br/><span style="text-align: center;display: block">1</span><br/></td>
+                    <td  class="td">借助较大的外力才能完成站立、行走，不能上下楼梯<br/><br/><br/><span style="text-align: center;display: block">5</span><br/></td>
+                    <td  class="td">卧床不起，活动完全需要帮助<br/><br/><br/><br/><span style="text-align: center;display: block">10</span><br/></td>
+                    <td  class="fenshu"><select  class="easyui-combobox" onSelect="selectNumber()" id="oldselfEvent" name="oldselfEvent" style="width: 50px; text-align: center;">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                    </select>  </td>
+
+                </tr>
+                <tr>
+                    <td  class="td" colspan="5">总评分</td>
+                    <td  class="fenshu"  style="text-align: center"><input  style="width: 50px; text-align: center;" id="sum"  type="text"></td>
+
+                </tr>
+                <tr>
+                    <td colspan="3" align="center" style="border: none;"><a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="update()">保存</a></td>
+                    <td colspan="3" align="center"  style="border: none;"><a class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px" onclick="Close()">取消</a></td>
+                </tr>
+            </table>
+
+        </form>
+    </div>
+
+</div>
+</body>
+<script>
+
+var num;
+var a1;
+var a2;
+var a3;
+var a4;
+var a5;
+
+function selectNumber(){
+    alert(a1);
+    var a1=$("#oldselfDine").val();
+    var a2=$("#oldselfToilet").val();
+    var a3=$("#oldselfDress").val();
+    var a4=$("#oldselfClean").val();
+    var a5=$("#oldselfEvent").val();
+    var num=a1+a2+a3+a4+a5;
+    alert(num);
+
+$("#sum").val(num);
+}
+
+</script>
+</html>

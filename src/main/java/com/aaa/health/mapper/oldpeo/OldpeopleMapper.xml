@@ -4,28 +4,81 @@
 <mapper namespace="com.aaa.health.mapper.oldpeo.OldPeopleMapper">
 
     <insert id="add" parameterType="com.aaa.health.entity.oldpeo.Oldpeo">
-        INSERT INTO OLDPEO(RECORDID,RECORDDOCTOR,OLDPEOSELFSTATE,OLDPEOMATESTATE,OLDPEOMSTATE)
-        values(#{RECORDID},#{RECORDDOCTOR},#{OLDPEOSELFSTATE},#{OLDPEOMATESTATE},#{OLDPEOMSTATE})
+INSERT INTO oldpeo(recordId ,recordDoctor,oldpeoSelfstate,oldpeoMatestate)
+VALUES(#{recordId},#{recordDoctor},#{oldpeoSelfstate},#{oldpeoMatestate})
+    </insert>
+    <insert id="addSui" parameterType="com.aaa.health.entity.oldpeo.Oldarrange">
+   insert into oldarrange(oldpeoId, oldarrangeFloup, oldarrangeSomin, oldarrangeNextsomin, oldarrangeDrihz, oldarrangeDriqu, oldarrangeSporthz,
+      oldarrangeNextsphz, oldarrangeNextsptime, oldarrangeTkslty, oldarrangeThr, healthcheckDoctor, oldarrangeState,
+      oldarrangeSymptom, oldarrangeComption, oldarrangePsyrec, oldarrangeCompliance, oldarrangeOth, oldarrangeAcp, oldarrangeOffer, oldarrangeDe,
+      oldarrangeFoltime, oldarrangeNextflup, oldarrangeSporttime, oldarrangeBp1, oldarrangeBp2, oldarrangeHeight, oldarrangeWeight, oldarrangeBmi, oldarrangeFbg,
+      oldarrangeTg, oldarrangeHdl, oldarrangeLdl, oldarrangeTc)value(
+    #{ oldpeoId},#{ oldarrangeFloup},#{ oldarrangeSomin},#{ oldarrangeNextsomin},#{ oldarrangeDrihz},#{ oldarrangeDriqu},#{ oldarrangeSporthz},
+    #{oldarrangeNextsphz},#{ oldarrangeNextsptime},#{ oldarrangeTkslty},#{ oldarrangeThr},#{ healthcheckDoctor},#{ oldarrangeState},
+    #{oldarrangeSymptom},#{ oldarrangeComption},#{ oldarrangePsyrec},#{ oldarrangeCompliance},#{ oldarrangeOth},#{ oldarrangeAcp},#{ oldarrangeOffer},#{ oldarrangeDe},
+    #{oldarrangeFoltime},#{ oldarrangeNextflup},#{ oldarrangeSporttime},#{ oldarrangeBp1},#{ oldarrangeBp2},#{ oldarrangeHeight},#{ oldarrangeWeight},#{ oldarrangeBmi},
+    #{ oldarrangeFbg},#{ oldarrangeTg},#{ oldarrangeHdl},#{ oldarrangeLdl},#{ oldarrangeTc}
+      )
     </insert>
 
+    <update id="updateArr" parameterType="com.aaa.health.entity.oldpeo.Oldarrange">
+    update oldarrange set
+      oldarrangeFloup=#{ oldarrangeFloup}, oldarrangeSomin=#{ oldarrangeSomin}, oldarrangeNextsomin=#{ oldarrangeNextsomin},
+      oldarrangeDrihz=#{ oldarrangeDrihz},  oldarrangeDriqu=#{ oldarrangeDriqu}, oldarrangeSporthz=#{ oldarrangeSporthz},
+      oldarrangeNextsphz=#{oldarrangeNextsphz}, oldarrangeNextsptime=#{ oldarrangeNextsptime}, oldarrangeTkslty=#{ oldarrangeTkslty},
+       oldarrangeThr=#{ oldarrangeThr}, healthcheckDoctor=#{ healthcheckDoctor}, oldarrangeState=#{ oldarrangeState},
+      oldarrangeSymptom=#{ oldarrangeSymptom}, oldarrangeComption=#{ oldarrangeComption}, oldarrangePsyrec=#{ oldarrangePsyrec},
+      oldarrangeCompliance=#{ oldarrangeCompliance}, oldarrangeOth=#{ oldarrangeOth}, oldarrangeAcp=#{ oldarrangeAcp},
+      oldarrangeOffer=#{ oldarrangeOffer}, oldarrangeDe=#{ oldarrangeDe},oldarrangeFoltime=#{oldarrangeFoltime},
+      oldarrangeNextflup=#{ oldarrangeNextflup}, oldarrangeSporttime=#{ oldarrangeSporttime}, oldarrangeBp1=#{ oldarrangeBp1},
+       oldarrangeBp2=#{ oldarrangeBp2}, oldarrangeHeight=#{ oldarrangeHeight}, oldarrangeWeight=#{ oldarrangeWeight},
+      oldarrangeBmi=#{ oldarrangeBmi}, oldarrangeFbg=#{ oldarrangeFbg},oldarrangeTg=#{oldarrangeTg}, oldarrangeHdl=#{ oldarrangeHdl},
+       oldarrangeLdl=#{ oldarrangeLdl}, oldarrangeTc=#{ oldarrangeTc} where oldarrangeId=#{oldarrangeId}
+</update>
+
+    <select id="queryArrange" parameterType="int" resultType="map">
+
+select * from oldarrange oa,user u ,userinfo ui,oldpeo op where u.id=oa.healthcheckDoctor and ui.userId=op.recordId and op.oldpeoId=oa.oldpeoId
+and oa.oldpeoId=#{oldpeoId}
+    </select>
+    <update id="edit" parameterType="com.aaa.health.entity.oldpeo.Oldpeo">
+    update oldpeo set oldpeoMstate=#{oldpeoMstate},oldcloseDate=#{oldcloseDate},oldcloseRea=#{oldcloseRea} where oldpeoId=#{oldpeoId}
+    </update>
 
 
     <delete id="delete" parameterType="String">
         delete from oldpeo where oldpeoId in(${value})
     </delete>
+    <delete id="deleteArr" parameterType="String">
+        delete from oldarrange where oldarrangeId in(${value})
+    </delete>
 
+    <select id="queryDoctor" resultType="Map">
+          select * from user where roleId != 1
+    </select>
+    <select id="queryId" resultType="com.aaa.health.entity.oldpeo.Oldpeo">
+ select * from oldpeo
+  </select>
+    <select id="queryArr" resultType="com.aaa.health.entity.oldpeo.Oldarrange">
+ select * from oldarrange where oldarrangeId=#{oldarrangeId}
+  </select>
     <select id="findList" parameterType="Map" resultType="map">
-        select u.userNumber,u.userIdnumber,u.recordName,u.userSex,u.userBirthday,
-        u.recordAdress,u.userMyphone,u.recordData ,o.oldpeoMstate,u.userMyphone
-        from userinfo u ,oldpeo o where 1=1 and o.recordId=u.userId
-        <if test="username != null">
-            and username like '%${username}%'
+        select* from userinfo u ,oldpeo o where 1=1 and o.recordId=u.userId
+        and oldpeoMstate=0 and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
+        <if test="userId != null and userId != 0">
+            and u.userId LIKE '%${userId}%'
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
+        <if test="userMyphone != null and userMyphone != ''">
+            AND userMyphone LIKE '%${userMyphone}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND u.recordAdress LIKE '%${recordAdress}%'
+        </if>
+        <if test="userIdnumber != null and userIdnumber != ''">
+            AND u.userIdnumber LIKE '%${userIdnumber}%'
         </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
@@ -34,29 +87,46 @@
 
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*) from oldpeo where 1 = 1
-        <if test="username != null">
-            and username like '%${username}%'
+        select count(*) from oldpeo o,userinfo u where 1 = 1  and o.recordId=u.userId
+        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365)>=65
+        <if test="userId != null and userId != 0">
+            and u.userId LIKE '%${userId}%'
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
+        <if test="userMyphone != null and userMyphone != ''">
+            AND userMyphone LIKE '%${userMyphone}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND u.recordAdress LIKE '%${recordAdress}%'
+        </if>
+        <if test="userIdnumber != null and userIdnumber != ''">
+            AND u.userIdnumber LIKE '%${userIdnumber}%'
+        </if>
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
         </if>
     </select>
     <select id="queryAllUser" parameterType="Map" resultType="Map">
-        select  u.userId,u.recordName,u.userBirthday,u.recordAdress,u.userMyphone
-        from userinfo u,oldpeo where u.userId!=oldpeo.recordId
+        select * from userinfo u
+        where userId not in (select recordId from oldpeo) and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
     </select>
 
     <select id="queryUserTotal" parameterType="Map" resultType="Integer">
-        select  count(*) from userinfo u,oldpeo where u.userId!=oldpeo.recordId
+        select  count(*) from userinfo u,oldpeo where userId not in (select recordId from oldpeo)
+        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
+    </select>
+    <select id="queryUserById" parameterType="Integer" resultType="Map">
+        select * from userinfo u WHERE  u.userId=#{uid}
+    </select>
+    <select id="queryAll" parameterType="map" resultType="map">
+             select * from userinfo
     </select>
 </mapper>

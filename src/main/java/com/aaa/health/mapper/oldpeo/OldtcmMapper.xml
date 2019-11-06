@@ -1,0 +1,105 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.oldpeo.OldtcmMapper">
+
+    <insert id="add" parameterType="com.aaa.health.entity.oldpeo.Oldtcm">
+insert into oldtcm(oldpeoId,oldtcmVigor,oldtcmFatigue,oldtcmPant,oldtcmVox,oldtcmMood,
+oldtcmMind,oldtcmAnimation,oldtcmFear,oldtcmBody,oldtcmEyes,oldtcmHandfoot,oldtcmCold,
+oldtcmChill,oldtcmHavecold,oldtcmNose,oldtcmMouth,oldtcmAllergy,oldtcmHives,oldtcmBruising,
+oldtcmExcori,oldtcmDry,oldtcmLimb,oldtcmFilldate,healthcheckDoctor
+)values(#{oldpeoId},#{oldtcmVigor},#{oldtcmFatigue},#{oldtcmPant},#{oldtcmVox},#{oldtcmMood},#{oldtcmMind},#{oldtcmAnimation},#{oldtcmFear},
+#{oldtcmBody},#{oldtcmEyes},#{oldtcmHandfoot},#{oldtcmCold},#{oldtcmChill},#{oldtcmHavecold},#{oldtcmNose},#{oldtcmMouth},#{oldtcmAllergy},
+#{oldtcmHives},#{oldtcmBruising},#{oldtcmExcori},#{oldtcmDry},#{oldtcmLimb},#{oldtcmFilldate},#{healthcheckDoctor})
+    </insert>
+
+    <update id="edit" parameterType="com.aaa.health.entity.oldpeo.Oldtcm">
+update oldtcm set oldtcmVigor= #{oldtcmVigor},oldtcmFatigue= #{oldtcmFatigue},oldtcmPant= #{oldtcmPant},oldtcmVox= #{oldtcmVox},oldtcmMood= #{oldtcmMood},
+oldtcmMind= #{oldtcmMind},oldtcmAnimation= #{oldtcmAnimation},oldtcmFear= #{oldtcmFear},oldtcmBody= #{oldtcmBody},oldtcmEyes= #{oldtcmEyes},
+oldtcmHandfoot= #{oldtcmHandfoot},oldtcmCold= #{oldtcmCold},oldtcmChill= #{oldtcmChill},oldtcmHavecold= #{oldtcmHavecold},oldtcmNose= #{oldtcmNose},
+oldtcmMouth= #{oldtcmMouth},oldtcmAllergy= #{oldtcmAllergy},oldtcmHives= #{oldtcmHives},oldtcmBruising= #{oldtcmBruising},
+oldtcmExcori= #{oldtcmExcori},oldtcmDry= #{oldtcmDry},oldtcmLimb= #{oldtcmLimb},oldtcmFilldate= #{oldtcmFilldate},healthcheckDoctor=#{healthcheckDoctor}
+ where  oldtcmId=#{oldtcmId}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        delete from oldtcm where oldtcmId in(${value})
+    </delete>
+    <select id="queryAllUser" parameterType="map" resultType="Map">
+        select * from oldtcm o,user u where o.healthcheckDoctor=u.id and  oldpeoId=#{oldpeoId}
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="queryUserTotal" parameterType="Map" resultType="Integer">
+        select count(* ) from oldtcm where oldpeoId=#{oldpeoId}
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="queryId" resultType="com.aaa.health.entity.oldpeo.Oldtcm" parameterType="int">
+ select * from oldtcm where oldtcmId=#{oldtcmId}
+  </select>
+
+    <select id="findList" parameterType="Map" resultType="map">
+        select *
+        from userinfo u ,oldpeo o where 1=1 and o.recordId=u.userId and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
+        <if test="userId != null and userId != 0">
+            and u.userId LIKE '%${userId}%'
+        </if>
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
+        </if>
+        <if test="userMyphone != null and userMyphone != ''">
+            AND userMyphone LIKE '%${userMyphone}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND u.recordAdress LIKE '%${recordAdress}%'
+        </if>
+        <if test="userIdnumber != null and userIdnumber != ''">
+            AND u.userIdnumber LIKE '%${userIdnumber}%'
+        </if>
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <!-- 获取符合结果的总记录数 -->
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select count(*)
+        from userinfo u ,oldpeo o where 1=1 and o.recordId=u.userId and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
+        <if test="userId != null and userId != 0">
+            and u.userId LIKE '%${userId}%'
+        </if>
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
+        </if>
+        <if test="userMyphone != null and userMyphone != ''">
+            AND userMyphone LIKE '%${userMyphone}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND u.recordAdress LIKE '%${recordAdress}%'
+        </if>
+        <if test="userIdnumber != null and userIdnumber != ''">
+            AND u.userIdnumber LIKE '%${userIdnumber}%'
+        </if>
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="queryUserById" parameterType="Integer" resultType="Map">
+          select * from userinfo u,oldpeo o WHERE  o.recordId=u.userId and o.oldpeoId=#{uid}
+    </select>
+    <select id="queryAll" parameterType="Map" resultType="Map">
+        select * from userinfo
+    </select>
+
+    <select id="queryDoctor" resultType="Map">
+          select * from user where roleId != 1
+    </select>
+
+
+</mapper>

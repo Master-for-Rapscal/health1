@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
+
+<body>
+<div th:fragment="oldpeo">
+    <div class="oldpeo">
+        <style>
+            input[type="text"] {
+                border: 0px;
+                width: 150px;
+            }
+
+            input[type="checkbox"] {
+                margin-left: 20px;
+            }
+            .tr{
+                readonly:true;
+
+            }
+        </style>
+        <form id="form1" method="post">
+            <table width="600" border="1" cellspacing="0" cellpadding="1" id="tab1">
+                <caption>
+           <!--         新增老年人专项管理卡-->
+                </caption>
+
+
+                <tr>
+                    <td>姓名:</td>
+                    <td><input type="text" name="recordName" id="recordName" readonly/></td>
+                    <td>性别:</td>
+                    <td><input type="text" name="userSex" id="userSex" readonly/></td>
+
+                </tr>
+                <tr>
+                    <td width="100px">管理卡编号:</td>
+                    <td width="200px"><input type="text" name="userPapernumber" id="userPapernumber" readonly/></td>
+                    <td width="94px">个人健康档案号:</td>
+                    <td width="200px"><input type="text" name="userId" id="userId" style="width: 100%" readonly/></td>
+                </tr>
+
+                <tr>
+                    <td>本人健康状况</td>
+
+                    <td colspan="3"><input type="radio" name="oldpeoSelfstate" value="1"/>好
+                        <input type="radio" name="oldpeoSelfstate" value="2"/>一般
+                        <input type="radio" name="oldpeoSelfstate" value="3"/>生活能自理
+                        <input type="radio" name="oldpeoSelfstate" value="4"/>差
+                        <input type="radio" name="oldpeoSelfstate" value="5"/>生活不能自理
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>配偶健康状况</td>
+                    <td colspan="3"><input type="radio" name="oldpeoMatestate" value="1"/>好
+                        <input type="radio" name="oldpeoMatestate" value="2"/>一般
+                        <input type="radio" name="oldpeoMatestate" value="3"/>生活能自理
+                        <input type="radio" name="oldpeoMatestate" value="4"/>差
+                        <input type="radio" name="oldpeoMatestate" value="5"/>生活不能自理
+                    </td>
+                </tr>
+                <tr>
+                <td>医生:</td>
+                <td colspan="3"><input type="text" name="recordDoctor" id="recordDoctor" /></td>
+                </tr>
+                <tr rowspan="3" class="tr">
+                    <td>疾病史:</td>
+                    <td colspan="3" >
+
+                        <input type="checkbox" onclick="checkItem1(this)"   name="userIllness" value="1"/>1无
+                        <input type="checkbox"  name="userIllness" value="2"/>2高血压
+                        <input type="checkbox"  name="userIllness" value="3"/>3糖尿病
+                        <input type="checkbox"  name="userIllness" value="4"/>4冠心病
+                        <input type="checkbox"  name="userIllness" value="5"/>5慢性病
+                        <input type="checkbox"  name="userIllness" value="6"/>6恶性肿瘤<br/>
+                        <input type="checkbox"  name="userIllness" value="7"/>7脑卒中
+                        <input type="checkbox"  name="userIllness" value="8"/>8重性精神病
+                        <input type="checkbox"  name="userIllness" value="9"/>9结核病
+                        <input type="checkbox"  name="userIllness" value="10"/>10肝炎
+                        <input type="checkbox"  name="userIllness" value="11"/>11其他
+
+                    </td>
+                </tr>
+                <script>
+   /*                 $(function () {
+                        $("input[name='userIllness']").first().click(function () {
+                                if($(this).prop("checked") == true){
+                                    $("input[name='userIllness']").prop("checked",false);
+                                    $("input[name='userIllness']").prop("disabled",true);
+                                    $(this).prop("checked",true);
+                                    $(this).prop("disabled",false);
+                                }else{
+                                    $("input[name='userIllness']").prop("disabled",false);
+                                }
+                            }
+                        );
+
+                    })*/
+
+                </script>
+                <tr class="tr">
+                    <td>手术史:</td>
+                    <td><input type="text" name="userSurgery" readonly/></td>
+                    <td>手术日期:</td>
+                    <td><input type="text" name=""   readonly/></td>
+                </tr>
+                <tr class="tr">
+                    <td>手术史:</td>
+                    <td><input type="text" name="userSurgery" readonly/></td>
+                    <td>手术日期:</td>
+                    <td><input type="text" name=""  readonly/></td>
+                </tr>
+                <tr class="tr">
+                    <td>外伤史:</td>
+                    <td><input type="text" name="userTrauma"   readonly/></td>
+                    <td>外伤日期:</td>
+                    <td><input type="text" name=""   readonly/></td>
+                </tr>
+                <tr class="tr">
+                    <td>外伤史:</td>
+                    <td><input type="text" name="userTrauma"  readonly/></td>
+                    <td>外伤日期:</td>
+                    <td><input type="text" name=""  readonly/></td>
+                </tr>
+                <tr class="tr">
+                    <td>输血史:</td>
+                    <td><input type="text" name="userBlood" readonly/></td>
+                    <td>输血日期:</td>
+                    <td><input type="text" name=""  readonly/></td>
+                </tr>
+                <tr class="tr">
+                    <td>输血史:</td>
+                    <td><input type="text" name="userBlood"   readonly/></td>
+                    <td>输血日期:</td>
+                    <td><input type="text" name=""  readonly/></td>
+                </tr>
+                <tr class="tr">
+                    <td>业余爱好</td>
+                    <td colspan="3"><input type="text"  readonly name=""/>
+                    </td>
+                </tr>
+
+                <tr class="tr">
+                    <td>暴露史</td>
+                    <td colspan="3">
+                        <input type="checkbox"  name="userExpose" onclick="checkItem1(this)" value="1"/>1无&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有：
+                        <input type="checkbox"  name="userExpose"  value="2"/>2化学品
+                        <input type="checkbox"  name="userExpose"  value="3"/>3毒物
+                        <input type="checkbox"  name="userExpose"  value="4"/>4射线
+                    </td>
+                </tr>
+                <tr class="tr">
+                    <td>过敏史</td>
+                    <td colspan="3">
+                        <input type="checkbox" onclick="checkItem1(this)"  name="userAllergy"  value="1"/>1无&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有：
+                        <input type="checkbox"   name="userAllergy"  value="2"/>2青霉素
+                        <input type="checkbox"   name="userAllergy"  value="3"/>3磺胺
+                        <input type="checkbox"   name="userAllergy"  value="4"/>4链霉素
+                        <input type="checkbox"   name="userAllergy"  value="5"/>5其他
+                    </td>
+                </tr>
+                <tr class="tr">
+                    <td>遗传病史</td>
+                    <td colspan="3"><input type="radio" readonly name="userHeredity" value="1"/>无 <input type="radio" readonly name="userHeredity" value="2"/>有
+                        疾病名称：<input type="text" name="userHeredity" readonly
+                                    style="border:none;border-bottom:2px solid black"/>
+                    </td>
+
+                </tr>
+                <tr class="tr">
+                    <td>残疾情况:</td>
+                    <td colspan="3">
+                        <input type="checkbox" onclick="checkItem1(this)" name="userDisability"  value="1"/>1无残疾
+                        <input type="checkbox" name="userDisability" value="2"/>2视力残疾
+                        <input type="checkbox"  name="userDisability" value="3"/>3听力残疾
+                        <input type="checkbox"   name="userDisability" value="4"/>4言语残疾
+                        <input type="checkbox"   name="userDisability" value="5"/>5肢体残疾<br/>
+                        <input type="checkbox"   name="userDisability" value="6"/>6恶性肿瘤
+                        <input type="checkbox"   name="userDisability" value="7"/>7智力残疾
+                        <input type="checkbox"  name="userDisability" value="8"/>8精神残疾
+                        <input type="checkbox"  name="userDisability" value="9"/>9其他残疾
+                    </td>
+                </tr>
+<!--                <script>
+                    $(function () {
+                        $("input[name='userDisability']").first().click(function () {
+                                if($(this).prop("checked") == true){
+                                    $("input[name='userDisability']").prop("checked",false);
+                                    $("input[name='userDisability']").prop("disabled",true);
+                                    $(this).prop("checked",true);
+                                    $(this).prop("disabled",false);
+                                }else{
+                                    $("input[name='userDisability']").prop("disabled",false);
+                                }
+                            }
+                        );
+
+                    })
+
+                </script>-->
+                <tr class="tr">
+                    <td>残疾证号</td>
+                    <td colspan="3"><input type="text" name=""/></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center" style="border: none;"><a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="goAdd()">保存</a></td>
+                    <td colspan="2" align="center"  style="border: none;"><a class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px" onclick="goBack()">取消</a></td>
+                </tr>
+            </table>
+
+        </form>
+    </div>
+
+</div>
+
+
+</body>
+</html>

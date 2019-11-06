@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
+
+<body>
+<div th:fragment="othslow">
+    <div class="othslow">
+        <style>
+            input[type="text"] {
+    /*            border: 0px;*/
+                width: 50px;
+            }
+            input{
+                /*            border: 0px;*/
+                border:none;
+            }
+            input[type="checkbox"] {
+                margin-left: 15px;
+            }
+            .xxx{
+                font-size: 12px;
+                font-weight: bold;
+                color: red;
+            }
+        </style>
+        <form id="othform" method="post">
+            <table width="700" border="1" cellspacing="0" cellpadding="1" id="tab1">
+     <!--           <caption>
+                    <h3>其他慢病管理卡</h3>
+                </caption>-->
+                <tr>
+                    <td colspan="2"><input readonly style="width: 80px;border: none" value="健康档案号"/></td>
+                    <td colspan="2"><input name="userId" id="userId"style="width: 60%;border: none"  readonly type="text"></td>
+                    <td><input value="姓名"readonly style="width: 40px;border: none" ></td>
+                    <td colspan="2"><input name="recordName"style="width: 70%;border: none"  readonly id="recordName" type="text"></td>
+                    <td><input value="性别" readonly style="width:40px;border: none" ></td>
+                    <td><input name="userSex" type="text"style="width:30px;border: none"  readonly id="userSex"></td>
+                    <td><input value="出生日期" readonly style="width: 80px;"></td>
+                    <td colspan="2"><input name="userBirthday" style="width: 80%;border: none"  readonly id="userBirthday" type="text"></td>
+                  <!--  <td>年龄</td>
+                    <td colspan="2"><input name="" type="text"></td>-->
+                </tr>
+                <tr>
+                    <td>地区</td>
+                    <td colspan="2"><input name="userWorKunit"style="width: 80%;border: none"  readonly id="userWorKunit"type="text"></td>
+                    <td>血型</td>
+                    <td><input name="userBloodtype" type="text" style="width: 80%;border: none"  readonly id="userBloodtype"></td>
+                    <td colspan="2">现住地址</td>
+                    <td colspan="6"><input name="recordAdress" id="recordAdress"readonly style="width: 90%;border: none"  type="text"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">联系电话</td>
+                    <td colspan="2"><input name="userMyphone" id="userMyphone"readonly style="width: 90%" type="text"></td>
+                    <td>邮编</td>
+                    <td colspan="2"><input name="recordPostalcode" id="recordPostalcode"readonly style="width: 90%"  type="text"></td>
+                    <td colspan="2">身份证号</td>
+                    <td colspan="3"><input name="userIdnumber" id="userIdnumber"readonly style="width: 140px" type="text"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">慢病名称<span class="xxx">*</span></td>
+                    <td colspan="10"><select name="othslowNameId" type="text" style="width: 200px" class="easyui-combobox" id="othslowNameId"></select></td>
+                </tr>
+                <tr>
+                    <td colspan="2">诊断时间<span class="xxx">*</span></td>
+                    <td colspan="10"><input name="othslowDiatime"  type="text"class="easyui-datebox" style="width: 100%" ></td>
+                </tr>
+                <tr>
+                    <td colspan="2">诊断医院</td>
+                    <td colspan="2">本市二级医院</td>
+                    <td colspan="3"><input name="othslowDiabwh"  style="width: 100%" type="text"></td>
+                    <td colspan="2">其他医院</td>
+                    <td colspan="3"><input name="othslowOthbwh"style="width: 100%"  type="text"></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">确诊依据</td>
+                    <td colspan="10">
+                        <input type="checkbox" name="othslowMakegist"   onclick="checkItem1(this)" value="1"/> 不详
+                        <input type="checkbox" name="othslowMakegist" value="2"/>超声波检查
+                        <input type="checkbox" name="othslowMakegist" value="3"/>CT
+                        <input type="checkbox" name="othslowMakegist" value="4"/>核磁共振
+                        <input type="checkbox" name="othslowMakegist" value="5"/>病理（继发）<br>
+                        <input type="checkbox" name="othslowMakegist" value="6"/>病理（原发）
+                        <input type="checkbox" name="othslowMakegist" value="7"/>临床症状
+                        <input type="checkbox" name="othslowMakegist" value="8"/>内窥镜
+                        <input type="checkbox" name="othslowMakegist" value="9"/>生化
+                        <input type="checkbox" name="othslowMakegist" value="10"/>免疫
+                        <input type="checkbox" name="othslowMakegist" value="11"/>细胞学<br/>
+                        <input type="checkbox" name="othslowMakegist" value="12"/>血片
+                        <input type="checkbox" name="othslowMakegist" value="13"/>只有死亡医学证明
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">家族史</td>
+                    <td colspan="10">
+                        <input type="checkbox" name="othslowFamihis"   onclick="checkItem1(this)"  value="1"/>无
+                        <input type="checkbox" name="othslowFamihis" value="2"/>冠心病
+                        <input type="checkbox" name="othslowFamihis" value="3"/>脑卒中
+                        <input type="checkbox" name="othslowFamihis" value="4"/>糖尿病
+                        <input type="checkbox" name="othslowFamihis" value="5"/>肿瘤
+                        <input type="checkbox"name="othslowFamihis" value="6"/>高血压
+                        <input type="checkbox" name="othslowFamihis" value="7"/>不详
+
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3" colspan="2">生活习惯</td>
+                    <td colspan="2">吸烟情况</td>
+                    <td colspan="8"><input type="radio" name="othslowSmostat" value="1">从不吸烟<input type="radio" name="othslowSmostat" value="2">从不吸烟<input
+                            type="radio" name="othslowSmostat" value="3">从不吸烟
+                    </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">饮酒情况</td>
+                    <td colspan="8"><input type="radio" name="othslowDrinking" value="1">从不喝酒<input type="radio" name="othslowDrinking" value="2">偶尔喝酒<input
+                            type="radio" name="othslowDrinking" value="3">经常喝酒<input type="radio" name="othslowDrinking" value="4">每天喝酒
+                    </td>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">体育锻炼</td>
+                    <td colspan="8"><input type="radio" name="othslowExercise" value="1">每天<input type="radio" name="othslowExercise" value="2">每周一次以上<input
+                            type="radio" name="othslowExercise" value="3">偶尔<<input type="radio" name="othslowExercise" value="4">不短了
+                    </td>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="4" colspan="2">非药物治疗情况</td>
+                    <td colspan="2">体力活动</td>
+                    <td colspan="2">每周</td>
+                    <td colspan="2"><input type="text"style="width: 80%"  value="0"oninput="value=value.replace(/[^\d]/g,'')" maxlength="5"  name="othslowWeekly">次</td>
+                    <td colspan="2">每次</td>
+                    <td colspan="2"> <input type="text"style="width:70%" value="0" oninput="value=value.replace(/[^\d]/g,'')" maxlength="5"  name="othslowEach">分钟</td>
+                </tr>
+                <tr>
+                    <td colspan="2">饮食</td>
+                    <td colspan="2">每天</td>
+                    <td colspan="2"><input type="text"style="width: 80%" value="0" oninput="value=value.replace(/[^\d]/g,'')" maxlength="5"  name="othslowEveryday">餐</td>
+                    <td colspan="2">每餐</td>
+                    <td colspan="2"><input type="text"style="width: 80%" value="0" oninput="value=value.replace(/[^\d]/g,'')" maxlength="5"  name="othslowMeal">两</td>
+                </tr>
+                <tr>
+                    <td>吸烟</td>
+                    <td>每天</td>
+                    <td colspan="3"><input type="text"style="width: 80%" value="0"  oninput="value=value.replace(/[^\d]/g,'')" maxlength="5" name="othslowSmdays">支</td>
+                    <td colspan="2">比上次减少</td>
+                    <td colspan="3"><input type="text"style="width: 80%" value="0" oninput="value=value.replace(/[^\d]/g,'')" maxlength="5"  name="othslowLesslast">支</td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>饮酒</td>
+                    <td>每天</td>
+                    <td colspan="3"><input type="text" style="width: 80%" value="0"oninput="value=value.replace(/[^\d]/g,'')" maxlength="5"  name="othslowDrink">两</td>
+                    <td colspan="2">比上次减少</td>
+                    <td colspan="3"><input type="text"style="width: 80%"  value="0" oninput="value=value.replace(/[^\d]/g,'')" maxlength="5"  name="othslowDriless">两</td>
+                </tr>
+                <tr>
+                    <td rowspan="3" colspan="2">处方</td>
+                    <td>原用药品</td>
+                    <td>1.</td>
+                    <td colspan="2"><input type="text"style="width: 100%" name="othslowOrimed1"></td>
+                    <td>2.</td>
+                    <td colspan="2"><input type="text"style="width: 100%" name="othslowOrimed2"></td>
+                    <td>3.</td>
+                    <td colspan="2"><input type="text"style="width: 100%" name="othslowOrimed3"></td>
+                </tr>
+                <tr>
+
+                    <td>调整后用药</td>
+                    <td>1.</td>
+                    <td colspan="2"><input type="text"style="width: 100%" name="othslowAdjmed1"></td>
+                    <td>2.</td>
+                    <td colspan="2"><input type="text"style="width: 100%" name="othslowAdjmed2"></td>
+                    <td>3.</td>
+                    <td colspan="2"><input type="text"style="width: 100%" name="othslowAdjmed3"></td>
+                </tr>
+
+                <tr>
+                    <td>饮食</td>
+                    <td colspan="4"><input type="text"style="width: 100%" name="othslowFoot"></td>
+                    <td>体力活动</td>
+                    <td colspan="4"><input type="text"style="width: 100%" name="othslowGppaq"></td>
+                </tr>
+                <tr>
+                    <td>责任医生<span class="xxx">*</span></td>
+                    <td colspan="5"><input type="text"style="width: 100%" name="othslowResdoc"  class="easyui-combobox" id="othslowResdoc"></td>
+                    <td>建卡日期<span class="xxx">*</span></td>
+                    <td colspan="5"><input type="text"style="width: 100%" class="easyui-datebox" name="othslowJkdate"></td>
+                </tr>
+                <tr>
+                    <td>转归原因</td>
+                    <td colspan="5"><input type="text"style="width: 100%" readonly name="othslowOutfor"></td>
+                    <td>转归日期</td>
+                    <td colspan="5"><input type="text"style="width: 100%" readonly name="othslowOutdate"></td>
+                </tr>
+                <tr>
+                    <td colspan="6" align="center" style="border: none;"><a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="goAdd()">保存</a></td>
+                    <td colspan="6" align="center"  style="border: none;"><a class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px" onclick="goBack()">取消</a></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
+<script>
+
+    if("#othslowNameId".val()==""){
+        alert("aaa");
+
+    }
+</script>
+
+<!--
+<script>
+$(function () {
+    $('.req').datebox({
+        required:true
+    });
+})
+</script>-->

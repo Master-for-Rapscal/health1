@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
+
+<body>
+<div th:fragment="oldsuifang" style="height:600px;">
+    <div class="oldsuifang">
+        <style>
+
+            input[type="text"]{
+                border: 0px;
+                width: 50px;
+            }
+            input[type="checkbox"]{
+                margin-left: 15px;
+            }
+        </style>
+        <form id="sfform">
+            <table width="700" border="1"  style="height:450px;" cellspacing="0" cellpadding="1" id="tab1">
+
+                <input type="hidden" name="oldpeoId" id="oldpeoId3">
+                <tr>
+                    <td colspan="2" style="width:100px">专项卡编号</td>
+                    <td colspan="3" style="width:130px ;"><input type="text" style="width: 100%" name="recordMedical" id="recordMedical3" readonly></td>
+                    <td colspan="2" style="width: 100px">健康档案号</td>
+                    <td colspan="3" style="width:150px ;"><input type="text" style="width: 100%" name="userId" id="userId3" readonly></td>
+                    <td style="width: 50px">姓名</td>
+                    <td style=" width:70px ;"><input type="text" name="recordName" style="width: 100%" id="recordName3" readonly></td>
+                </tr>
+                <tr>
+                    <td style="width:60px;">性别</td>
+                    <td style=" width:70px ;"><input type="text" name="userSex"style="width: 100%" id="userSex3" readonly></td>
+                    <td style=" width:60px ;">婚姻</td>
+                    <td style=" width:80px ;"><input type="text" name="userGam" style="width: 100%"id="userGam3" readonly></td>
+                    <td style=" width:60px ;">职业</td>
+                    <td style=" width:90px ;"><input type="text" name="userWorKunit"style="width: 100%" id="userWorKunit3" readonly></td>
+                    <td colspan="3" style=" width:80px ;">出生日期</td>
+                    <td colspan="3" style=" width:100px;"><input type="text" name="userBirthdy"style="width: 100%" id="userBirthday3" readonly></td>
+                </tr>
+                <tr>
+                    <td colspan="2" >联系电话</td>
+                    <td colspan="2" ><input type="text" name="userMyphone"style="width: 100%"  id="userMyphone3" readonly></td>
+                    <td colspan="2" >现住地址</td>
+                    <td colspan="6" ><input type="text" name="recordAdress"style="width: 100%"  id="recordAdress3" readonly></td>
+
+                </tr>
+                <tr>
+                    <td colspan="2"  style=" width:150px ;">随访日期</td>
+                    <td colspan="2" style=" width:150px ;"><input type="text"  class="easyui-datebox"  style="width: 100%" name="oldarrangeFoltime" ></td>
+                    <td colspan="2"style=" width:150px ;">随访方式</td>
+                    <td colspan="6" style=" width:280px ;"><input type="radio" value="1" name="oldarrangeFloup" readonly>门诊<input type="radio"  value="2" name="oldarrangeFloup" readonly>家庭<input type="radio" name="oldarrangeFloup"  value="3" readonly>电话</td>
+
+                </tr>
+                <tr rowspan="2" colspan="2">
+                    <td colspan="2" style=" width:80px ;">症状</td>
+                    <td colspan="10"style="width:520px ;">
+                        <input type="checkbox" onclick="checkItem1(this)"  name="oldarrangeSymptom" value="1"/>无
+                        <input type="checkbox" name="oldarrangeSymptom" value="2"/>头痛头晕
+                        <input type="checkbox" name="oldarrangeSymptom" value="3"/>眼花耳鸣
+                        <input type="checkbox" name="oldarrangeSymptom" value="4"/>呼吸困难
+                        <input type="checkbox" name="oldarrangeSymptom" value="5"/>心悸胸闷<br>
+                        <input type="checkbox" name="oldarrangeSymptom" value="6"/>鼻衄血不止
+                        <input type="checkbox" name="oldarrangeSymptom" value="7"/>四肢麻木
+                        <input type="checkbox" name="oldarrangeSymptom" value="8"/>下肢水肿
+                        <input type="checkbox" name="oldarrangeSymptom" value="9"/>其他
+                    </td>
+                </tr>
+                <tr rowspan="3" colspan="2">
+                    <td colspan="2" style=" width:100px ;">并发症</td>
+                    <td colspan="10"style="width:500px ;">
+                        <input type="checkbox" onclick="checkItem1(this)"  name="oldarrangeComption" value="1"/>无
+                        <input type="checkbox" name="oldarrangeComption" value="2"/>缺血性卒中
+                        <input type="checkbox" name="oldarrangeComption" value="3"/>脑出血
+                        <input type="checkbox" name="oldarrangeComption" value="4"/>短暂性脑缺血发作<br>
+                        <input type="checkbox" name="oldarrangeComption" value="5"/>心肌梗死
+                        <input type="checkbox" name="oldarrangeComption" value="6"/>心绞痛
+                        <input type="checkbox" name="oldarrangeComption" value="7"/>充血性心力衰竭
+                        <input type="checkbox" name="oldarrangeComption" value="8"/>高血压性肾病<br>
+                        <input type="checkbox" name="oldarrangeComption" value="9"/>肾功能衰竭
+                        <input type="checkbox" name="oldarrangeComption" value="10"/>视网膜出血
+                        <input type="checkbox" name="oldarrangeComption" value="11"/>视乳头水肿
+                        <input type="checkbox" name="oldarrangeComption" value="12"/>其他并发症
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"style=" width:200px ;">吸烟量</td>
+                    <td colspan="3" style=" width:90px ;"><input type="text" oninput="value=value.replace(/[^\d]/g,'')"  style="width: 70%" maxlength="5" value="0"name="oldarrangeSomin"/>支/天</td>
+                    <td colspan="5"style=" width:220px ;">下次随访目标吸烟量</td>
+                    <td colspan="2"style=" width:90px ;"><input type="text"style="width: 70%" oninput="value=value.replace(/[^\d]/g,'')"  maxlength="5"  value="0"name="oldarrangeNextsomin"/>支/天</td>
+                </tr>
+                <tr>
+                    <td colspan="2">日饮频率</td>
+                    <td colspan="4"><input type="text" style="width: 70%"value="0" oninput="value=value.replace(/[^\d]/g,'')"  maxlength="3"  name="oldarrangeDrihz"/>次/周</td>
+                    <td colspan="3">日饮量</td>
+                    <td colspan="3"><input type="text"style="width: 70%" value="0" oninput="value=value.replace(/[^\d]/g,'')"  maxlength="5" name="oldarrangeDriqu"/>两/天</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">运动频率</td>
+                    <td  colspan="3"><input type="text" style="width: 70%" value="0"oninput="value=value.replace(/[^\d]/g,'')" maxlength="5"   name="oldarrangeSporthz"/>次/周</td>
+                    <td colspan="3">运动时间</td>
+                    <td  colspan="3"><input type="text"style="width: 70%"value="0" oninput="value=value.replace(/[^\d]/g,'')"  maxlength="5"  name="oldarrangeSporttime"/>分/次</td>
+                </tr>
+                <tr>
+                    <td style=" width:200px ;"colspan="3" >下次随访运动频率</td>
+                    <td style=" width:90px ;"colspan="2"><input type="text"style="width: 70%" value="0" oninput="value=value.replace(/[^\d]/g,'')"   maxlength="5"  name="oldarrangeNextsphz"/>次/周</td>
+                    <td style=" width:220px ;"colspan="4">下次随访目标运动时间</td>
+                    <td style=" width:90px ;"colspan="3"> <input type="text" style="width: 70%" value="0"  oninput="value=value.replace(/[^\d]/g,'')" maxlength="5"   name="oldarrangeNextsptime"/>两/天</td>
+                </tr>
+                <tr>
+                    <td style=" width:150px ;"colspan="3">摄盐行为</td>
+                    <td style=" width:150px ;"colspan="3"><input type="text"style="width: 70%"value="0" oninput="value=value.replace(/[^\d]/g,'')"  maxlength="5"  name="oldarrangeTkslty"/>克/天</td>
+                    <td style=" width:150px ;"colspan="3">心理调整</td>
+                    <td style=" width:150px ;"colspan="3"><select  class="easyui-combobox" style="width: 70%"value="" name="oldarrangePsyrec">
+                        <option value=""></option>
+                        <option value="良好">良好</option>
+                        <option value="一般">一般</option>
+                        <option value="差">差</option>
+                    </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style=" width:200px ;" colspan="2">遵医行为</td>
+                    <td style=" width:400px ;"colspan="10"><select style="width: 90%"class="easyui-combobox" name="oldarrangeCompliance">
+                        <option value=""></option>
+                        <option value="良好">良好</option>
+                        <option value="一般">一般</option>
+                        <option value="差">差</option>
+                    </select></td>
+                </tr>
+
+                <tr>
+                    <td  style="width:80px">血压</td>
+                    <td style="width:160px" colspan="3"><input type="text"oninput="value=value.replace(/[^\d\.]/g,'')" maxlength="3" name="oldarrangeBp1"value="0"/>/<input value="0" oninput="value=value.replace(/[^\d\.]/g,'')" maxlength="3" type="text" name="oldarrangeBp2"/>mmHg</td>
+                    <td style="width:80px">身高</td>
+                    <td style="width:100px" colspan="3"><input type="text"style="width: 80%"value="0"maxlength="5" oninput="value=value.replace(/[^\d\.]/g,'')"  onkeyup="BmiVal2()"id="Height2" name="oldarrangeHeight"/>cm</td>
+                    <td style="width: 80px" >体重</td>
+                    <td style="width:100px"colspan="3"><input type="text"style="width: 80%" maxlength="5" oninput="value=value.replace(/[^\d\.]/g,'')" value="0" onkeyup="BmiVal2()" id="Weight2" name="oldarrangeWeight"/>kg</td>
+                </tr>
+                <tr>
+                    <td >体质指数</td>
+                    <td colspan="3"><input type="text" id="Bmi2" name="oldarrangeBmi" value="0"  readonly />kg/m^2</td>
+                    <td>空腹血糖</td>
+                    <td colspan="3"><input type="text"oninput="value=value.replace(/[^\d\.]/g,'')" maxlength="5" name="oldarrangeFbg" value="0"/>mmol/L</td>
+                    <td >甘三油脂</td>
+                    <td colspan="3"><input type="text" oninput="value=value.replace(/[^\d\.]/g,'')" maxlength="5"  name="oldarrangeTg"value="0"/>mmol/L</td>
+                </tr>
+                <script>
+                    function BmiVal2() {
+                        var hh=($("#Height2").val())/100;
+                        $("#Bmi2").val(($("#Weight2").val()/(hh*hh)).toFixed(2));
+                    }
+
+                </script>
+                <tr>
+                    <td colspan="2"><input  value="高密度脂蛋白"style="width: 100px; border: none;" ></td>
+                    <td colspan="4"><input type="text" style="width: 70%" value="0" oninput="value=value.replace(/[^\d\.]/g,'')"maxlength="5" name="oldarrangeHdl"/>mmol/L</td>
+                    <td colspan="2"><input value="低密度脂蛋白"style="width: 100px; border: none"></td>
+                    <td colspan="4"><input type="text"  style="width: 70%" oninput="value=value.replace(/[^\d\.]/g,'')" value="0" maxlength="5" name="oldarrangeLdl"/>mmol/L</td>
+                </tr>
+                <tr>
+                    <td   style="width:100px">总胆固醇</td>
+                    <td  colspan="3" style="width:100px"><input type="text"style="width: 60%"oninput="value=value.replace(/[^\d\.]/g,'')"  maxlength="5" value="0"name="oldarrangeTc"/>mmol/L</td>
+                    <td  style="width:100px">现心律</td>
+                    <td  colspan="3" style="width:100px"><input type="text"style="width: 60%" value="0" oninput="value=value.replace(/[^\d]/g,'')" maxlength="4" name="oldarrangeNowhea"/>次/分</td>
+                    <td  style="width:100px">目标心率</td>
+                    <td  colspan="3" style="width:100px"><input type="text"  style="width: 60%" value="0"oninput="value=value.replace(/[^\d]/g,'')" maxlength="4" name="oldarrangeThr"/>次/分</td>
+                </tr>
+                <tr>
+                    <td  style="width:100px"colspan="3">其他</td>
+                    <td style="width:380px"colspan="9"><input type="text"style="width:100%" name="oldarrangeOth"/></td>
+                </tr>
+                <tr>
+                    <td  colspan="3">辅助检查</td>
+                    <td colspan="9"><input type="text" name="oldarrangeAcp"style="width:100%"/></td>
+                </tr>
+                <tr style="height:200px;">
+                    <td  colspan="3" >随访建议</td>
+                    <td  colspan="9"><input type="text" style="width:100%;height: 100%"name="oldarrangeOffer"/></td>
+                </tr>
+
+                <tr>
+                    <td  colspan="3">下次随访日期</td>
+                    <td colspan="3"><input type="text"  class="easyui-datebox"  style="width:100%"name="oldarrangeNextflup"/></td>
+                    <td  colspan="3">随访医生签名</td>
+                    <td colspan="3"><input type="text"style="width:100%" name="healthcheckDoctor" id="healthcheckDoctor"/></td>
+                </tr>
+                <tr>
+                    <td colspan="6" align="center" style="border: none;"><a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick=" goSui()">保存</a></td>
+                    <td colspan="6" align="center"  style="border: none;"><a class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px" onclick="Close()">取消</a></td>
+                </tr>
+            </table>
+
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
