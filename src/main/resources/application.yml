@@ -14,6 +14,7 @@ spring:
 #    url: jdbc:mysql://localhost/health?serverTimezone=Asia/Shanghai
 
     driver-Class-Name: com.mysql.cj.jdbc.Driver
+
     #连接池初始化时创建的连接数,default : 3（建议使用）?useUnicode\: true&characterEncoding\: UTF-8&useSSL\: false&serverTimezone\: UTC
     initialPoolSize: 5
     #连接池保持的最小连接数,default : 3（建议使用）
