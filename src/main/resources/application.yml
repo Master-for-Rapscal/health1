@@ -51,6 +51,7 @@ spring:
     maxIdleTimeExcessConnections: 0
     #配置连接的生存时间，超过这个时间的连接将由连接池自动断开丢弃掉。当然正在使用的连接不会马上断开，而是等待它close再断开。配置为0的时候则不会对连接的生存时间进行限制。default : 0 单位 s（不建议使用）
     maxConnectionAge: 0
+    driver-class-name: com.mysql.cj.jdbc.Driver
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/templates/
 

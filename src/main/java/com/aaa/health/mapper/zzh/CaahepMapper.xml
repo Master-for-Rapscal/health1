@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.zzh.CaahepMapper">
+    <!-- 分页获取用户列表 -->
+    <select id="findList" parameterType="Map" resultType="Caahep">
+        SELECT * from caahep where 1 = 1
+        <if test="userinfoId != null">
+            and userinfoId = #{userinfoId}
+        </if>
+
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <!-- 获取符合结果的总记录数 -->
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select count(*) from caahep where 1 = 1
+        <if test="userinfoId != null">
+            and userinfoId = #{userinfoId}
+        </if>
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+    <!-- 删除用户 -->
+    <delete id="delete" parameterType="String">
+        delete from caahep where caahepId in(${value})
+    </delete>
+
+    <!-- 添加用户 -->
+    <insert id="add" parameterType="Caahep">
+        INSERT INTO caahep(caahepTopic,caahepHealtype,caahepHealtlocation,caahepHealobj,caahepFinalobj,caahep,caahepPlanyear,caahepPeonum,
+	caahepExfunds,caahepHealcon,caahepHealques,caahepPlanner,caahepPlandate,caahepState)
+VALUES(#{caahepTopic},#{caahepHealtype},#{caahepHealtlocation},#{caahepHealobj},#{caahepFinalobj},#{caahep},#{caahepPlanyear},#{caahepPeonum},
+#{caahepExfunds},#{caahepHealcon},#{caahepHealques},#{caahepPlanner},#{caahepPlandate},#{caahepState})
+
+    </insert>
+    <!-- 修改用户 -->
+    <update id="edit" parameterType="Caahep">
+UPDATE caahep SET caahepTopic=#{caahepTopic},caahepHealtype=#{caahepHealtype},caahepHealtlocation=#{caahepHealtlocation},caahepHealobj=#{caahepHealobj},caahepFinalobj=#{caahepFinalobj},caahep=#{caahep},caahepPlanyear=#{caahepPlanyear},
+caahepPeonum=#{caahepPeonum},caahepExfunds=#{caahepExfunds},caahepHealcon=#{caahepHealcon},caahepHealques=#{caahepHealques},caahepPlanner=#{caahepPlanner},caahepPlandate=#{caahepPlandate},caahepState=#{caahepState}
+WHERE caahepId=#{caahepId}
+    </update>
+
+    <select id="findById" parameterType="Long" resultType="Caahep">
+        SELECT * from caahep where  caahepId=#{caahepId}
+
+    </select>
+</mapper>

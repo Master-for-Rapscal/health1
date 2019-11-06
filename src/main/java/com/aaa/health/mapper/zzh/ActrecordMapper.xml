@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.zzh.ActrecordMapper">
+    <!-- 分页获取用户列表 -->
+    <select id="findList" parameterType="Map" resultType="Actrecord">
+        SELECT * from actrecord where 1 = 1
+
+        <if test="caahepId != null">
+            and caahepId = #{caahepId}
+        </if>
+
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <!-- 获取符合结果的总记录数 -->
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select count(*) from actrecord where 1 = 1
+        <if test="caahepId != null">
+            and caahepId = #{caahepId}
+        </if>
+
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+    <!-- 删除用户 -->
+    <delete id="delete" parameterType="String">
+        delete from actrecord where actrecordId in(${value})
+    </delete>
+
+    <!-- 添加用户 -->
+    <insert id="add" parameterType="Actrecord">
+       INSERT INTO actrecord(caahepId,actrecordActtime,actrecordVenue,actrecordWhat,actrecordActtheme,
+actrecordOrganize,actrecordSpeaker,actrecordPeohealtype,actrecordPeohealnum,actrecordHealtype,
+actrecordHealnum,actrecordActivities,actrecordActeval,actrecordArchmate,actrecordPreparer,actrecordLeader,
+actrecordTime,actrecordState)
+VALUES(#{caahepId},#{actrecordActtime},#{actrecordVenue},#{actrecordWhat},#{actrecordActtheme},
+#{actrecordOrganize},#{actrecordSpeaker},#{actrecordPeohealtype},#{actrecordPeohealnum},#{actrecordHealtype},
+#{actrecordHealnum},#{actrecordActivities},#{actrecordActeval},#{actrecordArchmate},#{actrecordPreparer},
+#{actrecordLeader},#{actrecordTime},#{actrecordState})
+
+    </insert>
+    <!-- 修改用户 -->
+    <update id="edit" parameterType="Actrecord">
+UPDATE actrecord SET caahepId=#{caahepId},actrecordActtime=#{actrecordActtime},actrecordVenue=#{actrecordVenue},
+actrecordWhat=#{actrecordWhat},actrecordActtheme=#{actrecordActtheme},
+actrecordOrganize=#{actrecordOrganize},actrecordSpeaker=#{actrecordSpeaker},actrecordPeohealtype=#{actrecordPeohealtype},actrecordPeohealnum=#{actrecordPeohealnum},actrecordHealtype=#{actrecordHealtype},
+actrecordHealnum=#{actrecordHealnum},actrecordActivities=#{actrecordActivities},actrecordActeval=#{actrecordActeval},actrecordArchmate=#{actrecordArchmate},actrecordPreparer=#{actrecordPreparer},actrecordLeader=#{actrecordLeader},
+actrecordTime=#{actrecordTime},actrecordState=#{actrecordState}
+where actrecordId=#{actrecordId}
+    </update>
+
+    <select id="findById" parameterType="Long" resultType="Actrecord">
+        SELECT * from actrecord where  actrecordId=#{actrecordId}
+
+    </select>
+</mapper>

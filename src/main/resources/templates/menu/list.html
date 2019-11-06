@@ -19,7 +19,7 @@
         </div>
     </div>
     <!-- End of toolbar -->
-    <table id="data-datagrid" class="easyui-treegrid" toolbar="#wu-toolbar"></table>
+    <table id="data-datagrid" class="easyui-treegrid"  toolbar="#wu-toolbar"></table>
 </div>
 <style>
     .selected{
@@ -413,6 +413,7 @@
         });
         console.log($("#search-name").val());
     });
+
     //控制菜单下拉框
     function collapseAll(){
         $('#data-datagrid').treegrid('collapseAll');
@@ -433,6 +434,7 @@
         pagination:true,//	设置true将在数据表格底部显示分页工具栏。
         multiSort:true,
         animate: true,
+        // onLoadSuccess: collapseAll(),
         collapsible: true,
         fitColumns:true,//让列宽自动适应数据表格的宽度。
         idField:'id',//表明该列是一个唯一列。
@@ -447,5 +449,9 @@
                 }},
         ]]
 
+    });
+    $(function(){
+
+        collapseAll();
     });
 </script>
