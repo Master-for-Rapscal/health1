@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.emerg.EmerGenciesMapper">
+    <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.emerg.EmerGencies">
+/*        select emgId,emgPrireport,areaId,emgName,emgReportAddress,emgHappenAddress,emgDetailAddress,emgTimes,emgReportTime,emgPeople,emgPhone from emergencies where 1 = 1
+*/      select * from emergencies
+        <if test="username != null">
+            and username like '%${username}%'
+        </if>
+        <if test="roleId != null">
+            and roleId = #{roleId}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <insert id="add" parameterType="com.aaa.health.entity.emerg.EmerGencies">
+    insert into emergencies(emgPrireport,areaId,emgTime,emgPeople,emgPhone,emgName,emgCategory,
+emgGrade,emgPreDiagnosis,emgPrediaTime,emgRevDiagnosis,emgRevdiaTime,emgClassifyTime,
+emgRevclyTime,emgReportAddress,emgHappenAddress,emgDetailAddress,eventHappen,eventSource,evsoDetail,
+eventRange,emgCase,emgDie,emgRecase,emgCatotal,emgDietotal,emgTimes,emgReportTime,firstPatient,
+lastPatient,mainSymptoms,mainSign,mainMese)
+    values(#{emgPrireport},#{areaId},#{emgTime},#{emgPeople},#{emgPhone},#{emgName},#{emgCategory},
+#{emgGrade},#{emgPreDiagnosis},#{emgPrediaTime},#{emgRevDiagnosis},#{emgRevdiaTime},#{emgClassifyTime},
+#{emgRevclyTime},#{emgReportAddress},#{emgHappenAddress},#{emgDetailAddress},#{eventHappen},#{eventSource},#{evsoDetail},
+#{eventRange},#{emgCase},#{emgDie},#{emgRecase},#{emgCatotal},#{emgDietotal},#{emgTimes},#{emgReportTime},#{firstPatient},
+#{lastPatient},#{mainSymptoms},#{mainSign},#{mainMese})
+    </insert>
+
+    <update id="update" parameterType="com.aaa.health.entity.emerg.EmerGencies">
+update emergencies set emgPrireport=#{emgPrireport},areaId=#{areaId},emgTime=#{emgTime},emgPeople=#{emgPeople},emgPhone=#{emgPhone},
+emgName=#{emgName},emgCategory=#{emgCategory},emgGrade=#{emgGrade},emgPreDiagnosis=#{emgPreDiagnosis},emgPrediaTime=#{emgPrediaTime},
+emgRevDiagnosis=#{emgRevDiagnosis},emgRevdiaTime=#{emgRevdiaTime},emgClassifyTime=#{emgClassifyTime},emgRevclyTime=#{emgRevclyTime},
+emgReportAddress=#{emgReportAddress},emgHappenAddress=#{emgHappenAddress},emgDetailAddress=#{emgDetailAddress},
+eventHappen=#{eventHappen},eventSource=#{eventSource},evsoDetail=#{evsoDetail},eventRange=#{eventRange},emgCase=#{emgCase},
+emgDie=#{emgDie},emgRecase=#{emgRecase},emgCatotal=#{emgCatotal},emgDietotal=#{emgDietotal},emgTimes=#{emgTimes},emgReportTime=#{emgReportTime},
+firstPatient=#{firstPatient},lastPatient=#{lastPatient},mainSymptoms=#{mainSymptoms},mainSign=#{mainSign},mainMese=#{mainMese}
+    where emgId=#{emgId}
+</update>
+    <delete id="delete" parameterType="String">
+        delete from emergencies where emgId in(${value})
+    </delete>
+
+
+    <!-- 获取符合结果的总记录数 -->
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select count(*) from emergencies where 1 = 1
+        <if test="username != null">
+            and username like '%${username}%'
+        </if>
+        <if test="roleId != null">
+            and roleId = #{roleId}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+    </select>
+    <select id="findArea" resultType="com.aaa.health.entity.area.Area">
+ select * from area
+    </select>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.pultub.FoservPulMapper">
+    <delete id="delete" parameterType="String">
+        delete from foservpul where foserId in(${value})
+    </delete>
+
+
+    <!-- 分页获取用户列表 -->
+    <!--<select id="findId" parameterType="Map" resultType="com.aaa.health.entity.pultub.FoservPul">
+        select foserId,foserTime,foserNexttime,foserDoctor,foserMode from foservpul where pultubfoId=#{pultubfoId}
+    </select>-->
+    <select id="findId" parameterType="Map" resultType="com.aaa.health.entity.pultub.FoservPul">
+        select * from foservpul where pultubfoId=#{pultubfoId}
+    </select>
+    <select id="findById" parameterType="Integer" resultType="Map">
+select f.*,p.userId,u.recordName from foservpul f join pultubfo p on f.pultubfoId=p.pultubfoId join userinfo u on u.userId=p.userId where foserId=#{foserId}
+    </select>
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+select count(*) from foservpul where pultubfoId=#{pultubfoId}
+    </select>
+
+</mapper>

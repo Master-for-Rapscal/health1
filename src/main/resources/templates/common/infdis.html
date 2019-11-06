@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
+
+<body>
+<div th:fragment="addinfdis" th:height="500">
+    <div class="addinfdis">
+        <style>
+            input[type="text"] {
+                border: 0px;
+                width: 50px;
+            }
+
+            input[type="checkbox"] {
+                margin-left: 15px;
+            }
+        </style>
+        <form id="addinfform">
+           <!-- <table width="600" th:height="450" border="1" cellspacing="0" cellpadding="1" id="tab1">
+                <caption>
+                    <h3>传染病随访表</h3>
+                </caption>
+
+                <input type="hidden" name="disfopId"  id="disfopId">
+                <tr>
+                    <td>姓名</td>
+                    <td><input type="text"  style="width: 200px"  name="recordName" id="recordName" readonly></td>
+                    <td>性别</td>
+                    <td><input type="text"  style="width: 200px"  name="userSex" id="userSex" readonly></td>
+                    <td>出生日期</td>
+                    <td><input type="text"  style="width: 200px"  name="userBirthday" id="userBirthday" readonly></td>
+                </tr>
+                <tr>
+                    <td>婚姻</td>
+                    <td><input type="text"  style="width: 200px"  name="userGam" id="userGam" readonly></td>
+                    <td>职业</td>
+                    <td><input type="text"  style="width: 200px"  name="userCareer" id="userCareer" readonly></td>
+                    <td>联系电话</td>
+                    <td><input type="text"  style="width: 200px"  name="userMyphone" id="userMyphone" readonly></td>
+                </tr>
+                <tr>
+                    <td>现住地址</td>
+                    <td colspan="5"><input type="text"  style="width: 200px"  name="recordAdress" id="recordAdress" readonly></td>
+                </tr>
+
+                <tr>
+                    <td>随访日期</td>
+                    <td><input type="text" class="easyui-datebox"  name="disfopTime" id="disfopTime" style="width: 200px;"/></td>
+                    <td>随访方式</td>
+                    <td>
+                        <select name="disfopMode" >
+                            <option value="1">门诊</option>
+                            <option value="2">家庭</option>
+                            <option value="3">电话</option>
+                        </select></td>
+                    <td>是否隔离</td>
+                    <td>
+                        <select name="disfopQuarantine" class="easyui-combobox"  style="width:100%;" >
+                            <option value="1">无</option>
+                            <option value="2">有</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>目前症状</td>
+                    <td colspan="5">
+                        <input type="checkbox" name="disfopSymptom" value="1">幻觉
+                        <input type="checkbox" name="disfopSymptom" value="2">交流困难
+                        <input type="checkbox" name="disfopSymptom" value="3">猜疑
+                        <input type="checkbox" name="disfopSymptom" value="4">喜怒无常
+                        <input type="checkbox" name="disfopSymptom" value="5">行为怪异
+                        <input type="checkbox" name="disfopSymptom" value="6">兴奋话多
+                        <input type="checkbox" name="disfopSymptom" value="7">伤人毁物
+                        <input type="checkbox" name="disfopSymptom" value="8">悲观厌世
+                        <input type="checkbox" name="disfopSymptom" value="9">无故外走
+                        <input type="checkbox" name="disfopSymptom" value="10">自语自笑
+                        <input type="checkbox" name="disfopSymptom" value="11">孤僻懒散
+                        <input type="checkbox" name="disfopSymptom" id="wu" onclick="chk()" value="12">无
+                    </td>
+                </tr>
+                <tr>
+                    <td>首诊日期</td>
+                    <td><input type="text" class="easyui-datebox" name="firstVisit" style="width: 200px;"/></td>
+                    <td>发病类型</td>
+                    <td>
+                        <select name="attackCate" class="easyui-combobox"  style="width:100%;" >
+                            <option value="1">甲类</option>
+                            <option value="2">乙类</option>
+                            <option value="3">丙类</option>
+                        </select>
+                    </td>
+                    <td>处置情况</td>
+                    <td>
+                        <select name="disfopSituation" class="easyui-combobox"  style="width:100%;" >
+                            <option value="1">隔离</option>
+                            <option value="2">转诊</option>
+                            <option value="3">死亡</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>处置备注</td>
+                    <td colspan="5">
+                        <textarea name="disfopRemarks" rows="8" cols="90"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>消毒处理情况</td>
+                    <td colspan="5">
+                        <textarea name="disfopDisinfect" rows="8" cols="90"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>药物治疗建议</td>
+                    <td colspan="5">
+                        <textarea name="disfopMedicine" rows="8" cols="90"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>康复治疗建议</td>
+                    <td colspan="5">
+                        <textarea name="disfopRecovery" rows="8" cols="90"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>下次随访日期</td>
+                    <td><input type="text" class="easyui-datebox"  name="nextfoTime" style="width: 200px;"/></td>
+                    <td>随访医生</td>
+                    <td> <select name="disfopDoctor" class="easyui-combobox"  style="width:100%;" >
+                    </select></td>
+                </tr>
+                <tr style="margin-bottom: 40px">
+                    <td colspan="3" align="center" style="border: none;"><a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="goAdd()">保存</a></td>
+                    <td colspan="3" align="center"  style="border: none;"><a class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px" onclick="goBack()">取消</a></td>
+                </tr>
+            </table>-->
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
+<script>
+    function chk() {
+        //当选中input为4时，其他选项清除选中并锁定，取消4选定，锁定解除
+        if ($("#wu").prop("checked")==true) {
+            $("input[type='checkbox']").prop("checked",false);
+            $("input[type='checkbox']").prop("disabled",true);
+            $("#fr").prop("checked",true);
+            $("#fr").prop("disabled",false);
+        }else{
+            $("input[type='checkbox']").prop("disabled",false);
+        }
+    }
+</script>

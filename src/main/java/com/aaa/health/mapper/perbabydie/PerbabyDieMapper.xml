@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.perbabydie.PerbabyDieMapper">
+    <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.perbabyDie.PerbabyDie">
+        select n.newbornId,n.userId,n.newbornName,u.recordName,c.chbirTime,n.newbornSex,n.newbornWeight,n.newbornDiereason,n.newbornDietime,u.recordAdress,u.userMyphone from newborn n left join childbirth c on n.chbirId=c.chbirid join userinfo u on n.usermotherId=u.userId
+        where 1=1
+        <if test="username != null">
+            and username like '%${username}%'
+        </if>
+        <if test="roleId != null">
+            and roleId = #{roleId}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+
+    <!--获取符合结果的总记录数-->
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select count(*) from newborn where 1 = 1
+        <if test="username != null">
+            and username like '%${username}%'
+        </if>
+        <if test="roleId != null">
+            and roleId = #{roleId}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+    </select>
+</mapper>

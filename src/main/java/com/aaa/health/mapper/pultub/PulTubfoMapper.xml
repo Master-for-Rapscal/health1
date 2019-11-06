@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.pultub.PulTubfoMapper">
+    <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.pultub.PulTubfo">
+        select p.pultubfoId,p.userId,u.recordName,u.userSex,u.userBirthday,u.recordAdress,u.userMyphone,y.userPrivyPhone,p.puljkTime,p.pulState,p.pulDoctor from userinfo u join pultubfo p on u.userId=p.userId left join userPrivy y on u.userId=y.userId
+        where 1 = 1
+        <if test="username != null">
+            and username like '%${username}%'
+        </if>
+        <if test="roleId != null">
+            and roleId = #{roleId}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <!--<insert id="add" parameterType="com.aaa.health.entity.emerg.EmerGencies">-->
+    <!--INSERT INTO ADDSUPMANREPORT(ADDRESS_ID,ADDRESS_ID2,REPORT_FINDTIME,REPORT_CATEGORY,REPORT_TIME,REPORT_NAME)-->
+    <!--VALUES(#{ADDRESSID},#{ADDRESSID2},REPORTFINDTIME,REPORTCATEGORY,REPORTTIME,REPORTNAME)-->
+    <!--</insert>-->
+
+    <delete id="delete" parameterType="String">
+        delete from pultubfo where pultubfoId in(${value})
+    </delete>
+
+
+    <!-- 获取符合结果的总记录数 -->
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select count(*) from pultubfo where 1 = 1
+        <if test="username != null">
+            and username like '%${username}%'
+        </if>
+        <if test="roleId != null">
+            and roleId = #{roleId}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+    </select>
+</mapper>

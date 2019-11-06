@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--引入抬头页面-->
+<div th:replace="common/header :: header"  ></div>
+
+<div class="easyui-layout" data-options="fit:true">
+    <!-- Begin of toolbar -->
+    <div id="wu-toolbar">
+        <div class="wu-toolbar-button">
+            <!--引入菜单页面-->
+            <div th:replace="common/menus :: menus"  > </div>
+        </div>
+        <div class="wu-toolbar-search">
+            <label>报告人:</label><input id="search-name" class="wu-text" style="width:100px">
+            <label>报告时间:</label>
+
+            <label>录入人:</label>
+            <select id="search-sex" class="easyui-combobox" panelHeight="auto" style="width:120px">
+                <option value="-1">全部</option>
+                <option value="0">未知</option>
+                <option value="1">男</option>
+                <option value="2">女</option>
+            </select>
+            <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+        </div>
+    </div>
+
+
+
+    <!-- End of toolbar -->
+    <table id="data-datagrid" class="easyui-datagrid" toolbar="#wu-toolbar"></table>
+</div>
+<!-- Begin of easyui-dialog -->
+
+<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:420px; padding:10px;">
+    <form id="add-form" method="post">
+        <h1 style="text-align: center">突发公共卫生事件相关信息报告卡</h1>
+        <div style="margin-left: 450px">
+            <input type="radio" name="emgPrireport" value="1" checked="true" />初步报告
+            <input type="radio" name="emgPrireport" value="2" checked="true" />进程报告
+            <input type="radio" name="emgPrireport" value="3" checked="true" />结案报告
+        </div>
+        <table border="1" style="margin-left: 50px;width: 650px">
+            <tr>
+                <td width="60" data-options="required:true,min:1,precision:0, missingMessage:'请填写'" >填报机构</td>
+                <td colspan="2">
+                    <select th:name="areaId" class="easyui-combobox" panelHeight="auto" style="width:150px">
+
+                        <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
+                    </select>
+                </td>
+                <td valign="middle">
+                    填表时间
+                </td>
+                <td valign="middle" colspan="2">
+                    <input type="text" class="easyui-datebox" name="emgTime" style="width: 160px;" />
+                </td>
+            </tr>
+            <tr>
+                <td width="60">报告人</td>
+                <td colspan="2"> <input type="text" name="emgPeople" style="width: 160px;" /></td>
+                <td width="60">联系电话</td>
+                <td colspan="2">
+                    <input type="text" name="emgPhone" style="width: 160px;" />
+                </td>
+            </tr>
+            <tr>
+                <td width="60">事件名称</td>
+                <td colspan="5">
+                    <input type="text" name="emgName" style="width: 160px;" />
+                </td>
+            </tr>
+            <tr>
+                <td width="60">信息类别</td>
+                <td colspan="5">
+                    <input type="radio" name="emgCategory" value="1" checked="true" />传染病
+                    <input type="radio" name="emgCategory" value="2" />食物中毒
+                    <input type="radio" name="emgCategory" value="3"/>职业中毒
+                    <input type="radio" name="emgCategory" value="4" />其它中毒事件
+                    <input type="radio" name="emgCategory" value="5" />环境卫生
+                    <input type="radio" name="emgCategory" value="6" />免疫接种
+                    <input type="radio" name="emgCategory" value="7" />群体性不明原因疾病
+                    <input type="radio" name="emgCategory" value="8" />医疗机构内感染
+                    <input type="radio" name="emgCategory" value="9" />放射性卫生
+                    <input type="radio" name="emgCategory" value="10" />其它公共卫生
+                </td>
+            </tr>
+            <tr>
+                <td>突发事件等级</td>
+                <td colspan="5">
+                    <input type="radio" name="emgGrade" value="1" />特别重大
+                    <input type="radio" name="emgGrade" value="2" checked="true" />重大
+                    <input type="radio" name="emgGrade" value="3" />较大
+                    <input type="radio" name="emgGrade" value="4"  />一般
+                    <input type="radio" name="emgGrade" value="5" />未分级
+                    <input type="radio" name="emgGrade" value="6"  />非突发事件
+                </td>
+            </tr>
+            <tr>
+                <td width="60">初步诊断</td>
+                <td colspan="2">
+                    <input type="text" name="emgPreDiagnosis" style="width: 160px;"/>
+                </td>
+                <td width="60">初步诊断时间</td>
+                <td colspan="2">
+                    <input type="text" class="easyui-datebox" name="emgPrediaTime" style="width: 160px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td width="60">订正诊断</td>
+                <td colspan="2">
+                    <input type="text" name="emgRevDiagnosis" style="width: 160px;"/>
+                </td>
+                <td width="60">订正诊断时间</td>
+                <td colspan="2">
+                    <input type="text" class="easyui-datebox" name="emgRevdiaTime" style="width: 160px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td width="60">确认分级时间</td>
+                <td colspan="2">
+                    <input type="text" class="easyui-datebox" name="emgClassifyTime" style="width: 160px;"/>
+                </td>
+                <td width="60">订正分级时间</td>
+                <td colspan="2">
+                    <input type="text" class="easyui-datebox" name="emgRevclyTime" style="width: 160px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td width="60">报告地区</td>
+                <td colspan="5">
+                    <textarea name="emgReportAddress" rows="1" cols="80" ></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td width="60">发生地区</td>
+                <td colspan="5">
+                    <textarea name="emgHappenAddress" rows="1" cols="80" ></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td width="60">详细地点</td>
+                <td colspan="5">
+                    <textarea name="emgDetailAddress" rows="1" cols="80" ></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td width="60">事件发生场所</td>
+                <td colspan="5">
+                    <input type="radio" name="eventHappen" value="1" checked="true"/>学校
+                    <input type="radio" name="eventHappen" value="2" />医疗卫生机构
+                    <input type="radio" name="eventHappen" value="3" />家庭
+                    <input type="radio" name="eventHappen" value="4" />宾馆饭店写字楼
+                    <input type="radio" name="eventHappen" value="5"  />餐饮服务单位
+                    <input type="radio" name="eventHappen" value="6" />交通运输工具
+                    <input type="radio" name="eventHappen" value="7" />菜场、商场或超市
+                    <input type="radio" name="eventHappen" value="8" />车站、码头或机场
+                    <input type="radio" name="eventHappen" value="9"  />党政机关办公场所
+                    <input type="radio" name="eventHappen" value="10" />大型厂矿企业生产场所
+                    <input type="radio" name="eventHappen" value="11" />中小型厂矿企业生产场所
+                    <input type="radio" name="eventHappen" value="12" />城市住宅小区
+                    <input type="radio" name="eventHappen" value="13"  />城市其它公共场所
+                    <input type="radio" name="eventHappen" value="14" />农村村庄
+                    <input type="radio" name="eventHappen" value="15" />农村农田野外
+                    <input type="radio" name="eventHappen" value="16" />其它重要公共场所
+                </td>
+            </tr>
+            <tr>
+                <td width="80">事件信息来源</td>
+                <td colspan="5">
+                    <input type="radio" name="eventSource" value="1" checked="true" />属地医疗机构
+                    <input type="radio" name="eventSource" value="2" />外地医疗机构
+                    <input type="radio" name="eventSource" value="3" />报纸
+                    <input type="radio" name="eventSource" value="4" />电视
+                    <input type="radio" name="eventSource" value="5"/>特服号电话95120
+                    <input type="radio" name="eventSource" value="6" />互联网
+                    <input type="radio" name="eventSource" value="7"/>市民电话报告
+                    <input type="radio" name="eventSource" value="8" />上门直接报告
+                    <input type="radio" name="eventSource" value="9"/>本系统自动预警产生
+                    <input type="radio" name="eventSource" value="10" />广播
+                    <input type="radio" name="eventSource" value="11"/>填报单位人员目睹
+                    <input type="radio" name="eventSource" value="12" />其它<input type="text"/>
+                </td>
+            </tr>
+            <tr>
+                <td width="80">事件信息来源详细</td>
+                <td colspan="5">
+                    <textarea name="evsoDetail" rows="1" cols="80" ></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td width="80">事件波及的地域范围</td>
+                <td colspan="5">
+                    <textarea name="eventRange" rows="1" cols="80" ></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td width="60">新报告病例数</td>
+                <td>
+                    <input type="text" name="emgCase"  style="width: 160px;"/>
+                </td>
+                <td width="60">新报告死亡数</td>
+                <td>
+                    <input type="text" name="emgDie"  style="width: 160px;" />
+                </td>
+                <td>排除病例数</td>
+                <td>
+                    <input type="text" name="emgRecase"  style="width: 160px;" />
+                </td>
+            </tr>
+            <tr>
+                <td width="60">累计报告病例数</td>
+                <td colspan="2">
+                    <input type="text" name="emgCatotal" style="width: 160px;"/>
+                </td>
+                <td width="60">累计报告死亡数</td>
+                <td colspan="2">
+                    <input type="text" name="emgDietotal" style="width: 160px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td width="60">事件发生时间</td>
+                <td colspan="2">
+                    <input type="text" class="easyui-datetimebox" name="emgTimes" style="width: 160px;"/>
+                </td>
+                <td width="60">接到报告时间</td>
+                <td colspan="2">
+                    <input type="text" class="easyui-datetimebox" name="emgReportTime" style="width: 160px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td width="60">首例病人发病时间</td>
+                <td colspan="2">
+                    <input type="text" class="easyui-datetimebox" name="firstPatient" style="width: 160px;"/>
+                </td>
+                <td width="60">末例病人发病时间</td>
+                <td colspan="2">
+                    <input type="text" class="easyui-datetimebox" name="lastPatient" style="width: 160px;"/>
+                </td>
+            </tr>
+            <tr>
+                <td>主要症状</td>
+                <td colspan="5">
+                    <div>
+                        <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="1">呼吸道症状
+                        <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="2">胃肠道症状
+                        <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="3">神经系统症状
+                        <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="4">皮肤粘膜症状
+                        <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="5">神经症状
+                        <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="6">其它<input type="text"/>
+                        <!--<input class="easyui-textbox"  id="mainSymptomsid" name="mainSymptoms"></input>-->
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="60">主要体征</td>
+                <td colspan="5">
+                    <textarea name="mainSign" rows="5" cols="80" ></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td width="60">主要措施与效果</td>
+                <td colspan="5">
+                    <textarea name="mainMese" rows="5" cols="80" ></textarea>
+                </td>
+            </tr>
+
+
+        </table>
+    </form>
+</div>
+<!--<div id="inf" class="easyui-dialog" style="width: 640px;height:600px; padding:10px;">
+    <div th:replace="common/infdis :: infdis"></div>
+</div>-->
+
+<!--传染病随访记录-->
+<div id="disfoll-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:600px;">
+
+    <table id="dataAll" class="easyui-datagrid" style="width: 580px; height: 400px;" ></table>
+</div>
+
+<!--健康档案-->
+<div id="userinfo-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:600px;">
+    <table id="userAll" class="easyui-datagrid" style="width: 580px; height: 400px;" ></table>
+</div>
+
+<!-- 修改传染病随访记录 -->
+<div id="editinf" class="easyui-dialog" style="width: 700px;height: 600px; padding:10px;">
+    <form id="infform" class="easyui-form" method="post" data-options="novalidate:true">
+    <div th:replace="common/editinfdis :: infdis"></div>
+    </form>
+</div>
+
+<!-- 修改窗口 -->
+<div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:450px; padding:10px;">
+    <form id="edit-form" method="post">
+        <input type="hidden" name="id" id="edit-id">
+        <table>
+            <tr>
+                <td width="60" align="right">头像预览:</td>
+                <td valign="middle">
+                    <img id="edit-preview-photo" style="float:left;" src="/admin/easyui/images/user_photo.jpg" width="100px">
+                    <a style="float:left;margin-top:40px;" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-upload" onclick="uploadPhoto()" plain="true">上传图片</a>
+                </td>
+            </tr>
+            <tr>
+                <td width="60" align="right">头像:</td>
+                <td><input type="text" id="edit-photo" name="photo" value="/BaseProjectSSM/resources/admin/easyui/images/user_photo.jpg" readonly="readonly" class="wu-text " /></td>
+            </tr>
+            <tr>
+                <td width="60" align="right">用户名:</td>
+                <td><input type="text" id="edit-username" name="username" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写用户名'" /></td>
+            </tr>
+            <tr>
+                <td width="60" align="right">所属角色:</td>
+
+            </tr>
+            <tr>
+                <td width="60" align="right">性别:</td>
+                <td>
+                    <select id="edit-sex" name="sex" class="easyui-combobox" panelHeight="auto" style="width:268px">
+                        <option value="0">未知</option>
+                        <option value="1">男</option>
+                        <option value="2">女</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td width="60" align="right">年龄:</td>
+                <td><input type="text" id="edit-age" name="age" value="1" class="wu-text easyui-numberbox easyui-validatebox" data-options="required:true,min:1,precision:0, missingMessage:'请填写年龄'" /></td>
+            </tr>
+            <tr>
+                <td width="60" align="right">地址:</td>
+                <td><input type="text" id="edit-address" name="address" class="wu-text easyui-validatebox" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+<div id="process-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-upload',title:'正在上传图片'" style="width:450px; padding:10px;">
+    <div id="p" class="easyui-progressbar" style="width:400px;" data-options="text:'正在上传中...'"></div>
+</div>
+<input type="file" id="photo-file" style="display:none;" onchange="upload()">
+
+<!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
+<div th:replace="common/footer :: myfooter"  ></div>
+
+
+<!-- End of easyui-dialog -->
+<script type="text/javascript" th:inline="none">
+    var gxy;
+    $(function () {
+        $("#inf").dialog('close');
+    })
+    function  goBack() {
+        $("#inf").dialog('close');
+    }
+    $(function () {
+        $("#editinf").dialog('close');
+    })
+    function    Close()   {
+        $("#editinf").dialog('close');
+    }
+    //上传图片
+    function start(){
+        var value = $('#p').progressbar('getValue');
+        if (value < 100){
+            value += Math.floor(Math.random() * 10);
+            $('#p').progressbar('setValue', value);
+        }else{
+            $('#p').progressbar('setValue',0)
+        }
+    };
+    function upload(){
+        if($("#photo-file").val() == '')return;
+        var formData = new FormData();
+        formData.append('photo',document.getElementById('photo-file').files[0]);
+        $("#process-dialog").dialog('open');
+        var interval = setInterval(start,200);
+        $.ajax({
+            url:'upload_photo',
+            type:'post',
+            data:formData,
+            contentType:false,
+            processData:false,
+            success:function(data){
+                clearInterval(interval);
+                $("#process-dialog").dialog('close');
+                if(data.type == 'success'){
+                    $("#preview-photo").attr('src',data.filepath);
+                    $("#add-photo").val(data.filepath);
+                    $("#edit-preview-photo").attr('src',data.filepath);
+                    $("#edit-photo").val(data.filepath);
+                }else{
+                    $.messager.alert("消息提醒",data.msg,"warning");
+                }
+            },
+            error:function(data){
+                clearInterval(interval);
+                $("#process-dialog").dialog('close');
+                $.messager.alert("消息提醒","上传失败!","warning");
+            }
+        });
+    }
+
+    function uploadPhoto(){
+        $("#photo-file").click();
+
+    }
+
+
+    /**
+     *  添加记录
+     */
+    function add(){
+        var validate = $("#add-form").form("validate");
+        if(!validate){
+            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
+            return;
+        }
+        var data = $("#add-form").serialize();
+        $.ajax({
+            url:'add',
+            dataType:'json',
+            type:'post',
+            data:data,
+            success:function(data){
+                if(data.type == 'success'){
+                    $.messager.alert('信息提示','添加成功！','info');
+                    $('#add-dialog').dialog('close');
+                    $('#data-datagrid').datagrid('reload');
+                }else{
+                    $.messager.alert('信息提示',data.msg,'warning');
+                }
+            }
+        });
+    }
+
+    /**
+     * Name 修改记录
+     */
+    function edit(){
+        var validate = $("#infform").form("validate");
+        if(!validate){
+            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
+            return;
+        }
+        var data = $("#infform").serialize();
+        $.ajax({
+            url:'../DisfollowUp/edit',
+            dataType:'json',
+            type:'post',
+            data:data,
+            success:function(data){
+                if(data.type == 'success'){
+                    $.messager.alert('信息提示','修改成功！','info');
+                    $('#infform').dialog('close');
+                    $('#data-datagrid').datagrid('reload');
+                }else{
+                    $.messager.alert('信息提示',data.msg,'warning');
+                }
+            }
+        });
+    }
+
+    /**
+     * 打开修改传染病随访记录页面
+     */
+    function editdisfoll(disfopId) {
+
+        $('#disfoll-dialog').dialog('close');
+        $('#editinf').dialog({
+            closed: false,
+            modal: true,
+            title: "修改-传染病随访",
+            buttons: [{
+                text: '确定',
+                iconCls: 'icon-ok',
+                handler: edit
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#editinf').dialog('close');
+                }
+            }],
+            onBeforeOpen: function () {
+                $.ajax({
+                    url: '../DisfollowUp/findById?disfopId=' + disfopId,
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+
+                        /*console.log(data.InfDisease[0]);*/
+                     /*$("#infform").form('load', data.InfDisease[0]);*/
+                         $("#disfopId").val(data.InfDisease[0].disfopId);
+                        $("#recordName").val(data.InfDisease[0].recordName);
+                        $("#userSex").val(data.InfDisease[0].userSex);
+                        $("#userBirthday").datebox('setValue',data.InfDisease[0].userBirthday);
+                        $("#userGam").val(data.InfDisease[0].userGam);
+                        $("#userCareer").val(data.InfDisease[0].userCareer);
+                        $("#userMyphone").val(data.InfDisease[0].userMyphone);
+                        $("#recordAdress").val(data.InfDisease[0].recordAdress);
+                        $("#disfopTime ").datebox('setValue',data.InfDisease[0].disfopTime);
+                        $("#disfopMode").combobox('setValue',data.InfDisease[0].disfopMode);
+                        $("#disfopQuarantine ").combobox('setValue',data.InfDisease[0].disfopQuarantine);
+                        $("input[name='disfopSymptom']").val(data.InfDisease[0].disfopSymptom);
+                        $("#firstVisit").datebox('setValue',data.InfDisease[0].firstVisit);
+                        $("#attackCate ").combobox('setValue',data.InfDisease[0].attackCate);
+                        $("#disfopSituation").combobox('setValue',data.InfDisease[0].disfopSituation);
+                        $("#disfopRemarks ").val(data.InfDisease[0].disfopRemarks);
+                        $("#disfopDisinfect").val(data.InfDisease[0].disfopDisinfect);
+                        $("#disfopMedicine ").val(data.InfDisease[0].disfopMedicine);
+                        $("#disfopRecovery").val(data.InfDisease[0].disfopRecovery);
+                        $("#nextfoTime ").datebox('setValue',data.InfDisease[0].nextfoTime);
+                        $("#disfopDoctor").combobox('setValue',data.InfDisease[0].disfopDoctor);
+                        $(function () {
+                            if($("#userSex").val()==1){
+                                $("#userSex").text("男");
+                            }else if($("#userSex").val()==2){
+                                $("#userSex").text("女");
+                            }
+                        });
+                    }
+
+                });
+               /* $.ajax({
+                    type : "post",
+                    url : "queryDoctor",
+                    dataType : "json",
+                    success : function (date) {
+                        $("#healthcheckDoctor2").combobox({
+                            mode:'remote',
+                            url:'queryDoctor',
+                            valueField:'id',
+                            textField:'username',
+                            delay:100
+                        });
+                    }
+                });*/
+               /* $.ajax({
+                    url: 'queryId',
+                    type: 'post',
+                    data: "oldtcmId=" + ed,
+                    dataType: 'json',
+                    success: function (d) {
+
+                        $('#editform').form('load', d[0]);
+                    }
+
+                })*/
+
+            }
+        })
+    }
+
+    /**
+     * 删除记录
+     */
+    function remove(){
+        $.messager.confirm('信息提示','确定要删除该记录？', function(result){
+            if(result){
+                var item = $('#data-datagrid').datagrid('getSelections');
+                if(item == null || item.length == 0){
+                    $.messager.alert('信息提示','请选择要删除的数据！','info');
+                    return;
+                }
+                var ids = '';
+                for(var i=0;i<item.length;i++){
+                    ids += item[i].infdisId + ',';
+                }
+                $.ajax({
+                    url:'delete',
+                    dataType:'json',
+                    type:'post',
+                    data:{ids:ids},
+                    success:function(data){
+                        if(data.type == 'success'){
+                            $.messager.alert('信息提示','删除成功！','info');
+                            $('#data-datagrid').datagrid('reload');
+                        }else{
+                            $.messager.alert('信息提示',data.msg,'warning');
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * Name 打开添加窗口
+     */
+   /* function openAdd(){
+        //$('#add-form').form('clear');
+        $('#add-dialog').dialog({
+            closed: false,
+            modal:true,
+            title: "添加用户信息",
+            buttons: [{
+                text: '确定',
+                iconCls: 'icon-ok',
+                handler: add
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#add-dialog').dialog('close');
+                }
+            }],
+            onBeforeOpen:function(){
+                //$("#add-form input").val('');
+            }
+        });
+    }*/
+    /**
+     * 打开个人基本信息表
+     */
+    /*function openAdd(){
+        $('#userinfo-dialog').dialog({
+            closed: false,
+            modal:true,
+            title: "健康档案选取",
+            buttons: [ {
+                text: '确定',
+                iconCls: 'icon-ok',
+                handler: toAdd
+            },{
+                text: '取消',
+                iconCls: 'icon-cancel',
+               /!* handler: function () {
+                    $('#disfoll-dialog').dialog('close');
+                }*!/
+            }],
+            onBeforeOpen:function(){
+                $("#userAll").datagrid({
+                    // url: '../DisfollowUp/findList?',
+                    fitColumns: true,
+                    striped: true,
+                    singleSelect: true,
+                    pagination: true,
+                    rownumbers: true,
+                    pageSize: 20,
+                    multiSort: true,
+                    idField: 'infdisId',
+                    onDblClickRow: function (index, row) {
+                        editdisfoll(row.disfopId);
+                    },
+                    columns:[[
+                        { field:'disfopId',checkbox:true},
+                        { field:'disfopTime',title:'随访时间',width:100,formatter:function(value,row,index){
+
+                                return format(value);}},
+                        { field:'disfopDoctor',title:'随访医生',width:100,align:'center'},
+                        { field:'nextfoTime',title:'下次随访时间',width:100,sortable:true,formatter:function(value,row,index){
+                                return format(value);}}
+                    ]]
+                });
+            }
+        });
+    }*/
+
+
+    /**
+     * 打开传染病随访记录
+     */
+    function openDisfoll(infdisId){
+        $("#disfoll-dialog").dialog({
+            closed: false,
+            modal:true,
+            title: "传染病随访表",
+            buttons: [ {
+                text: '增加',
+                iconCls: 'icon-ok',
+                handler: add
+            },{
+                text: '关闭',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#disfoll-dialog').dialog('close');
+                }
+            }],
+            onBeforeOpen:function(){
+                $("#dataAll").datagrid({
+                    url: '../DisfollowUp/findId?infdisId=' + infdisId,
+                    fitColumns: true,
+                    striped: true,
+                    singleSelect: true,
+                    pagination: true,
+                    rownumbers: true,
+                    pageSize: 20,
+                    multiSort: true,
+                     onDblClickRow: function (index, row) {
+                        editdisfoll(row.disfopId);
+                   },
+                    columns:[[
+                        { field:'disfopId',checkbox:true},
+                        // {field: 'infdisId', title: '序号', width: 100},
+                        { field:'disfopTime',title:'随访时间',width:100,formatter:function(value,row,index){
+                                return format(value);}},
+                        { field:'disfopDoctor',title:'随访医生',width:100,align:'center'},
+                        { field:'nextfoTime',title:'下次随访时间',width:100,sortable:true,formatter:function(value,row,index){
+                                return format(value);}}
+                    ]],
+                    onLoadSuccess:function(data) {
+                        $('.authority-edit').linkbutton({text: '编辑权限', plain: true, iconCls: 'icon-edit'});
+                    }
+                    });
+            }
+        });
+    }
+
+
+    /**
+     * 打开修改窗口
+     */
+    function openEdit(){
+        //$('#edit-form').form('clear');
+        var item = $('#data-datagrid').datagrid('getSelections');
+        if(item == null || item.length == 0){
+            $.messager.alert('信息提示','请选择要修改的数据！','info');
+            return;
+        }
+        if(item.length > 1){
+            $.messager.alert('信息提示','请选择一条数据进行修改！','info');
+            return;
+        }
+        item = item[0];
+        $('#edit-dialog').dialog({
+            closed: false,
+            modal:true,
+            title: "修改用户信息",
+            buttons: [{
+                text: '确定',
+                iconCls: 'icon-ok',
+                handler: edit
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#edit-dialog').dialog('close');
+                }
+            }],
+            onBeforeOpen:function(){
+                $("#edit-id").val(item.id);
+                $("#edit-preview-photo").attr('src',item.photo);
+                $("#edit-photo").val(item.photo);
+                $("#edit-username").val(item.username);
+                $("#edit-roleId").combobox('setValue',item.roleId);
+                $("#edit-sex").combobox('setValue',item.sex);
+                $("#edit-age").val(item.age);
+                $("#edit-address").val(item.address);
+            }
+        });
+    }
+
+
+    //搜索按钮监听
+    $("#search-btn").click(function(){
+        var roleId = $("#search-role").combobox('getValue');
+        var sex = $("#search-sex").combobox('getValue')
+        var option = {username:$("#search-name").val()};
+        if(roleId != -1){
+            option.roleId = roleId;
+        }
+        if(sex != -1){
+            option.sex = sex;
+        }
+        $('#data-datagrid').datagrid('reload',option);
+    });
+
+
+    function add0(m){return m<10?'0'+m:m }
+    function format(shijianchuo){
+        //shijianchuo是整数，否则要parseInt转换
+        var time = new Date(shijianchuo);
+        var y = time.getFullYear();
+        var m = time.getMonth()+1;
+        var d = time.getDate();
+        var h = time.getHours();
+        var mm = time.getMinutes();
+        var s = time.getSeconds();
+        return y+'-'+add0(m)+'-'+add0(d)+' '+add0(h)+':'+add0(mm)+':'+add0(s);
+    }
+    /**
+     * 载入数据
+     */
+    $('#data-datagrid').datagrid({
+        url:'list',
+        rownumbers:true,
+        singleSelect:false,
+        pageSize:20,
+        pagination:true,
+        multiSort:true,
+        fitColumns:true,
+        idField:'id',
+        treeField:'name',
+        fit:true,
+        onDblClickRow: function (index, row) {
+            openDisfoll(row.infdisId);
+        },
+        columns:[[
+            { field:'chk',checkbox:true},
+            { field:'infdisId',title:'编号',width:100,align:'center'},
+            { field:'userId',title:'个人健康档案号',width:100,sortable:true},
+            { field:'recordName',title:'姓名',width:100,sortable:true},
+            { field:'userSex',title:'性别',width:100,sortable:true,formatter(value,row,index){
+                    switch(value){
+                        case 0:{
+                            return '未知';
+                        }
+                        case 1:{
+                            return '男';
+                        }
+                        case 2:{
+                            return '女';
+                        }
+                    }
+                    return value;
+                }},
+            { field:'userMyphone',title:'联系人电话',width:100,sortable:true},
+            { field:'infdisPhone',title:'本人电话',width:100,sortable:true},
+            { field:'infdisIllness',title:'诊断病名',width:100,sortable:true},
+            { field:'infdisMdytime',title:'发病日期',width:100,sortable:true,formatter:function(value,row,index){
+                    return format(value);}},
+            { field:'infdisDoctor',title:'报告医生',width:100,sortable:true,formatter(value,row,index){
+                    switch(value){
+                        case 0:{
+                            return '左东恩';
+                        }
+                        case 1:{
+                            return '孟敏学';
+                        }
+                        case 2:{
+                            return '齐建科';
+                        }
+                    }
+                    return value;
+                }},
+            { field:'infdisTime',title:'填卡日期',width:100,sortable:true,formatter:function(value,row,index){
+                    return format(value);}},
+            { field:'infdisDigtime',title:'诊断时间',width:100,sortable:true,formatter:function(value,row,index){
+                    return format(value);}},
+            { field:'outcomeWhether',title:'转归',width:100,sortable:true,formatter(value,row,index){
+                    switch(value){
+                        case 0:{
+                            return '是';
+                        }
+                        case 1:{
+                            return '否';
+                        }
+                    }
+                    return value;
+                }}
+        ]],
+        onLoadSuccess:function(data){
+            $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
+        }
+    });
+</script>

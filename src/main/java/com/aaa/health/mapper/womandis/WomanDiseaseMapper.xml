@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.womandis.WomanDiseaseMapper">
+    <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.womandis.WomanDisease">
+        select w.wodisId,w.userId,u.recordName,u.userIdnumber,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(u.userBirthday))/365) userAge,u.recordAdress,u.userMyphone,u.recordData from womanDisease w left join userinfo u on w.userId=u.userId
+        <if test="username != null">
+            and username like '%${username}%'
+        </if>
+        <if test="roleId != null">
+            and roleId = #{roleId}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <!--<select id="queryRe" parameterType="Integer" resultType="com.aaa.health.entity.womandis.WomanDisease">
+    select wodisBh,wodisMenage,wodisMencycle,wodisLoginregtime from womanDisease where wodisId=#{wodisId}
+    </select>-->
+
+    <!--<insert id="add" parameterType="com.aaa.health.entity.suppat.SupmanPatrol">-->
+    <!--INSERT INTO ADDSUPMANREPORT(ADDRESS_ID,ADDRESS_ID2,REPORT_FINDTIME,REPORT_CATEGORY,REPORT_TIME,REPORT_NAME)-->
+    <!--VALUES(#{ADDRESSID},#{ADDRESSID2},REPORTFINDTIME,REPORTCATEGORY,REPORTTIME,REPORTNAME)-->
+    <!--</insert>-->
+
+    <delete id="delete" parameterType="String">
+        delete from womanDisease where wodisId in(${value})
+    </delete>
+
+
+    <!-- 获取符合结果的总记录数 -->
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select count(*) from womanDisease where 1 = 1
+        <if test="username != null">
+            and username like '%${username}%'
+        </if>
+        <if test="roleId != null">
+            and roleId = #{roleId}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+    </select>
+<!--    <select id="findId" parameterType="Map" resultType="com.aaa.health.entity.womandis.WomanDisease">
+/*select w.wodisId,w.userId,u.recordName,u.userIdnumber,u.userBirthday,u.recordAdress,u.userMyphone,u.recordData,w.wodisBh,w.wodisMenage,w.wodisMencycle,w.wodisLoginregtime from womanDisease w left join userinfo u on w.userId=u.userId
+*/      select * from foservpul where pultubfoId=#{pultubfoId}
+    </select>-->
+</mapper>

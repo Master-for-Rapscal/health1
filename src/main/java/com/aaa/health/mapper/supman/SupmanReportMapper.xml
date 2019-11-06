@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.supman.SupmanReportMapper">
+ <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.supman.SupmanReport">
+    select s.reportId,s.addressId,s.addressId2,a.areaName,a.areaName,s.reportFindtime,s.reportCategory,s.reportContent,s.reportTime,s.reportName from supmanreport s join area a on s.addressId=a.areaId
+    where 1=1
+    <if test="username != null">
+      and username like '%${username}%'
+    </if>
+    <if test="roleId != null">
+      and roleId = #{roleId}
+    </if>
+    <if test="sex != null">
+      and sex = #{sex}
+    </if>
+    <if test="offset != null and pageSize != null">
+      limit #{offset},#{pageSize}
+    </if>
+  </select>
+
+  <insert id="add" parameterType="com.aaa.health.entity.supman.SupmanReport">
+   insert into supmanreport(addressId,addressId2,reportFindtime,reportCategory,reportContent,reportTime,reportName)
+    values(#{addressId},#{addressId2},#{reportFindtime},#{reportCategory},#{reportContent},#{reportTime},#{reportName})
+    </insert>
+
+  <update id="update" parameterType="com.aaa.health.entity.supman.SupmanReport">
+update supmanreport set addressId=#{addressId},addressId2=#{addressId2},reportFindtime=#{reportFindtime},reportCategory=#{reportCategory},reportTime=#{reportTime},reportName=#{reportName}
+    where reportId=#{reportId}
+    </update>
+
+  <delete id="delete" parameterType="String">
+        delete from supmanreport where reportId in(${value})
+    </delete>
+
+
+  <!--获取符合结果的总记录数-->
+  <select id="getTotal" parameterType="Map" resultType="Integer">
+    select count(*) from supmanreport where 1 = 1
+    <if test="username != null">
+      and username like '%${username}%'
+    </if>
+    <if test="roleId != null">
+      and roleId = #{roleId}
+    </if>
+    <if test="sex != null">
+      and sex = #{sex}
+    </if>
+  </select>
+</mapper>

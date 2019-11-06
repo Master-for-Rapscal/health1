@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.indis.InfDiseaseMapper">
+    <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.indis.InfDisease">
+        select i.infdisId,i.userId,u.recordName,u.userSex,u.userMyphone,i.infdisPhone,i.infdisIllness,i.infdisMdytime,i.infdisDoctor,i.infdisTime,i.infdisDigtime,o.outcomeWhether from infdisease i join userinfo u on i.userId=u.userId join outcome o on i.outcomeId=o.outcomeId
+        where 1 = 1
+        <if test="username != null">
+            and username like '%${username}%'
+        </if>
+        <if test="roleId != null">
+            and roleId = #{roleId}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <insert id="add" parameterType="com.aaa.health.entity.indis.InfDisease">
+ insert into infdisease(userId,infdisCardnum,infdisCardtype,infdisParentname,infdisUnbrith,infdisUnit,
+infdisPhone,infdisPatis,infdisNowaddress,infdisChbjob,infdisCateone,infdisCatetwo,infdisMdytime,infdisDigtime,
+infdisDietime,infdisOutcome,outcomeId,diseaseId,infdisIllness,infdisCard,infdisReport,infdisTel,infdisDoctor,infdisTime,
+infdisHandle)
+    values(#{userId},#{infdisCardnum},#{infdisCardtype},#{infdisParentname},#{infdisUnbrith},#{infdisUnit},#{
+infdisPhone},#{infdisPatis},#{infdisNowaddress},#{infdisChbjob},#{infdisCateone},#{infdisCatetwo},#{infdisMdytime},#{infdisDigtime},#{
+infdisDietime},#{infdisOutcome},#{outcomeId},#{diseaseId},#{infdisIllness},#{infdisCard},#{infdisReport},#{infdisTel},#{infdisDoctor},#{infdisTime},#{
+infdisHandle})
+    </insert>
+
+    <delete id="delete" parameterType="String">
+        delete from infdisease where infdisId in(${value})
+    </delete>
+
+
+    <!-- 获取符合结果的总记录数 -->
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select count(*) from infdisease where 1 = 1
+        <if test="username != null">
+            and username like '%${username}%'
+        </if>
+        <if test="roleId != null">
+            and roleId = #{roleId}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+    </select>
+    <select id="queryDoctor" resultType="Map">
+          select * from user where roleId != 1
+    </select>
+<!--    <select id="findUser" resultType="">
+select u.userId,u.recordName,u.userIdnumber,u.userSex,u.userMyphone,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(u.userBirthday))/365) userAge,u.userBirthday,u.recordAdress from userinfo u
+    </select>-->
+</mapper>

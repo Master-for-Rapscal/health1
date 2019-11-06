@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--引入抬头页面-->
+<div th:replace="common/header :: header"  ></div>
+
+<div class="easyui-layout" data-options="fit:true">
+    <!-- Begin of toolbar -->
+    <div id="wu-toolbar">
+        <div class="wu-toolbar-button">
+            <!--引入菜单页面-->
+            <div th:replace="common/menus :: menus"  > </div>
+        </div>
+        <div class="wu-toolbar-search">
+            <label>报告人:</label><input id="search-name" class="wu-text" style="width:100px">
+            <label>报告时间:</label>
+
+            <label>录入人:</label>
+            <select id="search-sex" class="easyui-combobox" panelHeight="auto" style="width:120px">
+                <option value="-1">全部</option>
+                <option value="0">未知</option>
+                <option value="1">男</option>
+                <option value="2">女</option>
+            </select>
+            <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+        </div>
+    </div>
+
+
+
+    <!-- End of toolbar -->
+    <table id="data-datagrid" class="easyui-datagrid" toolbar="#wu-toolbar"></table>
+</div>
+<!-- Begin of easyui-dialog -->
+
+<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:420px; padding:10px;">
+    <form id="add-form" method="post">
+        <table>
+            <tr>
+                <td width="60" align="right">头像预览:</td>
+                <td valign="middle">
+                    <img id="preview-photo" style="float:left;" src="/admin/easyui/images/user_photo.jpg" width="100px">
+                    <a style="float:left;margin-top:40px;" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-upload" onclick="uploadPhoto()" plain="true">上传图片</a>
+                </td>
+            </tr>
+            <tr>
+                <td width="60" align="right">头像:</td>
+                <td><input type="text" id="add-photo" name="photo" value="/admin/easyui/images/user_photo.jpg" readonly="readonly" class="wu-text " /></td>
+            </tr>
+            <tr>
+                <td width="60" align="right">用户名:</td>
+                <td><input type="text" name="username" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写用户名'" /></td>
+            </tr>
+            <tr>
+                <td width="60" align="right">密码:</td>
+                <td><input type="password" name="password" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写密码'" /></td>
+            </tr>
+            <tr>
+                <td width="60" align="right">所属角色:</td>
+
+            </tr>
+            <tr>
+                <td width="60" align="right">性别:</td>
+                <td>
+                    <select name="sex" class="easyui-combobox" panelHeight="auto" style="width:268px">
+                        <option value="0">未知</option>
+                        <option value="1">男</option>
+                        <option value="2">女</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td width="60" align="right">年龄:</td>
+                <td><input type="text" name="age" class="wu-text easyui-numberbox easyui-validatebox" data-options="required:true,min:1,precision:0, missingMessage:'请填写年龄'" /></td>
+            </tr>
+            <tr>
+                <td width="60" align="right">地址:</td>
+                <td><input type="text" name="address" class="wu-text easyui-validatebox" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<!-- 修改肺结核随访记录 -->
+<div id="editfoser" class="easyui-dialog" style="width: 780px;height: 620px; padding:10px;">
+            <form id="foserform" class="easyui-form" method="post" data-options="novalidate:true" style="margin-left: 10px">
+            <table width="700px" style="height: 700px" border="1" cellspacing="0" cellpadding="1">
+                <caption>
+                    <h3>肺结核患者随访服务记录表</h3>
+                </caption>
+
+                <input type="text" name="foserId"  id="foserId" hidden>
+                <tr>
+                    <td width="80px">姓名</td>
+                    <td width="180px"><input type="text"  style="width: 180px"  name="recordName" id="recordName" readonly width="60px"></td>
+                    <td width="80px">编号</td>
+                    <td>
+                        <input type="text"  style="width: 180px"  name="userId" id="userId" readonly>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>随访日期</td>
+                    <td><input type="text"  class="easyui-datebox" style="width: 180px"  name="foserTime" id="foserTime"></td>
+                    <td>治疗月序</td>
+                    <td><input type="text"  style="width: 100px"  name="foserMonthsequence" id="foserMonthsequence"  size="10"></td>
+                </tr>
+                <tr>
+                    <td>督导人员</td>
+                    <td><input type="text"  style="width: 180px"  name="foserSupervisorStaff" id="foserSupervisorStaff" readonly></td>
+                    <td>随访方式</td>
+                    <td>
+                        <select name="foserMode" id="foserMode" style="width: 120px">
+                            <option value="1">门诊</option>
+                            <option value="2">家庭</option>
+                            <option value="3">电话</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">症状及体征</td>
+                    <td colspan="3">
+                        <input type="checkbox" name="foserSypend" value="1">没有症状
+                        <input type="checkbox" name="foserSypend" value="2">咳嗽咳痰
+                        <input type="checkbox" name="foserSypend" value="3">低热盗汗
+                        <input type="checkbox" name="foserSypend" value="4">咯血或血痰
+                        <input type="checkbox" name="foserSypend" value="5">胸痛消瘦
+                        <input type="checkbox" name="foserSypend" value="6">恶心纳差
+                        <input type="checkbox" name="foserSypend" value="7">头痛失眠
+                        <input type="checkbox" name="foserSypend" value="8">视物模糊<br/>
+                        <input type="checkbox" name="foserSypend" value="9">皮肤瘙痒、皮疹
+                        <input type="checkbox" name="foserSypend" value="10">耳鸣、听力下降
+                    </td>
+                </tr>
+                    <tr>
+                    <td>其他</td>
+                    <td colspan="2">
+                        <textarea name="foserOther" rows="1" cols="20" id="foserOther"></textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>生活方式评估</td>
+                    <td colspan="3">
+                        吸&nbsp;烟<input type="text" name="foserSmokpay" id="foserSmokpay"  size="5"/>
+                        /<input type="text" name="foserSmokday" id="foserSmokday" size="5"/>支/天
+                         <br/>
+                        饮&nbsp;酒<input type="text" name="foserDrinkbi" id="foserDrinkbi" size="5"/>
+                        /<input type="text" name="foserDrinkday" id="foserDrinkday" size="5"/>支/天
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="4">用药</td>
+                    <td>化疗方案</td>
+                    <td colspan="2">
+                        <input type="text" name="foserRegimen" id="foserRegimen"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>用法</td>
+                    <td colspan="2">
+                        <input type="radio" name="foserUsage" value="1"/>每日
+                        <input type="radio" name="foserUsage" value="2"/>间歇
+                    </td>
+                </tr>
+                <tr>
+                    <td>药品剂型</td>
+                    <td colspan="2">
+                        <input type="checkbox" name="foserDosage" value="1">固定剂量复合制剂
+                        <input type="checkbox" name="foserDosage" value="2">散装药
+                        <input type="checkbox" name="foserDosage" value="3">板式组合药
+                        <input type="checkbox" name="foserDosage" value="4">注射剂
+                    </td>
+                </tr>
+                <tr>
+                    <td>漏服药次数</td>
+                    <td colspan="2">
+                        <input type="text" name="foserDosagenum" id="foserDosagenum"/>次
+                    </td>
+                </tr>
+                <tr>
+                    <td>药物不良反应</td>
+                    <td colspan="3">
+                        <input type="radio" name="foserSideeffects" value="1"/>1.无
+                        <input type="radio" name="foserSideeffects" value="2"/>2.有
+                    </td>
+                </tr>
+                <tr>
+                    <td>并发症或合并症</td>
+                    <td colspan="3">
+                        <input type="radio" name="foserComplication" value="1"/>1.无
+                        <input type="radio" name="foserComplication" value="2"/>2.有
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3">转诊</td>
+                    <td>科别</td>
+                    <td colspan="2">
+                        <input type="text" name="foserCategory" id="foserCategory"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>原因</td>
+                    <td colspan="2">
+                        <input type="text" name="foserCause" id="foserCause"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>两周内随访，随访结果</td>
+                    <td colspan="2">
+                        <input type="text" name="foserTwoweek" id="foserTwoweek"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>处理意见</td>
+                    <td colspan="3">
+                        <textarea name="foserHandleOpinion" rows="2" cols="80" id="foserHandleOpinion"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>下次随访时间</td>
+                    <td><input type="text" class="easyui-datebox"  name="foserNexttime" id="foserNexttime" style="width: 180px;"/></td>
+                    <td>随访医生签名</td>
+                    <td>
+                        <!--[[${session.role.name}]]-->
+                        <select name="foserDoctor" class="easyui-combobox" panelHeight="auto" style="width:100px" >
+                            <a th:each="doctor:${session.doctor}" >
+                                <option   th:value="${doctor.id}" ><span th:text="${doctor.lastname }"></span></option>
+                            </a>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">停止治疗及原因</td>
+                    <td>出现停止治疗时间</td>
+                    <td colspan="2">
+                        <input type="text" class="easyui-datebox"  name="stoptreatTime" id="stoptreatTime" style="width: 150px;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>停止治疗原因</td>
+                    <td colspan="2">
+                        <input type="text" class="easyui-datebox"  name="stoptreatReason" id="stoptreatReason" style="width: 150px;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">全程管理情况</td>
+                    <td>应访视患者<input type="text" name="foserNum" id="foserNum" size="5"/>次，<br/>
+                        实际访视患者<input type="text" name="foserActualNum" id="foserActualNum" size="5"/>次</td>
+                    <td colspan="2">患者在疗程中，应服药<input type="text" name="foserTmednum" id="foserTmednum" size="5"/>次，实际服药<input type="text" name="foserActualTmednum" id="foserActualTmednum" size="5"/>次</td>
+                </tr>
+                <tr>
+                    <td>评估医生签名</td>
+                        <td><select name="foserAssessDoctor" class="easyui-combobox" panelHeight="auto" style="width:180px" >
+                            <a th:each="doctor:${session.doctor}" >
+                                <option   th:value="${doctor.id}" ><span th:text="${doctor.lastname }"></span></option>
+                            </a>
+                        </select>
+                        </td>
+
+                </tr>
+
+            </table>
+                <a class="easyui-linkbutton"  onclick="addeditfoser()" style="margin-left: 200px;margin-bottom: 80px;margin-top: 20px">保存</a>
+                <a class="easyui-linkbutton"  style="margin-left: 80px;margin-bottom: 100px" onclick="offeditfoser()">取消</a>
+            </form>
+</div>
+<div id="foservpul-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:600px;">
+    <table id="dataAll" class="easyui-datagrid" style="width: 580px; height: 400px;" ></table>
+</div>
+<!-- 修改窗口 -->
+<div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:450px; padding:10px;">
+    <form id="edit-form" method="post">
+        <input type="hidden" name="id" id="edit-id">
+        <table>
+            <tr>
+                <td width="60" align="right">头像预览:</td>
+                <td valign="middle">
+                    <img id="edit-preview-photo" style="float:left;" src="/admin/easyui/images/user_photo.jpg" width="100px">
+                    <a style="float:left;margin-top:40px;" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-upload" onclick="uploadPhoto()" plain="true">上传图片</a>
+                </td>
+            </tr>
+            <tr>
+                <td width="60" align="right">头像:</td>
+                <td><input type="text" id="edit-photo" name="photo" value="/BaseProjectSSM/resources/admin/easyui/images/user_photo.jpg" readonly="readonly" class="wu-text " /></td>
+            </tr>
+            <tr>
+                <td width="60" align="right">用户名:</td>
+                <td><input type="text" id="edit-username" name="username" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写用户名'" /></td>
+            </tr>
+            <tr>
+                <td width="60" align="right">所属角色:</td>
+
+            </tr>
+            <tr>
+                <td width="60" align="right">性别:</td>
+                <td>
+                    <select id="edit-sex" name="sex" class="easyui-combobox" panelHeight="auto" style="width:268px">
+                        <option value="0">未知</option>
+                        <option value="1">男</option>
+                        <option value="2">女</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td width="60" align="right">年龄:</td>
+                <td><input type="text" id="edit-age" name="age" value="1" class="wu-text easyui-numberbox easyui-validatebox" data-options="required:true,min:1,precision:0, missingMessage:'请填写年龄'" /></td>
+            </tr>
+            <tr>
+                <td width="60" align="right">地址:</td>
+                <td><input type="text" id="edit-address" name="address" class="wu-text easyui-validatebox" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+<div id="process-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-upload',title:'正在上传图片'" style="width:450px; padding:10px;">
+    <div id="p" class="easyui-progressbar" style="width:400px;" data-options="text:'正在上传中...'"></div>
+</div>
+<input type="file" id="photo-file" style="display:none;" onchange="upload()">
+<!--<div class="wu-toolbar-button" id="FO" STYLE="width: 1000px;height: 500px">
+
+    <table id="data-datagrid1" class="easyui-datagrid" toolbar="#wu-toolbar" hidden="hidden">
+
+    </table>
+</div>-->
+<!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
+<div th:replace="common/footer :: myfooter"  ></div>
+
+
+<!-- End of easyui-dialog -->
+<script type="text/javascript" th:inline="none">
+    $(function () {
+        $("#editfoser").dialog('close');
+    })
+    function    offeditfoser()   {
+        $("#editfoser").dialog('close');
+    }
+    //上传图片
+    function start(){
+        var value = $('#p').progressbar('getValue');
+        if (value < 100){
+            value += Math.floor(Math.random() * 10);
+            $('#p').progressbar('setValue', value);
+        }else{
+            $('#p').progressbar('setValue',0)
+        }
+    };
+    function upload(){
+        if($("#photo-file").val() == '')return;
+        var formData = new FormData();
+        formData.append('photo',document.getElementById('photo-file').files[0]);
+        $("#process-dialog").dialog('open');
+        var interval = setInterval(start,200);
+        $.ajax({
+            url:'upload_photo',
+            type:'post',
+            data:formData,
+            contentType:false,
+            processData:false,
+            success:function(data){
+                clearInterval(interval);
+                $("#process-dialog").dialog('close');
+                if(data.type == 'success'){
+                    $("#preview-photo").attr('src',data.filepath);
+                    $("#add-photo").val(data.filepath);
+                    $("#edit-preview-photo").attr('src',data.filepath);
+                    $("#edit-photo").val(data.filepath);
+                }else{
+                    $.messager.alert("消息提醒",data.msg,"warning");
+                }
+            },
+            error:function(data){
+                clearInterval(interval);
+                $("#process-dialog").dialog('close');
+                $.messager.alert("消息提醒","上传失败!","warning");
+            }
+        });
+    }
+
+    function uploadPhoto(){
+        $("#photo-file").click();
+
+    }
+
+
+    /**
+     *  添加记录
+     */
+    function add(){
+        var validate = $("#add-form").form("validate");
+        if(!validate){
+            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
+            return;
+        }
+        var data = $("#add-form").serialize();
+        $.ajax({
+            url:'add',
+            dataType:'json',
+            type:'post',
+            data:data,
+            success:function(data){
+                if(data.type == 'success'){
+                    $.messager.alert('信息提示','添加成功！','info');
+                    $('#add-dialog').dialog('close');
+                    $('#data-datagrid').datagrid('reload');
+                }else{
+                    $.messager.alert('信息提示',data.msg,'warning');
+                }
+            }
+        });
+    }
+
+    /**
+     * Name 修改记录
+     */
+    function edit(){
+        var validate = $("#edit-form").form("validate");
+        if(!validate){
+            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
+            return;
+        }
+        var data = $("#edit-form").serialize();
+        $.ajax({
+            url:'edit',
+            dataType:'json',
+            type:'post',
+            data:data,
+            success:function(data){
+                if(data.type == 'success'){
+                    $.messager.alert('信息提示','修改成功！','info');
+                    $('#edit-dialog').dialog('close');
+                    $('#data-datagrid').datagrid('reload');
+                }else{
+                    $.messager.alert('信息提示',data.msg,'warning');
+                }
+            }
+        });
+    }
+
+    /**
+     * 删除记录
+     */
+    function remove(){
+        $.messager.confirm('信息提示','确定要删除该记录？', function(result){
+            if(result){
+                var item = $('#data-datagrid').datagrid('getSelections');
+                if(item == null || item.length == 0){
+                    $.messager.alert('信息提示','请选择要删除的数据！','info');
+                    return;
+                }
+                var ids = '';
+                for(var i=0;i<item.length;i++){
+                    ids += item[i].pultubfoId + ',';
+                }
+                $.ajax({
+                    url:'delete',
+                    dataType:'json',
+                    type:'post',
+                    data:{ids:ids},
+                    success:function(data){
+                        if(data.type == 'success'){
+                            $.messager.alert('信息提示','删除成功！','info');
+                            $('#data-datagrid').datagrid('reload');
+                        }else{
+                            $.messager.alert('信息提示',data.msg,'warning');
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * Name 打开添加窗口
+     */
+    function openAdd(){
+        //$('#add-form').form('clear');
+        $('#add-dialog').dialog({
+            closed: false,
+            modal:true,
+            title: "添加用户信息",
+            buttons: [{
+                text: '确定',
+                iconCls: 'icon-ok',
+                handler: add
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#add-dialog').dialog('close');
+                }
+            }],
+            onBeforeOpen:function(){
+                //$("#add-form input").val('');
+            }
+        });
+    }
+
+    /**
+     * 打开修改窗口
+     */
+    function openEdit(){
+        //$('#edit-form').form('clear');
+        var item = $('#data-datagrid').datagrid('getSelections');
+        if(item == null || item.length == 0){
+            $.messager.alert('信息提示','请选择要修改的数据！','info');
+            return;
+        }
+        if(item.length > 1){
+            $.messager.alert('信息提示','请选择一条数据进行修改！','info');
+            return;
+        }
+        item = item[0];
+        $('#edit-dialog').dialog({
+            closed: false,
+            modal:true,
+            title: "修改用户信息",
+            buttons: [{
+                text: '确定',
+                iconCls: 'icon-ok',
+                handler: edit
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#edit-dialog').dialog('close');
+                }
+            }],
+            onBeforeOpen:function(){
+                $("#edit-id").val(item.id);
+                $("#edit-preview-photo").attr('src',item.photo);
+                $("#edit-photo").val(item.photo);
+                $("#edit-username").val(item.username);
+                $("#edit-roleId").combobox('setValue',item.roleId);
+                $("#edit-sex").combobox('setValue',item.sex);
+                $("#edit-age").val(item.age);
+                $("#edit-address").val(item.address);
+            }
+        });
+    }
+
+
+    //搜索按钮监听
+    $("#search-btn").click(function(){
+        var roleId = $("#search-role").combobox('getValue');
+        var sex = $("#search-sex").combobox('getValue')
+        var option = {username:$("#search-name").val()};
+        if(roleId != -1){
+            option.roleId = roleId;
+        }
+        if(sex != -1){
+            option.sex = sex;
+        }
+        $('#data-datagrid').datagrid('reload',option);
+    });
+
+
+    function add0(m){return m<10?'0'+m:m }
+    function format(shijianchuo){
+        //shijianchuo是整数，否则要parseInt转换
+        var time = new Date(shijianchuo);
+        var y = time.getFullYear();
+        var m = time.getMonth()+1;
+        var d = time.getDate();
+        var h = time.getHours();
+        var mm = time.getMinutes();
+        var s = time.getSeconds();
+        return y+'-'+add0(m)+'-'+add0(d)+' '+add0(h)+':'+add0(mm)+':'+add0(s);
+    }
+
+   /* function openAdd(){
+        //$('#add-form').form('clear');
+        $('#add-dialog').dialog({
+            closed: false,
+            modal:true,
+            title: "添加用户信息",
+            buttons: [{
+                text: '查询',
+                iconCls: 'icon-search-copy',
+                handler: add
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#add-dialog').dialog('close');
+                }
+            }],
+            onBeforeOpen:function(){
+                $("#data-ins").datagrid({
+                    url:'userList',
+                    fitColumns:true,
+                    striped: true,
+                    singleSelect : true,
+                    pagination:true,
+                    rownumbers:true,
+                    pageSize:20,
+                    multiSort:true,
+                    idField:'userId',
+                    onDblClickRow: function (index, row) {
+                        add(row.userId);
+                    },
+                    columns:[[
+                        { field:'userId',title:'个人编号',width:100,align:'center'},
+                        { field:'recordName',title:'姓名',width:100,align:'center'},
+                        { field:'userBirthday',title:'出生日期',width:100,align:'center'},
+                        { field:'recordAdress',title:'联系地址',width:100,align:'center'},
+                        { field:'userMyphone',title:'联系地址',width:100,align:'center'}
+                    ]]
+                });
+            }
+        });
+    }*/
+
+
+
+    /**
+     * 打开修改传染病随访记录页面
+     */
+    function editfoser(foserId) {
+        $('#foservpul-dialog').dialog('close');
+        $('#editfoser').dialog({
+            closed: false,
+            modal: true,
+            title: "修改随访记录",
+            buttons: [{
+                text: '确定',
+                iconCls: 'icon-ok',
+                handler: edit
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#editfoser').dialog('close');
+                }
+            }],
+            onBeforeOpen: function () {
+               $.ajax({
+                    url: '../FoservPul/findById?foserId=' + foserId,
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                        // console.log(data.foser[0]);
+                        // $("#infform").form('load', data.rows[0]);
+                        $("#foserId").val(data.foserId);
+                        $("#recordName").val(data.recordName);
+                        $("#userId").val(data.userId);
+                         $("#foserTime").datebox('setValue',data.foserTime);
+                         $("#foserMonthsequence").val(data.foserMonthsequence);
+                         $("#foserSupervisorStaff").val(data.foserSupervisorStaff);
+                         $("#foserMode").val(data.foserMode);
+                         $("input[name='foserSypend']").val(data.foserSypend);
+                         $("#foserOther").val(data.foserOther);
+                         $("#foserSmokpay").val(data.foserSmokpay);
+                         $("#foserSmokday").val(data.foserSmokday);
+                         $("#foserDrinkday ").val(data.foserDrinkday);
+                         $("#foserRegimen").val(data.foserRegimen);
+                         $("input[name='foserUsage'] ").val(data.foserUsage);
+                         $("input[name='foserDosage']").val(data.foserDosage);
+                         $("#foserDosagenum").val(data.foserDosagenum);
+                         $("input[name='foserSideeffects'] ").val(data.foserSideeffects);
+                         $("input[name='foserComplication']").val(data.foserComplication);
+                         $("#foserCategory ").val(data.foserCategory);
+                         $("#foserCause").val(data.foserCause);
+                         $("#foserTwoweek ").val(data.foserTwoweek);
+                         $("#foserHandleOpinion").val(data.foserHandleOpinion);
+                         $("#foserNexttime ").datebox('setValue',data.foserNexttime);
+                         $("#foserDoctor").combobox('setValue',data.foserDoctor);
+                        $("#stoptreatTime ").datebox('setValue',data.stoptreatTime);
+                        $("#stoptreatReason").val(data.stoptreatReason);
+                        $("#foserNum ").val(data.foserNum);
+                        $("#foserActualNum").val(data.foserActualNum);
+                        $("#foserTmednum").val(data.foserTmednum);
+                        $("#foserActualTmednum ").val(data.foserActualTmednum);
+                        $("#foserAssessDoctor").combobox('setValue',data.foserAssessDoctor);
+
+                       /* $(function () {
+                            if($("#userSex").val()==1){
+                                $("#userSex").text("男");
+                            }else if($("#userSex").val()==2){
+                                $("#userSex").text("女");
+                            }
+                        });*/
+                    }
+
+                });
+
+            }
+        })
+    }
+    /**
+     * 打开肺结核患者随访服务记录窗口
+     * @param pultubfoId
+     */
+    function openfoser(pultubfoId){
+        $('#foservpul-dialog').dialog({
+            closed: false,
+            modal:true,
+            title: "肺结核患者随访记录表",
+            buttons: [ {
+                text: '增加',
+                iconCls: 'icon-ok',
+                handler: add
+            },{
+                text: '修改',
+                iconCls: 'icon-ok',
+                handler: add
+            },{
+                text: '删除',
+                iconCls: 'icon-ok',
+                handler: add
+            },{
+                text: '关闭',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#foservpul-dialog').dialog('close');
+                }
+            }],
+            onBeforeOpen:function(){
+                $("#dataAll").datagrid({
+                    url: '../FoservPul/findId?pultubfoId=' + pultubfoId,
+                    fitColumns: true,
+                    striped: true,
+                    singleSelect: true,
+                    pagination: true,
+                    rownumbers: true,
+                    pageSize: 20,
+                    multiSort: true,
+                    onDblClickRow: function (index, row) {
+                        editfoser(row.foserId);
+                    },
+                    columns:[[
+                        { field:'foserId',checkbox:true},
+                        /*{field: 'foserId', title: '序号', width: 100},*/
+                        { field:'foserTime',title:'随访日期',width:100,formatter:function(value,row,index){
+                                return format(value);}},
+                        { field:'foserNexttime',title:'下次随访时间',width:100,formatter:function(value,row,index){
+                                return format(value);}},
+                        { field:'foserDoctor',title:'随访医生',width:100,sortable:true},
+                        { field:'foserMode',title:'随访方式',width:100,sortable:true}
+                    ]],
+                    /*onLoadSuccess:function(data){
+                        $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
+                    }*/
+                    /* onDblClickRow: function (index, row) {
+                         editdisfoll(row.infdisId, row.disfopId);
+                    },*/
+                    /*toolbar: [{
+                        text: '新增',
+                        iconCls: 'icon-add',
+                        handler: add
+                    }, '-', {
+                        text: '删除',
+                        iconCls: 'icon-cancel',
+                        handler: remove
+                    }]*/
+                });
+            }
+        });
+    }
+
+    /**
+     * 载入数据
+     */
+    $('#data-datagrid').datagrid({
+        url:'list',
+        rownumbers:true,
+        singleSelect:false,
+        pageSize:20,
+        pagination:true,
+        multiSort:true,
+        fitColumns:true,
+        idField:'pultubfoId',
+        treeField:'name',
+        fit:true,
+        onDblClickRow: function (index, row) {
+            openfoser(row.pultubfoId);
+        },
+        columns:[[
+            { field:'chk',checkbox:true},
+            { field:'pultubfoId',title:'编号',width:100,align:'center'},
+            { field:'userId',title:'个人健康档案号',width:100,sortable:true},
+            { field:'recordName',title:'姓名',width:100,sortable:true},
+            { field:'userSex',title:'性别',width:100,sortable:true,formatter(value,row,index){
+                    switch(value){
+                        case 0:{
+                            return '未知';
+                        }
+                        case 1:{
+                            return '男';
+                        }
+                        case 2:{
+                            return '女';
+                        }
+                    }
+                    return value;
+                }},
+            { field:'userBirthday',title:'出生日期',width:100,sortable:true,formatter:function(value,row,index){
+                    return format(value);}},
+            { field:'recordAdress',title:'联系地址',width:100,sortable:true},
+            { field:'userMyphone',title:'本人电话',width:100,sortable:true},
+            { field:'userPrivyPhone',title:'联系人电话',width:100,sortable:true},
+            { field:'puljkTime',title:'建卡日期',width:100,sortable:true,formatter:function(value,row,index){
+                    return format(value);}},
+            { field:'pulState',title:'管理状态',width:100,sortable:true,formatter(value,row,index){
+                    switch(value){
+                        case 0:{
+                            return '左东恩';
+                        }
+                        case 1:{
+                            return '孟敏学';
+                        }
+                        case 2:{
+                            return '齐建科';
+                        }
+                    }
+                    return value;
+                }},
+            { field:'pulDoctor',title:'责任医生',width:100,sortable:true,formatter(value,row,index){
+                    switch(value){
+                        case 0:{
+                            return '左东恩';
+                        }
+                        case 1:{
+                            return '孟敏学';
+                        }
+                        case 2:{
+                            return '齐建科';
+                        }
+                    }
+                    return value;
+                }}
+        ]],
+    onLoadSuccess:function(data){
+            $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
+        }
+    });
+
+
+</script>
