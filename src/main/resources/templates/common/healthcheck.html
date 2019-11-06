@@ -4,7 +4,7 @@
 <div th:fragment="healthcheck">
     <div class="healthcheck">
 
-            <div class="easyui-tabs" style="width:860px;height:auto;margin: auto;">
+            <div id="add-dialog"  data-options="closed:true"  class="easyui-tabs" style="width:1000vw;height:900vh;margin: auto;">
 
                 <div title="第一页" style="padding:10px">
                     <div style="width: 100%; float: left; text-align: center"><h3> 健康体检</h3></div>
@@ -13,7 +13,7 @@
                     </div>
                     <div style="width: 45%; float: right; text-align: center"> 编号：<input class="easyui-textbox" readonly="true" type="text" name="healthcheckId" style="border: 0px"></input>
                     </div>
-                    <table style="text-align: center; width: auto;" border="1">
+                    <table style="text-align: center; width: 98%;padding: 2px;margin: auto;margin-bottom: 80px" border="1" >
                         <tr>
                             <td colspan="2"><input type="text" readonly="true" class="tdText_h" value="体检日期"></td>
                             <td colspan="3"><input class="easyui-datebox" name="healthcheckDate"
@@ -376,7 +376,7 @@
                 </div>
                 <!--第二页-->
                 <div title="第二页" style="padding:10px">
-                    <table style="text-align: left; width: auto;" border="1">
+                    <table style="text-align: center; width: 90%;margin: auto;margin-top: 30px;padding: 2px" border="1" >
                         <tr>
                             <td colspan="1" rowspan="6">脏器功能</td>
                             <td colspan="1" rowspan="3"><input type="text" readonly="true" class="tdText_h" value="口腔">
@@ -657,8 +657,17 @@
                             </td>
                         </tr>
 
+
+
+                    </table>
+
+
+                </div>
+                <!--第三页-->
+                <div title="第三页" style="padding:10px">
+                    <table style="text-align: center; width: 90%;padding: 2px;margin: auto;margin-top: 30px" border="1" >
                         <tr>
-                            <td colspan="1">辅助检查</td>
+                            <td colspan="1" rowspan="18">辅助检查</td>
                             <td colspan="1"><input type="text" readonly="true" class="tdText_h" value="血常规"></td>
                             <td colspan="8">
                                 血红蛋白:
@@ -743,16 +752,8 @@
                                 <input type="radio" name="healthcheckAcpEcg" value="2">异常
                         </tr>
 
-                    </table>
-
-
-                </div>
-                <!--第三页-->
-                <div title="第三页" style="padding:10px">
-                    <table style="text-align: left; width: auto;" border="1">
-
                         <tr>
-                            <td colspan="1" rowspan="16">辅助检查</td>
+
                             <td colspan="1"><input type="text" readonly="true" class="tdText_h" value="糖化血红蛋白"></td>
                             <td colspan="8">
                                 <input class="easyui-numberbox" data-options="suffix:'mmol/L'"
@@ -999,7 +1000,7 @@
 
                 <div title="第四页" style="padding:10px">
 
-                    <table style="text-align: center; width: auto;" border="1">
+                    <table style="text-align: center; width: 80%;margin: auto;margin-bottom: 80px" border="1" >
                         <tr>
                             <td colspan="1" rowspan="2">住院治疗情况</td>
                             <td colspan="1" rowspan="1">住院史</td>
@@ -1213,8 +1214,7 @@
                         <tr>
                             <td colspan="1" rowspan="1">异常指标</td>
                             <td colspan="8" rowspan="1">
-                                <input class="easyui-textbox" type="text" name="healthcheckVisceraVisionl"
-                                       style="width:100%; height:100%;border: 0px"></input>
+                                <textarea  name="healthcheckVisceraVisionl"   style="width:100%;height:200px;border: 0px black solid"></textarea>
                             </td>
                         </tr>
                         <tr>

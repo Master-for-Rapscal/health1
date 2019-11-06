@@ -33,7 +33,9 @@
     <table id="data-datagrid" class="easyui-datagrid" toolbar="#wu-toolbar"></table>
 </div>
 <!-- Begin of easyui-dialog -->
-<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:800px; height:600px;overflow:scroll; padding:0px;">
+<!--<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:1200px;height:950px;overflow:scroll; padding:0px;">-->
+<!--<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:1000%;height:760%;overflow:scroll; padding:0px;">-->
+<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:1300vw;height:850vh;overflow:scroll; padding:0px;">
     <form id="add-form" method="post">
 
         <div th:replace="common/userInfo :: UserTable"  > </div>
@@ -47,11 +49,11 @@
     </form>
 </div>
 <!-- 修改窗口 -->
-<div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:800px;height:600px;overflow:scroll; padding:0px; ">
-    <form id="edit-form" method="post">
-       <div th:replace="common/userInfo :: UserTable"  > </div>
-    </form>
-</div>
+<!--<div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:1200px;height:950px;overflow:scroll; padding:0px; ">-->
+    <!--<form id="edit-form" method="post">-->
+       <!--<div th:replace="common/userInfo :: UserTable"  > </div>-->
+    <!--</form>-->
+<!--</div>-->
 
 
 <!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
@@ -70,7 +72,7 @@
      */
     function add(){
 
-        console.log($("#add-form").serialize());
+
         var validate = $("#add-form").form("validate");
         if(!validate){
             $.messager.alert("消息提醒","请检查你输入的数据!","warning");
@@ -98,12 +100,12 @@
      * Name 修改记录
      */
     function edit(){
-        var validate = $("#edit-form").form("validate");
+        var validate = $("#add-form").form("validate");
         if(!validate){
             $.messager.alert("消息提醒","请检查你输入的数据!","warning");
             return;
         }
-        var data = $("#edit-form").serialize();
+        var data = $("#add-form").serialize();
         $.ajax({
             url:'edit',
             dataType:'json',
@@ -112,7 +114,7 @@
             success:function(data){
                 if(data.type == 'success'){
                     $.messager.alert('信息提示','修改成功！','info');
-                    $('#edit-dialog').dialog('close');
+                    $('#add-dialog').dialog('close');
                     $('#data-datagrid').datagrid('reload');
                 }else{
                     $.messager.alert('信息提示',data.msg,'warning');
@@ -159,16 +161,16 @@
      * Name 打开添加窗口
      */
     function openAdd(){
-        //$('#add-form').form('clear');
+        $('#add-form').form('reset');
         $('#add-dialog').dialog({
             closed: false,
             modal:true,
             title: "添加用户信息",
             buttons: [{
-                text: '确定',
+                text: '保存',
                 iconCls: 'icon-ok',
                 handler: add
-            }, {
+            },{
                 text: '取消',
                 iconCls: 'icon-cancel'
             }],
@@ -193,7 +195,7 @@
             return;
         }
         item = item[0];
-        $('#edit-dialog').dialog({
+        $('#add-dialog').dialog({
             closed: false,
             modal:true,
             title: "修改用户信息",
@@ -205,7 +207,7 @@
                 text: '取消',
                 iconCls: 'icon-cancel',
                 handler: function () {
-                    $('#edit-dialog').dialog('close');
+                    $('#add-dialog').dialog('close');
                 }
             }],
             onBeforeOpen:function(){
@@ -216,22 +218,13 @@
                     data:{id:item.userId},
                     success:function(data){
                         if(data.type == 'success'){
-                            $('#edit-form').form('load',data.datainfo);
+                            $('#add-form').form('load',data.datainfo);
                             $("input[name='userInfoName']").val(data.datainfo.recordName);
                         }else{
                             $.messager.alert('信息提示',data.msg,'warning');
                         }
                     }
                 });
-
-                // $("#edit-id").val(item.id);
-                // $("#edit-preview-photo").attr('src',item.photo);
-                // $("#edit-photo").val(item.photo);
-                // $("#edit-username").val(item.username);
-                // $("#edit-roleId").combobox('setValue',item.roleId);
-                // $("#edit-sex").combobox('setValue',item.sex);
-                // $("#edit-age").val(item.age);
-                // $("#edit-address").val(item.address);
             }
         });
     }

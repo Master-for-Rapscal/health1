@@ -376,12 +376,12 @@
   font-weight: bold;
 }
 .combobox-item-hover {
-  background-color: #eaf2ff;
+  background-color: #deedff;
   color: #000000;
 }
 .combobox-item-selected {
-  background-color: #FBEC88;
-  color: #000000;
+  background-color: #FFFFFF;
+  color: #4836f3;
 }
 .layout {
   position: relative;
@@ -1524,7 +1524,7 @@ a:hover.l-btn-plain-selected {
   float: right;
 }
 .datebox .combo-arrow {
-  background-image: url('images/datebox_arrow.png');
+  background-image: url('images/date.png');
   background-position: center center;
 }
 .datebox-button {
@@ -2214,11 +2214,11 @@ a.s-btn-plain-active {
   color: #000000;
 }
 .validatebox-invalid {
-  background-image: url('images/validatebox_warning.png');
+  background-image: url('images/validatebox4.png');
   background-repeat: no-repeat;
-  background-position: right center;
-  border-color: #ffa8a8;
-  background-color: #fff3f3;
+  background-position: left center;
+  border-color: #ffffff;
+  background-color: #ffffff;
   color: #000;
 }
 .tooltip {

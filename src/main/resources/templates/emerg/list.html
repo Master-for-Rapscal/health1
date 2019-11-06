@@ -242,12 +242,12 @@
                 <td>主要症状</td>
                 <td colspan="5">
                     <div>
-                    <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="1">呼吸道症状
-                    <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="2">胃肠道症状
-                    <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="3">神经系统症状
-                    <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="4">皮肤粘膜症状
-                    <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="5">神经症状
-                    <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="6">其它<input type="text"/>
+                    <input type="checkbox"  class="mainSymptoms"  value="1">呼吸道症状
+                    <input type="checkbox"  class="mainSymptoms"  value="2">胃肠道症状
+                    <input type="checkbox"  class="mainSymptoms"   value="3">神经系统症状
+                    <input type="checkbox"  class="mainSymptoms"  value="4">皮肤粘膜症状
+                    <input type="checkbox"  class="mainSymptoms"  value="5">神经症状
+                    <input type="checkbox"  class="mainSymptoms"  value="6">其它<input type="text"/>
                     <!--<input class="easyui-textbox"  id="mainSymptomsid" name="mainSymptoms"></input>-->
                     </div>
                 </td>
@@ -539,7 +539,7 @@
         }else{
             $('#p').progressbar('setValue',0)
         }
-    };
+    }
     function upload(){
         if($("#photo-file").val() == '')return;
         var formData = new FormData();
@@ -596,6 +596,7 @@
             success:function(data){
                 if(data.type == 'success'){
                     $.messager.alert('信息提示','添加成功！','info');
+                    $('#data-datagrid').form('reload');
                     $('#add-dialog').dialog('close');
                     $('#data-datagrid').datagrid('reload');
                 }else{
@@ -711,7 +712,7 @@
             modal:true,
             title: "修改",
             buttons: [{
-                text: '确定',
+                text: '修改',
                 iconCls: 'icon-ok',
                 handler: edit
             }, {
@@ -764,7 +765,7 @@
     //搜索按钮监听
     $("#search-btn").click(function(){
         var roleId = $("#search-role").combobox('getValue');
-        var sex = $("#search-sex").combobox('getValue')
+        var sex = $("#search-sex").combobox('getValue');
         var option = {username:$("#search-name").val()};
         if(roleId != -1){
             option.roleId = roleId;

@@ -170,7 +170,7 @@
         }else{
             $('#p').progressbar('setValue',0)
         }
-    };
+    }
     function upload(){
         if($("#photo-file").val() == '')return;
         var formData = new FormData();
@@ -370,7 +370,7 @@
     //搜索按钮监听
     $("#search-btn").click(function(){
         var roleId = $("#search-role").combobox('getValue');
-        var sex = $("#search-sex").combobox('getValue')
+        var sex = $("#search-sex").combobox('getValue');
         var option = {username:$("#search-name").val()};
         if(roleId != -1){
             option.roleId = roleId;
@@ -397,7 +397,7 @@
     $('#data-datagrid').datagrid({
         url:'list',
         rownumbers:true,
-        singleSelect:false,
+        singleSelect:true,
         pageSize:20,
         pagination:true,
         multiSort:true,

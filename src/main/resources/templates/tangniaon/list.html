@@ -91,7 +91,7 @@
         $("#suifang").dialog('close');//随访记录详情页
         $("#xiaosuifang").dialog('close');//随访记录小表
         $("#YaoWu").dialog('close');//随访药物
-    })
+    });
 
     /**
      *  添加记录
@@ -355,7 +355,7 @@
     $('#data-datagrid').datagrid({
         url: 'list',
         rownumbers: true,
-        singleSelect: false,
+        singleSelect: true,
         pageSize: 20,
         pagination: true,
         multiSort: true,
@@ -368,7 +368,7 @@
             selSui(row.userId);
         },
         columns: [[
-            {field: 'chk', checkbox: true, width: 100},
+            {field: 'chk', checkbox: true, hidden:true},
             {field: 'userId', title: '个人编号', width: 50, align: 'center'},
             {field: 'recordName', title: '姓名', width: 100, sortable: true},
             {
@@ -498,13 +498,11 @@
             columns: [[
                 {field: 'chk', checkbox: true, width: 100},
                 {field: 'hypertenId', title: 'ID', width: 100, sortable: true, hidden: true},
-                {
-                    field: 'recordId', title: '个人编号', width: 50, hidden: true, formatter(value, row, index) {
+                {field: 'recordId', title: '个人编号', width: 50, hidden: true, formatter(value, row, index) {
                         if (value == null) {
                             alert("未拥有随访记录，请尽快安排");
                         }
-                    }
-                },
+                    }},
                 {field: 'hypertenVisit', title: '随访日期', width: 100, sortable: true,formatter(value,row,index){
                     return upDate(value);
                     }},

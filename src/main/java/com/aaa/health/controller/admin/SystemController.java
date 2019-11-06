@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.aaa.health.controller.toCamer;
 import com.aaa.health.page.admin.Page;
+import com.aaa.health.service.oldpeo.OldtcmService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -62,6 +63,9 @@ public class SystemController {
     @Autowired
     private LogService logService;
 
+    @Autowired
+    private OldtcmService oldtcmService;
+
     @RequestMapping(value = "/box", method = RequestMethod.POST)
     public String index1() {
 
@@ -90,8 +94,10 @@ public class SystemController {
             menuIds = menuIds.substring(0, menuIds.length() - 1);
         }
         List<Menu> userMenus = menuService.findListByIds(menuIds);
+         Object doctor = oldtcmService.queryDoctor();
         request.getSession().setAttribute("admin", findByUsername);
         request.getSession().setAttribute("role", role);
+        request.getSession().setAttribute("doctor", doctor);
         request.getSession().setAttribute("userMenus", userMenus);
 //        System.out.println("用户所拥有的权限"+userMenus);
         model.addAttribute("topMenuList", MenuUtil.getAllTopMenu(userMenus));
