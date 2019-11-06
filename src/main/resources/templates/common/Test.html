@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link rel="stylesheet" type="text/css" href="/admin/easyui/easyui/1.3.4/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="/admin/easyui/css/wu.css" />
+<link rel="stylesheet" type="text/css" href="/admin/easyui/css/icon.css" />
+<script type="text/javascript" src="/admin/easyui/js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="/admin/easyui/easyui/1.3.4/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/admin/easyui/easyui/1.3.4/locale/easyui-lang-zh_CN.js"></script>
+<body>
+<table id="tab">
+    <tr>
+        <td>aaa</td>
+        <td><input type="text" value="abc" /></td>
+        <td>ccc</td>
+        <td>ddd</td>
+    </tr>
+    <tr>
+        <td>aaa2</td>
+        <td>bbb2</td>
+        <td>ccc2</td>
+        <td>ddd2</td>
+    </tr>
+</table>
+<textarea id="wen"> </textarea>
+<button onclick="aaa()"></button>
+</body>
+</html>
+<script>
+    $(function () {
+        //alert("aa");
+        //alert($("#tab tr").length);
+       alert("第一个单元格的值"+$("#tab tr:eq(0) td:eq(1)").find("input").val());
+
+
+
+    });
+</script>

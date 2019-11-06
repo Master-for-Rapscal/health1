@@ -1,0 +1,218 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.hyper.HyPerMapper">
+    <select id="queryHyAll" parameterType="Map" resultType="Map">
+        SELECT * from hypertension dm join userinfo u on dm.recordId=u.userId left join userPrivy pr on pr.userId=u.userId
+        <if test="offset != null and pageSize != null">
+             limit #{offset},#{pageSize}
+        </if>
+    </select>
+    
+    <select id="queryHyTotal" parameterType="Map" resultType="Integer">
+        SELECT count(*) from hypertension dm join userinfo u on dm.recordId=u.userId left join userPrivy pr on pr.userId=u.userId
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <delete id="deleteByIds" parameterType="String">
+        delete from hypertension where recordId in (${ids})
+    </delete>
+    
+    <select id="queryNotUser" parameterType="Map" resultType="Map">
+ SELECT u.userId,u.recordName,u.userBirthday,u.recordAdress,u.userMyphone from userinfo u
+        where u.userId not in (SELECT recordId from hypertension)
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <select id="queryNoUserTotal" parameterType="Map" resultType="Integer">
+        SELECT count(*) from userinfo u
+        where u.userId not in (SELECT recordId from hypertension)
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+
+    <insert id="insertHy" parameterType="com.aaa.health.entity.hyper.HyPer">
+        insert INTO hypertension(recordId,hypertensionSource,hypertensionSmokingnum,hypertensionCapacitynum,hypertensionExercise
+,hypertensionRundate,hypertensionHeight,hypertensionBloodheight,hypertensionBloodlow,hypertensionDoctor,hypertensionHypertension,
+hypertensionHazards,hypertensionTargetorgan,hypertensionDisorders,hypertensionStratification,hypertensionOutcome,
+ hypertensionConfirmed,hypertensionAccident,hypertensionOutcomedate,hypertensionJiankadate,hypertensionWeight,hypertensionBmi,hypertensionFbg,
+hypertensionConfirmedunit,hypertensionCurrentsymptoms,hypertensionArea)
+VALUE(#{recordId},#{hypertensionSource},#{hypertensionSmokingnum},#{hypertensionCapacitynum},
+#{hypertensionExercise},#{hypertensionRundate},#{hypertensionHeight},#{hypertensionBloodheight},
+#{hypertensionBloodlow},#{hypertensionDoctor},#{hypertensionHypertension},#{hypertensionHazards},
+#{hypertensionTargetorgan},#{hypertensionDisorders},#{hypertensionStratification},#{hypertensionOutcome},
+#{hypertensionConfirmed},#{hypertensionAccident},#{hypertensionOutcomedate},#{hypertensionJiankadate},
+#{hypertensionWeight},#{hypertensionBmi},#{hypertensionFbg},
+#{hypertensionConfirmedunit},#{hypertensionCurrentsymptoms},#{hypertensionArea})
+    </insert>
+    
+    <select id="queryArea" resultType="Map">
+        SELECT * from area
+    </select>
+
+    <select id="queryHyById" resultType="com.aaa.health.entity.hyper.HyPer" parameterType="Integer">
+        SELECT * from hypertension WHERE recordId=#{userId}
+    </select>
+    
+    <update id="updateByUserId" parameterType="com.aaa.health.entity.hyper.HyPer">
+        UPDATE hypertension set hypertensionSource=#{hypertensionSource},
+hypertensionSmokingnum=#{hypertensionSmokingnum},
+hypertensionCapacitynum=#{hypertensionCapacitynum},
+hypertensionExercise=#{hypertensionExercise},
+hypertensionRundate=#{hypertensionRundate},
+hypertensionHeight=#{hypertensionHeight},
+hypertensionBloodheight=#{hypertensionBloodheight},
+hypertensionBloodlow=#{hypertensionBloodlow},
+hypertensionDoctor=#{hypertensionDoctor},
+hypertensionHypertension=#{hypertensionHypertension},
+hypertensionHazards=#{hypertensionHazards},
+hypertensionTargetorgan=#{hypertensionTargetorgan},
+hypertensionDisorders=#{hypertensionDisorders},
+hypertensionStratification=#{hypertensionStratification},
+hypertensionOutcome=#{hypertensionOutcome},
+hypertensionConfirmed=#{hypertensionConfirmed},
+hypertensionAccident=#{hypertensionAccident},
+hypertensionOutcomedate=#{hypertensionOutcomedate},
+hypertensionJiankadate=#{hypertensionJiankadate},
+hypertensionWeight=#{hypertensionWeight},
+hypertensionBmi=#{hypertensionBmi},
+hypertensionFbg=#{hypertensionFbg},
+hypertensionConfirmedunit=#{hypertensionConfirmedunit},
+hypertensionCurrentsymptoms=#{hypertensionCurrentsymptoms},
+hypertensionArea=#{hypertensionArea}
+WHERE recordId=#{recordId}
+    </update>
+
+
+
+
+    <!--<select id="querySuiById" parameterType="Integer" resultType="com.aaa.health.entity.hyper.HyPerTend">-->
+            <!--SELECT * from hypertend WHERE recordId=#{uid} AND  hypertenState=2-->
+    <!--</select>-->
+
+    <!--<select id="querySuiMax" resultType="Integer">-->
+        <!--SELECT  MAX(hypertenId) FROM hypertend-->
+    <!--</select>-->
+    <!---->
+    <!--<insert id="insertHyperYao" parameterType="Map">-->
+        <!--INSERT INTO recordRecipe(hypertenId,recordRecipeName,recordRecipeContent,recordRecipePian)-->
+        <!--VALUES(#{hypertenId},#{recordRecipeName},#{recordRecipeContent},#{recordRecipePian});-->
+    <!--</insert>-->
+
+
+    <select id="querySuiById" parameterType="Integer" resultType="com.aaa.health.entity.tangniaon.Tang">
+        SELECT * from hypertend WHERE recordId=#{uid} AND  hypertenState=2
+    </select>
+
+    <insert id="insertSui" parameterType="com.aaa.health.entity.tangniaon.Tang">
+        INSERT INTO hypertend(
+        recordId,
+        hypertenVisit,
+        hypertenVisitway,
+        hypertenWithdrawcause,
+        hypertenSymptom,
+        hypertenBloodheight,
+        hypertenBloodlow,
+        hypertenWeightfir,
+        hypertenHrrest,
+        hypertenElsesign,
+        hypertenSmokfir,
+        hypertenDrinkfir,
+        hypertenSportsfir,
+        hypertenSportsthird,
+        hypertenTakensaltfir,
+        hypertenMentality,
+        hypertenCom,
+        hypertenKongfu,
+        hypertenTanghua,
+        hypertenJianchadate,
+        hypertenLeftothers,
+        hypertenCompliance,
+        hypertenUneffect,
+        hypertenDixue,
+        hypertenClassify,
+        hypertenReferralcause,
+        hypertenReferralobj,
+        hypertenVisitdate,
+        hypertenDoctor,
+        hypertenRemark,
+        hypertenState,
+        hypertenDe
+        )VALUES(
+        #{recordId},#{hypertenVisit},#{hypertenVisitway},#{hypertenWithdrawcause},#{ hypertenSymptom},#{hypertenBloodheight},#{hypertenBloodlow},#{hypertenWeightfir},#{hypertenHrrest},
+        #{ hypertenElsesign},#{ hypertenSmokfir},#{hypertenDrinkfir},#{hypertenSportsfir},#{hypertenSportsthird},#{hypertenTakensaltfir},#{hypertenMentality},#{ hypertenCom},#{ hypertenKongfu},#{ hypertenTanghua},
+        #{ hypertenJianchadate},#{ hypertenLeftothers},#{  hypertenCompliance},#{ hypertenUneffect},#{ hypertenDixue},#{ hypertenClassify},#{hypertenReferralcause},
+        #{hypertenReferralobj},#{ hypertenVisitdate},#{ hypertenDoctor},#{ hypertenRemark},#{hypertenState},#{ hypertenDe  }
+
+        )
+    </insert>
+
+    <select id="querySuiMax" resultType="Integer">
+        SELECT  MAX(hypertenId) FROM hypertend
+    </select>
+
+    <insert id="insertHyperYao" parameterType="Map">
+        INSERT INTO recordRecipe(hypertenId,recordRecipeName,recordRecipeContent,recordRecipePian)
+        VALUES(#{hypertenId},#{recordRecipeName},#{recordRecipeContent},#{recordRecipePian});
+    </insert>
+
+    <delete id="delSui" parameterType="String">
+        delete from hypertend where hypertenId in (${ids})
+    </delete>
+
+    <select id="querySuiFangById" parameterType="Integer" resultType="com.aaa.health.entity.tangniaon.Tang">
+        SELECT * from hypertend WHERE hypertenId=#{hid}
+    </select>
+
+    <update id="updateSuiFangById" parameterType="com.aaa.health.entity.tangniaon.Tang">
+
+        UPDATE hypertend SET
+        hypertenVisit=#{hypertenVisit},
+        hypertenVisitway=#{hypertenVisitway},
+        hypertenWithdrawcause=#{hypertenWithdrawcause},
+        hypertenSymptom=#{ hypertenSymptom},
+        hypertenBloodheight=#{hypertenBloodheight},
+        hypertenBloodlow=#{hypertenBloodlow},
+        hypertenWeightfir=#{hypertenWeightfir},
+        hypertenHrrest=#{hypertenHrrest},
+        hypertenElsesign=#{ hypertenElsesign},
+        hypertenSmokfir=#{hypertenSmokfir},
+        hypertenDrinkfir=#{hypertenDrinkfir},
+        hypertenSportsfir=#{hypertenSportsfir},
+        hypertenSportsthird=#{hypertenSportsthird},
+        hypertenTakensaltfir=#{hypertenTakensaltfir},
+        hypertenMentality=#{hypertenMentality},
+        hypertenCom=#{hypertenCom},
+        hypertenKongfu=#{hypertenKongfu},
+        hypertenTanghua=#{hypertenTanghua},
+        hypertenJianchadate=#{hypertenJianchadate},
+        hypertenLeftothers=#{hypertenLeftothers},
+        hypertenCompliance=#{  hypertenCompliance},
+        hypertenUneffect=#{ hypertenUneffect},
+        hypertenDixue=#{ hypertenDixue},
+        hypertenClassify=#{ hypertenClassify},
+        hypertenReferralcause=#{hypertenReferralcause},
+        hypertenReferralobj=#{hypertenReferralobj},
+        hypertenVisitdate=#{hypertenVisitdate},
+        hypertenDoctor=#{hypertenDoctor},
+        hypertenRemark=#{hypertenRemark}
+
+        WHERE hypertenId=#{hypertenId}
+
+    </update>
+
+    <select id="queryYao" parameterType="Integer" resultType="Map">
+        select * from  recordRecipe where hypertenId=#{hid}
+    </select>
+
+    <update id="updateZhuan" parameterType="Map">
+        UPDATE hypertension set hypertensionOutcome=#{hypertensionOutcome},
+hypertensionOutcomedate=#{hypertensionOutcomedate}
+WHERE recordId=#{uid}
+    </update>
+</mapper>

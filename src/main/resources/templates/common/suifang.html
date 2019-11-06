@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
+
+<body>
+
+<div th:fragment="suifang">
+    <div class="suifang">
+<style>
+    input[type="select"]{
+        width: 500px;
+        height: 30px;
+    }
+    a {
+        margin: 5px;
+    }
+</style>
+
+        <form id="suiform">
+        <table border="1px" style="margin-top: 20px">
+            <tr>
+                <td colspan="4">随访日期</td>
+                <td colspan="6"><input class="easyui-datebox" data-options="onSelect:checkDate" id="hypertenVisit" name="hypertenVisit"/></td>
+            </tr>
+            <script>
+                var tf;
+                function checkDate(date1){
+
+                    // var  date1=$("#hypertenVisit").datetimebox('getValue');
+                    // // var now = new Date();
+                   // alert(date1);
+                   // var d1 = new Date(date1.getFullYear(), date1.getMonth()+3, date1.getDate());
+
+                    // // var d2 = new Date(now.getFullYear(), now.getMonth(), now.getDate()+10);
+                    //
+
+                        var y = date1.getFullYear();
+                        var m = date1.getMonth()+4;
+                        var d = date1.getDate();
+                   if(m>12){
+                       y=y+1;
+                       m=m-12;
+                   }
+                    tf=y+'-'+m+'-'+d;
+                    $('#hypertenVisitdate').datebox('setValue',tf);
+
+                }
+                // $(function () {
+                //     $('#hypertenVisit').datebox().datebox('calendar').calendar({
+                //         validator:
+                //     });
+                // })
+            </script>
+            <tr>
+                <td colspan="4">随访方式</td>
+                <td colspan="6"><input type="radio" name="hypertenVisitway" value="1"/>门诊
+                    <input type="radio" name="hypertenVisitway" value="2"/>家庭
+                    <input type="radio" name="hypertenVisitway" value="3"/>电话</td>
+            </tr>
+            <tr>
+                <td colspan="4">若失访，原因</td>
+                <td colspan="6"><input name="hypertenWithdrawcause" style="width: 100%;height: 100%; border: 0px"/></td>
+            </tr>
+            <tr>
+                <td colspan="2">症状</td>
+                <td colspan="6">
+                    <input type="checkbox" name="hypertenSymptom" value="1" onclick="checkItem1(this)"/>无症状
+                    <input type="checkbox" name="hypertenSymptom" value="2"/>头晕头痛
+                    <input type="checkbox" name="hypertenSymptom" value="3"/>恶心呕吐
+                    <input type="checkbox" name="hypertenSymptom" value="4"/>眼花耳鸣
+                    <input type="checkbox" name="hypertenSymptom" value="5"/>呼吸困难
+                    <input type="checkbox" name="hypertenSymptom" value="6"/>心悸胸闷
+                    <input type="checkbox" name="hypertenSymptom" value="7"/>鼻腔出血不止
+                    <input type="checkbox" name="hypertenSymptom" value="8"/>四肢麻木
+                    <input type="checkbox" name="hypertenSymptom" value="9"/>下肢水肿
+                    <input type="checkbox" name="hypertenSymptom" value="10"/>其他
+            </tr>
+            <tr>
+                <td rowspan="4" colspan="2">体征</td>
+                <td colspan="2">血压</td>
+                <td colspan="6"><input name="hypertenBloodheight" value="0" oninput="value=value.replace(/[^\d]/g,'')" style="width: 35%;height: 100%; border: 0px"/>/
+                    <input name="hypertenBloodlow" value="0" oninput="value=value.replace(/[^\d]/g,'')" style="width: 35%;height: 100%; border: 0px"/>mmHg</td>
+            </tr>
+            <tr>
+                <td colspan="2">体重</td>
+                <td colspan="6"><input name="hypertenWeightfir" value="0.0" oninput="value=value.replace(/[^\d\.]/g,'')" style="width: 80%;height: 100%; border: 0px"/>KG</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">足背动脉搏动</td>
+                <td colspan="6">
+                     <input type="radio" name="hypertenHrrest" value="1" />触及正常
+                    <input type="radio" name="hypertenHrrest" value="2" />减弱
+                    <input type="radio" name="hypertenHrrest" value="3" />消失
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">其他症状</td>
+                <td colspan="6"><input type="text" name="hypertenElsesign" style="width: 100%;height: 100%; border: 0px"/></td>
+            </tr>
+
+            <tr>
+                <td colspan="2" rowspan="6">生活方式指导</td>
+                <td colspan="2">日吸烟量</td>
+                <td colspan="6"><input name="hypertenSmokfir" value="0" oninput="value=value.replace(/[^\d]/g,'')" style="width: 80%;height: 100%; border: 0px"/>/支</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">日饮酒量</td>
+                <td colspan="6"><input name="hypertenDrinkfir" oninput="value=value.replace(/[^\d]/g,'')" value="0"  style="width: 80%;height: 100%; border: 0px"/>/两</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">运动</td>
+                <td colspan="6"><input name="hypertenSportsfir" value="0" style="width: 35%;height: 100%; border: 0px"/>次/周---
+                    <input name="hypertenSportsthird" value="0" oninput="value=value.replace(/[^\d]/g,'')" style="width: 35%;height: 100%; border: 0px"/>分钟/次</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">主食</td>
+                <td colspan="6"><input name="hypertenTakensaltfir" oninput="value=value.replace(/[^\d]/g,'')" value="0" style="width: 80%;height: 100%; border: 0px"/>克/天</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">心里调整</td>
+                <td colspan="6">
+                <select name="hypertenMentality">
+                    <option value="1">良好</option>
+                    <option value="2">一般</option>
+                    <option value="3">差</option>
+                </select></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">遵医行为</td>
+                <td colspan="6">
+                    <select name="hypertenCom">
+                        <option value="1">良好</option>
+                        <option value="2">一般</option>
+                        <option value="3">差</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" rowspan="4">辅助检查</td>
+                <td colspan="3">空腹血糖值</td>
+                <td colspan="5"><input name="hypertenKongfu" oninput="value=value.replace(/[^\d\.]/g,'')" style="width: 80%;height: 100%; border: 0px"/>mmol/L</td>
+            </tr>
+
+            <tr>
+                <td colspan="2" rowspan="3">其他检查</td>
+                <td colspan="2">糖化血糖蛋白</td>
+                <td colspan="4"><input name="hypertenTanghua" oninput="value=value.replace(/[^\d\.]/g,'')" style="width: 80%;height: 100%; border: 0px"/>%</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">检查日期</td>
+                <td colspan="4"><input class="easyui-datebox" name="hypertenJianchadate "/></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">其他检查</td>
+                <td colspan="4"><input name="hypertenLeftothers" style="width: 100%;height: 100%; border: 0px"/></td>
+            </tr>
+
+            <tr>
+                <td colspan="4">服药依从性</td>
+                <td colspan="6"><select name="hypertenCompliance">
+                    <option value="1">规律</option>
+                    <option value="2">间断</option>
+                    <option value="3">不服药</option>
+                </select></td>
+            </tr>
+
+            <tr>
+                <td colspan="4">药物不良反应</td>
+                <td colspan="6">
+                    <input type="radio" name="hypertenUneffect" value="1"/>无
+                    <input type="radio" name="hypertenUneffect" value="2"/>有</td>
+            </tr>
+
+            <tr>
+                <td colspan="4">低血糖反应</td>
+                <td colspan="6"><select name="hypertenDixue" >
+                    <option value="1">无</option>
+                    <option value="2">偶尔</option>
+                    <option value="3">频繁</option>
+                </select></td>
+            </tr>
+
+            <tr>
+                <td colspan="4">此次随访分类</td>
+                <td colspan="6"><input type="radio" name="hypertenClassify" value="1"/>控制满意<input type="radio" name="hypertenClassify" value="2"/>控制不满意
+                    <input type="radio" name="hypertenClassify" value="3"/>不良反应<input type="radio" name="hypertenClassify" value="4"/>并发症
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" rowspan="2">转诊</td>
+                <td colspan="2">原因</td>
+                <td colspan="6"><input name="hypertenReferralcause" style="width: 100%;height: 100%; border: 0px"/></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">机构及级别</td>
+                <td colspan="6"><input name="hypertenReferralobj" style="width: 100%;height: 100%; border: 0px"/></td>
+            </tr>
+
+            <tr>
+                <td colspan="3">下次随访日期</td>
+                <td colspan="7"><input class="easyui-datebox" data-options="onSelect:jiancha" id="hypertenVisitdate" name="hypertenVisitdate"/></td>
+            </tr>
+
+            <script>
+
+                function  jiancha(date) {
+                    //alert(date);
+                     var  date2=$("#hypertenVisit").datetimebox('getValue');
+                    var  date3=$("#hypertenVisitdate").datetimebox('getValue');
+                  //alert(date2);
+                 //   alert(date);
+                    // var a1=date.getFullYear();
+                    // var a2= date.getMonth()+1;
+                    // var a3=date.getDate();
+                    // var d1=a1+a2+a3;
+                    // alert(d1);
+
+                    // var b1=date2.getFullYear();
+                    // var b2= date2.getMonth()+1;
+                    // var b3=date2.getDate();
+                    // var d2=b1+b2+b3;
+                    // var start=new Date(date.replace("-", "/").replace("-", "/"));
+                    // alert(start);
+                    // var end=new Date(date2.replace("-", "/").replace("-", "/"));
+                  //  var d1 = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+                   // var d2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
+                  //  alert(d1);
+                    //alert(d2);
+                    alert(date3>date2);
+                 if(date3>date2){
+                     alert("t");
+                     $('#hypertenVisitdate').datebox('setValue',date3 );
+                 }else{
+                     alert("f");
+                     // var nian=date.getFullYear();
+                     // var yue=date.getMonth()+1;
+                     // var day=date.getDate();
+                     // var d4=nian+"-"+yue+"-"+day;
+                     $('#hypertenVisitdate').datebox('setValue',tf);
+                 }
+                }
+            </script>
+            <tr>
+                <td colspan="3">随访医生签名</td>
+                <td colspan="7">
+                <select name="hypertenDoctor">
+                    <a th:each="ltf : ${session.ltf}">
+                        <option th:value="${ltf.id}">[[${ltf.username}]]</span></option>
+                    </a>
+                </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">备注</td>
+                <td colspan="8"><input name="hypertenRemark" style="border: 0px; width: 100%;height: 100%;"/></td>
+            </tr>
+        </table>
+
+            <div id="YongYao" style="width: 100%; overflow: auto">
+                <table border="1px" id="Yaotab" width="500px">
+                    <caption>用药情况</caption>
+                    <tr>
+                        <th>药物名称</th><th>每日/次</th><th>每次(片，粒)</th>
+                    </tr>
+                </table>
+
+                <a onclick="addhang()" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加药物信息</a>
+                <a onclick="delhang()" class="easyui-linkbutton" data-options="iconCls:'icon-cross'">删除药物信息</a>
+
+            </div>
+            <a onclick="goSuiAdd()" class="easyui-linkbutton" id="suifangadd" data-options="iconCls:'icon-add'">添加随访记录</a>
+            <a onclick="goSuiEdit()" id="suifangeaid" class="easyui-linkbutton" style="display: none;width: 110px" data-options="iconCls:'icon-bullet-edit'">修改随访记录</a>
+            <script>
+                function addhang() {
+                    var tr="<tr><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td></tr>";
+                    $("#Yaotab").append(tr);
+                }
+
+                function delhang() {
+                    var len=$("#Yaotab tr").length;
+                    if(len != 1){
+                        $("#Yaotab tr:last").remove();
+                    }
+                }
+            </script>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

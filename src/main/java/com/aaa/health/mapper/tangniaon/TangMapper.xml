@@ -3,40 +3,235 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.tangniaon.TangMapper">
     <select id="queryAll" parameterType="Map" resultType="Map">
-        SELECT
-        *
-        from dmsmcard dm join userinfo u on dm.recordId=u.userId join userPrivy pr on pr.userId=u.userId where 1=1
+        SELECT * from dmsmcard dm join userinfo u on dm.recordId=u.userId where 1=1
+        <if test="userId != null and userId != 0">
+             and u.userId LIKE '%${userId}%'
+        </if>
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
+        </if>
+        <if test="usersex != null and usersex != 0">
+            AND u.usersex = ${usersex}
+        </if>
+        <if test="userMyphone != null and userMyphone != ''">
+            AND u.userMyphone LIKE '%${userMyphone}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND recordAdress LIKE '%${recordAdress}%'
+        </if>
+        <if test="userIdnumber != null and userIdnumber != ''">
+            AND userIdnumber LIKE '%${userIdnumber}%'
+        </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
     </select>
 
     <select id="queryTotal" resultType="int"  parameterType="Map">
-        select count(*) from dmsmcard where 1 = 1
+        SELECT count(*) from dmsmcard dm join userinfo u on dm.recordId=u.userId
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
     </select>
 
     <delete id="deleteById" parameterType="String">
-        delete from dmsmcard where dmsmcardId in (${value})
+         delete from dmsmcard where recordId in (${ids})
     </delete>
 
     <select id="queryAllUser" parameterType="Map" resultType="Map">
-        select  u.userId,u.recordName,u.userBirthday,u.recordAdress,u.userMyphone from userinfo u,dmsmcard where u.userId!=dmsmcard.recordId
+        SELECT u.userId,u.recordName,u.userBirthday,u.recordAdress,u.userMyphone from userinfo u
+        where u.userId not in (SELECT recordId from dmsmcard)
+        <if test="userId != null and userId != 0">
+            and userId LIKE '%${userId}%'
+        </if>
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND recordAdress LIKE '%${recordAdress}%'
+        </if>
+        <if test="userMyphone  != null and userMyphone != ''">
+            AND userMyphone LIKE '%${userMyphone}%'
+        </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
     </select>
 
     <select id="queryUserTotal" parameterType="Map" resultType="Integer">
-        select  count(*) from userinfo u,dmsmcard where u.userId!=dmsmcard.recordId
+        SELECT count(*) from userinfo u
+        where u.userId not in (SELECT recordId from dmsmcard)
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
     </select>
 
     <select id="queryUserById" parameterType="Integer" resultType="Map">
-        select * from userinfo,userPrivy WHERE userinfo.userId=#{uid}
+       select * from userinfo WHERE userId=#{uid}
+    </select>
+    
+    <select id="queryDoctor" resultType="Map">
+          select * from user where roleId != 1
+    </select>
+    
+    <insert id="insertDmsm" parameterType="com.aaa.health.entity.tangniaon.TangNiaon">
+        INSERT INTO `health`.`dmsmcard` (`recordId`, `dmsmcardFcorg`,
+
+ `dmsmcardFamihis`, `dmsmcardConunit`, `dmsmcardAccidate`, `dmsmcardCondate`,
+
+`dmsmcardCurrsymp`, `dmsmcardSmoking`, `dmsmcardDrinking`, `dmsmcardExercise`,
+
+`dmsmcardExetime`, `dmsmcardHeight`, `dmsmcardWeight`, `dmsmcardBmi`, `dmsmcardBp1`,
+
+ `dmsmcardBp2`, `dmsmcardDiatype`, `dmsmcardSources`, `dmsmcardAdminid`, `dmsmcardHazards`,
+
+ `dmsmcardFbg`, `dmsmcardHpg`, `dmsmcardRbg`, `dmsmcardHbalc`, `dmsmcardOutfor`,
+
+`dmsmcardOutdate`, `dmsmcardDoctor`, `dmsmcardJkcard`, `dmsmcardState`, `dmsmcardDe`)
+VALUES (#{recordId},#{dmsmcardFcorg},
+#{dmsmcardFamihis},#{dmsmcardConunit},#{dmsmcardAccidate},#{dmsmcardCondate},
+
+#{dmsmcardCurrsymp},#{dmsmcardSmoking},#{dmsmcardDrinking},#{dmsmcardExercise},
+
+#{dmsmcardExetime},#{dmsmcardHeight},#{dmsmcardWeight},#{dmsmcardBmi},#{dmsmcardBp1},
+
+#{dmsmcardBp2},#{dmsmcardDiatype},#{dmsmcardSources},#{dmsmcardAdminid},#{dmsmcardHazards},
+
+#{dmsmcardFbg},#{dmsmcardHpg},#{dmsmcardRbg},#{dmsmcardHbalc},#{dmsmcardOutfor},
+
+#{dmsmcardOutdate},#{dmsmcardDoctor},#{dmsmcardJkcard},#{dmsmcardState},#{dmsmcardDe})
+    </insert>
+
+    <select id="queryDmsmById" parameterType="Integer" resultType="com.aaa.health.entity.tangniaon.TangNiaon">
+        SELECT * from dmsmcard WHERE recordId=#{uid}
+    </select>
+
+    <update id="updateByUserId" parameterType="com.aaa.health.entity.tangniaon.TangNiaon">
+    update dmsmcard set dmsmcardFcorg=#{dmsmcardFcorg},dmsmcardFamihis=#{dmsmcardFamihis},dmsmcardConunit=#{dmsmcardConunit},dmsmcardAccidate=#{dmsmcardAccidate},
+dmsmcardCondate=#{dmsmcardCondate},dmsmcardCurrsymp=#{dmsmcardCurrsymp},dmsmcardSmoking=#{dmsmcardSmoking},
+dmsmcardDrinking=#{dmsmcardDrinking},dmsmcardExercise=#{dmsmcardExercise},dmsmcardExetime=#{dmsmcardExetime},dmsmcardHeight=#{dmsmcardHeight},
+dmsmcardWeight=#{dmsmcardWeight},dmsmcardBmi=#{dmsmcardBmi},dmsmcardBp1=#{dmsmcardBp1},
+dmsmcardBp2=#{dmsmcardBp2},dmsmcardDiatype=#{dmsmcardDiatype},dmsmcardSources=#{dmsmcardSources},
+dmsmcardAdminid=#{dmsmcardAdminid},dmsmcardHazards=#{dmsmcardHazards},
+dmsmcardFbg=#{dmsmcardFbg},
+dmsmcardHpg=#{dmsmcardHpg},
+dmsmcardRbg=#{dmsmcardRbg},
+dmsmcardHbalc=#{dmsmcardHbalc},
+dmsmcardOutfor=#{dmsmcardOutfor},
+dmsmcardOutdate=#{dmsmcardOutdate},
+dmsmcardDoctor=#{dmsmcardDoctor},
+dmsmcardJkcard=#{dmsmcardJkcard},
+dmsmcardState=#{dmsmcardState},
+dmsmcardDe=#{dmsmcardDe}
+ where recordId=#{recordId}
+    </update>
+
+    <select id="querySuiById" parameterType="Integer" resultType="com.aaa.health.entity.tangniaon.Tang">
+        SELECT * from hypertend WHERE recordId=#{uid} AND  hypertenState=1
+    </select>
+    
+    <insert id="insertSui" parameterType="com.aaa.health.entity.tangniaon.Tang">
+        INSERT INTO hypertend(
+	 recordId,
+   hypertenVisit,
+	 hypertenVisitway,
+	 hypertenWithdrawcause,
+	 hypertenSymptom,
+	 hypertenBloodheight,
+	 hypertenBloodlow,
+	 hypertenWeightfir,
+	 hypertenHrrest,
+	 hypertenElsesign,
+	 hypertenSmokfir,
+	 hypertenDrinkfir,
+	 hypertenSportsfir,
+	 hypertenSportsthird,
+	 hypertenTakensaltfir,
+	 hypertenMentality,
+	 hypertenCom,
+	 hypertenKongfu,
+	 hypertenTanghua,
+	 hypertenJianchadate,
+	 hypertenLeftothers,
+	 hypertenCompliance,
+	 hypertenUneffect,
+	 hypertenDixue,
+	 hypertenClassify,
+	 hypertenReferralcause,
+	 hypertenReferralobj,
+	 hypertenVisitdate,
+	 hypertenDoctor,
+	 hypertenRemark,
+	 hypertenState,
+	 hypertenDe
+)VALUES(
+	 #{recordId},#{hypertenVisit},#{hypertenVisitway},#{hypertenWithdrawcause},#{ hypertenSymptom},#{hypertenBloodheight},#{hypertenBloodlow},#{hypertenWeightfir},#{hypertenHrrest},
+#{ hypertenElsesign},#{ hypertenSmokfir},#{hypertenDrinkfir},#{hypertenSportsfir},#{hypertenSportsthird},#{hypertenTakensaltfir},#{hypertenMentality},#{ hypertenCom},#{ hypertenKongfu},#{ hypertenTanghua},
+#{ hypertenJianchadate},#{ hypertenLeftothers},#{  hypertenCompliance},#{ hypertenUneffect},#{ hypertenDixue},#{ hypertenClassify},#{hypertenReferralcause},
+#{hypertenReferralobj},#{ hypertenVisitdate},#{ hypertenDoctor},#{ hypertenRemark},#{hypertenState},#{ hypertenDe  }
+
+)
+    </insert>
+
+    <select id="querySuiMax" resultType="Integer">
+        SELECT  MAX(hypertenId) FROM hypertend
+    </select>
+
+    <insert id="insertHyperYao" parameterType="Map">
+        INSERT INTO recordRecipe(hypertenId,recordRecipeName,recordRecipeContent,recordRecipePian)
+        VALUES(#{hypertenId},#{recordRecipeName},#{recordRecipeContent},#{recordRecipePian});
+    </insert>
+    
+    <delete id="delSui" parameterType="String">
+        delete from hypertend where hypertenId in (${ids})
+    </delete>
+
+    <select id="querySuiFangById" parameterType="Integer" resultType="com.aaa.health.entity.tangniaon.Tang">
+        SELECT * from hypertend WHERE hypertenId=#{hid}
+    </select>
+
+    <update id="updateSuiFangById" parameterType="com.aaa.health.entity.tangniaon.Tang">
+
+   UPDATE hypertend SET
+    hypertenVisit=#{hypertenVisit},
+	 hypertenVisitway=#{hypertenVisitway},
+	 hypertenWithdrawcause=#{hypertenWithdrawcause},
+	 hypertenSymptom=#{ hypertenSymptom},
+	 hypertenBloodheight=#{hypertenBloodheight},
+	 hypertenBloodlow=#{hypertenBloodlow},
+	 hypertenWeightfir=#{hypertenWeightfir},
+	 hypertenHrrest=#{hypertenHrrest},
+	 hypertenElsesign=#{ hypertenElsesign},
+	 hypertenSmokfir=#{hypertenSmokfir},
+	 hypertenDrinkfir=#{hypertenDrinkfir},
+	 hypertenSportsfir=#{hypertenSportsfir},
+	 hypertenSportsthird=#{hypertenSportsthird},
+	 hypertenTakensaltfir=#{hypertenTakensaltfir},
+	 hypertenMentality=#{hypertenMentality},
+	 hypertenCom=#{hypertenCom},
+	 hypertenKongfu=#{hypertenKongfu},
+	 hypertenTanghua=#{hypertenTanghua},
+	 hypertenJianchadate=#{hypertenJianchadate},
+	 hypertenLeftothers=#{hypertenLeftothers},
+	 hypertenCompliance=#{  hypertenCompliance},
+	 hypertenUneffect=#{ hypertenUneffect},
+	 hypertenDixue=#{ hypertenDixue},
+	 hypertenClassify=#{ hypertenClassify},
+	 hypertenReferralcause=#{hypertenReferralcause},
+	 hypertenReferralobj=#{hypertenReferralobj},
+	 hypertenVisitdate=#{hypertenVisitdate},
+	 hypertenDoctor=#{hypertenDoctor},
+	 hypertenRemark=#{hypertenRemark}
+
+    WHERE hypertenId=#{hypertenId}
+
+    </update>
+
+    <select id="queryYao" parameterType="Integer" resultType="Map">
+      select * from  recordRecipe where hypertenId=#{hid}
+    </select>
+    
+    <select id="queryArea" resultType="Map">
+        SELECT * from area
     </select>
 </mapper>

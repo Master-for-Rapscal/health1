@@ -20,7 +20,7 @@
                 <option value="0">未知</option>
                 <option value="1">男</option>
                 <option value="2">女</option>
-            </select>
+            </select><label style="color: red">**双击查看患者体检信息</label>
             <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
         </div>
     </div>
@@ -378,10 +378,10 @@
         treeField:'name',
         fit:true,
         columns:[[
-            { field:'chk',checkbox:true},
-            { field:'DMSMCARD_ID',title:'个人编号',width:100,align:'center'},
-            { field:'RECORD_NAME',title:'姓名',width:100,sortable:true},
-            { field:'USER_SEX',title:'性别',width:100,sortable:true,formatter(value,row,index){
+            { field:'chk',checkbox:true,width:100},
+            { field:'userId',title:'个人编号',width:50,align:'center'},
+            { field:'recordName',title:'姓名',width:100,sortable:true},
+            { field:'userSex',title:'性别',width:50,sortable:true,formatter(value,row,index){
                     switch(value){
                         case 0:{
                             return '未知';
@@ -395,13 +395,12 @@
                     }
                     return value;
                 }},
-            { field:'USER_BIRTHDAY',title:'出生日期',width:100,sortable:true},
-            { field:'RECORD_ADRESS',title:'联系地址',width:100,sortable:true},
-            { field:'USER_MYPHONE',title:'本人电话',width:100,sortable:true},
-            { field:'USER_NUMBER',title:'联系人电话',width:100,sortable:true},
-            { field:'RECORD_DATA',title:'建档日期',width:100,sortable:true},
-            { field:'DMSMCARD_FBG',title:'空腹血糖',width:100,sortable:true}
-
+            { field:'userBirthday',title:'出生日期',width:100,sortable:true},
+            { field:'recordAdress',title:'联系地址',width:100,sortable:true},
+            { field:'userMyphone',title:'本人电话',width:100,sortable:true},
+            { field:'userNumber',title:'联系人电话',width:100,sortable:true},
+            { field:'recordData',title:'建档日期',width:100,sortable:true},
+            { field:'dmsmcardFbg',title:'空腹血糖',width:50,sortable:true}
         ]],
         onLoadSuccess:function(data){
             $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});

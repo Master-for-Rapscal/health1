@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--引入抬头页面-->
+<div th:replace="common/header :: header"  ></div>
+
+<div class="easyui-layout" data-options="fit:true">
+    <!-- Begin of toolbar -->
+    <div id="wu-toolbar">
+
+
+        <div  class="wu-toolbar-button">
+            <!--引入菜单页面-->
+            <div th:replace="common/menus :: menus"> </div>
+            <!--<div><a href="/hyper/Test">测试</a></div>-->
+        </div>
+
+
+
+        <div class="wu-toolbar-search">
+            健康卡号:<input id="" class="wu-text" style="width:100px">
+            用户名:<input id="search-name" class="wu-text" style="width:100px">
+            所属角色:
+            性别:
+            <select id="search-sex" class="easyui-combobox" panelHeight="auto" style="width:120px">
+                <option value="-1">全部</option>
+                <option value="0">未知</option>
+                <option value="1">男</option>
+                <option value="2">女</option>
+            </select>
+
+
+            <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+        </div>
+    </div>
+
+
+
+    <!-- End of toolbar -->
+    <table id="data-datagrid" class="easyui-datagrid" toolbar="#wu-toolbar"></table>
+</div>
+<!-- Begin of easyui-dialog -->
+
+<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:800px; ">
+        <table id="data-ins" class="easyui-datagrid" align="center" style="width: 750px; height: 500px;"></table>
+</div>
+
+<div id="insHy" class="easyui-dialog" style="width: 700px; height: 600px; padding:10px;">
+    <div th:replace="common/hy :: hy"> </div>
+</div>
+
+<!--随访记录-->
+<div id="xiaosuifang" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:650px; height: 500px; padding:10px;">
+    <a onclick="addSui()" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
+    <a onclick="delSui()" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>
+    <a onclick="editSui()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">修改</a>
+    <label>**双击打开药物处方详细</label>
+    <table id="suitab" class="easyui-datagrid"  border="1px" width="590px" align="center">
+    </table>
+</div>
+
+<!--随访记录详细-->
+<div id="suifang" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:650px; height: 500px; padding:10px;">
+    <div th:replace="common/suifang :: suifang"> </div>
+</div>
+
+<!--随访记录的药-->
+<div id="YaoWu" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:650px; height: 500px; padding:10px;">
+    <div id="yaowuDetial" style="width: 100%; height: 400px; font-family: '微软雅黑';font-size: 20px; font-weight: 500"></div>
+</div>
+
+
+<!-- 转归 -->
+<div id="ZhuanGui" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:300px; padding:10px;">
+        <table>
+            <caption>转归安排</caption>
+            <tr>
+                <td>是否转归</td>
+                <td><input type="radio" onclick="xuangui()" name="zhaungui" value="1"/>是
+                    <input type="radio" onclick="xuangui()" name="zhaungui" value="2"/>否</td>
+            </tr>
+            <form id="guiform">
+            <tr>
+                <td>转归原因</td>
+                <td><input type="text" name="zhuancause" id="zhuancause" class="easyui-validatebox " data-options="required:true, missingMessage:'请填写原因'"/></td>
+            </tr>
+            <tr>
+                <td>转归日期</td>
+                <td><input type="date" name="zhuandate" id="zhuandate" class="easyui-validatebox" data-options="required:true, missingMessage:'请填写转归日期'"/></td>
+            </tr>
+            </form>
+            <tr>
+                <td> <a onclick="zhuan()" id="kezhuan"  class="easyui-linkbutton" data-options="iconCls:'icon-add'">转归</a></td>
+                <td> <a onclick="buzhuan()"  class="easyui-linkbutton" data-options="iconCls:'icon-add'">取消</a></td>
+            </tr>
+        </table>
+</div>
+
+
+
+<!-- 修改窗口 -->
+
+<div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:450px; padding:10px;">
+
+</div>
+
+
+<div id="process-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-upload',title:'正在上传图片'" style="width:450px; padding:10px;">
+    <div id="p" class="easyui-progressbar" style="width:400px;" data-options="text:'正在上传中...'"></div>
+</div>
+<input type="file" id="photo-file" style="display:none;" onchange="upload()">
+<!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
+<div th:replace="common/footer :: myfooter"  ></div>
+
+
+<!-- End of easyui-dialog -->
+<script type="text/javascript" th:inline="none">
+$(function () {
+    $("#insHy").dialog('close');
+    $("#suifang").dialog('close');
+    $("#ZhuanGui").dialog('close');
+
+});
+    /**
+     *  添加记录
+     */
+    function add(uid){
+        $('#add-dialog').dialog('close');
+        $("#insHy").dialog({
+            title : "高血压专项卡添加",
+            model : true,
+            onBeforeOpen: function(){
+               // $('#form1').form('clear');
+                fuzhi(uid);
+            }
+        });
+    }
+
+// 给表格中传递数据
+function fuzhi(uid) {
+        $("#userId").val(uid);
+        $.ajax({
+            url:'../tang/queryById',
+            type:'post',
+            data:"uid="+uid,//全局uid
+            dataType:'json',
+            success:function(date){
+                var work= date.userWorkunit;
+                $("#userMyphone").val(date.userMyphone);
+                $("#recordName").val(date.recordName);
+                $("#userWorKunit").val(work);
+                $("#userBirthday").val(date.userBirthday);
+                $("#recordAdress").val(date.recordAdress);
+                $("#recordUnit").val(date.recordUnitName);
+                var sex="未知";
+                var hunyin="未说明婚姻情况";
+                if( date.userSex==1){
+                    sex= "男";
+                }else if(date.userSex==2){
+                    sex= "女";
+                }
+                if(date.userGam==1){
+                    hunyin="已婚";
+                }else if(date.userGam==2){
+                    hunyin="丧偶";
+                }else if(date.userGam==3){
+                    hunyin="离婚";
+                }else if(date.userGam==0){
+                    hunyin="未婚";
+                }
+                $("#userSex").val(sex);
+                $("#userGam").val(hunyin);
+            }
+
+        });
+
+    }
+
+// 开始添加
+function goAdd() {
+    // 验证
+    if( !$("#add-form").form('validate')){
+        return;
+    }
+   // alert($("#dada").val());
+    var Dmsmdata=$("#add-form").serialize();
+    //alert(Dmsmdata);
+    var uid= $("#userId").val();
+    $.ajax({
+        type : "post",
+        url : "inserthy",
+        data : "uid="+uid+"&"+Dmsmdata,
+        dataType :"json",
+        success : function (data) {
+            if(data.msg == "success"){
+                alert(data.info);
+                $("#add_form").form('clear');
+                  goBack();
+            }else{
+                alert(data.info);
+            }
+        }
+    });
+}
+//关闭添加窗口
+function goBack() {
+    $("#insHy").dialog("close");
+    $('#data-datagrid').datagrid('reload');
+}
+    /**
+     * Name 修改记录
+     */
+    function edit(){
+        var validate = $("#edit-form").form("validate");
+        if(!validate){
+            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
+            return;
+        }
+        var data = $("#add-form").serialize();
+        var uid= $("#userId").val();
+        $.ajax({
+            url:'updateByUserId',
+            dataType:'json',
+            type:'post',
+            data:"uid="+uid+"&"+data,
+            success:function(data){
+                if(data.type == 'success'){
+                    $.messager.alert('信息提示','修改成功！','info');
+                    $('#insHy').dialog('close');
+                    $('#data-datagrid').datagrid('reload');
+                }else{
+                    $.messager.alert('信息提示',data.info,'warning');
+                }
+            }
+        });
+    }
+
+    /**
+     * 删除记录
+     */
+    function remove(){
+        $.messager.confirm('信息提示','确定要删除该记录？', function(result){
+            if(result){
+                var item = $('#data-datagrid').datagrid('getSelections');
+                if(item == null || item.length == 0){
+                    $.messager.alert('信息提示','请选择要删除的数据！','info');
+                    return;
+                }
+                var ids = '';
+                for(var i=0;i<item.length;i++){
+                    ids += item[i].userId + ',';
+                }
+                $.ajax({
+                    url:'delete',
+                    dataType:'json',
+                    type:'post',
+                    data:{ids:ids},
+                    success:function(data){
+                        if(data.type == 'success'){
+                            $.messager.alert('信息提示','删除成功！','info');
+                            $('#data-datagrid').datagrid('reload');
+                            $('#data-datagrid').datagrid('clearSelections');
+                        }else{
+                            $.messager.alert('信息提示',data.msg,'warning');
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * Name 打开添加窗口
+     */
+    function openAdd(){
+        $('#add-dialog').dialog({
+            closed: false,
+            modal:true,
+            title: "添加用户信息",
+            buttons: [
+                {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#add-dialog').dialog('close');
+                }
+            }],
+            onDblClickRow: function (index, row) {
+                add(row.userId);
+            },
+            onBeforeOpen:function(){
+                $("#data-ins").datagrid({
+                    url:'userList',
+                    fitColumns:true,
+                    striped: true,
+                    singleSelect : true,
+                    pagination:true,
+                    rownumbers:true,
+                    pageSize:20,
+                    multiSort:true,
+                    idField:'userId',
+                    onDblClickRow: function (index, row) {
+                        add(row.userId);
+                    },
+                    columns:[[
+                        { field:'userId',title:'个人编号',width:100,align:'center'},
+                        { field:'recordName',title:'姓名',width:100,align:'center'},
+                        { field:'userBirthday',title:'出生日期',width:100,align:'center'},
+                        { field:'recordAdress',title:'联系地址',width:100,align:'center'},
+                        { field:'userMyphone',title:'联系地址',width:100,align:'center'}
+                    ]]
+                });
+            }
+        });
+    }
+
+    /**
+     * 打开修改窗口
+     */
+    function openEdit(){
+        //$('#edit-form').form('clear');
+        var item = $('#data-datagrid').datagrid('getSelections');
+        if(item == null || item.length == 0){
+            $.messager.alert('信息提示','请选择要修改的数据！','info');
+            return;
+        }
+        if(item.length > 1){
+            $.messager.alert('信息提示','请选择一条数据进行修改！','info');
+            return;
+        }
+        item = item[0].userId;
+
+        $("#insHy").dialog({
+            title : "高血压专项卡修改",
+            model : true,
+            onBeforeOpen: function(){
+                $("#tian").css({display:"none"});
+                $("#xiu").css({display:"block"});
+                $('#add-form').form('clear');
+                fuzhi(item);
+            $.ajax({
+                type : "post",
+                url : "queryHyById",
+                data:"userId="+item,
+                dataType : "json",
+                success : function (data) {
+                   // alert(data.hyper);
+                    $("#add-form").form('load',data.hyper);
+                }
+            })
+            }
+        });
+    }
+
+
+    //搜索按钮监听
+    $("#search-btn").click(function(){
+        var roleId = $("#search-role").combobox('getValue');
+        var sex = $("#search-sex").combobox('getValue');
+        var option = {username:$("#search-name").val()};
+        if(roleId != -1){
+            option.roleId = roleId;
+        }
+        if(sex != -1){
+            option.sex = sex;
+        }
+        $('#data-datagrid').datagrid('reload',option);
+    });
+
+    /**
+     * 载入数据
+     */
+    $('#data-datagrid').datagrid({
+        url:'list',
+        rownumbers:true,
+        singleSelect:false,
+        pageSize:20,
+        pagination:true,
+        multiSort:true,
+        fitColumns:true,
+        idField:'userId',
+        treeField:'name',
+        fit:true,
+        onDblClickRow: function (index, row) {
+            //随访记录
+            selSui(row.userId);
+        },
+        columns:[[
+            { field:'chk',checkbox:true,width:100},
+            { field:'userId',title:'个人编号',width:50,align:'center'},
+            { field:'recordName',title:'姓名',width:100,sortable:true},
+            { field:'userSex',title:'性别',width:50,sortable:true,formatter(value,row,index){
+                    switch(value){
+                        case 0:{
+                            return '未知';
+                        }
+                        case 1:{
+                            return '男';
+                        }
+                        case 2:{
+                            return '女';
+                        }
+                    }
+                    return value;
+                }},
+            { field:'userBirthday',title:'出生日期',width:100,sortable:true},
+            { field:'recordAdress',title:'联系地址',width:100,sortable:true},
+            { field:'userMyphone',title:'本人电话',width:100,sortable:true},
+            { field:'recordData',title:'建档日期',width:100,sortable:true},
+            { field:'hypertensionFbg',title:'空腹血糖',width:50,sortable:true}
+        ]],
+        onLoadSuccess:function(data){
+            $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
+        }
+    });
+
+
+
+
+
+
+
+// ---------------------------------------------
+//随访记录  传入用户ID 根据用户ID来查询随访记录
+var sid;// 定义一个全局使用的ID
+function selSui(uid) {
+    sid=uid;
+    $("#xiaosuifang").dialog('open');
+    $("#suitab").datagrid({
+        url:'../hyper/querySuiById?uid='+sid,
+        rownumbers:true,
+        singleSelect:false,
+        pageSize:20,
+        //pagination:true,
+        multiSort:true,
+        fitColumns:true,
+        idField:'hypertenId',
+        treeField:'name',
+        fit:true,
+        onDblClickRow : function (index, row) {
+            //处方详情
+            selYaoWu(row.hypertenId);
+        },
+        columns :[[
+            { field:'chk',checkbox:true,width:100},
+            { field:'hypertenId',title:'ID',width:100,sortable:true,hidden:true},
+            { field:'recordId',title:'个人编号',width:50,hidden:true,formatter(value,row,index){
+                    if(value == null){
+                        alert("未拥有随访记录，请尽快安排");
+                    }
+                }},
+            { field:'hypertenVisit',title:'随访日期',width:100,sortable:true,formatter(value,row,index){
+                return da(value);
+                }},
+            { field:'hypertenVisitdate',title:'下次随访日期',width:100,sortable:true,formatter(value,row,index){
+                    return da(value);
+                }},
+            { field:'hypertenVisitway',title:'随访方式',width:100,sortable:true,formatter(value,row,index){
+                switch (value){
+                    case 1:
+                        return '门诊';
+                    case 2:
+                        return '家庭';
+                    case 3:
+                        return '电话';
+                }
+                }},
+            { field:'hypertenDe',title:'录入日期',width:100,sortable:true},
+        ]]
+    });
+    //     }else{
+    //         alert(data.info);
+    //     }
+    // }
+    // });
+}
+
+function da(value) {
+    var date=new Date(value);
+   // alert(date.getFullYear()+"-"+date.getMonth()+"-"+date.getDay());
+    return date.getFullYear()+"-"+date.getMonth()+"-"+date.getDay();
+}
+
+
+function addSui() {
+    $("#YongYao").css({display:"block"});
+    $("#xiaosuifang").dialog('close');
+    $("#suifangeaid").css({display : "none"});
+    $("#suifang").dialog({
+        closed: false,
+        modal:true,
+        title: "操作",
+    });
+}
+
+
+function goSuiAdd() {
+    if( !$("#suiform").form('validate')){
+        return;
+    }
+    var Suidata=$("#suiform").serialize();
+    $.ajax({
+        type : "post",
+        url : "insertSui",
+        data : "rid="+sid+"&"+Suidata,
+        datatype : "json",
+        success : function (data) {
+            // alert(data);
+            if(data>0){
+                // alert("yaofang");
+                var num=$("#Yaotab tr").length;//表格行数
+                // alert(num);
+                // var numd=$("#Yaotab tr td").length;//表格一行几格
+                if(num != 1) {
+                    for (var i = 1; i < num; i++) {
+                        // alert($("#Yaotab tr:eq("+i+") td:eq(0)").find("input").val());
+                        var recordRecipeName=$("#Yaotab tr:eq("+i+") td:eq(0)").find("input").val();
+                        if(recordRecipeName==''){
+                            return;
+                        }
+                        //alert("一行一列"+recordRecipeName);
+                        var recordRecipeContent =$("#Yaotab tr:eq("+i+") td:eq(1)").find("input").val();
+                        if(recordRecipeContent==''){
+                            return;
+                        }
+                        var recordRecipePian =$("#Yaotab tr:eq("+i+") td:eq(2)").find("input").val();
+                        if(recordRecipePian==''){
+                            return;
+                        }
+                        $.ajax({
+                            type : "post",
+                            url : "insertRecipe",
+                            data: "recordRecipeName="+recordRecipeName+"&recordRecipeContent="+recordRecipeContent+"&recordRecipePian="+recordRecipePian,
+                            dataType : "json",
+                            success :function (data){
+                            }
+                        });
+                    }
+                    $("#suifang").dialog('close');
+                    selSui(sid);
+                }else{
+                    //  alert("dd");
+                    $("#suifang").dialog('close');
+                    selSui(sid);
+
+                }
+
+            }else {
+                alert("添加失败,请检查数据");
+            }
+        }
+    });
+}
+
+
+function delSui() {
+    $.messager.confirm('信息提示','确定要删除该记录？', function(result){
+        if(result){
+            var item = $('#suitab').datagrid('getSelections');
+            //alert(item[0].recordId);
+            if(item == null || item.length == 0){
+                $.messager.alert('信息提示','请选择要删除的数据！','info');
+                return;
+            }
+            var ids = '';
+            for(var i=0;i<item.length;i++){
+                ids += item[i].hypertenId + ',';
+            }
+            $.ajax({
+                url:'delSui',
+                dataType:'json',
+                type:'post',
+                data:{ids:ids},
+                success:function(data){
+                    if(data.type == 'success'){
+                        $.messager.alert('信息提示','删除成功！','info');
+                        $('#suitab').datagrid('reload');
+                        $('#suitab').datagrid('clearSelections');
+                    }else{
+                        $.messager.alert('信息提示',data.msg,'warning');
+                    }
+                }
+            });
+        }
+    });
+}
+var yongyaoid;
+function editSui() {
+    var item = $('#suitab').datagrid('getSelections');
+    //alert(item);
+    if(item == null || item.length == 0){
+        $.messager.alert('信息提示','请选择要修改的数据！','info');
+        return;
+    }
+    if(item.length > 1){
+        $.messager.alert('信息提示','请选择一条数据进行修改！','info');
+        return;
+    }
+    yongyaoid=item[0].hypertenId;
+    item=item[0].hypertenId;// 获取随访记录表ID
+
+    $.ajax({
+        type: "post",
+        url : "querySuiFangById",
+        data :"hid="+item,
+        dataType :"json",
+        success :function (data) {
+            //alert(data);
+            $("#YongYao").css({display:"none"});
+            $("#suifang").dialog('open');
+            $("#suifangeaid").css({display : "block"});
+            $("#suiform").form("load",data);
+        }
+    });
+}
+
+function goSuiEdit() {
+    $.ajax({
+        type : "post",
+        url :"updateSuiFangById",
+        data : "hid="+yongyaoid+"&"+$("#suiform").serialize(),
+        dataType :"json",
+        success :function (data) {
+            ///alert(data);
+            if(data > 0){
+                alert("修改成功");
+                $("#suifang").dialog('close');
+                $("#xiaosuifang").dialog('open');
+            }else{
+                alert("修改失败，请联系管理员");
+            }
+        }
+    })
+}
+
+function selYaoWu(hid) {
+    $("#YaoWu").dialog('open');//随访药物
+    $.ajax({
+        type : "post",
+        url : "queryYao",
+        data : "hid="+hid,
+        dataType :"json",
+        success : function (data) {
+            //alert("length"+data.length);
+            // alert("size"+data.size());
+            if(data.length<1){
+                alert("此次随访没有开药方");
+                $("#YaoWu").dialog('close');
+            }else {
+                var yaodetial="";
+                for (var i=0;i<data.length;i++){
+                    yaodetial +="<div style='margin: 30px;'>药名及用法:"+data[i].recordRecipeName+",每天"+data[i].recordRecipeContent+"次，每次"+data[i].recordRecipePian+"片（粒）</div>";
+                }
+                //alert(yaodetial);
+                $("#yaowuDetial").html(yaodetial);
+            }
+        }
+    });
+}
+
+
+// 转归
+function openZhuanGui() {
+
+    var item = $('#data-datagrid').datagrid('getSelections');
+    if(item == null || item.length == 0){
+        $.messager.alert('信息提示','请选择要修改的数据！','info');
+        return;
+    }
+    if(item.length > 1){
+        $.messager.alert('信息提示','请选择一条数据进行修改！','info');
+        return;
+    }
+
+    $("#ZhuanGui").dialog('open');
+    xuangui();
+
+
+}
+// $(function () {
+//     $("input[name=zhaungui]").click(function () {
+//         xuangui();
+//     })
+// });
+//
+//
+function xuangui() {
+
+    allinput =$("input[name=zhaungui]");
+    $(allinput).each(function () {
+        if($(this).val()==1){
+            if($(this).prop("checked")==true){
+                $("#zhuancause,#zhuandate").removeAttr("readonly");
+                $('#kezhuan').linkbutton('enable');
+            }else {
+                $("#guiform").form("reset");
+                $('#kezhuan').linkbutton('disable');
+                $("#zhuancause").attr("readonly","readonly");
+                $("#zhuandate").attr("readonly","readonly");
+            }
+        }
+    });
+}
+
+function zhuan() {
+    var v = $("#guiform").form("validate");
+    alert(v);
+    if(!v){
+        $.messager.alert('信息提示','请填写数据！','info');
+        return;
+    }
+    var item = $('#data-datagrid').datagrid('getSelections');
+    item = item[0].userId;
+$.ajax({
+    type : "post",
+    url :"updateZhuan",
+    data :"uid="+item+"&"+$("#guiform").serialize(),
+    dataType : "text",
+    success : function (data) {
+        if(data>0){
+            alert("修改成功");
+            buzhuan()
+        }else{
+            alert("转归失败");
+        }
+    }
+});
+}
+
+function buzhuan() {
+    $("#ZhuanGui").dialog('close');
+}
+</script>

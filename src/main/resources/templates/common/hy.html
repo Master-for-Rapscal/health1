@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
+
+<body>
+<div th:fragment="hy">
+    <div class="hy">
+<style>
+    input[name='hypertensionCurrentsymptoms']{
+        margin-left: 5px;
+    }
+</style>
+<table style="width: 90%; margin: 10px auto" border="1">
+        <tr>
+            <!--<td width="100px">管理卡编号:</td>-->
+            <!--<td width="200px"><input type="text" name="userPapernumber" id="userPapernumber" readonly/></td>-->
+            <td  width="94px">个人健康档案号:</td>
+            <td colspan="3" width="500px"><input type="text" name="userId" id="userId" readonly/></td>
+        </tr>
+        <tr>
+            <td>姓名:</td>
+            <td><input type="text" name="recordName" id="recordName" readonly/></td>
+            <td>性别:</td>
+            <td><input type="text" name="userSex" id="userSex" readonly/></td>
+        </tr>
+        <tr>
+            <td>婚姻:</td>
+            <td><input type="text" name="userGam" id="userGam" readonly/></td>
+            <td>职业:</td>
+            <td><input type="text" name="userWorKunit" id="userWorKunit" readonly/></td>
+        </tr>
+        <tr>
+            <td>出生日期:</td>
+            <td><input type="text" name="userBirthday" id="userBirthday" readonly/></td>
+            <td>本人电话:</td>
+            <td><input type="text" name="userMyphone" id="userMyphone" readonly/></td>
+        </tr>
+        <tr>
+            <td>现住址:</td>
+            <td><input type="text" name="recordAdress" id="recordAdress" readonly/></td>
+            <td>建档机构;</td>
+            <td><input type="text" name="recordUnit" id="recordUnit" readonly/></td>
+        </tr>
+</table>
+
+
+        <form id="add-form" method="post">
+            <table style="width: 90%; margin: 10px auto" border="1">
+                <tr>
+                    <td colspan="2">病例来源</td>
+                    <td colspan="3">
+                            <select name="hypertensionSource" style="width: 100%;height: 30%;border: 0px">
+                                <option value="1">健康档案</option>
+                                <option value="2">首诊测压</option>
+                                <option value="3">人群调查/体检</option>
+                                <option value="4">社区门诊</option>
+                            </select>
+                    </td>
+                    <td colspan="2">确诊日期</td>
+                    <td colspan="3">
+                                     <input class="easyui-datebox" id="dd" name="hypertensionConfirmed" style="width:100%;height: 30%;border: 0px">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">发病日期</td>
+                    <td colspan="3"><input class="easyui-datebox" name="hypertensionAccident" style="width: 100%;height: 30%;border: 0px"></td>
+                    <td colspan="2">确诊单位</td>
+                    <td colspan="3"><input name="hypertensionConfirmedunit" type="text" style="width: 100%;height: 100%;border: 0px"></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">目前症状</td>
+                    <td colspan="8">
+                        <input type="checkbox" name="hypertensionCurrentsymptoms" value="1"><label>无症状</label>
+                        <input type="checkbox" name="hypertensionCurrentsymptoms" value="2" ><label>头痛头晕</label>
+                        <input type="checkbox" name="hypertensionCurrentsymptoms" value="3" ><label>恶心呕吐</label>
+                        <input type="checkbox" name="hypertensionCurrentsymptoms" value="4" ><label>眼花耳鸣</label>
+                        <input type="checkbox" name="hypertensionCurrentsymptoms" value="5" ><label>呼吸困难</label>
+                        <input type="checkbox" name="hypertensionCurrentsymptoms" value="6" ><label>心悸胸闷</label>
+                        <input type="checkbox" name="hypertensionCurrentsymptoms" value="7"><label>鼻腔出血不止</label>
+                        <input type="checkbox" name="hypertensionCurrentsymptoms" value="8" ><label>四肢麻木</label>
+                        <input type="checkbox" name="hypertensionCurrentsymptoms" value="9" ><label>下肢水肿</label>
+                        <input type="checkbox" name="hypertensionCurrentsymptoms" value="10" ><label>其他</label>
+                    </td>
+                </tr>
+            <script>
+                $(function () {
+                    $("input[name='hypertensionCurrentsymptoms']").first().click(function () {
+                            if($(this).prop("checked") == true){
+                                $("input[name='hypertensionCurrentsymptoms']").prop("checked",false);
+                                $("input[name='hypertensionCurrentsymptoms']").prop("disabled",true);
+                                $(this).prop("checked",true);
+                                $(this).prop("disabled",false);
+                            }else{
+                                $("input[name='hypertensionCurrentsymptoms']").prop("disabled",false);
+                            }
+                        }
+                    );
+
+                })
+
+            </script>
+                <tr>
+                    <td colspan="2" rowspan="2">生活习惯</td>
+                    <td colspan="1">日吸烟量</td>
+                    <td colspan="3"><input type="text" name="hypertensionSmokingnum" oninput="value=value.replace(/[^\d]/g,'')"  style="width: 80%;height: 100%;border: 0px">支</td>
+                    <td colspan="1">日饮酒量</td>
+                    <td colspan="3"><input type="text" name="hypertensionCapacitynum" oninput="value=value.replace(/[^\d]/g,'')" style="width: 80%;height: 100%;border: 0px">两</td>
+                </tr>
+
+                <tr>
+                    <td colspan="1">运动频率</td>
+                    <td colspan="3"><input type="text" name="hypertensionExercise" oninput="value=value.replace(/[^\d]/g,'')"  style="width: 60%;height: 100%;border: 0px">次/周</td>
+                    <td colspan="1">运动时间</td>
+                    <td colspan="3"><input type="text" name="hypertensionRundate" oninput="value=value.replace(/[^\d]/g,'')" style="width: 60%;height: 100%;border: 0px">分钟/次</td>
+                </tr>
+
+                <tr>
+                    <td colspan="1" rowspan="2">体检结果</td>
+                    <td colspan="1">身高</td>
+                    <td colspan="2"><input class="easyui-numberbox" onkeyup="BmiVal()" oninput="value=value.replace(/[^\d]/g,'')" id="Height" name="hypertensionHeight" style="width:80%;height:100%;border: 0px">CM</td>
+                    <td colspan="1">体重</td>
+                    <td colspan="2"><input class="easyui-numberbox" onkeyup="BmiVal()"  oninput="value=value.replace(/[^\d\.]/g,'')" id="Weight" name="hypertensionWeight" style="width:80%;height:100%;border: 0px">KG</td>
+                    <td colspan="1">BMI</td>
+                    <td colspan="2"><input class="easyui-numberbox" id="dmsmcardBmi" name="hypertensionBmi" disabled="ture" readonly style="width:60%;height:100%;border: 0px">mmol/L</td>
+                </tr>
+                <script>
+                    function BmiVal() {
+                        var hh=($("#Height").val())/100;
+                        //alert(hh);
+                        //alert($("#Weight").val());
+                        $("#dmsmcardBmi").val(($("#Weight").val()/(hh*hh)).toFixed(2));
+                    }
+                </script>
+                <tr>
+                    <td colspan="1">血压</td>
+                    <td colspan="3">
+                        <input type="text" name="hypertensionBloodheight"  oninput="value=value.replace(/[^\d]/g,'')" style="width:30%;height:50%;border: 0px">/<input type="text"  oninput="value=value.replace(/[^\d]/g,'')" name="hypertensionBloodlow" style="width:30%;border: 0px">mmHg
+                    </td>
+                    <td colspan="1">空腹血糖</td>
+                    <td colspan="4">
+                        <input class="easyui-numberbox" name="hypertensionFbg"  oninput="value=value.replace(/[^\d]/g,'')" style="width:80%;height:50%;border: 0px">mmHg
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">高血压分级</td>
+                    <td colspan="8">
+                        <input type="text" name="hypertensionHypertension" style="width:40%;height:100%;border: 0px">mmHg
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td colspan="2" rowspan="2">高血压层</td>
+                    <td colspan="1">危险因素</td>
+                    <td colspan="3">
+
+                        <select class="easyui-combobox" multiple="true" multiline="true" name="hypertensionHazards"
+                                style="width:100%;height:20%;border: 0px">
+                            <option value="1">年龄≥55</option>
+                            <option value="2">吸烟</option>
+                            <option value="3">脂肪异常</option>
+                            <option value="4">早发心血管病</option>
+                            <option value="5">肥胖</option>
+                            <option value="6">缺乏体力活动</option>
+                        </select>
+                    </td>
+                    <td colspan="1">靶器官损坏></td>
+                    <td colspan="3">
+
+                        <select class="easyui-combobox" multiple="true" multiline="true" name="hypertensionTargetorgan"
+                                style="width:100%;height:20%;border: 0px">
+                            <option value="1">左心室肥厚</option>
+                            <option value="2">颈动脉内膜增厚</option>
+                            <option value="3">肾功能受损</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1">临床疾患</td>
+                    <td colspan="3">
+                        <select class="easyui-combobox" multiple="true" multiline="true" name="hypertensionDisorders"
+                                style="width:100%;height:20%;border: 0px">
+                            <option value="1">脑血管病</option>
+                            <option value="2">心脏病</option>
+                            <option value="3">肾脏病</option>
+                            <option value="4">周围血管病</option>
+                            <option value="5">视网膜病变</option>
+                            <option value="6">糖尿病</option>
+
+                        </select>
+                    </td>
+                    <td colspan="1">危险分层</td>
+                    <td colspan="3">
+                        <input type="text" name="hypertensionStratification" placeholder="1低危2中危3高危" style="width:100%;height:50%;border: 0px">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">转归原因</td>
+                    <td colspan="3">
+                        <input type="text" disabled="ture" name="hypertensionOutcome" style="width:100%;height:50%;border: 0px">
+                    </td>
+                    <td colspan="2">转归日期</td>
+                    <td colspan="3">
+                        <input type="text" disabled="ture" name="hypertensionOutcomedate" style="width:100%;height:50%;border: 0px">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">建档机构</td>
+                    <td colspan="2">
+                        <select  name="hypertensionArea" class="easyui-combobox" style="width:100%;;border: 0px">
+                            <a th:each="area : ${session.area}">
+                                <option th:value="${area.areaId}">[[${area.areaName}]]</span></option>
+                            </a>
+                        </select>
+                    </td>
+                    <td colspan="1">建档医生</td>
+                    <td colspan="2">
+                        <select class="easyui-combobox" name="hypertensionDoctor" style="width:100%;border: 0px">
+                            <a th:each="ltf : ${session.ltf}">
+                                <option th:value="${ltf.id}">[[${ltf.username}]]</span></option>
+                            </a>
+                        </select>
+
+                    </td>
+                    <td colspan="1">建档日期*</td>
+                    <td colspan="2">
+                        <input type="date" id="dada" data-options="required:true" name="hypertensionJiankadate" style="width:100%;border: 0px">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3"><a id="tian" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="goAdd()">保存</a></td>
+                    <td colspan="4"><a id="xiu" class="easyui-linkbutton" onclick="edit()" style="display: none" data-options="iconCls:'icon-bullet-edit'">修改</a></td>
+                    <td colspan="3"><a class="easyui-linkbutton" onclick="goBack()" data-options="iconCls:'icon-cross'">取消</a></td>
+                </tr>
+            </table>
+
+        </form>
+
+    </div>
+</div>
+</body>
+</html>
