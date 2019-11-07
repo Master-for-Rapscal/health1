@@ -77,7 +77,7 @@ public class UserinfoController {
             ret.put("msg", "后台获取用户信息失败！");
             return ret;
         }
-        System.out.println(userinfo);
+//        System.out.println(userinfo);
         if (userinfoService.add(userinfo) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "添加用户信息失败，请联系管理员！");
@@ -130,7 +130,7 @@ public class UserinfoController {
             return ret;
         }
 
-        System.out.println(userinfoService.findById(id));
+//        System.out.println(userinfoService.findById(id));
         Userinfo data1=userinfoService.findById(id);
         ret.put("datainfo",data1);
         ret.put("type", "success");
@@ -144,13 +144,15 @@ public class UserinfoController {
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> edit(Userinfo userinfo) {
+
         Map<String, String> ret = new HashMap<String, String>();
         if (userinfo == null) {
             ret.put("type", "error");
             ret.put("msg", "后台获取用户信息失败！");
             return ret;
         }
-        System.out.println(userinfo.getRecordName());
+//        System.out.println(userinfo.getRecordName());
+        System.out.println("建档方式为"+userinfo.getRecordBookbuilding());
         if (userinfoService.edit(userinfo) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "用户信息修改失败，请联系管理员！");

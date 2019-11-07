@@ -38,14 +38,6 @@
     <tr>
         <td><input class="easyui-textbox tdText_h"  readonly="true"  type="text"  value="户籍地址:" ></input></td>
         <td> <input class="easyui-textbox tdText_h"  onchange="copyAddress2(this.value)"   name="recordPlaceadress" style="border:0px;border-bottom: 1px solid black"></input></td>
-        <script>
-            function  copyAddress(v) {
-                $("input[name='recordPlaceadress']").val(v);
-            }
-            function  copyAddress2(v) {
-                $("input[name='recordAdress']").val(v);
-            }
-        </script>
         <td><input class="easyui-textbox tdText_h"  readonly="true" type="text"  value="建档医生:" ></input></td>
         <td>
             <select class=""  name="recordCreateuserid"  style="width:100%; border:0px;border-bottom: 1px solid black">
@@ -67,14 +59,14 @@
         </td>
         <td><input class="easyui-textbox tdText_h"  readonly="true" type="text"  value="建档日期:" ></input></td>
         <td>
-            <input class="easyui-datebox easyui-validatebox" data-options="required:true, missingMessage:'请填时间' "
+            <input class="easyui-datebox" data-options="required:true, missingMessage:'请填时间' "
                    editable="fasle"   name="recordData" style="width:100%;"></input>
         </td>
     </tr>
     <tr>
         <td><input class="easyui-textbox tdText_h"  type="text"  value="查重范围:" ></input></td>
         <td>
-            <select class="" donli name="userinfoId" style="width:100%; border:0px;border-bottom: 1px solid black">
+            <select class="" name="userinfoId" style="width:100%; border:0px;border-bottom: 1px solid black">
                 <option   value="2" ><span >村内</span></option>
                 <option   value="4" ><span >县内</span></option>
                 <option   value="3" ><span >室内</span></option>
@@ -86,7 +78,7 @@
     <tr>
         <td><input class="easyui-textbox tdText_h" readonly="true" type="text" value="常住类别:"></input></td>
         <td>
-            <select class="" donli name="recordResident" panelHeight="auto" style="width:100%; border:0px;border-bottom: 1px solid black">
+            <select class="" name="recordResident" panelHeight="auto" style="width:100%; border:0px;border-bottom: 1px solid black">
                 <option   value="1" >常驻</option>
                 <option   value="2" >流动</option>
                 <option   value="3" >外来</option>
@@ -94,7 +86,7 @@
         </td>
         <td><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="建档方式:" ></input></td>
         <td>
-            <select class="" donli name="recordResident" panelHeight="auto" style="width:100%; border:0px;border-bottom: 1px solid black">
+            <select class=""  name="recordBookbuilding" panelHeight="auto" style="width:100%; border:0px;border-bottom: 1px solid black">
                 <option   value="1" >诊疗服务</option>
                 <option   value="2" >公卫服务</option>
                 <option   value="3" >其他服务</option>
@@ -128,12 +120,12 @@
         </td>
         <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="出生日期:" ></input></td>
         <td colspan="3">
-            <input class="easyui-datebox zuo-text easyui-validatebox" data-options="required:true, missingMessage:'请填时间' " editable="fasle"  name="userBirthday" ></input></td>
+            <input class="easyui-textbox zuo-text"  readonly="true" name="userBirthday" id="userBirthday" ></input></td>
     </tr>
     <tr>
         <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="身份证号:" ></input></td>
         <td colspan="3">
-            <input class="easyui-textbox zuo-text easyui-validatebox" data-options="required:true, missingMessage:'请填写身份证号'" type="text" name="userIdnumber"  >
+            <input class="easyui-textbox zuo-text easyui-validatebox" onblur="checkUserDate(this.value)" data-options="required:true, missingMessage:'请填写身份证号'" name="userIdnumber"  >
         </td>
         <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="工作单位:" ></input></td>
         <td colspan="2">
@@ -141,8 +133,9 @@
         </td>
         <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="本人电话:" ></input></td>
         <td colspan="2">
-            <input class="easyui-textbox zuo-text easyui-validatebox" data-options="required:true, missingMessage:'请填写户籍地址'" type="text" name="userMyphone">
+            <input class="easyui-textbox zuo-text easyui-validatebox" onblur="checkPhone(this.value)" data-options="required:true, missingMessage:'请填写户籍地址'" type="text" name="userMyphone">
         </td>
+
     </tr>
     <tr>
         <td colspan="1"><input class="easyui-textbox tdText_h" readonly="true" type="text"  value="常驻类型" ></input></td>

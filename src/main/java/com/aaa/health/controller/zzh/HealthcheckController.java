@@ -92,14 +92,14 @@ public class HealthcheckController {
             ret.put("msg", "后台获取用户信息失败！");
             return ret;
         }
-      //  System.out.println(healthcheck);
+        System.out.println(healthcheck);
         if (healthcheckService.add(healthcheck) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "添加用户信息失败，请联系管理员！");
             return ret;
         }
         ret.put("type", "success");
-        ret.put("msg", "用户添加成功！");
+        ret.put("msg", "体检信息添加成功！");
         return ret;
     }
 

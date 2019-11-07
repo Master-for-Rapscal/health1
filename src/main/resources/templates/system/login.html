@@ -61,7 +61,9 @@
     // function changeCpacha(){
     //     $("#cpacha-img").attr("src",'get_cpacha?vl=4&w=150&h=40&type=loginCpacha&t=' + new Date().getTime());
     // }
-    document.querySelector(".login-button").onclick = function submit(){
+
+
+    document.querySelector(".login-button").onclick =function submit(){
 
         var username = $("#username").val();
         var password = $("#password").val();
@@ -81,6 +83,29 @@
         // }
 
         $("form").submit();
-    }
+    };
+        $(function(){
+        $(document).keypress(function (e){
+            if(e.keyCode == 13){
+                var username = $("#username").val();
+                var password = $("#password").val();
+                var cpacha = $("#cpacha").val();
+                var rememberMe = $("#rememberMe").val();
+                if(username == '' || username == 'undefined'){
+                    alert("请填写用户名！");
+                    return;
+                }
+                if(password == '' || password == 'undefined'){
+                    alert("请填写密码！");
+                    return;
+                }
+                // if(cpacha == '' || cpacha == 'undefined'){
+                //     alert("请填写验证码！");
+                //     return;
+                // }
+                $("form").submit();
+            }
+        })
+    })
 </script>
 </body></html>

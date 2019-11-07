@@ -36,18 +36,21 @@
 <!-- 引入 体检表格-->
 <div id="healcheck-dialog" title='该用户所有体检' class='easyui-dialog' data-options="closed:true"
      style="width:900px;height:600px;overflow:scroll; padding:0px; ">
-    <table id="healcheckdata-datagrid" class="easyui-datagrid" ></table>
+    <table id="healcheckdata-datagrid" class="easyui-datagrid" style="width: 95%;margin: auto;height: 100%"></table>
 
 </div>
 
 
 <!-- 引入 体检表格-->
-<!--<div id="add-dialog" title='添加体检' class='easyui-dialog' data-options="closed:true"-->
-         <!--style="width:1300vw;height:850vh;overflow:scroll; padding:0px; ">-->
+<div id="add-dialog" title='添加体检' class='easyui-dialog' data-options="closed:true"
+         style="width:1300vw;height:850vh;overflow:scroll; padding:0px; ">
+
     <form id="add-form1" class="easyui-form" method="post" data-options="novalidate:true">
     <div th:replace="common/healthcheck :: healthcheck"></div>
     </form>
-<!--</div>-->
+
+</div>
+
 
 
 <!--&lt;!&ndash;</div>&ndash;&gt;-->
@@ -79,6 +82,7 @@
         }
         var data = $("#add-form1").serialize();
         console.log(data);
+        alert(data);
         $.ajax({
             url: 'add',
             dataType: 'json',
