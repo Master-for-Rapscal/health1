@@ -11,10 +11,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -55,10 +52,23 @@ public class HealthcheckController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page) {
+    public Map<String, Object> getList(Page page,
+        @RequestParam(name = "userId", required = false)  Long userId,
+        @RequestParam(name = "recordName", required = false, defaultValue = "")  String recordName,
+        @RequestParam(name = "userIdnumber", required = false, defaultValue = "")  String userIdnumber,
+        @RequestParam(name = "recordUnit", required = false, defaultValue = "")  String recordUnit,
+        @RequestParam(name = "recordPlaceadress", required = false, defaultValue = "")  String recordPlaceadress,
+        @RequestParam(name = "userSex", required = false, defaultValue = "-1")  Integer userSex
+       ) {
 
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
+        queryMap.put("userId",userId);
+        queryMap.put("recordName",recordName);
+        queryMap.put("userIdnumber",userIdnumber);
+        queryMap.put("recordUnit",recordUnit);
+        queryMap.put("recordPlaceadress",recordPlaceadress);
+        queryMap.put("userSex",userSex);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", userinfoService.findList(queryMap));
@@ -92,7 +102,7 @@ public class HealthcheckController {
             ret.put("msg", "后台获取用户信息失败！");
             return ret;
         }
-        System.out.println(healthcheck);
+//        System.out.println(healthcheck);
         if (healthcheckService.add(healthcheck) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "添加用户信息失败，请联系管理员！");
@@ -162,9 +172,12 @@ public class HealthcheckController {
             ret.put("msg", "后台获取用户信息失败！");
             return ret;
         }
-        System.out.println(healthcheck.getHealthcheckDate());
-//        System.out.println(healthcheck);
-//        System.out.println(healthcheck);
+        if (healthcheck.getHealthcheckDate() == null) {
+            ret.put("type", "error");
+            ret.put("msg", "后台获取日期信息失败！");
+            return ret;
+        }
+
         if (healthcheckService.edit(healthcheck) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "用户信息修改失败，请联系管理员！");

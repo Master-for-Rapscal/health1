@@ -10,10 +10,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -55,9 +52,13 @@ public class Caahep2Controller {
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page) {
+    public Map<String, Object> getList(Page page,
+                                       @RequestParam(name = "caahepTopic", required = false, defaultValue = "")  String caahepTopic,
+                                       @RequestParam(name = "caahepHealtype", required = false, defaultValue = "")  String caahepHealtype) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
+        queryMap.put("caahepTopic", caahepTopic);
+        queryMap.put("caahepHealtype", caahepHealtype);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", caahepService.findList(queryMap));
@@ -74,9 +75,10 @@ public class Caahep2Controller {
         queryMap.put("caahepId", caahepId);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
+
+//        System.out.println("list2"+caahepId);
+//        System.out.println("list2"+actrecordService.findList(queryMap));
         ret.put("rows", actrecordService.findList(queryMap));
-        System.out.println(caahepId);
-        System.out.println(actrecordService.findList(queryMap));
         ret.put("total", actrecordService.getTotal(queryMap));
         return ret;
     }
@@ -95,7 +97,7 @@ public class Caahep2Controller {
             ret.put("msg", "后台获取活动计划失败！");
             return ret;
         }
-//        System.out.println(caahep);
+        System.out.println("添加接受参数"+actrecord);
         if (actrecordService.add(actrecord) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "添加活动计划失败，请联系管理员！");
@@ -119,7 +121,7 @@ public class Caahep2Controller {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> delete(String ids) {
-//        System.out.println("后台接收数据："+ids);
+        System.out.println("（删除）后台接收数据："+ids);
         Map<String, String> ret = new HashMap<String, String>();
         if (StringUtils.isEmpty(ids)) {
             ret.put("type", "error");
@@ -148,8 +150,8 @@ public class Caahep2Controller {
             ret.put("msg", "后台获取健康计划id失败！");
             return ret;
         }
-
-//        System.out.println(caahepService.findById(id));
+//        System.out.println("查个体"+id);
+//       System.out.println("查个体"+actrecordService.findById(id));
         Actrecord data1=actrecordService.findById(id);
         ret.put("datainfo",data1);
         ret.put("type", "success");
@@ -169,7 +171,7 @@ public class Caahep2Controller {
             ret.put("msg", "后台获取健康计划id失败！");
             return ret;
         }
-//        System.out.println("后台接收修改id："+caahep);
+       System.out.println("后台接收修改id："+actrecord);
         if (actrecordService.edit(actrecord) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "健康计划修改失败，请联系管理员！");

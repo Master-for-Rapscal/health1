@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Actrecord {
     private Long actrecordId,caahepId,actrecordPeohealnum,actrecordHealnum,actrecordState;
-    private String actrecordActtime, actrecordVenue,actrecordWhat,actrecordActtheme,actrecordOrganize,actrecordSpeaker,actrecordPeohealtype,actrecordHealtype,actrecordActivities,actrecordActeval,actrecordArchmate,actrecordPreparer,actrecordLeader;
-    private Date actrecordTime;
+    private String actrecordVenue,actrecordWhat,actrecordActtheme,actrecordOrganize,actrecordSpeaker,actrecordPeohealtype,actrecordHealtype,actrecordActivities,actrecordActeval,actrecordArchmate,actrecordPreparer,actrecordLeader;
+    private Date actrecordActtime,actrecordTime;
 
     @Override
     public String toString() {
@@ -70,14 +70,6 @@ public class Actrecord {
 
     public void setActrecordState(Long actrecordState) {
         this.actrecordState = actrecordState;
-    }
-
-    public String getActrecordActtime() {
-        return actrecordActtime;
-    }
-
-    public void setActrecordActtime(String actrecordActtime) {
-        this.actrecordActtime = actrecordActtime;
     }
 
     public String getActrecordVenue() {
@@ -182,5 +174,13 @@ public class Actrecord {
 
     public void setActrecordTime(Date actrecordTime) {
         this.actrecordTime = actrecordTime;
+    }
+
+    public Date getActrecordActtime() {
+        return actrecordActtime;
+    }
+
+    public void setActrecordActtime(Date actrecordActtime) {
+        this.actrecordActtime = actrecordActtime;
     }
 }

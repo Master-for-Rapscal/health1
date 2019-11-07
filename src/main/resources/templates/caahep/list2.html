@@ -25,78 +25,95 @@
     <div style="width: 100%; text-align: center"> <h3>健康教育活动记录表</h3></div>
     <form id="add-form" method="post">
         <input type="hidden" id="actrecordId" name="actrecordId" value="">
+        <input type="hidden" id="caahepId" name="caahepId" value="">
         <input type="hidden" name="actrecordState" value="1">
-        <table class="zuo-table-head" border="1">
+        <table class="zuo-table-head" border="2">
             <tr>
                 <td colspan="1"><input type="text" class="tdText_h" readonly="ture" value="活动时间:"></input></td>
-                <td colspan="1"><input class="easyui-datebox" name="caahepPlanyear" editable="fasle"
+                <td colspan="1"><input class="easyui-datebox" name="actrecordActtime" editable="fasle"
                                        data-options="required:true, missingMessage:'请填写执行日期'"
                                        style="border:0px;border-bottom: 1px solid black;"></input></td>
                 <td colspan="1"><input type="text" class="tdText_h" readonly="ture" value="活动地点:"></input></td>
-                <td colspan="1"><input class="tdText_h easyui-validatebox" name="caahep"
-                                       data-options="required:true, missingMessage:'请填写计划年份'" type="text"
+                <td colspan="1"><input class="tdText_h easyui-validatebox" name="actrecordVenue"
+                                       data-options="required:true, missingMessage:'请填写活动地点'" type="text"
                                        style="border:0px;border-bottom: 1px solid black;"></input></td>
             </tr>
 
             <tr>
                 <td colspan="1"><input type="text" class="tdText_h" readonly="ture" value="活动形式:"></input></td>
-                <td colspan="3"><textarea name="caahepHealcon"
+                <td colspan="3"><textarea name="actrecordWhat"
                                           style="width:100%;height:100px;border: 0px black solid"></textarea></td>
             </tr>
             <tr>
                 <td colspan="1"><input type="text" class="tdText_h" readonly="ture" value="活动主题:"></input></td>
-                <td colspan="3"><textarea name="caahepHealcon"
+                <td colspan="3"><textarea name="actrecordActtheme"
                                           style="width:100%;height:100px;border: 0px black solid"></textarea></td>
             </tr>
             <tr>
                 <td colspan="1"><input type="text" class="tdText_h" readonly="ture" value="组织者:"></input></td>
                 <td colspan="3"><input class="tdText_h " data-options="missingMessage:'请填写组织者'" type="text"
-                                       name="caahepTopic" style="border:0px;border-bottom: 1px solid black;"></input></td>
+                                       name="actrecordOrganize" style="border:0px;border-bottom: 1px solid black;"></input></td>
             </tr>
             <tr>
                 <td colspan="1"><input type="text" class="tdText_h" readonly="ture" value="主讲人:"></input></td>
                 <td colspan="3"><input class="tdText_h " data-options="missingMessage:'请填写组织者'" type="text"
-                                       name="caahepTopic" style="border:0px;border-bottom: 1px solid black;"></input></td>
+                                       name="actrecordSpeaker" style="border:0px;border-bottom: 1px solid black;"></input></td>
             </tr>
             <tr>
                 <td colspan="1"><input type="text" class="tdText_h" readonly="ture" value="健康教育人员类别:"></input></td>
-                <td colspan="1"><input class="tdText_h " name="caahepHealtlocation" type="text" style="border:0px;border-bottom: 1px solid black;"></input></td>
+                <td colspan="1"><select class="easyui-combobox" name="actrecordPeohealtype" multiple="true" multiline="true"  style="width:200%;height:25%;">
+                        <option value="1">儿童</option>
+                        <option value="2">青少年</option>
+                        <option value="3">中年人</option>
+                        <option value="4">老年人</option>
+                    </select>
+                </td>
                 <td colspan="1"><input type="text" class="tdText_h" readonly="ture" value="接受健康教育人数:"></input></td>
-                <td colspan="1"><input class="tdText_h " name="caahepHealtlocation" type="text" style="border:0px;border-bottom: 1px solid black;"></input></td>
+                <td colspan="1"><input class="tdText_h " name="actrecordPeohealnum" type="text" style="border:0px;border-bottom: 1px solid black;"></input></td>
             </tr>
             <tr>
                 <td colspan="1"><input type="text" class="tdText_h" readonly="ture" value="健康教育资料发放种类:"></input></td>
-                <td colspan="1"><input class="tdText_h " name="caahepHealtlocation" type="text" style="border:0px;border-bottom: 1px solid black;"></input></td>
+                <td colspan="1">
+                    <select class="easyui-combobox" name="actrecordHealtype" multiple="true" multiline="true"  style="width:200%;height:25%;">
+                        <option value="1">宣教对象</option>
+                        <option value="2">中医药知识</option>
+                        <option value="3">卫生问题知识</option>
+                        <option value="4">疾病问题知识</option>
+                        <option value="5">教育活动资料</option>
+                    </select>
+                </td>
                 <td colspan="1"><input type="text" class="tdText_h" readonly="ture" value="数量:"></input></td>
-                <td colspan="1"><input class="tdText_h " name="caahepHealtlocation" type="text" style="border:0px;border-bottom: 1px solid black;"></input></td>
+                <td colspan="1"><input class="tdText_h " name="actrecordHealnum" type="text" style="border:0px;border-bottom: 1px solid black;"></input></td>
             </tr>
 
             <tr>
                 <td colspan="1"><input type="text" class="tdText_h" readonly="ture" value="活动内容:"></input></td>
-                <td colspan="3"><textarea name="caahepHealcon"
+                <td colspan="3"><textarea name="actrecordActivities"
                                           style="width:100%;height:100px;border: 0px black solid"></textarea></td>
             </tr>
             <tr>
                 <td colspan="1"><input type="text" class="tdText_h" readonly="ture" value="活动总结评价:"></input></td>
-                <td colspan="3"><textarea name="caahepHealcon"
+                <td colspan="3"><textarea name="actrecordActeval"
                                           style="width:100%;height:100px;border: 0px black solid"></textarea></td>
             </tr>
             <tr>
                 <td colspan="1"><input type="text" class="tdText_h" readonly="ture" value="存档材料请附后:"></input></td>
                 <td colspan="3">
-                    <input type="checkbox" name="" onclick="checkItem1(this)" value="1">无
-                    <input type="checkbox" name="" value="2">书面材料
-                    <input type="checkbox" name=""  value="3">图片材料
-                    <input type="checkbox" name=""  value="4">印刷材料
-                    <input type="checkbox" name=""  value="5">影音材料
-                    <input type="checkbox" name=""  value="6">签到表
-                    <input type="checkbox" name=""  value="7">其他材料
+                    <input type="checkbox" name="actrecordArchmate" onclick="checkItem1(this)" value="1">无
+                    <input type="checkbox" name="actrecordArchmate" value="2">书面材料
+                    <input type="checkbox" name="actrecordArchmate"  value="3">图片材料
+                    <input type="checkbox" name="actrecordArchmate"  value="4">印刷材料
+                    <input type="checkbox" name="actrecordArchmate"  value="5">影音材料
+                    <input type="checkbox" name="actrecordArchmate"  value="6">签到表
+                    <input type="checkbox" name="actrecordArchmate"  value="7">其他材料
                 </td>
             </tr>
         </table>
-        签表人(签字)：<input type="text" class="tdText_h" name="" value="">&nbsp;
-        负责人(签字)：<input type="text" class="tdText_h" name="" value=""><br>
-        填表时间：<input type="text" class="tdText_h" name="" value="">
+
+<div style="width: 48%;float: left;"> 签表人(签字)：<input type="text"  name="actrecordPreparer" value="" style="width: 45%; border: 0px; border-bottom: 1px solid black;   background: #FFFFFF;"></div>
+<div style="width: 48%;float: right;">负责人(签字)：<input type="text"  name="actrecordLeader" value="" style="width: 45%; border: 0px; border-bottom: 1px solid black;   background: #FFFFFF;"></div><br><br>
+<div style="width: 48%;float: right;">     填表时间:<input class="easyui-datebox" editable="fasle"
+                                                       data-options="required:true, missingMessage:'请填写执行日期'"  name="actrecordTime" value="" style="width: 120%; border: 0px; border-bottom: 1px solid black; background: #FFFFFF;  "></div>
     </form>
 </div>
 
@@ -125,6 +142,7 @@
             return;
         }
         var data = $("#add-form").serialize();
+        alert(data);
         $.ajax({
             url: 'add',
             dataType: 'json',
@@ -134,7 +152,7 @@
                 if (data.type == 'success') {
                     $.messager.alert('信息提示', '添加成功！', 'info');
                     $('#add-dialog').dialog('close');
-                    $('#data-datagrid').datagrid('reload');
+                    $('#healcheckdata-datagrid').datagrid('reload');
                 } else {
                     $.messager.alert('信息提示', data.msg, 'warning');
                 }
@@ -161,7 +179,7 @@
                 if (data.type == 'success') {
                     $.messager.alert('信息提示', '修改成功！', 'info');
                     $('#add-dialog').dialog('close');
-                    $('#data-datagrid').datagrid('reload');
+                    $('#healcheckdata-datagrid').datagrid('reload');
                 } else {
                     $.messager.alert('信息提示', data.msg, 'warning');
                 }
@@ -235,7 +253,7 @@
      */
     function openEdit() {
         //$('#edit-form').form('clear');
-        var item = $('#data-datagrid').datagrid('getSelections');
+        var item = $('#healcheckdata-datagrid').datagrid('getSelections');
         if (item == null || item.length == 0) {
             $.messager.alert('信息提示', '请选择要修改的数据！', 'info');
             return;
@@ -265,7 +283,7 @@
                     url: 'findById',
                     dataType: 'json',
                     type: 'post',
-                    data: {id: item.caahepId},
+                    data: {id: item.actrecordId},
                     success: function (data) {
                         if (data.type == 'success') {
                             $("#add-form").form('load', data.datainfo);
@@ -306,7 +324,7 @@
         idField: 'caahepId',
         fit: true,
         onDblClickRow:function(rowIndex, rowData){
-            // $("#caahepId").val(rowData.caahepId);
+            $("#caahepId").val(rowData.caahepId);
             $("#healcheck-dialog").dialog({
                 closed: false,
                 modal: true,
@@ -347,9 +365,9 @@
                         columns: [[
                             {field: 'chk', checkbox: true},
                             {field: 'actrecordId', title: '档案编号', width: 100,hidden:'true'},
-                            {field: 'actrecordActtime  ', title: '活动时间', width: 100},
+                            {field: 'actrecordActtime', title: '活动时间', width: 100, formatter: function (value, row, index) {return format(value);}},
                             {field: 'actrecordVenue', title: '活动地点', width: 100},
-                            {field: 'actrecordActtime  ', title: '组织者', width: 100},
+                            {field: 'actrecordOrganize', title: '组织者', width: 100},
                         ]]
                     });
                 }

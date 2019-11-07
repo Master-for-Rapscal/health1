@@ -9,10 +9,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -52,9 +49,22 @@ public class UserinfoController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page) {
+    public Map<String, Object> getList(Page page,
+        @RequestParam(name = "userId", required = false)  Long userId,
+        @RequestParam(name = "recordName", required = false, defaultValue = "")  String recordName,
+        @RequestParam(name = "userIdnumber", required = false, defaultValue = "")  String userIdnumber,
+        @RequestParam(name = "recordUnit", required = false, defaultValue = "")  String recordUnit,
+        @RequestParam(name = "recordPlaceadress", required = false, defaultValue = "")  String recordPlaceadress,
+        @RequestParam(name = "userSex", required = false, defaultValue = "-1")  Integer userSex) {
+//        System.out.println(userId+"-"+recordName+"-"+userIdnumber+"-"+recordUnit+"-"+recordPlaceadress+"-"+userSex);
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
+        queryMap.put("userId",userId);
+        queryMap.put("recordName",recordName);
+        queryMap.put("userIdnumber",userIdnumber);
+        queryMap.put("recordUnit",recordUnit);
+        queryMap.put("recordPlaceadress",recordPlaceadress);
+        queryMap.put("userSex",userSex);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", userinfoService.findList(queryMap));
