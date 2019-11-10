@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -32,22 +33,27 @@ public class ChildInfoController {
      * 获取用户信息列表
      *
      * @param page
-     * @param username
-     * @param roleId
-     * @param sex
+     * @param
+     * @param
+     * @param
      * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page ) {
+    public Map<String, Object> getList(Page page,@RequestParam(name = "recordInputtingcard", required = false, defaultValue = "") String recordInputtingcard,
+                                       @RequestParam(name = "userName", required = false, defaultValue = "") String userName,
+                                       @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
+                                       @RequestParam(name = "userMyphone", required = false, defaultValue = "") String userMyphone) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
+        queryMap.put("recordInputtingcard",recordInputtingcard);
+        queryMap.put("recordName",userName);
+        queryMap.put("recordAdress",userAdress);
+        queryMap.put("userMyphone",userMyphone);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", childInfoService.findList(queryMap));
         ret.put("total", childInfoService.getTotal(queryMap));
-
-        System.out.println(ret);
         return ret;
     }
 

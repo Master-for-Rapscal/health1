@@ -38,6 +38,11 @@ values(#{followName},#{followNumber},#{followDate},#{followForm},#{followLoss},
        /* select * from userinfo where 1=1
 */
         SELECT * from userinfo WHERE recordInputtingcard not in (SELECT  followNumber from followInsanityrecords)
+
+        /*join
+        userPrivy on userPrivy.userId=userinfo.userId where 1 = 1*/
+        /*       select * from userinfo join addnewborn on
+        userinfo.recordInputtingcard=addnewborn.addnewbornCardnum where 1=1*/
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
@@ -64,7 +69,17 @@ followSort=#{followSort},followNextdate=#{followNextdate},followDoctorsign=#{fol
     </update>
 
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*) from userinfo where 1 = 1
+        select count(*) from userinfo WHERE recordInputtingcard not in (SELECT  followNumber from followInsanityrecords)
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
+        </if>
+        /*join
+        userPrivy on userPrivy.userId=userinfo.userId where 1 = 1*/
+        /*       select * from userinfo join addnewborn on
+        userinfo.recordInputtingcard=addnewborn.addnewbornCardnum where 1=1*/
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
     </select>
 
 

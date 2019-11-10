@@ -41,67 +41,26 @@ public class ChildrecordController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public Object list(Model model, Integer recordId) {
-        System.out.println(
-                "?????????????????????????????????????????????????????????????"+recordId
-        );
-     //   Map<String, Object> queryMap = new HashMap<String, Object>();
-       // model.addAttribute("roleList", childinsercordService.findList(recordId));
-        System.out.println(childinsercordService.findList(recordId));
+
+
         return childinsercordService.findList(recordId);
     }
 
-    /**
-     * 获取用户信息列表
-     *
-     * @param page
 
-     * @return
-     */
-   /* @RequestMapping(value = "/list", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> getList(Page page ) {
-        System.out.println(page);
-        if(page.getRows()==0){
-            page.setRows(100);
-        }
-        Map<String, Object> ret = new HashMap<String, Object>();
-        Map<String, Object> queryMap = new HashMap<String, Object>();
-        queryMap.put("offset", page.getOffset());
-        queryMap.put("pageSize", page.getRows());
-        ret.put("rows", childinsercordService.findList(queryMap,recordId));
-        System.out.println(queryMap);
-        System.out.println(childinsercordService.findList(queryMap));
-        ret.put("total", childinsercordService.getTotal(queryMap));
-        System.out.println("--------------------------测试------------------------"+ret);
-        return ret;
-    }*/
 
     /**
      * 删除方法！
      *
-     * @param ids
+     * @param
      * @return
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, String> delete(String ids) {
-        Map<String, String> ret = new HashMap<String, String>();
-        if (StringUtils.isEmpty(ids)) {
-            ret.put("type", "error");
-            ret.put("msg", "后台获取“用户ID”失败");
-            return ret;
-        }
-        if (ids.contains(",")) {
-            ids = ids.substring(0, ids.length() - 1);
-        }
-        if (childinsercordService.delete(ids) <= 0) {
-            ret.put("type", "error");
-            ret.put("msg", "删除用户数据失败！");
-            return ret;
-        }
-        ret.put("type", "success");
-        ret.put("msg", "删除成功！");
-        return ret;
+    public Object delete(Integer insrecordId) {
+
+
+
+        return childinsercordService.delete(insrecordId);
     }
 
 
@@ -113,7 +72,7 @@ public class ChildrecordController {
     @RequestMapping(value = "/findByid",method = RequestMethod.POST)
     @ResponseBody
     public Object selectById(long insrecordId){
-     //   System.out.println("ByID:::::::"+childinsercordService.findBymentalMessage(followRecordsid));
+
         List list=childinsercordService.findBymentalMessage(insrecordId);
         return list;
     }
@@ -131,7 +90,7 @@ public class ChildrecordController {
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
     public Object edit(Childinsrecord childinsrecord) {
-        System.out.println("修改成功==========================="+childinsrecord);
+     //   System.out.println("修改成功==========================="+childinsrecord);
 
         return childinsercordService.edit(childinsrecord);
     }
@@ -147,7 +106,7 @@ public class ChildrecordController {
     @ResponseBody
     public Object add(Childinsrecord childinsrecord) {
         //  Map<String, String> ret = new HashMap<String, String>();
-        System.out.println("childinsrecord" + childinsrecord);
+      //  System.out.println("childinsrecord" + childinsrecord);
 
         return childinsercordService.add(childinsrecord);
     }

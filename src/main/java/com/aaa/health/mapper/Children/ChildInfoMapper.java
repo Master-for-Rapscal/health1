@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 @Mapper
 public interface ChildInfoMapper {
-    int delete(String USER_ID);
+    int delete(String addnewbornId);
 
 
     List<ChildInfo> findList(Map<String, Object> queryMap);

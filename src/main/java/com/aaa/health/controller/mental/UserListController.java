@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -39,7 +40,6 @@ public class UserListController {
     @ResponseBody
     public Object add(mentalMessage mentalMessage) {
         //  Map<String, String> ret = new HashMap<String, String>();
-        System.out.println("=============" + mentalMessage);
 
         return userListService.add(mentalMessage);
     }
@@ -54,10 +54,34 @@ public class UserListController {
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", userListService.findList(queryMap));
         ret.put("total", userListService.getTotal(queryMap));
-
-        System.out.println("弹出的数据：" + userListService.findList(queryMap));
         return ret;
     }
+
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> delete(String ids) {
+
+        Map<String, String> ret = new HashMap<String, String>();
+        if (StringUtils.isEmpty(ids)) {
+            ret.put("type", "error");
+            ret.put("msg", "后台获取“用户ID”失败");
+            return ret;
+        }
+        if (ids.contains(",")) {
+            ids = ids.substring(0, ids.length() - 1);
+        }
+        if (userListService.delete(ids) <= 0) {
+            ret.put("type", "error");
+            ret.put("msg", "删除用户数据失败！");
+            return ret;
+        }
+        ret.put("type", "success");
+        ret.put("msg", "删除成功！");
+        return ret;
+    }
+
+
 
 /**
  *修改查询
@@ -84,7 +108,6 @@ public Object selectById(long followRecordsid){
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
     public Object edit(mentalMessage mentalMessage) {
-        System.out.println("修改成功========================================================================================================="+mentalMessage);
         return userListService.edit(mentalMessage);
     }
 

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 @Mapper
 public interface ChildInsercord {
-    int delete(String insrecordId);
+    int delete(Integer insrecordId);
 
 
     List<Childinsrecord> findList(Integer recordId);

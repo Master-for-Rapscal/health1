@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -37,16 +38,14 @@ public class MetalController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page ) {
+    public Map<String, Object> getList(Page page,@RequestParam(name = "recordName", required = false, defaultValue = "") String recordName) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-
+        queryMap.put("recordName",recordName);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", metalService.findList(queryMap));
         ret.put("total", metalService.getTotal(queryMap));
-
-        System.out.println("精神病检测==========="+metalService.findList(queryMap));
         return ret;
     }
 

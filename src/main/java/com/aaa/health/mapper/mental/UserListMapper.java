@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 @Mapper
 public interface UserListMapper {
+    //删除
+    int delete(String followRecordsid);
     //添加
     int add(mentalMessage mentalMessage);
    //修改

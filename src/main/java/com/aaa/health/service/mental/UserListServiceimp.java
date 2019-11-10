@@ -13,6 +13,11 @@ public class UserListServiceimp implements UserListService{
     private UserListMapper u;
 
     @Override
+    public int delete(String followRecordsid) {
+        return u.delete(followRecordsid);
+    }
+
+    @Override
     public int add(mentalMessage mentalMessage) {
         return u.add(mentalMessage);
     }

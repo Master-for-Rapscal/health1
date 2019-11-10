@@ -14,7 +14,7 @@ public class ChildinsercordServiceIm implements ChildinsercordService{
     private ChildInsercord c;
 
     @Override
-    public int delete(String insrecordId) {
+    public int delete(Integer insrecordId) {
         return c.delete(insrecordId);
     }
 

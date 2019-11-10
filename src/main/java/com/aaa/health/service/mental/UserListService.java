@@ -8,6 +8,8 @@ import java.util.Map;
 
 @Service
 public interface UserListService {
+    //删除
+    int delete(String followRecordsid);
     //添加
     int add(mentalMessage mentalMessage);
     //修改

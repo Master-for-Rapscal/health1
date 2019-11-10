@@ -11,7 +11,12 @@
     <!-- 分页获取用户列表 -->
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.Children.ChildInfo">
         select * from userinfo join addnewborn on
-        userinfo.recordInputtingcard=addnewborn.addnewbornCardnum /*join
+        userinfo.recordInputtingcard=addnewborn.addnewbornCardnum
+
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
+        </if>
+        /*join
         userPrivy on userPrivy.userId=userinfo.userId where 1 = 1*/
         /*       select * from userinfo join addnewborn on
         userinfo.recordInputtingcard=addnewborn.addnewbornCardnum where 1=1*/
@@ -23,6 +28,16 @@
     <select id="getTotal" parameterType="Map" resultType="Integer">
         select count(*) from userinfo join addnewborn on
  userinfo.userId=addnewborn.recordId where recordId=#{recordId}
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
+        </if>
+        /*join
+        userPrivy on userPrivy.userId=userinfo.userId where 1 = 1*/
+        /*       select * from userinfo join addnewborn on
+        userinfo.recordInputtingcard=addnewborn.addnewbornCardnum where 1=1*/
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
     </select>
 
 

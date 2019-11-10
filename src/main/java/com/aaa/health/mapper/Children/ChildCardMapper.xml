@@ -28,13 +28,50 @@ addnewbornDischargeddate,addnewbornMidwiferyhosp,addnewbornMidwiferymain,addnewb
        /* SELECT * from userinfo WHERE userId not in (SELECT recordId  from addnewborn)*/
         SELECT * from userinfo WHERE userId not in (SELECT recordId  from addnewborn) and
         (date_format('2019-11-05','%Y')-DATE_FORMAT(userinfo.userBirthday,'%Y')) BETWEEN 0 and 6
+        <if test="recordInputtingcard != null and recordInputtingcard != 0">
+            and recordInputtingcard LIKE '%${recordInputtingcard}%'
+        </if>
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
+        </if>
+        <if test="userMyphone != null and userMyphone != ''">
+            AND userMyphone LIKE '%${userMyphone}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND recordAdress LIKE '%${recordAdress}%'
+        </if>
+        <if test="userIdnumber != null and userIdnumber != ''">
+            AND userIdnumber LIKE '%${userIdnumber}%'
+        </if>
+
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
     </select>
 
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*) from chmedmre where 1 = 1
+        select count(*) from userinfo WHERE userId not in (SELECT recordId  from addnewborn) and
+        (date_format('2019-11-05','%Y')-DATE_FORMAT(userinfo.userBirthday,'%Y')) BETWEEN 0 and 6
+
+        <if test="recordInputtingcard != null and recordInputtingcard != 0">
+            and recordInputtingcard LIKE '%${recordInputtingcard}%'
+        </if>
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
+        </if>
+        <if test="userMyphone != null and userMyphone != ''">
+            AND userMyphone LIKE '%${userMyphone}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND recordAdress LIKE '%${recordAdress}%'
+        </if>
+        <if test="userIdnumber != null and userIdnumber != ''">
+            AND userIdnumber LIKE '%${userIdnumber}%'
+        </if>
+
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
     </select>
 
     <update id="edit" parameterType="com.aaa.health.entity.Children.ChildInfo">

@@ -3,14 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.Children.ChildInsercord">
-    <delete id="delete" parameterType="String">
+    <delete id="delete" parameterType="Integer">
         delete from insrecord where insrecordId  in(${value})
     </delete>
 
 
     <!-- 分页获取用户列表 -->
     <select id="findList" parameterType="Integer" resultType="com.aaa.health.entity.Children.Childinsrecord">
-        select * from insrecord where recordId=#{recordId} /*where 1 = 1*/
+        select * from insrecord where recordId=#{recordId} GROUP BY insrecordId desc/*where 1 = 1*/
 
         <!--<if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
@@ -38,10 +38,11 @@ insrecordTranadvice,insrecordTranreason,insrecordTrandivision,insrecordGuide,ins
 )
 
     </insert>
-   <!-- <select id="getTotal" parameterType="Map" resultType="Integer">
+
+    <select id="getTotal" parameterType="Map" resultType="Integer">
         select count(*) from insrecord where 1 = 1
     </select>
--->
+
     <update id="edit" parameterType="com.aaa.health.entity.Children.Childinsrecord">
         update insrecord set insrecordDate=#{insrecordDate},insrecordWeight=#{insrecordWeight},
 insrecordWeiassess=#{insrecordWeiassess},insrecordHeight=#{insrecordHeight},insrecordHeiassess=#{insrecordHeiassess},

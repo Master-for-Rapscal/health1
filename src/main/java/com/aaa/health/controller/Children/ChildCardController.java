@@ -8,10 +8,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,9 +39,16 @@ public class ChildCardController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page ) {
+    public Map<String, Object> getList(Page page,@RequestParam(name = "recordInputtingcard", required = false, defaultValue = "") String recordInputtingcard,
+                                       @RequestParam(name = "userName", required = false, defaultValue = "") String userName,
+                                       @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
+                                       @RequestParam(name = "userMyphone", required = false, defaultValue = "") String userMyphone) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
+        queryMap.put("recordInputtingcard",recordInputtingcard);
+        queryMap.put("recordName",userName);
+        queryMap.put("recordAdress",userAdress);
+        queryMap.put("userMyphone",userMyphone);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", childCardService.findList(queryMap));
@@ -61,8 +65,6 @@ public class ChildCardController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public Object add(ChildInfo childInfo) {
-        //  Map<String, String> ret = new HashMap<String, String>();
-        System.out.println("=============" + childInfo);
 
         return childCardService.add(childInfo);
     }
@@ -74,7 +76,7 @@ public class ChildCardController {
     @RequestMapping(value = "/findByid",method = RequestMethod.POST)
     @ResponseBody
     public Object selectById(long addnewbornId){
-        System.out.println("IDIDIDDIDIIDIDIDIIDIDIDI:"+addnewbornId);
+
         List list=childCardService.findByChildCard(addnewbornId);
         return list;
     }
@@ -88,9 +90,7 @@ public class ChildCardController {
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
     public Object edit(ChildInfo childInfo) {
-        System.out.println("修改成功==========================="+childInfo.addnewbornMidwiferymain);
-        int a=childCardService.edit(childInfo);
-        System.out.println(a);
+
         return childCardService.edit(childInfo);
     }
 }

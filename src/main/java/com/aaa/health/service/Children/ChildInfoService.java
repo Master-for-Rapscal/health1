@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Service
 public interface ChildInfoService {
-    int delete(String USER_ID);
+    int delete(String addnewbornId);
 
     //添加
     List<ChildInfo> findList(Map<String, Object> queryMap);

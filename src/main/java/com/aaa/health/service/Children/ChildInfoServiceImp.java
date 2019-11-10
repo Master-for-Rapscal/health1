@@ -14,8 +14,8 @@ public class ChildInfoServiceImp implements ChildInfoService{
     private ChildInfoMapper cm;
 
     @Override
-    public int delete(String USER_ID) {
-        return cm.delete(USER_ID);
+    public int delete(String addnewbornId) {
+        return cm.delete(addnewbornId);
     }
 
     @Override

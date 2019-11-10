@@ -10,11 +10,20 @@
             <!--引入菜单页面-->
             <div th:replace="common/menus :: menus"  > </div>
         </div>
-
         <!--条件搜索-->
         <div class="wu-toolbar-search">
-            <label>用户名:</label><input id="search-name" class="wu-text" style="width:100px">
-            <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+            <!-- <label>用户名:</label><input id="search-name" class="wu-text" style="width:100px">
+             <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>-->
+            <!--  <label> 个人编号:</label><input name="recordInputtingcard"/>-->
+            <label> 姓名:</label><input name="userName"/>
+            <a href="#" id="userSearch" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+        </div>
+        <!--条件搜索-->
+        <div class="wu-toolbar-search">
+           <!-- <label>用户名:</label><input id="search-name" class="wu-text" style="width:100px">
+              <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>-->
+           <!-- <div style=" margin-top:-35px; margin-left: 260px"><h3><font color="red" size="3px">*</font>双击进行查看个人随访记录</h3></div>-->
+
         </div>
 
     </div>
@@ -31,14 +40,19 @@
 
 
 </table>
-<div id="add-dialog"  style="width: 840px;height: 500px;">
+<div id="add-dialog"  style="width: 840px;height: 600px;">
     <form id="add-form" method="post">
-        <table border="1px" style="width: 800px;height: 300px;">
-            <thead>姓名：<input type="text" style="border:none;outline:medium;" id="Aname"/>  编号：<input type="text" style="border:none;outline:medium;" id="Anum"><input type="text" name="recordId" id="AreD" hidden="hidden"></thead>
+        <table border="1px" style="width: 800px;height: 600px;border-collapse:collapse;margin-top: 10px;
+        border:1px solid black;">
+            <tr align="center"><td colspan="3">姓名：<input type="text" style="border:none;outline:medium;" id="Aname"/>  编号：<input type="text" style="border:none;outline:medium;" id="Anum"><input type="text" name="recordId" id="AreD" hidden="hidden"></td></tr>
             <tr><td>随访日期*</td><td colspan="2"><input type="text"  class="easyui-datebox" required="required" id="Adate" name="insrecordDate"></td></tr>
-            <tr><td>体重/kg</td><td><input type="text" id="Aweight" name="insrecordWeight"></td><td>评价：<input type="text" id="Awa" name="insrecordWeiassess"></td><tr>
-            <tr><td>身长/cm</td><td><input type="text" id="Aheight" name="insrecordHeight"></td><td>评价：<input type="text" id="Aha" name="insrecordHeiassess"></td><tr>
-            <tr><td>头围/cm</td><td colspan="2"><input type="text" name="insrecordHeadsize"></td><tr>
+            <tr>
+                <td>体重/kg</td><td><input type="text" id="Aweight" name="insrecordWeight" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox"></td>
+                <td>评价：<input type="text" id="Awa" name="insrecordWeiassess" style="border: none;outline: medium;width: 90%;height: 100%"></td>
+            <tr>
+            <tr><td>身长/cm</td><td><input type="text" id="Aheight" name="insrecordHeight" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox"></td>
+            <td>评价：<input type="text" id="Aha" name="insrecordHeiassess" style="border: none;outline: medium;width: 90%;height: 100%"></td><tr>
+            <tr><td>头围/cm</td><td colspan="2"><input type="text" name="insrecordHeadsize" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox"></td><tr>
             <tr><td rowspan="17">体格检查</td></tr>
             <tr><td>面色</td><td><input type="radio" name="insrecordFace" value="1"/>1红润<input type="radio" name="insrecordFace" value="2"/>2黄染<input type="radio" name="insrecordFace" value="3"/>3其他</td></tr>
             <tr><td>皮肤</td><td><input type="radio" name="insrecordSkin" value="1"/>1未见异常<input type="radio" name="insrecordSkin" value="2"/>2异常</td></tr>
@@ -54,50 +68,58 @@
             <tr><td>脐部</td><td><input type="radio" name="insrecordNavel" value="1"/>1未见异常<input type="radio" name="insrecordNavel" value="2"/>2异常</td></tr>
             <tr><td>四肢</td><td><input type="radio" name="insrecordLimbs" value="1"/>1未见异常<input type="radio" name="insrecordLimbs" value="2"/>2异常</td></tr>
             <tr><td>可疑佝偻病症状</td><td>
-                <input type="checkbox" name="insrecordRickets" value="1">1无
+               <!-- <input type="checkbox" name="insrecordRickets" value="1">1无
                 <input type="checkbox" name="insrecordRickets" value="2">2夜惊
                 <input type="checkbox" name="insrecordRickets" value="3">3多汗
-                <input type="checkbox" name="insrecordRickets" value="4">4烦躁
+                <input type="checkbox" name="insrecordRickets" value="4">4烦躁-->
+                <select id="ddlLine2" class="easyui-combotree" style="width: 205px; height: 24px;"  name="insrecordRickets" >
+                </select>
             </td></tr>
             <tr><td>可疑佝偻病体征</td><td>
-                <input type="checkbox" name="insrecordRicksign" value="1">1无
-                <input type="checkbox" name="insrecordRicksign" value="2">2颅骨软化
+                <input type="radio" name="insrecordRicksign" value="1"> 1无
+                <input type="radio" name="insrecordRicksign" value="2">2颅骨软化
 
             </td></tr>
             <tr><td>肛门/外生殖</td><td><input type="radio" name="insrecordAnus" value="1"/>1未见异常<input type="radio" name="insrecordAnus" value="2"/>2异常</td></tr>
-            <tr><td>血红蛋白</td><td colspan="2"><input type="text" name="insrecordHgb">g/L</td></tr>
+            <tr><td>血红蛋白</td><td colspan="2"><input type="text" name="insrecordHgb" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox" suffix="g/L"></td></tr>
 
-            <tr><td>户外活动</td><td colspan="2"><input type="text" name="insrecordOutdoors">小时/日</td></tr>
+            <tr><td>户外活动</td><td colspan="2"><input type="text" name="insrecordOutdoors" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox" suffix="小时/日"></td></tr>
 
-            <tr><td>服用维生素D</td><td colspan="2"><input type="text" name="insrecordTakevd">IU/日</td></tr>
+            <tr><td>服用维生素D</td><td colspan="2"><input type="text" name="insrecordTakevd" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox" suffix="IU/日"></td></tr>
             <tr><td>发育评估</td><td colspan="2">
-                <input type="checkbox" name="insrecordGrowassess" value="1"/>1对很大声音没反应
+             <!--   <input type="checkbox" name="insrecordGrowassess" value="1"   onclick="checkItem1(this)"/>1对很大声音没反应
                 <input type="checkbox" name="insrecordGrowassess" value="2"/>2逗引时不发音或不会微笑
                 <input type="checkbox" name="insrecordGrowassess" value="3"/>3不注视人脸,不追视移动人或物品
-                <input type="checkbox" name="insrecordGrowassess" value="4"/>4俯卧时不会抬头
+                <input type="checkbox" name="insrecordGrowassess" value="4"/>4俯卧时不会抬头-->
+                <select id="ddlLine4" class="easyui-combotree" style="width: 205px; height: 24px;"  name="insrecordGrowassess" >
+                </select>
             </td></tr>
 
 
             <tr><td>两次随访间患病情况</td><td colspan="2">
-                <input type="checkbox" name="insrecordTwofollow" value="1"/>1无
+               <!-- <input type="checkbox" name="insrecordTwofollow" value="1"/>1无
                 <input type="checkbox" name="insrecordTwofollow" value="2"/>2肺炎
                 <input type="checkbox" name="insrecordTwofollow" value="3"/>3腹泻
                 <input type="checkbox" name="insrecordTwofollow" value="4"/>4外伤
-                <input type="checkbox" name="insrecordTwofollow" value="5"/>5其他
+                <input type="checkbox" name="insrecordTwofollow" value="5"/>5其他-->
+                <select id="ddlLine6" class="easyui-combotree" style="width: 205px; height: 24px;"  name="insrecordTwofollow" >
+                </select>
             </td></tr>
 
             <tr><td rowspan="4">转诊建议</td></tr>
 
             <tr><td colspan="2"><input type="radio" name="insrecordTranadvice" value="1"/>1无 <input type="radio" name="insrecordTranadvice" value="2"/>2有</td></tr>
-            <tr><td>原因：</td><td><input type="text" name="insrecordTranreason"/></td></tr>
-            <tr><td>机构及科室：</td><td><input type="text" name="insrecordTrandivision"/></td></tr>
+            <tr><td>原因：</td><td><input type="text" name="insrecordTranreason" style="border: none;outline: medium;width: 100%;height: 100%"/></td></tr>
+            <tr><td>机构及科室：</td><td><input type="text" name="insrecordTrandivision" style="border: none;outline: medium;width: 100%;height: 100%"/></td></tr>
             <tr><td>指导</td><td colspan="2">
-                <input type="checkbox" name="insrecordGuide" value="1"/>1科学喂养
+               <!-- <input type="checkbox" name="insrecordGuide" value="1"/>1科学喂养
                 <input type="checkbox" name="insrecordGuide" value="2"/>2生长发育
                 <input type="checkbox" name="insrecordGuide" value="3"/>3疾病预防
                 <input type="checkbox" name="insrecordGuide" value="4"/>4预防伤害
                 <input type="checkbox" name="insrecordGuide" value="5"/>5口腔保健
-                <input type="checkbox" name="insrecordGuide" value="6"/>6其他_
+                <input type="checkbox" name="insrecordGuide" value="6"/>6其他_-->
+                <select id="ddlLine8" class="easyui-combotree" style="width: 205px; height: 24px;"  name="insrecordGuide" >
+                </select>
             </td></tr>
 
             <tr><td>下次随访时间</td><td colspan="2"><input type="text"  class="easyui-datebox" required="required" insrecordNextdate></td></tr>
@@ -105,7 +127,7 @@
             <tr><td>随访医生签名</td><td colspan="2">
 
                <!-- <input type="text" id="Adoc" name="insrecordDoctor"/>-->
-            <select name="insrecordDoctor">
+            <select name="insrecordDoctor" style="border: none;outline: medium;width: 100%;height: 100%">
                 <option value="左冬恩">左冬恩</option>
                 <option value="左冬恩1">左冬恩1</option>
                 <option value="左冬恩2">左冬恩2</option>
@@ -120,18 +142,21 @@
 
 
 <div id="CR1" style="width: 1000px;height: 500px">
-<div id="CR11"></div>
+
 </div>
 <!--</div>-->
-<div id="edit-dialog" style="width: 830px;height: 600px;">
+<div id="edit-dialog" style="width: 840px;height: 600px;">
     <form id="edit-form" method="post">
 <!--<div id="cc" style="width: 830px;height: 600px;">-->
-    <table border="1px" style="width: 800px;height: 300px;">
-        <thead>姓名：<input type="text" style="border:none;outline:medium;" id="cname"/>  编号：<input type="text" style="border:none;outline:medium;" id="cnum"><input type="text" name="insrecordId" id="CD" hidden="hidden"><input type="text" name="recordId" id="creD" hidden/></thead>
+    <table border="1px" style="width: 800px;height: 300px;border-collapse:collapse;
+        border:1px solid black;margin-top: 10px">
+        <tr align="center" style="border: none"><td colspan="3">姓名：<input type="text" style="border:none;outline:medium;" id="cname"/>  编号：<input type="text" style="border:none;outline:medium;" id="cnum"><input type="text" name="insrecordId" id="CD" hidden="hidden"><input type="text" name="recordId" id="creD" hidden/></td></tr>
         <tr><td>随访日期*</td><td colspan="2"><input type="text"  class="easyui-datebox" required="required" id="cdate" name="insrecordDate"></td></tr>
-        <tr><td>体重/kg</td><td><input type="text" id="cweight" name="insrecordWeight"></td><td>评价：<input type="text" id="cwa" name="insrecordWeiassess"></td><tr>
-        <tr><td>身长/cm</td><td><input type="text" id="cheight" name="insrecordHeight"></td><td>评价：<input type="text" id="cha" name="insrecordHeiassess"></td><tr>
-        <tr><td>头围/cm</td><td colspan="2"><input type="text" name="insrecordHeadsize"></td><tr>
+        <tr><td>体重/kg</td><td><input type="text" id="cweight" name="insrecordWeight" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox"></td>
+            <td>评价：<input type="text" id="cwa" name="insrecordWeiassess" style="border: none;outline: medium;width: 90%;height: 100%"></td><tr>
+        <tr><td>身长/cm</td><td><input type="text" id="cheight" name="insrecordHeight" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox"></td>
+        <td>评价：<input type="text" id="cha" name="insrecordHeiassess" style="border: none;outline: medium;width: 90%;height: 100%"></td><tr>
+        <tr><td>头围/cm</td><td colspan="2"><input type="text" name="insrecordHeadsize" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox"></td><tr>
         <tr><td rowspan="17">体格检查</td></tr>
         <tr><td>面色</td><td><input type="radio" name="insrecordFace" value="1"/>1红润<input type="radio" name="insrecordFace" value="2"/>2黄染<input type="radio" name="insrecordFace" value="3"/>3其他</td></tr>
         <tr><td>皮肤</td><td><input type="radio" name="insrecordSkin" value="1"/>1未见异常<input type="radio" name="insrecordSkin" value="2"/>2异常</td></tr>
@@ -147,50 +172,59 @@
         <tr><td>脐部</td><td><input type="radio" name="insrecordNavel" value="1"/>1未见异常<input type="radio" name="insrecordNavel" value="2"/>2异常</td></tr>
         <tr><td>四肢</td><td><input type="radio" name="insrecordLimbs" value="1"/>1未见异常<input type="radio" name="insrecordLimbs" value="2"/>2异常</td></tr>
         <tr><td>可疑佝偻病症状</td><td>
-            <input type="checkbox" name="insrecordRickets" value="1">1无
+            <!--<input type="checkbox" name="insrecordRickets" value="1"   onclick="checkItem1(this)">1无
             <input type="checkbox" name="insrecordRickets" value="2">2夜惊
             <input type="checkbox" name="insrecordRickets" value="3">3多汗
-            <input type="checkbox" name="insrecordRickets" value="4">4烦躁
+            <input type="checkbox" name="insrecordRickets" value="4">4烦躁-->
+            <select id="ddlLine1" class="easyui-combotree" style="width: 205px; height: 24px;"  name="insrecordRickets" >
+            </select>
         </td></tr>
         <tr><td>可疑佝偻病体征</td><td>
-            <input type="checkbox" name="insrecordRicksign" value="1">1无
-            <input type="checkbox" name="insrecordRicksign" value="2">2颅骨软化
+           <!-- <input type="checkbox" name="insrecordRicksign" value="1"   onclick="checkItem1(this)">-->
+            <input type="radio" name="insrecordRicksign" value="1"> 1无
+            <input type="radio" name="insrecordRicksign" value="2">2颅骨软化
 
         </td></tr>
         <tr><td>肛门/外生殖</td><td><input type="radio" name="insrecordAnus" value="1"/>1未见异常<input type="radio" name="insrecordAnus" value="2"/>2异常</td></tr>
-        <tr><td>血红蛋白</td><td colspan="2"><input type="text" name="insrecordHgb">g/L</td></tr>
+        <tr><td>血红蛋白</td><td colspan="2"><input type="text" name="insrecordHgb" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox" suffix="g/L"></td></tr>
 
-        <tr><td>户外活动</td><td colspan="2"><input type="text" name="insrecordOutdoors">小时/日</td></tr>
+        <tr><td>户外活动</td><td colspan="2"><input type="text" name="insrecordOutdoors" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox" suffix="小时/日"></td></tr>
 
-        <tr><td>服用维生素D</td><td colspan="2"><input type="text" name="insrecordTakevd">IU/日</td></tr>
+        <tr><td>服用维生素D</td><td colspan="2"><input type="text" name="insrecordTakevd" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox" suffix="IU/日"></td></tr>
         <tr><td>发育评估</td><td colspan="2">
-            <input type="checkbox" name="insrecordGrowassess" value="1"/>1对很大声音没反应
+           <!-- <input type="checkbox" name="insrecordGrowassess" value="1"   onclick="checkItem1(this)"/>1对很大声音没反应
             <input type="checkbox" name="insrecordGrowassess" value="2"/>2逗引时不发音或不会微笑
             <input type="checkbox" name="insrecordGrowassess" value="3"/>3不注视人脸,不追视移动人或物品
-            <input type="checkbox" name="insrecordGrowassess" value="4"/>4俯卧时不会抬头
+            <input type="checkbox" name="insrecordGrowassess" value="4"/>4俯卧时不会抬头-->
+            <select id="ddlLine3" class="easyui-combotree" style="width: 205px; height: 24px;"  name="insrecordGrowassess" >
+            </select>
         </td></tr>
 
 
         <tr><td>两次随访间患病情况</td><td colspan="2">
-            <input type="checkbox" name="insrecordTwofollow" value="1"/>1无
+            <!--<input type="checkbox" name="insrecordTwofollow" value="1"   onclick="checkItem1(this)"/>1无
             <input type="checkbox" name="insrecordTwofollow" value="2"/>2肺炎
             <input type="checkbox" name="insrecordTwofollow" value="3"/>3腹泻
             <input type="checkbox" name="insrecordTwofollow" value="4"/>4外伤
-            <input type="checkbox" name="insrecordTwofollow" value="5"/>5其他
+            <input type="checkbox" name="insrecordTwofollow" value="5"/>5其他-->
+            <select id="ddlLine5" class="easyui-combotree" style="width: 205px; height: 24px;"  name="insrecordTwofollow" >
+            </select>
         </td></tr>
 
         <tr><td rowspan="4">转诊建议</td></tr>
 
         <tr><td colspan="2"><input type="radio" name="insrecordTranadvice" value="1"/>1无 <input type="radio" name="insrecordTranadvice" value="2"/>2有</td></tr>
-        <tr><td>原因：</td><td><input type="text" name="insrecordTranreason"/></td></tr>
-        <tr><td>机构及科室：</td><td><input type="text" name="insrecordTrandivision"/></td></tr>
+        <tr><td>原因：</td><td><input type="text" name="insrecordTranreason" style="border: none;outline: medium;width: 100%;height: 100%"/></td></tr>
+        <tr><td>机构及科室：</td><td><input type="text" name="insrecordTrandivision" style="border: none;outline: medium;width: 100%;height: 100%"/></td></tr>
         <tr><td>指导</td><td colspan="2">
-            <input type="checkbox" name="insrecordGuide" value="1"/>1科学喂养
+           <!-- <input type="checkbox" name="insrecordGuide" value="1"   onclick="checkItem1(this)"/>1科学喂养
             <input type="checkbox" name="insrecordGuide" value="2"/>2生长发育
             <input type="checkbox" name="insrecordGuide" value="3"/>3疾病预防
             <input type="checkbox" name="insrecordGuide" value="4"/>4预防伤害
             <input type="checkbox" name="insrecordGuide" value="5"/>5口腔保健
-            <input type="checkbox" name="insrecordGuide" value="6"/>6其他_
+            <input type="checkbox" name="insrecordGuide" value="6"/>6其他_-->
+            <select id="ddlLine7" class="easyui-combotree" style="width: 205px; height: 24px;"  name="insrecordGuide" >
+            </select>
         </td></tr>
 
         <tr><td>下次随访时间</td><td colspan="2"><input type="text"  class="easyui-datebox" required="required" insrecordNextdate
@@ -199,7 +233,7 @@
         <tr><td>随访医生签名</td><td colspan="2">
 
           <!--  <input type="text" id="cdoc" name="insrecordDoctor"/>-->
-            <select name="insrecordDoctor">
+            <select name="insrecordDoctor" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox">
                 <option value="左冬恩">左冬恩</option>
                 <option value="左冬恩1">左冬恩1</option>
                 <option value="左冬恩2">左冬恩2</option>
@@ -217,37 +251,206 @@
 <!-- End of easyui-dialog -->
 <script type="text/javascript" th:inline="none">
 
+    $(function () {
+        $('#ddlLine1').combotree({
+            valueField: "id", //Value字段
+            textField: "text", //Text字段
+            multiple: true,
+            data:   [{ "id": 1, "text": "1夜惊" }, { "id": 2, "text": "2多汗" }, { "id": 3, "text": "3烦躁" }] ,
+            //  url: "tree_data2.json", //数据源
+            onCheck: function (node, checked) {
+                //让全选不显示
+                $("#ddlLine1").combotree("setText", $("#ddlLine1").combobox("getText").toString().replace("全选,", ""));
+            },
+            onClick: function (node, checked) {
+                //让全选不显示
+                $("#ddlLine1").combotree("setText", $("#ddlLine1").combobox("getText").toString().replace("全选,",""));
+            }
+        });
+    })
+
+    $(function () {
+        $('#ddlLine2').combotree({
+            valueField: "id", //Value字段
+            textField: "text", //Text字段
+            multiple: true,
+            data: [{ "id": 1, "text": "1夜惊" }, { "id": 2, "text": "2多汗" }, { "id": 3, "text": "3烦躁" }],
+            //  url: "tree_data2.json", //数据源
+            onCheck: function (node, checked) {
+                //让全选不显示
+                $("#ddlLine2").combotree("setText", $("#ddlLine2").combobox("getText").toString().replace("全选,", ""));
+            },
+            onClick: function (node, checked) {
+                //让全选不显示
+                $("#ddlLine2").combotree("setText", $("#ddlLine2").combobox("getText").toString().replace("全选,",""));
+            }
+        });
+    })
+
+
+
+
+
+    $(function () {
+        $('#ddlLine3').combotree({
+            valueField: "id", //Value字段
+            textField: "text", //Text字段
+            multiple: true,
+            data:   [{ "id": 1, "text": "1对很大声音没反应" }, { "id": 2, "text": "2逗引时不发音或不会微笑" }, { "id": 3, "text": "3不注视人脸,不追视移动人或物品" }
+                ,{ "id": 4, "text": "4俯卧时不会抬头" }] ,
+            //  url: "tree_data2.json", //数据源
+            onCheck: function (node, checked) {
+                //让全选不显示
+                $("#ddlLine3").combotree("setText", $("#ddlLine3").combobox("getText").toString().replace("全选,", ""));
+            },
+            onClick: function (node, checked) {
+                //让全选不显示
+                $("#ddlLine3").combotree("setText", $("#ddlLine3").combobox("getText").toString().replace("全选,",""));
+            }
+        });
+    })
+
+
+
+    $(function () {
+        $('#ddlLine4').combotree({
+            valueField: "id", //Value字段
+            textField: "text", //Text字段
+            multiple: true,
+            data:    [{ "id": 1, "text": "1对很大声音没反应" }, { "id": 2, "text": "2逗引时不发音或不会微笑" }, { "id": 3, "text": "3不注视人脸,不追视移动人或物品" }
+                ,{ "id": 4, "text": "4俯卧时不会抬头" }] ,
+            //  url: "tree_data2.json", //数据源
+            onCheck: function (node, checked) {
+                //让全选不显示
+                $("#ddlLine4").combotree("setText", $("#ddlLine4").combobox("getText").toString().replace("全选,", ""));
+            },
+            onClick: function (node, checked) {
+                //让全选不显示
+                $("#ddlLine4").combotree("setText", $("#ddlLine4").combobox("getText").toString().replace("全选,",""));
+            }
+        });
+    })
+
+
+
+    $(function () {
+        $('#ddlLine5').combotree({
+            valueField: "id", //Value字段
+            textField: "text", //Text字段
+            multiple: true,
+            data:    [{ "id": 1, "text": "1肺炎" }, { "id": 2, "text": "2腹泻" }, { "id": 3, "text": "3外伤" }
+                ,{ "id": 4, "text": "4其他" }],
+            //  url: "tree_data2.json", //数据源
+            onCheck: function (node, checked) {
+                //让全选不显示
+                $("#ddlLine5").combotree("setText", $("#ddlLine5").combobox("getText").toString().replace("全选,", ""));
+            },
+            onClick: function (node, checked) {
+                //让全选不显示
+                $("#ddlLine5").combotree("setText", $("#ddlLine5").combobox("getText").toString().replace("全选,",""));
+            }
+        });
+    })
+
+
+    $(function () {
+        $('#ddlLine6').combotree({
+            valueField: "id", //Value字段
+            textField: "text", //Text字段
+            multiple: true,
+            data:   [{ "id": 1, "text": "1肺炎" }, { "id": 2, "text": "2腹泻" }, { "id": 3, "text": "3外伤" }
+                ,{ "id": 4, "text": "4其他" }] ,
+            //  url: "tree_data2.json", //数据源
+            onCheck: function (node, checked) {
+                //让全选不显示
+                $("#ddlLine6").combotree("setText", $("#ddlLine6").combobox("getText").toString().replace("全选,", ""));
+            },
+            onClick: function (node, checked) {
+                //让全选不显示
+                $("#ddlLine6").combotree("setText", $("#ddlLine6").combobox("getText").toString().replace("全选,",""));
+            }
+        });
+    })
+
+
+
+    $(function () {
+        $('#ddlLine7').combotree({
+            valueField: "id", //Value字段
+            textField: "text", //Text字段
+            multiple: true,
+            data:   [{ "id": 1, "text": "1科学喂养" }, { "id": 2, "text": "2生长发育" }, { "id": 3, "text": "3疾病预防" }
+                ,{ "id": 4, "text": "4预防伤害" }, { "id": 5, "text": "5口腔保健" }, { "id": 6, "text": "6其他_" }] ,
+            //  url: "tree_data2.json", //数据源
+            onCheck: function (node, checked) {
+                //让全选不显示
+                $("#ddlLine7").combotree("setText", $("#ddlLine7").combobox("getText").toString().replace("全选,", ""));
+            },
+            onClick: function (node, checked) {
+                //让全选不显示
+                $("#ddlLine7").combotree("setText", $("#ddlLine7").combobox("getText").toString().replace("全选,",""));
+            }
+        });
+    })
+
+    $(function () {
+        $('#ddlLine8').combotree({
+            valueField: "id", //Value字段
+            textField: "text", //Text字段
+            multiple: true,
+            data:  [{ "id": 1, "text": "1科学喂养" }, { "id": 2, "text": "2生长发育" }, { "id": 3, "text": "3疾病预防" }
+                ,{ "id": 4, "text": "4预防伤害" }, { "id": 5, "text": "5口腔保健" }, { "id": 6, "text": "6其他_" }] ,
+            //  url: "tree_data2.json", //数据源
+            onCheck: function (node, checked) {
+                //让全选不显示
+                $("#ddlLine8").combotree("setText", $("#ddlLine8").combobox("getText").toString().replace("全选,", ""));
+            },
+            onClick: function (node, checked) {
+                //让全选不显示
+                $("#ddlLine8").combotree("setText", $("#ddlLine8").combobox("getText").toString().replace("全选,",""));
+            }
+        });
+    })
+
+
+
+    $(function () {
+        $("#userSearch").click(function () {
+            $("#data-datagrid").datagrid({
+                queryParams: {
+                    recordName: $("input[name=userName]").val()
+                }
+            });
+
+        });
+    });
+
 
 
     /**
      * 删除记录
      */
-    function remove(){
+    function remove(insrecordId){
+// alert(insrecordId);
         $.messager.confirm('信息提示','确定要删除该记录？', function(result){
-            if(result){
-                var item = $('#data-datagrid').datagrid('getSelections');
-                if(item == null || item.length == 0){
-                    $.messager.alert('信息提示','请选择要删除的数据！','info');
-                    return;
-                }
-                var ids = '';
-                for(var i=0;i<item.length;i++){
-                    ids += item[i].USER_ID + ',';
-                }
-                $.ajax({
-                    url:'delete',
-                    dataType:'json',
-                    type:'post',
-                    data:{ids:ids},
-                    success:function(data){
-                        if(data.type == 'success'){
-                            $.messager.alert('信息提示','删除成功！','info');
-                            $('#data-datagrid').datagrid('reload');
-                        }else{
-                            $.messager.alert('信息提示',data.msg,'warning');
-                        }
-                    }
-                });
+            alert($("#ii"+[insrecordId]).id);
+            if(result) {
+            //     $.ajax({
+            //         url: '../ChildRecord/delete',
+            //         dataType: 'json',
+            //         type: 'post',
+            //         data: 'insrecordId=' + insrecordId,
+            //         success: function (data) {
+            //             // alert(data);
+            //             if (data > 0) {
+            //                 $.messager.alert('信息提示', '删除成功！', 'info');
+            //                 //  $('#CR1').treegrid('reload');
+            //                 $("#["+insrecordId+"]").remove();
+            //             } else {
+            //                 $.messager.alert('信息提示', '失败', 'warning');
+            //             }
+            //         }
+            //     });
             }
         });
     }
@@ -303,7 +506,7 @@
                   if(data>0){*/
                 $.messager.alert('信息提示','添加成功！','info');
                 $('#add-dialog').dialog('close');
-                $('#add-dialog').treegrid('reload');
+                $('#data-datagrid').datagrid('reload');
                 /* }else{
                      $.messager.alert('信息提示',data.msg,'warning');
                  }*/
@@ -327,8 +530,10 @@
         treeField:'name',
         fit:true,
         onDblClickRow:function(rowIndex,row){
+
             $("#cname").val(row.recordName);
             $("#cnum").val(row.recordInputtingcard);
+
             //alert(row.recordName);
 //alert(row.userId);
 var recordId =row.userId;
@@ -336,19 +541,31 @@ var recordId =row.userId;
             $.post("../ChildRecord/list","recordId="+recordId,function(data){
 
                 var d="";
-                if(data.length==0){
-                    $("#CR1").html( "<input type='button' value='新增随访记录' onclick='openAdd()'>");
+
+                d += "<div style='border: none'>";
+                d+="<input title='新增随访记录' onclick='openAdd()' type='button' value='+' style='width:200px;height: 160px;border: none;background-color: transparent; outline: none;font-size: 180px;margin-top: -30px;color: gray;'>";
+                d += "</div>";
+                   // $("#CR1").html( "<input type='button' value='新增随访记录' onclick='openAdd()'>");
+                   /* d += "<div style='border: none'>";
+                    d+="<input title='新增随访记录' onclick='openAdd()' type='button' value='+' style='width:200px;height: 160px;border: none;background-color: transparent; outline: none;font-size: 180px;margin-top: -30px;color: #c9302c;'>";
+                    d += "</div>";*/
                     $("#Aname").val(row.recordName);
                     $("#Anum").val(row.recordInputtingcard);
                     $("#AreD").val(row.userId);
-                }else {
+
                     for (var i = 0; i < data.length; i++) {
                     //    alert("IDDDDD");
                       //  alert("00000000000000000000"+data[0].recordId);
-                          dt=data[i].insrecordDoctor;
-                        d += "<div id='cm' ondblclick='openInfo("+data[i].insrecordId+","+ data[i].recordId+ "," + data[i].insrecordDate+ "," + data[i].insrecordWeight+ "," + data[i].insrecordWeiassess+ "," + data[i].insrecordHeight+ "," + data[i].insrecordHeiassess+ ")'>";
+                          dt=data[i].insrecordDoctor;//onclick='remove("+data[i].insrecordId+")'
+                        d += "<div title='双击查看随访记录' id='sdd"+i+"' ondblclick='openInfo("+data[i].insrecordId+","+ data[i].recordId+ "," + data[i].insrecordDate+ "," + data[i].insrecordWeight+ "," + data[i].insrecordWeiassess+ "," + data[i].insrecordHeight+ "," + data[i].insrecordHeiassess+ ")'>";
+
+                        d+="<div style='margin-top: 0px;margin-left: 0px;'>"
+                        d+="<input type='button'  value='×' title='删除记录'  onclick='jc("+data[i].insrecordId+","+i+")'   style='color: red;font-size: 20px;border: none;background-color: transparent;outline: none' >";
+                        d+="</div>"
+
                         d += "<div><span>编号：</span><span>";
                         d += data[i].recordId;
+
                         d += "</span></div>";
 
                         d += "<div><span>检查日期：</span><span>";
@@ -372,7 +589,7 @@ var recordId =row.userId;
                         d += data[i].insrecordDoctor;
                         d += "</span></div>";
                         d+="<div>";
-                        d+="<input type='button' value='新增随访记录' onclick='openAdd()'>";
+                        /*d+="<input type='button' value='+' onclick='openAdd()'>";*/
                         $("#Aname").val(row.recordName);
                         $("#Anum").val(row.recordInputtingcard);
                         $("#AreD").val(row.userId);
@@ -383,7 +600,7 @@ var recordId =row.userId;
 
                     $("#CR1").html(d);
 
-                }
+
             });
            $("#CR1").dialog({
                closed: false,
@@ -403,13 +620,27 @@ var recordId =row.userId;
 
                }
            });
+
         },
         columns:[[
             { field:'userId',checkbox:true},
             { field:'recordInputtingcard',title:'健康档案号',width:100},
             /*  { field:'USER_NUMBER',title:'编号',width:100,align:'center'},*/
             { field:'recordName',title:'姓名',width:100,align:'center'},
-            { field:'userSex',title:'性别',width:100,sortable:true},
+            { field:'userSex',title:'性别',width:100,sortable:true,formatter:function(value,row,index){
+                    switch(value){
+                        case 0:{
+                            return '未知';
+                        }
+                        case 1:{
+                            return '男';
+                        }
+                        case 2:{
+                            return '女';
+                        }
+                    }
+                    return value;
+                }},
             { field:'userBirthday',title:'出生日期',width:100},
             { field:'recordAdress',title:'联系地址',width:100},
             { field:'userMyphone',title:'联系电话',width:100,sortable:true},
@@ -424,6 +655,34 @@ var recordId =row.userId;
             $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
         }
     });
+
+
+   function jc(sao1,sao2) {//id    第几个
+       //alert(sao1);
+       $.messager.confirm('信息提示','确定要删除该记录？', function(result){
+         //  alert($("#ii"+[insrecordId]).id);
+           if(result) {
+                   $.ajax({
+                       url: '../ChildRecord/delete',
+                       dataType: 'json',
+                       type: 'post',
+                       data: 'insrecordId=' + sao1,
+                       success: function (data) {
+                           alert(data);
+                           if (data > 0) {
+                               $.messager.alert('信息提示', '删除成功！', 'info');
+                               //  $('#CR1').treegrid('reload');
+                               $("#sdd"+sao2).remove();
+                               $('#data-datagrid').datagrid('load');
+                           } else {
+                               $.messager.alert('信息提示', '失败', 'warning');
+                           }
+                       }
+                   });
+           }
+       });
+   }
+
 
 
   function openInfo(insrecordId,recordId,insrecordDate,insrecordWeight,insrecordWeiassess,insrecordHeight,insrecordHeiassess){
@@ -444,7 +703,7 @@ var recordId =row.userId;
       $('#edit-dialog').dialog({
           closed: false,
           modal:true,
-          title: "修改",
+          title: "修改健康检查记录",
           buttons: [{
               text: '确定',
               iconCls: 'icon-ok',
@@ -532,7 +791,7 @@ var recordId =row.userId;
                 if (data > 0) {
                     $.messager.alert('信息提示', '修改成功！', 'info');
                     $('#edit-dialog').dialog('close');
-                    $('#edit-dialog').treegrid('reload');
+                    $('#data-datagrid').datagrid('reload');
                 } else {
                     $.messager.alert('信息提示','失败', 'warning');
                 }
