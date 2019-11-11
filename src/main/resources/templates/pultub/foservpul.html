@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
+
+<body>
+<div th:fragment="foser" th:height="500">
+    <div class="foser">
+        <style>
+            input[type="text"] {
+                border: 0px;
+                width: 50px;
+            }
+
+            input[type="checkbox"] {
+                margin-left: 15px;
+            }
+        </style>
+        <form id="foserform" class="easyui-form" method="post" data-options="novalidate:true" style="margin-left: 10px">
+            <table width="700px" style="height: 700px" border="1" cellspacing="0" cellpadding="1">
+                <caption>
+                    <h3>肺结核患者随访服务记录表</h3>
+                </caption>
+
+                <input type="text" name="foserId" hidden>
+                <input type="text" name="pultubfoId" hidden>
+                <tr>
+                    <td width="80px">姓名</td>
+                    <td width="180px"><input type="text"  style="width: 180px"  name="recordName" readonly width="60px"></td>
+                    <td width="80px">编号</td>
+                    <td>
+                        <input type="text"  style="width: 180px"  name="userId" readonly>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>随访日期</td>
+                    <td><input type="text"  class="easyui-datebox" style="width: 180px"  name="foserTime"></td>
+                    <td>治疗月序</td>
+                    <td>第<input type="text"  style="width: 100px"  name="foserMonthsequence" size="5">月</td>
+                </tr>
+                <tr>
+                    <td>督导人员</td>
+                    <td>
+                        <input type="radio" name="foserSupervisorStaff" value="1">医生
+                        <input type="radio" name="foserSupervisorStaff" value="2">家属
+                        <input type="radio" name="foserSupervisorStaff" value="3">自服药
+                        <input type="radio" name="foserSupervisorStaff" value="4">其他
+                    </td>
+                    <td>随访方式</td>
+                    <td>
+                        <select name="foserMode" style="width: 120px">
+                            <option value="1">门诊</option>
+                            <option value="2">家庭</option>
+                            <option value="3">电话</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">症状及体征</td>
+                    <td colspan="3">
+                        <input type="checkbox" name="foserSypend" value="1">没有症状
+                        <input type="checkbox" name="foserSypend" value="2">咳嗽咳痰
+                        <input type="checkbox" name="foserSypend" value="3">低热盗汗
+                        <input type="checkbox" name="foserSypend" value="4">咯血或血痰
+                        <input type="checkbox" name="foserSypend" value="5">胸痛消瘦
+                        <input type="checkbox" name="foserSypend" value="6">恶心纳差
+                        <input type="checkbox" name="foserSypend" value="7">头痛失眠
+                        <input type="checkbox" name="foserSypend" value="8">视物模糊<br/>
+                        <input type="checkbox" name="foserSypend" value="9">皮肤瘙痒、皮疹
+                        <input type="checkbox" name="foserSypend" value="10">耳鸣、听力下降
+                    </td>
+                </tr>
+                <tr>
+                    <td>其他</td>
+                    <td colspan="2">
+                        <textarea name="foserOther" rows="1" cols="20"></textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>生活方式评估</td>
+                    <td colspan="3">
+                        吸&nbsp;烟<input type="text" name="foserSmokpay"  size="5"/>
+                        /<input type="text" name="foserSmokday" size="5"/>支/天
+                        <br/>
+                        饮&nbsp;酒<input type="text" style="border: 1" name="foserDrinkbi" size="5"/>
+                        /<input type="text" name="foserDrinkday" size="5"/>支/天
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="4">用药</td>
+                    <td>化疗方案</td>
+                    <td colspan="2">
+                        <input type="text" name="foserRegimen"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>用法</td>
+                    <td colspan="2">
+                        <input type="radio" name="foserUsage" value="1"/>每日
+                        <input type="radio" name="foserUsage" value="2"/>间歇
+                    </td>
+                </tr>
+                <tr>
+                    <td>药品剂型</td>
+                    <td colspan="2">
+                        <input type="checkbox" name="foserDosage" value="1">固定剂量复合制剂
+                        <input type="checkbox" name="foserDosage" value="2">散装药
+                        <input type="checkbox" name="foserDosage" value="3">板式组合药
+                        <input type="checkbox" name="foserDosage" value="4">注射剂
+                    </td>
+                </tr>
+                <tr>
+                    <td>漏服药次数</td>
+                    <td colspan="2">
+                        <input type="text" name="foserDosagenum"/>次
+                    </td>
+                </tr>
+                <tr>
+                    <td>药物不良反应</td>
+                    <td colspan="3">
+                        <input type="radio" name="foserSideeffects" value="1"/>1.无
+                        <input type="radio" name="foserSideeffects" value="2"/>2.有
+                    </td>
+                </tr>
+                <tr>
+                    <td>并发症或合并症</td>
+                    <td colspan="3">
+                        <input type="radio" name="foserComplication" value="1"/>1.无
+                        <input type="radio" name="foserComplication" value="2"/>2.有
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3">转诊</td>
+                    <td>科别</td>
+                    <td colspan="2">
+                        <input type="text" name="foserCategory"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>原因</td>
+                    <td colspan="2">
+                        <input type="text" name="foserCause"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>两周内随访，随访结果</td>
+                    <td colspan="2">
+                        <input type="text" name="foserTwoweek"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>处理意见</td>
+                    <td colspan="3">
+                        <textarea name="foserHandleOpinion" rows="2" cols="80"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>下次随访时间</td>
+                    <td><input type="text" class="easyui-datebox"  name="foserNexttime" style="width: 180px;"/></td>
+                    <td>随访医生签名</td>
+                    <td>
+                        <!--[[${session.role.name}]]-->
+                        <select name="foserAssessDoctor" class="easyui-combobox" panelHeight="auto" style="width:100px" >
+                            <a th:each="doctor:${session.doctor}" >
+                                <option   th:value="${doctor.id}" ><span th:text="${doctor.lastname }"></span></option>
+                            </a>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">停止治疗及原因</td>
+                    <td>出现停止治疗时间</td>
+                    <td colspan="2">
+                        <input type="text" class="easyui-datebox"  name="stoptreatTime"  style="width: 150px;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>停止治疗原因</td>
+                    <td colspan="2">
+                        <input type="text" name="stoptreatReason" style="width: 150px;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">全程管理情况</td>
+                    <td>应访视患者<input type="text" name="foserNum"  size="5"/>次，<br/>
+                        实际访视患者<input type="text" name="foserActualNum"  size="5"/>次</td>
+                    <td colspan="2">患者在疗程中，应服药<input type="text" name="foserTmednum" size="5"/>次，实际服药<input type="text" name="foserActualTmednum" id="foserActualTmednum" size="5"/>次</td>
+                </tr>
+                <tr>
+                    <td>评估医生签名</td>
+                    <td><select name="foserDoctor" class="easyui-combobox" panelHeight="auto" style="width:180px" >
+                        <a th:each="doctor:${session.doctor}" >
+                            <option   th:value="${doctor.id}" ><span th:text="${doctor.lastname }"></span></option>
+                        </a>
+                    </select>
+                    </td>
+
+                </tr>
+
+            </table>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

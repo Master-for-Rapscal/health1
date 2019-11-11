@@ -12,10 +12,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,9 +36,16 @@ public class SupmanReportController {
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page) {
+    public Map<String, Object> getList(Page page,@RequestParam(name = "reportCategory", required = false, defaultValue = "") Integer reportCategory,
+                                       @RequestParam(name = "reportName", required = false, defaultValue = "") String reportName,
+                                       @RequestParam(name = "beginTime", required = false, defaultValue = "") Date beginTime,
+                                       @RequestParam(name = "endTime", required = false, defaultValue = "") Date endTime) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
+        queryMap.put("reportCategory",reportCategory);
+        queryMap.put("reportName",reportName);
+        queryMap.put("beginTime",beginTime);
+        queryMap.put("endTime",endTime);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", supmanReportService.findList(queryMap));// 页面加载数据使用

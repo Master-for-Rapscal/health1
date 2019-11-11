@@ -1,14 +1,11 @@
 package com.aaa.health.controller.womandis;
 
-import com.aaa.health.entity.Children.ChildInfo;
 import com.aaa.health.entity.womandis.Record;
 import com.aaa.health.page.admin.Page;
-import com.aaa.health.service.Children.ChildInfoService;
 import com.aaa.health.service.womandis.RecordService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,9 +21,7 @@ public class RecordController {
 
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
-        Map<String, Object> queryMap = new HashMap<String, Object>();
-        model.addAttribute("roleList", recordService.findList(queryMap));
+    public String list() {
         return "womandis/list";
     }
 
@@ -36,18 +31,16 @@ public class RecordController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page ) {
+    public Map<String, Object> getList(Page page,Integer userId) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
-        List<Record> list=recordService.findList(queryMap);
-
+        System.out.println(userId);
+        System.out.println(recordService.findList(userId));
+        List<Record> list=recordService.findList(userId);
         ret.put("rows", list);
         ret.put("total", recordService.getTotal(queryMap));
-
-        System.out.println("=================================="+ret);
         return ret;
     }
 

@@ -27,6 +27,11 @@ public class WomanDiseaseServiceImpl implements WomanDiseaseService{
     }
 
     @Override
+    public Map<String, Object> findById(Integer wodisId) {
+        return womanDiseaseMapper.findById(wodisId);
+    }
+
+    @Override
     public int update(WomanDisease womanDisease) {
         return womanDiseaseMapper.update(womanDisease);
     }

@@ -34,8 +34,13 @@ public class InfDiseaseServiceImpl implements InfDiseaseService {
     }
 
     @Override
-    public int update(InfDisease infDisease) {
-        return infDiseaseMapper.update(infDisease);
+    public Map<String, Object> findById(Integer infdisId) {
+        return infDiseaseMapper.findById(infdisId);
+    }
+
+    @Override
+    public int edit(InfDisease infDisease) {
+        return infDiseaseMapper.edit(infDisease);
     }
 
     @Override

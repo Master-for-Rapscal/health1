@@ -10,10 +10,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,13 +31,21 @@ public class EmerGenciesController {
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page) {
+    public Map<String, Object> getList(Page page,@RequestParam(name = "emgPeople", required = false, defaultValue = "") String emgPeople,
+                                       @RequestParam(name = "beginTime", required = false, defaultValue = "") Date beginTime,
+                                       @RequestParam(name = "endTime", required = false, defaultValue = "") Date endTime,
+                                       @RequestParam(name = "beginTimet", required = false, defaultValue = "") Date beginTimet,
+                                       @RequestParam(name = "endTimet", required = false, defaultValue = "") Date endTimet) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-        System.out.println("------------"+queryMap);
-        System.out.println( "------------"+emerGenciesService.findList(queryMap));
+        queryMap.put("emgPeople",emgPeople);
+        queryMap.put("beginTime",beginTime);
+        queryMap.put("endTime",endTime);
+        queryMap.put("beginTimet",beginTimet);
+        queryMap.put("endTimet",endTimet);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
+        System.out.println(emerGenciesService.findList(queryMap));
         ret.put("rows", emerGenciesService.findList(queryMap));// 页面加载数据使用
         ret.put("total", emerGenciesService.getTotal(queryMap));// 分页使用
         return ret;

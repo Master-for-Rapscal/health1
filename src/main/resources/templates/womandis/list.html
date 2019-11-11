@@ -24,105 +24,6 @@
 </div>
 <!-- Begin of easyui-dialog -->
 
-<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:420px; padding:10px;">
-    <form id="add-form" method="post">
-        <table>
-            <tr>
-                <td width="60" align="right">头像预览:</td>
-                <td valign="middle">
-                    <img id="preview-photo" style="float:left;" src="/admin/easyui/images/user_photo.jpg" width="100px">
-                    <a style="float:left;margin-top:40px;" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-upload" onclick="uploadPhoto()" plain="true">上传图片</a>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">头像:</td>
-                <td><input type="text" id="add-photo" name="photo" value="/admin/easyui/images/user_photo.jpg" readonly="readonly" class="wu-text " /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">用户名:</td>
-                <td><input type="text" name="username" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写用户名'" /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">密码:</td>
-                <td><input type="password" name="password" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写密码'" /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">所属角色:</td>
-
-            </tr>
-            <tr>
-                <td width="60" align="right">性别:</td>
-                <td>
-                    <select name="sex" class="easyui-combobox" panelHeight="auto" style="width:268px">
-                        <option value="0">未知</option>
-                        <option value="1">男</option>
-                        <option value="2">女</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">年龄:</td>
-                <td><input type="text" name="age" class="wu-text easyui-numberbox easyui-validatebox" data-options="required:true,min:1,precision:0, missingMessage:'请填写年龄'" /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">地址:</td>
-                <td><input type="text" name="address" class="wu-text easyui-validatebox" /></td>
-            </tr>
-        </table>
-    </form>
-</div>
-<!-- 修改窗口 -->
-
-<div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:450px; padding:10px;">
-    <form id="edit-form" method="post">
-        <input type="hidden" name="id" id="edit-id">
-        <table>
-            <tr>
-                <td width="60" align="right">头像预览:</td>
-                <td valign="middle">
-                    <img id="edit-preview-photo" style="float:left;" src="/admin/easyui/images/user_photo.jpg" width="100px">
-                    <a style="float:left;margin-top:40px;" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-upload" onclick="uploadPhoto()" plain="true">上传图片</a>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">头像:</td>
-                <td><input type="text" id="edit-photo" name="photo" value="/BaseProjectSSM/resources/admin/easyui/images/user_photo.jpg" readonly="readonly" class="wu-text " /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">用户名:</td>
-                <td><input type="text" id="edit-username" name="username" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写用户名'" /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">所属角色:</td>
-
-            </tr>
-            <tr>
-                <td width="60" align="right">性别:</td>
-                <td>
-                    <select id="edit-sex" name="sex" class="easyui-combobox" panelHeight="auto" style="width:268px">
-                        <option value="0">未知</option>
-                        <option value="1">男</option>
-                        <option value="2">女</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">年龄:</td>
-                <td><input type="text" id="edit-age" name="age" value="1" class="wu-text easyui-numberbox easyui-validatebox" data-options="required:true,min:1,precision:0, missingMessage:'请填写年龄'" /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">地址:</td>
-                <td><input type="text" id="edit-address" name="address" class="wu-text easyui-validatebox" /></td>
-            </tr>
-        </table>
-    </form>
-</div>
-
-
-
-
-
-
 
 <div id="process-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-upload',title:'正在上传图片'" style="width:450px; padding:10px;">
     <div id="p" class="easyui-progressbar" style="width:400px;" data-options="text:'正在上传中...'"></div>
@@ -131,79 +32,51 @@
 <div id="woman-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:600px;">
     <table id="dataAll" class="easyui-datagrid" style="width: 580px; height: 400px;" ></table>
 </div>
+<!--添加/修改窗口-->
+<div id="addwoman" class="easyui-dialog" style="width: 730px;height: 620px; margin-left: 20px;padding:10px;">
+    <div th:replace="womandis/addwmdis :: womandisease"></div>
+</div>
+<!--健康档案-->
+<div id="userinfo-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:700px;height: 580px">
+    <table id="userAll" class="easyui-datagrid" style="width: 650px;height: 500px" ></table>
+</div>
 <!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
 <div th:replace="common/footer :: myfooter"  ></div>
 
 
 <!-- End of easyui-dialog -->
 <script type="text/javascript" th:inline="none">
-    //上传图片
-    function start(){
-        var value = $('#p').progressbar('getValue');
-        if (value < 100){
-            value += Math.floor(Math.random() * 10);
-            $('#p').progressbar('setValue', value);
-        }else{
-            $('#p').progressbar('setValue',0)
-        }
-    };
-    function upload(){
-        if($("#photo-file").val() == '')return;
-        var formData = new FormData();
-        formData.append('photo',document.getElementById('photo-file').files[0]);
-        $("#process-dialog").dialog('open');
-        var interval = setInterval(start,200);
-        $.ajax({
-            url:'upload_photo',
-            type:'post',
-            data:formData,
-            contentType:false,
-            processData:false,
-            success:function(data){
-                clearInterval(interval);
-                $("#process-dialog").dialog('close');
-                if(data.type == 'success'){
-                    $("#preview-photo").attr('src',data.filepath);
-                    $("#add-photo").val(data.filepath);
-                    $("#edit-preview-photo").attr('src',data.filepath);
-                    $("#edit-photo").val(data.filepath);
-                }else{
-                    $.messager.alert("消息提醒",data.msg,"warning");
-                }
-            },
-            error:function(data){
-                clearInterval(interval);
-                $("#process-dialog").dialog('close');
-                $.messager.alert("消息提醒","上传失败!","warning");
-            }
-        });
+    $(function () {
+        $("#addwoman").dialog('close');
+    });
+    function  goBack() {
+        $("#addwoman").dialog('close');
     }
-
-    function uploadPhoto(){
-        $("#photo-file").click();
-
-    }
-
 
     /**
      *  添加记录
      */
     function add(){
-        var validate = $("#add-form").form("validate");
+        var validate = $("#womanform").form("validate");
         if(!validate){
             $.messager.alert("消息提醒","请检查你输入的数据!","warning");
             return;
         }
-        var data = $("#add-form").serialize();
+        var data = $("#womanform").serialize();
+        var us = $('#data-datagrid').datagrid('getSelections');
+        us = us[0];
+        let userId=us.userId;
+        alert(userId);
         $.ajax({
             url:'add',
             dataType:'json',
             type:'post',
-            data:data,
+            data:'userId='+userId+"&"+data,
             success:function(data){
                 if(data.type == 'success'){
                     $.messager.alert('信息提示','添加成功！','info');
-                    $('#add-dialog').dialog('close');
+                    $('#woman-dialog').dialog('close');
+                    $('#addwoman').datagrid('reload');
                     $('#data-datagrid').datagrid('reload');
                 }else{
                     $.messager.alert('信息提示',data.msg,'warning');
@@ -215,7 +88,7 @@
     /**
      * Name 修改记录
      */
-    function edit(){
+    function update(){
         var validate = $("#edit-form").form("validate");
         if(!validate){
             $.messager.alert("消息提醒","请检查你输入的数据!","warning");
@@ -223,7 +96,7 @@
         }
         var data = $("#edit-form").serialize();
         $.ajax({
-            url:'edit',
+            url:'update',
             dataType:'json',
             type:'post',
             data:data,
@@ -273,14 +146,15 @@
     }
 
     /**
-     * Name 打开添加窗口
+     * 打开添加妇女病普查登记窗口
      */
-    function openAdd(){
-        //$('#add-form').form('clear');
-        $('#add-dialog').dialog({
+    var userId;
+    function openAdd() {
+        userId;
+        $('#addwoman').dialog({
             closed: false,
-            modal:true,
-            title: "添加用户信息",
+            modal: true,
+            title: "新增",
             buttons: [{
                 text: '确定',
                 iconCls: 'icon-ok',
@@ -289,58 +163,87 @@
                 text: '取消',
                 iconCls: 'icon-cancel',
                 handler: function () {
-                    $('#add-dialog').dialog('close');
+                    $('#addwoman').dialog('close');
                 }
             }],
-            onBeforeOpen:function(){
-                //$("#add-form input").val('');
+            onBeforeOpen: function () {
+                $.ajax({
+                    url: '../puserinfo/queryUserById',
+                    type: 'post',
+                    data: "userId=" + userId,
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#tabuserinfo").form("load", data);
+                        // $("input[name='userId']").val(data.userId);
+                        // $("input[name='recordName']").val(data.recordName);
+                        // $("input[name='userIdnumber']").val(data.userIdnumber);
+                        // $("input[name='userBirthday']").datebox(data.userBirthday);
+                        // //$("input[name='userAge']").datebox(data.userAge);
+                        // $("input[name='userWorkunit']").val(data.userWorkunit);
+                        // $("input[name='recordAdress']").val(data.recordAdress);
+                        // var sex = "未知";
+                        // if (data.userSex == 1) {
+                        //     sex = "男";
+                        // } else if (data.userSex == 2) {
+                        //     sex = "女";
+                        // } else {
+                        //     sex = "未知";
+                        // }
+                        // $("input[name='userSex']").val(sex);
+                        // alert(sex);
+                    }
+
+                });
             }
         });
     }
 
-    /**
-     * 打开修改窗口
-     */
-    function openEdit(){
-        //$('#edit-form').form('clear');
-        var item = $('#data-datagrid').datagrid('getSelections');
-        if(item == null || item.length == 0){
-            $.messager.alert('信息提示','请选择要修改的数据！','info');
-            return;
-        }
-        if(item.length > 1){
-            $.messager.alert('信息提示','请选择一条数据进行修改！','info');
-            return;
-        }
-        item = item[0];
-        $('#edit-dialog').dialog({
-            closed: false,
-            modal:true,
-            title: "修改用户信息",
-            buttons: [{
-                text: '确定',
-                iconCls: 'icon-ok',
-                handler: edit
-            }, {
-                text: '取消',
-                iconCls: 'icon-cancel',
-                handler: function () {
-                    $('#edit-dialog').dialog('close');
-                }
-            }],
-            onBeforeOpen:function(){
-                $("#edit-id").val(item.id);
-                $("#edit-preview-photo").attr('src',item.photo);
-                $("#edit-photo").val(item.photo);
-                $("#edit-username").val(item.username);
-                $("#edit-roleId").combobox('setValue',item.roleId);
-                $("#edit-sex").combobox('setValue',item.sex);
-                $("#edit-age").val(item.age);
-                $("#edit-address").val(item.address);
+        /**
+         * 打开修改窗口
+         */
+        var wodisId;
+        function openEdit(){
+            //wodisId;
+            alert(wodisId);
+            /*var item = $('#woman-dialog').datagrid('getSelections');
+            if(item == null || item.length == 0){
+                $.messager.alert('信息提示','请选择要修改的数据！','info');
+                return;
             }
-        });
-    }
+            if(item.length > 1){
+                $.messager.alert('信息提示','请选择一条数据进行修改！','info');
+                return;
+            }*/
+            $('#addwoman').dialog({
+                closed: false,
+                modal:true,
+                title: "修改",
+                buttons: [{
+                    text: '确定',
+                    iconCls: 'icon-ok',
+                    handler: update
+                }, {
+                    text: '取消',
+                    iconCls: 'icon-cancel',
+                    handler: function () {
+                        $('#addwoman').dialog('close');
+                    }
+                }],
+                onBeforeOpen: function () {
+                    $.ajax({
+                        url: '../womandis/findById?wodisId='+wodisId,
+                        type: 'post',
+                        dataType: 'json',
+                        success: function (data) {
+                            $("#womanform").form('load', data.womand);
+                            //$("#tabuserinfo").form("load", data.womand);
+                        }
 
+                    });
+
+                }
+            });
+        }
 
     //搜索按钮监听
     $("#search-btn").click(function(){
@@ -359,23 +262,23 @@
      * 打开窗口
      * @param
      */
-    function openwoman(){
+    function openwoman(userId){
         $('#woman-dialog').dialog({
             closed: false,
             modal:true,
-            title: "肺结核患者随访记录表",
+            title: "妇女病普查登记表",
             buttons: [ {
                 text: '增加',
                 iconCls: 'icon-ok',
-                handler: add
+                handler: openAdd
             },{
                 text: '修改',
                 iconCls: 'icon-ok',
-                handler: add
+                handler: openEdit
             },{
                 text: '删除',
                 iconCls: 'icon-ok',
-                handler: add
+                handler: remove
             },{
                 text: '关闭',
                 iconCls: 'icon-cancel',
@@ -385,8 +288,7 @@
             }],
             onBeforeOpen:function(){
                 $("#dataAll").datagrid({
-                    // url: '../FoservPul/findId?wodisId=' + wodisId,
-                    url: '../record/list',
+                    url: '../record/list?userId='+userId,
                     fitColumns: true,
                     striped: true,
                     singleSelect: true,
@@ -394,9 +296,14 @@
                     rownumbers: true,
                     pageSize: 20,
                     multiSort: true,
+                    onDblClickRow: function (index, row) {
+                        openEdit(row.wodisId);
+                    },
                     columns:[[
-                        { field:'wodisId',checkbox:true},
-                        { field:'wodisBh',title:'编号',width:100,sortable:true},
+                        { field:'chk',checkbox:true},
+                        { field:'wodisId',hidden:true,formatter:function(value){
+                                return wodisId=value;}},
+                        { field:'wodisbh',title:'编号',width:100,sortable:true},
                         { field:'wodisMenage',title:'初潮年龄',width:100,sortable:true},
                         { field:'wodisMencycle',title:'月经周期',width:100,sortable:true},
                         { field:'wodisLoginregtime',title:'登记时间',width:100,sortable:true,formatter:function(value,row,index){
@@ -426,7 +333,7 @@
     $('#data-datagrid').datagrid({
         url:'list',
         rownumbers:true,
-        singleSelect:false,
+        singleSelect:true,
         pageSize:20,
         pagination:true,
         multiSort:true,
@@ -435,12 +342,12 @@
         treeField:'name',
         fit:true,
         onDblClickRow: function (index, row) {
-            openwoman(row.wodisId);
+            openwoman(row.userId);
         },
         columns:[[
             { field:'chk',checkbox:true},
-            { field:'wodisId',title:'编号',width:100,align:'center'},
-            { field:'userId',title:'健康档案号',width:100,sortable:true},
+            { field:'userId',title:'健康档案号',width:100,sortable:true,formatter:function(value){
+                 return userId=value;}},
             { field:'recordName',title:'姓名',width:100,sortable:true},
             { field:'userIdnumber',title:'身份证号',width:100,sortable:true},
             { field:'userAge',title:'年龄',width:100,sortable:true},

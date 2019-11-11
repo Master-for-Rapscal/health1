@@ -11,17 +11,12 @@
             <div th:replace="common/menus :: menus"  > </div>
         </div>
         <div class="wu-toolbar-search">
-            <label>报告人:</label><input id="search-name" class="wu-text" style="width:100px">
-            <label>报告时间:</label>
-
-            <label>录入人:</label>
-            <select id="search-sex" class="easyui-combobox" panelHeight="auto" style="width:120px">
-                <option value="-1">全部</option>
-                <option value="0">未知</option>
-                <option value="1">男</option>
-                <option value="2">女</option>
-            </select>
-            <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+            <label> 报告人:</label><input name="emgPeople"/>
+            <label> 时间发生时间:</label><input type="text" class="easyui-datebox" editable="fasle" name="beginTime"/>至
+            <input type="text" class="easyui-datebox"  name="endTime"/>
+            <label> 接到报告时间:</label><input type="text" class="easyui-datebox" editable="fasle" name="beginTimet"/>至
+            <input type="text" class="easyui-datebox"  name="endTimet"/>
+            <a href="#" id="suppat-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
         </div>
     </div>
 
@@ -32,7 +27,7 @@
 </div>
 <!-- Begin of easyui-dialog -->
 
-<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:750px;height:640px; overflow:auto;">
+<div id="add-dialog" class="easyui-dialog" data-options="closed:true" style="width:750px;height:640px; overflow:auto;">
     <form id="add-form" method="post">
         <h1 style="text-align: center">突发公共卫生事件相关信息报告卡</h1>
         <div style="margin-left: 450px">
@@ -795,7 +790,7 @@
     $('#data-datagrid').datagrid({
         url:'list',
         rownumbers:true,
-        singleSelect:false,
+        singleSelect:true,
         pageSize:20,
         pagination:true,
         multiSort:true,
@@ -832,4 +827,29 @@
             }
         })
     }*/
+    $(function () {
+        $("#suppat-Search").click(function () {
+            $("#data-datagrid").datagrid({
+                queryParams: {
+                    emgPeople: $("input[name=emgPeople]").val(),
+                    beginTime: $("input[name=beginTime]").val(),
+                    endTime: $("input[name=endTime]").val(),
+                    beginTimet: $("input[name=beginTimet]").val(),
+                    endTimet: $("input[name=endTimet]").val()
+                }
+
+            });
+            var beginTime=$("input[name=beginTime]").val();
+            var endTime=$("input[name=endTime]").val();
+            var beginTimet=$("input[name=beginTimet]").val();
+            var endTimet=$("input[name=endTimet]").val();
+            if (beginTime>endTime){
+                $.messager.alert('提示',"开始日期不能大于结束日期");
+            }
+            if (beginTimet>endTimet){
+                $.messager.alert('提示',"开始日期不能大于结束日期");
+            }
+
+        });
+    });
 </script>

@@ -4,16 +4,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.emerg.EmerGenciesMapper">
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.emerg.EmerGencies">
-/*        select emgId,emgPrireport,areaId,emgName,emgReportAddress,emgHappenAddress,emgDetailAddress,emgTimes,emgReportTime,emgPeople,emgPhone from emergencies where 1 = 1
-*/      select * from emergencies
-        <if test="username != null">
-            and username like '%${username}%'
+    select * from emergencies e
+        where 1=1
+        <if test="emgPeople != null">
+            and e.emgPeople like '%${emgPeople}%'
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="beginTime != null">
+            and e.emgTimes  >= #{beginTime}
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
+        <if test="endTime != null">
+            and   #{endTime} >= e.emgTimes
+        </if>
+        <if test="beginTimet != null">
+            and e.emgReportTime  >= #{beginTimet}
+        </if>
+        <if test="endTimet != null">
+            and   #{endTimet} >= e.emgReportTime
         </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
@@ -51,14 +57,20 @@ firstPatient=#{firstPatient},lastPatient=#{lastPatient},mainSymptoms=#{mainSympt
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
         select count(*) from emergencies where 1 = 1
-        <if test="username != null">
-            and username like '%${username}%'
+        <if test="emgPeople != null">
+            and emgPeople like '%${emgPeople}%'
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="beginTime != null">
+            and emgTimes  >= #{beginTime}
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
+        <if test="endTime != null">
+            and   #{endTime} >= emgTimes
+        </if>
+        <if test="beginTimet != null">
+            and emgReportTime  >= #{beginTimet}
+        </if>
+        <if test="endTimet != null">
+            and   #{endTimet} >= emgReportTime
         </if>
     </select>
     <select id="findArea" resultType="com.aaa.health.entity.area.Area">

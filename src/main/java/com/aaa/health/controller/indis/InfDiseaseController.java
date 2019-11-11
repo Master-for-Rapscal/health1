@@ -9,13 +9,15 @@ import com.aaa.health.service.outco.OutComeService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.mapping.ParameterMapping;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,9 +37,26 @@ private OutComeService outComeService;
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page) {
+    public Map<String, Object> getList(Page page,@RequestParam(name = "userId", required = false, defaultValue = "") String userId,
+                                       @RequestParam(name = "recordName", required = false, defaultValue = "") String recordName,
+                                       @RequestParam(name = "userSex", required = false, defaultValue = "") String userSex,
+                                       @RequestParam(name = "lastname", required = false, defaultValue = "") String lastname,
+                                       @RequestParam(name = "beginTime", required = false, defaultValue = "") Date beginTime,
+                                       @RequestParam(name = "endTime", required = false, defaultValue = "") Date endTime,
+                                       @RequestParam(name = "beginTimet", required = false, defaultValue = "") Date beginTimet,
+                                       @RequestParam(name = "endTimet", required = false, defaultValue = "") Date endTimet,
+                                       @RequestParam(name = "outcomeWhether", required = false, defaultValue = "") Date outcomeWhether) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
+        queryMap.put("userId",userId);
+        queryMap.put("recordName",recordName);
+        queryMap.put("userSex",userSex);
+        queryMap.put("lastname",lastname);
+        queryMap.put("beginTime",beginTime);
+        queryMap.put("endTime",endTime);
+        queryMap.put("beginTimet",beginTimet);
+        queryMap.put("endTimet",endTimet);
+        queryMap.put("outcomeWhether",outcomeWhether);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", infDiseaseService.findList(queryMap));// 页面加载数据使用
@@ -84,6 +103,37 @@ private OutComeService outComeService;
         ret.put("type", "success");
         ret.put("msg", "添加失败！");
         return ret;
+    }
+    @RequestMapping(value = "/findById", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> findById(Integer infdisId) {
+        Map<String, Object> fo = new HashMap<String, Object>();
+        fo.put("inf", infDiseaseService.findById(infdisId));// 页面加载数据使用
+        return fo;
+    }
+    /**
+     * 修改信息
+     *
+     * @param infDisease
+     * @return
+     */
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> edit(InfDisease infDisease) {
+        Map<String, String> ret = new HashMap<String, String>();
+        if (infDiseaseService.edit(infDisease) <= 0) {
+            ret.put("type", "error");
+            ret.put("msg", "信息修改失败，请联系管理员！");
+            return ret;
+        }
+        ret.put("type", "success");
+        ret.put("msg", "修改成功！");
+        return ret;
+    }
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 }
 

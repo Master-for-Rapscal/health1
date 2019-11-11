@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.pultub.PulTubfoMapper">
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.pultub.PulTubfo">
-        select p.pultubfoId,p.userId,u.recordName,u.userSex,u.userBirthday,u.recordAdress,u.userMyphone,y.userPrivyPhone,p.puljkTime,p.pulState,p.pulDoctor from userinfo u join pultubfo p on u.userId=p.userId left join userPrivy y on u.userId=y.userId
+        select p.pultubfoId,p.userId,u.recordName,u.userSex,u.userBirthday,u.recordAdress,u.userMyphone,y.userPrivyPhone,p.puljkTime,p.pulState,s.lastname from pultubfo p left join userinfo u on p.userId=u.userId left join userPrivy y on u.userId=y.userId left join user s on p.pultubfofoDoctor=s.id
         where 1 = 1
         <if test="username != null">
             and username like '%${username}%'
@@ -20,11 +20,30 @@
         </if>
     </select>
 
-    <!--<insert id="add" parameterType="com.aaa.health.entity.emerg.EmerGencies">-->
-    <!--INSERT INTO ADDSUPMANREPORT(ADDRESS_ID,ADDRESS_ID2,REPORT_FINDTIME,REPORT_CATEGORY,REPORT_TIME,REPORT_NAME)-->
-    <!--VALUES(#{ADDRESSID},#{ADDRESSID2},REPORTFINDTIME,REPORTCATEGORY,REPORTTIME,REPORTNAME)-->
-    <!--</insert>-->
-
+    <insert id="add" parameterType="com.aaa.health.entity.pultub.Puserinfo">
+    insert into pultubfo(userId,pultubfoTime,pultubfoMode,pultubfoType,spuBacteria,druResistance,symptomSign,
+symptomOther,cheRegimen,drugUsage,drugDosage,supervisorStaff,separateRoom,aerationSituation,pultubfoSmokcount,
+pultubfoSmokday,pultubfoRumbi,pultubfoRumday,pultubfoDrugaddress,pultubfoDrugtime,pultubfoWriter,pultubfoRelease,
+pultubfoTreat,pultubfoHarm,pultubfoReaction,pultubfoFurcon,pultubfoTmedicine,pultubfoBecareful,pultubfoInspect,
+puljkTime,pulState,nextfoTime,pultubfofoDoctor)
+    values(#{userId},#{pultubfoTime},#{pultubfoMode},#{pultubfoType},#{spuBacteria},#{druResistance},#{symptomSign},#{
+symptomOther},#{cheRegimen},#{drugUsage},#{drugDosage},#{supervisorStaff},#{separateRoom},#{aerationSituation},#{pultubfoSmokcount},#{
+pultubfoSmokday},#{pultubfoRumbi},#{pultubfoRumday},#{pultubfoDrugaddress},#{pultubfoDrugtime},#{pultubfoWriter},#{pultubfoRelease},#{
+pultubfoTreat},#{pultubfoHarm},#{pultubfoReaction},#{pultubfoFurcon},#{pultubfoTmedicine},#{pultubfoBecareful},#{pultubfoInspect},#{
+puljkTime},#{pulState},#{nextfoTime},#{pultubfofoDoctor})
+    </insert>
+    <update id="edit" parameterType="com.aaa.health.entity.pultub.Puserinfo">
+   update pultubfo set pultubfoTime=#{pultubfoTime},pultubfoMode=#{pultubfoMode},pultubfoType=#{pultubfoType},
+   spuBacteria=#{spuBacteria},druResistance=#{druResistance},symptomSign=#{symptomSign},symptomOther=#{symptomOther},
+   cheRegimen=#{cheRegimen},drugUsage=#{drugUsage},drugDosage=#{drugDosage},supervisorStaff=#{supervisorStaff},
+   separateRoom=#{separateRoom},aerationSituation=#{aerationSituation},pultubfoSmokcount=#{pultubfoSmokcount},
+pultubfoSmokday=#{pultubfoSmokday},pultubfoRumbi=#{pultubfoRumbi},pultubfoRumday=#{pultubfoRumday},pultubfoDrugaddress=#{pultubfoDrugaddress},
+pultubfoDrugtime=#{pultubfoDrugtime},pultubfoWriter=#{pultubfoWriter},pultubfoRelease=#{pultubfoRelease},
+pultubfoTreat=#{pultubfoTreat},pultubfoHarm=#{pultubfoHarm},pultubfoReaction=#{pultubfoReaction},
+pultubfoFurcon=#{pultubfoFurcon},pultubfoTmedicine=#{pultubfoTmedicine},pultubfoBecareful=#{pultubfoBecareful},
+pultubfoInspect=#{pultubfoInspect},puljkTime=#{puljkTime},pulState=#{pulState},nextfoTime=#{nextfoTime},pultubfofoDoctor=#{pultubfofoDoctor}
+    where pultubfoId=#{pultubfoId}
+    </update>
     <delete id="delete" parameterType="String">
         delete from pultubfo where pultubfoId in(${value})
     </delete>
@@ -42,5 +61,8 @@
         <if test="sex != null">
             and sex = #{sex}
         </if>
+    </select>
+    <select id="findById" parameterType="Integer" resultType="Map">
+select p.*,u.recordName,s.lastname from pultubfo p join userinfo u on p.userId=u.userId join user s on p.pultubfofoDoctor=s.id where pultubfoId=#{pultubfoId}
     </select>
 </mapper>

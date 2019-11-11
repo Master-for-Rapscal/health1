@@ -10,10 +10,11 @@ import java.util.Map;
 public interface DisfollowUpMapper {
     List<Map> queryDoctor();
     int delete(String disfopId);
-    //添加
     List<DisfollowUp> findId(Integer infdisId);
     List<DisfollowUp> findById(Integer disfopId);
-    int edit(DisfollowUp disfollowUp);
+    List<DisfollowUp> findUserId(Integer infdisId);
+    int update(DisfollowUp disfollowUp);
+    //添加
     int add(DisfollowUp disfollowUp);
-    int getTotal(Map<String, Object> queryMap);
+    int getTotal(Integer queryMap);
 }

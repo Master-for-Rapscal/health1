@@ -10,7 +10,7 @@ public interface RecordService {
     int delete(String wodisId);
 
     //添加
-    List<Record> findList(Map<String, Object> queryMap);
+    List<Record> findList(Integer userId);
 
     int getTotal(Map<String, Object> queryMap);
 }

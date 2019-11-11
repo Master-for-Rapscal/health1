@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
+
+<body>
+<div th:fragment="infdisease" th:height="500">
+    <div class="infdisease">
+        <style>
+            input[type="text"] {
+                border: 0px;
+                width: 50px;
+            }
+
+            input[type="checkbox"] {
+                margin-left: 15px;
+            }
+        </style>
+        <form id="infdisform" class="easyui-form" method="post" data-options="novalidate:true">
+            <table width="650" th:height="480" border="1" cellspacing="0" cellpadding="1">
+                <caption>
+                    <h3>传染病报告卡</h3>
+                </caption>
+                 <input type="text" name="userId" hidden="hidden">
+                <input type="text" name="infdisId" hidden="hidden">
+                <tr>
+                    <td>卡片编号</td>
+                    <td><input type="text"  style="width: 97%;height: 100%"  name="infdisCardnum"></td>
+                    <td>报卡类型</td>
+                    <td>
+                        <input type="radio" name="infdisCardtype" value="1">初次报告
+                        <input type="radio" name="infdisCardtype" value="2">订正报告
+                    </td>
+                </tr>
+                <tr>
+                    <td>患者姓名</td>
+                    <td><input type="text" style="width: 97%;height: 100%"  name="recordName" readonly></td>
+                    <td>家长姓名</td>
+                    <td><input type="text" style="width: 97%;height: 100%"  name="infdisParentname"></td>
+                </tr>
+                <tr>
+                    <td>身份证号</td>
+                    <td><input type="text" style="width: 97%;height: 100%"  name="userIdnumber" readonly></td>
+                    <td>患者性别</td>
+                    <td>
+                        <!--<input type="text" style="width: 97%;height: 100%"  name="userSex" readonly>-->
+                        <select name="userSex" readonly="true">
+                            <option value="1">男</option>
+                            <option value="2">女</option>
+                            <option value="3">未知</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>出生日期</td>
+                    <td><input type="text" class="easyui-datebox" style="width: 120px"  name="userBirthday" readonly></td>
+                    <td>如出生日期不详，实足年龄</td>
+                    <td><input type="text" style="width: 97%;height: 100%" name="userAge"></td>
+                </tr>
+                <tr>
+                    <td>工作单位（学校）</td>
+                    <td><input type="text" style="width: 97%;height: 100%"  name="userWorkunit"></td>
+                    <td>联系电话</td>
+                    <td><input type="text" style="width: 97%;height: 100%"  name="infdisPhone" oninput="value=value.replace(/[^\d]/g,'')"></td>
+                </tr>
+                <tr>
+                    <td>病人属于</td>
+                    <td colspan="3">
+                        <input type="radio" name="infdisPatis" value="1">本县区
+                        <input type="radio" name="infdisPatis" value="2">本市其它县区
+                        <input type="radio" name="infdisPatis" value="3">本省其他地市
+                        <input type="radio" name="infdisPatis" value="4">外省
+                        <input type="radio" name="infdisPatis" value="5">港澳台
+                        <input type="radio" name="infdisPatis" value="6">外籍
+                    </td>
+                </tr>
+                <tr>
+                    <td>现住址（详填）</td>
+                    <td colspan="3"><input type="text"  style="width: 120px"  name="recordAdress" value=""></td>
+                </tr>
+                <tr>
+                    <td>患者职业</td>
+                    <td colspan="3">
+                        <input type="radio" name="infdisChbjob" value="1">幼托儿童
+                        <input type="radio" name="infdisChbjob" value="2">散居儿童
+                        <input type="radio" name="infdisChbjob" value="3">学生（大中小学）
+                        <input type="radio" name="infdisChbjob" value="4">教师
+                        <input type="radio" name="infdisChbjob" value="5">保育员及保姆
+                        <input type="radio" name="infdisChbjob" value="6">餐饮食品业
+                        <input type="radio" name="infdisChbjob" value="7">商业服务
+                        <input type="radio" name="infdisChbjob" value="8">医务人员
+                        <input type="radio" name="infdisChbjob" value="9">工人
+                        <input type="radio" name="infdisChbjob" value="10">民工
+                        <input type="radio" name="infdisChbjob" value="11">农民
+                        <input type="radio" name="infdisChbjob" value="12">牧民
+                        <input type="radio" name="infdisChbjob" value="13">渔（船）民
+                        <input type="radio" name="infdisChbjob" value="14">干部职员
+                        <input type="radio" name="infdisChbjob" value="15">离退人员
+                        <input type="radio" name="infdisChbjob" value="16">家务及待业
+                        <input type="radio" name="infdisChbjob" value="17">其他
+                        <input type="radio" name="infdisChbjob" value="18">不详
+                    </td>
+                </tr>
+                <tr>
+                    <td>疾病类别1）</td>
+                    <td colspan="3">
+                        <input type="radio" name="infdisCateone" value="1">疑似病例
+                        <input type="radio" name="infdisCateone" value="2">临床诊断病例
+                        <input type="radio" name="infdisCateone" value="3">实验室确诊病例
+                        <input type="radio" name="infdisCateone" value="4">病原携带者
+                        <input type="radio" name="infdisCateone" value="5">急性
+                        <input type="radio" name="infdisCateone" value="6">慢性（乙型肝炎、血吸虫病填写）
+                    </td>
+                </tr>
+                <tr>
+                    <td>疾病类别2）</td>
+                    <td colspan="3">
+                        <input type="radio" name="infdisCatetwo" value="1">急性
+                        <input type="radio" name="infdisCatetwo" value="2">慢性（乙型肝炎、血吸虫病填写）
+                    </td>
+                </tr>
+                <tr>
+                    <td>发病日期</td>
+                    <td><input type="text" class="easyui-datebox" style="width: 120px"  name="infdisMdytime"></td>
+                    <td>诊断日期</td>
+                    <td><input type="text" class="easyui-datebox" style="width: 120px"  name="infdisDigtime"></td>
+                </tr>
+                <tr>
+                    <td>死亡日期</td>
+                    <td><input type="text" class="easyui-datebox" style="width: 120px"  name="infdisDietime"></td>
+                    <td>转归情况</td>
+                    <td>
+                        <select name="infdisOutcome" class="easyui-combobox"  style="width:120px;" >
+                            <option value="1">治愈</option>
+                            <option value="2">好转</option>
+                            <option value="3">外出</option>
+                            <option value="4">死亡</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>甲类传染病</td>
+                    <td colspan="3">
+                        <input type="radio" name="diseaseNail" value="1">鼠疫
+                        <input type="radio" name="diseaseNail" value="2">霍乱
+                    </td>
+                </tr>
+                <tr>
+                    <td>乙类传染病</td>
+                    <td colspan="3">
+                        <input type="radio" name="diseaseB" value="1">传染性非典型肺炎
+                        <input type="radio" name="diseaseB" value="2">艾滋病、病毒性肝炎（甲型）
+                        <input type="radio" name="diseaseB" value="3">艾滋病、病毒性肝炎（乙型）
+                        <input type="radio" name="diseaseB" value="4">艾滋病、病毒性肝炎（丙型）
+                        <input type="radio" name="diseaseB" value="5">艾滋病、病毒性肝炎（戍型）
+                        <input type="radio" name="diseaseB" value="6">艾滋病、病毒性肝炎（未分型）
+                        <input type="radio" name="diseaseB" value="7">脊髓灰质炎
+                        <input type="radio" name="diseaseB" value="8">人感染高致病性禽流感
+                        <input type="radio" name="diseaseB" value="9">麻疹
+                        <input type="radio" name="diseaseB" value="10">流行性出血热
+                        <input type="radio" name="diseaseB" value="11">狂犬病
+                        <input type="radio" name="diseaseB" value="12">流行性乙型脑炎
+                        <input type="radio" name="diseaseB" value="13">登革热，炭疽（肺炭疽）
+                        <input type="radio" name="diseaseB" value="14">登革热，炭疽（皮肤炭疽）
+                        <input type="radio" name="diseaseB" value="15">登革热，炭疽（未分型）
+                        <input type="radio" name="diseaseB" value="16">痢疾（细菌性）
+                        <input type="radio" name="diseaseB" value="17">痢疾（阿米巴性）
+                        <input type="radio" name="diseaseB" value="18">肺结核（涂阳）
+                        <input type="radio" name="diseaseB" value="19">肺结核（仅培阳）
+                        <input type="radio" name="diseaseB" value="20">肺结核（菌阴）
+                        <input type="radio" name="diseaseB" value="21">肺结核（未痰检）
+                        <input type="radio" name="diseaseB" value="22">伤寒（伤寒）
+                        <input type="radio" name="diseaseB" value="23">伤寒（副伤寒）
+                        <input type="radio" name="diseaseB" value="24">流行性脑脊髓膜炎
+                        <input type="radio" name="diseaseB" value="25">百日咳
+                        <input type="radio" name="diseaseB" value="26">白喉
+                        <input type="radio" name="diseaseB" value="27">新生儿破伤风
+                        <input type="radio" name="diseaseB" value="28">猩红热
+                        <input type="radio" name="diseaseB" value="29">布鲁氏菌病
+                        <input type="radio" name="diseaseB" value="30">淋病、梅毒（I期）
+                        <input type="radio" name="diseaseB" value="31">淋病、梅毒（II期）
+                        <input type="radio" name="diseaseB" value="32">淋病、梅毒（III期）
+                        <input type="radio" name="diseaseB" value="33">淋病、梅毒（胎传）
+                        <input type="radio" name="diseaseB" value="34">淋病、梅毒（隐性）
+                        <input type="radio" name="diseaseB" value="35">钩端螺旋体病
+                        <input type="radio" name="diseaseB" value="36">血吸虫病，疟疾（间日疟）
+                        <input type="radio" name="diseaseB" value="37">血吸虫病，疟疾（恶性疟）
+                        <input type="radio" name="diseaseB" value="38">血吸虫病，疟疾（未分型）
+                    </td>
+                </tr>
+                <tr>
+                    <td>丙类传染病</td>
+                    <td colspan="3">
+                        <input type="radio" name="diseaseC" value="1">流行性感冒
+                        <input type="radio" name="diseaseC" value="2">流行性腮腺炎
+                        <input type="radio" name="diseaseC" value="3">风疹
+                        <input type="radio" name="diseaseC" value="4">急性出血性结膜炎
+                        <input type="radio" name="diseaseC" value="5">麻风病
+                        <input type="radio" name="diseaseC" value="6">流行性和地方性斑疹伤寒
+                        <input type="radio" name="diseaseC" value="7">黑热病
+                        <input type="radio" name="diseaseC" value="8">包虫病
+                        <input type="radio" name="diseaseC" value="9">丝虫病
+                        <input type="radio" name="diseaseC" value="10">以外的感染性腹泻病
+                    </td>
+                </tr>
+                <tr>
+                    <td>其他法定管理以及重点监测传染病</td>
+                    <td colspan="3">
+                        <select name="diseaseOther" class="easyui-combobox"  style="width:120px;" >
+                            <option value="1">非淋菌性尿道炎</option>
+                            <option value="2">尖锐湿疣、生殖器疱疹</option>
+                            <option value="3">水痘、肝吸虫病、生殖道沙眼衣原体、恙虫病、森林脑炎</option>
+                            <option value="4">结核性胸膜炎</option>
+                            <option value="5">发热伴血小板减少综合症</option>
+                            <option value="6">其它</option>
+                            <option value="7">不明原因</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>诊断病名</td>
+                    <td><input type="text" style="width: 120px"  name="infdisIllness"></td>
+                    <td>退卡原因</td>
+                    <td><input type="text" style="width: 120px"  name="infdisCard"></td>
+                </tr>
+                <tr>
+                    <td>报告单位</td>
+                    <td><input type="text" style="width: 120px"  name="infdisReport"></td>
+                    <td>联系电话</td>
+                    <td><input type="text" style="width: 120px"  name="infdisTel"></td>
+                </tr>
+                <tr>
+                    <td>报告医生</td>
+                    <td>
+                        <select name="infdisDoctor" class="easyui-combobox" panelHeight="auto" style="width:268px" >
+                            <a th:each="doctor:${session.doctor}" >
+                                <option   th:value="${doctor.id}" ><span th:text="${doctor.lastname }"></span></option>
+                            </a>
+                        </select>
+                    </td>
+                    <td>填卡日期</td>
+                    <td><input type="text" class="easyui-datebox" name="infdisTime" style="width: 150px"></td>
+                </tr>
+                <tr>
+                    <td>处理</td>
+                    <td colspan="3">
+                        <textarea name="infdisHandle" rows="3" cols="80"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>

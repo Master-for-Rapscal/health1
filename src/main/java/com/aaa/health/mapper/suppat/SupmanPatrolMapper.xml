@@ -5,20 +5,23 @@
 <mapper namespace="com.aaa.health.mapper.suppat.SupmanPatrolMapper">
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.suppat.SupmanPatrol">
 select p.patrolId,p.areaId,a.areaName,p.patrolYear,p.patrolContent,p.patrolProblem,p.patrolTime,p.patrolName,p.patrolRemarks,p.patrolState,p.patrolColumn from supmanPatrol p join area a on p.areaId=a.areaId
-where 1 = 1
+where 1=1
 
-        <if test="username != null">
-            and username like '%${username}%'
+        <if test="patrolName != null">
+            and patrolName like '%${patrolName}%'
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="beginTime != null">
+            and p.patrolTime  >= #{beginTime}
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
+        <if test="endTime != null">
+            and   #{endTime} >= p.patrolTime
         </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
+    <if test="offset != null and pageSize != null">
+        limit #{offset},#{pageSize}
+    </if>
+
+    /*order by p.patrolTime desc*/
+
     </select>
 
     <insert id="add" parameterType="com.aaa.health.entity.suppat.SupmanPatrol">
@@ -37,15 +40,22 @@ update supmanPatrol set areaId=#{areaId},patrolYear=#{patrolYear},patrolContent=
 
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*) from supmanPatrol where 1 = 1
-        <if test="username != null">
-            and username like '%${username}%'
+        select count(*) from supmanPatrol
+        where 1=1
+
+        <if test="patrolName != null">
+            and patrolName like '%${patrolName}%'
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="beginTime != null">
+            and patrolTime  >= #{beginTime}
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
+        <if test="endTime != null">
+            and   #{endTime} >= patrolTime
         </if>
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+        /*order by patrolTime desc*/
+
     </select>
 </mapper>

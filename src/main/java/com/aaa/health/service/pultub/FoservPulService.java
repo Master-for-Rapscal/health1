@@ -11,4 +11,7 @@ public interface FoservPulService {
     List<FoservPul> findId(Integer pultubfoId);
     int getTotal(Map<String, Object> queryMap);
     Map<String,Object> findById(Integer foserId);
+    List<FoservPul> findUserId(Integer pultubfoId);
+    int add(FoservPul foservPul);
+    int update(FoservPul foservPul);
 }

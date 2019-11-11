@@ -10,34 +10,30 @@
     <insert id="add" parameterType="com.aaa.health.entity.indis.DisfollowUp">
  insert into disfollowUp(infdisId,disfopTime,disfopMode,disfopQuarantine,disfopSymptom,firstVisit,
 attackCate,disfopSituation,disfopRemarks,disfopDisinfect,disfopMedicine,disfopRecovery,nextfoTime,disfopDoctor)
-    values(#{infdisId},#{disfopTime},#{disfopMode},#{disfopQuarantine},#{disfopSymptom},#{firstVisit},#{
-attackCate},#{disfopSituation},#{disfopRemarks},#{disfopDisinfect},#{disfopMedicine},#{disfopRecovery},#{nextfoTime},#{disfopDoctor})
+    values(#{infdisId},#{disfopTime},#{disfopMode},#{disfopQuarantine},#{disfopSymptom},#{firstVisit},#{attackCate},#{disfopSituation},#{disfopRemarks},#{disfopDisinfect},#{disfopMedicine},#{disfopRecovery},#{nextfoTime},#{disfopDoctor})
     </insert>
     <select id="findById" parameterType="Integer" resultType="com.aaa.health.entity.indis.DisfollowUp">
-        select u.userId,u.recordName,u.userSex,u.userBirthday,u.userGam,u.userCareer,u.userMyphone,u.recordAdress,d.infdisId,d.disfopTime,d.disfopMode,d.disfopQuarantine,d.disfopSymptom,d.firstVisit,d.attackCate,d.disfopSituation,d.disfopRemarks,d.disfopDisinfect,d.disfopMedicine,d.disfopRecovery,d.nextfoTime,d.disfopDoctor
-        from  disfollowUp d join infdisease i on d.infdisId=i.infdisId join userinfo u on i.userId=u.userId
-        where disfopId = #{disfopId}
-
+select d.*,s.lastname,u.userId,u.recordName,u.userSex,u.userBirthday,u.userGam,u.userCareer,u.userMyphone,u.recordAdress
+from  disfollowUp d join infdisease i on d.infdisId=i.infdisId join userinfo u on i.userId=u.userId
+join user s on d.disfopDoctor=s.id where disfopId=#{disfopId}
     </select>
-    <update id="edit" parameterType="com.aaa.health.entity.indis.DisfollowUp">
-update disfollowUp set infdisId=#{infdisId},disfopTime=#{disfopTime},disfopMode=#{disfopMode},disfopQuarantine=#{disfopQuarantine},
+    <update id="update" parameterType="com.aaa.health.entity.indis.DisfollowUp">
+update disfollowUp set disfopTime=#{disfopTime},disfopMode=#{disfopMode},disfopQuarantine=#{disfopQuarantine},
 disfopSymptom=#{disfopSymptom},firstVisit=#{firstVisit},attackCate=#{attackCate},disfopSituation=#{disfopSituation},
 disfopRemarks=#{disfopRemarks},disfopDisinfect=#{disfopDisinfect},disfopMedicine=#{disfopMedicine},disfopRecovery=#{disfopRecovery},
 nextfoTime=#{nextfoTime},disfopDoctor=#{disfopDoctor}
     where disfopId=#{disfopId}
     </update>
-    <!-- 分页获取用户列表 -->
-   <!-- <select id="findById" parameterType="Map" resultType="com.aaa.health.entity.indis.DisfollowUp">
-        select disfopId,disfopTime,disfopDoctor,nextfoTime from disfollowUp where infdisId=#{infdisId}
-    </select>-->
+
     <select id="findId" parameterType="Map" resultType="com.aaa.health.entity.indis.DisfollowUp">
-        select * from disfollowUp where infdisId=#{infdisId}
+        select * from disfollowUp d join user u on d.disfopDoctor=u.id where infdisId=#{infdisId}
+    </select>
+    <select id="findUserId" parameterType="Integer" resultType="com.aaa.health.entity.indis.DisfollowUp">
+select i.userId,u.recordName,u.userSex,u.userBirthday,u.userGam,u.userCareer,u.userMyphone,u.recordAdress from infdisease i join userinfo u on i.userId=u.userId where infdisId=#{infdisId}
     </select>
 
-    <select id="getTotal" parameterType="Map" resultType="Integer">
+    <select id="getTotal" parameterType="Integer" resultType="Integer">
 select count(*) from disfollowUp where infdisId=#{infdisId}
     </select>
-    <!--<select id="queryDoctor" resultType="Map">
-          select * from user where roleId != 1
-    </select>-->
+
 </mapper>

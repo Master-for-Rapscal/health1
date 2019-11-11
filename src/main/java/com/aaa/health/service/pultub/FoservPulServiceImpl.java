@@ -16,6 +16,7 @@ public class FoservPulServiceImpl implements FoservPulService{
         return foservPulMapper.delete(foserId);
     }
 
+
     @Override
     public List<FoservPul> findId(Integer pultubfoId) {
         return foservPulMapper.findId(pultubfoId);
@@ -30,5 +31,20 @@ public class FoservPulServiceImpl implements FoservPulService{
     @Override
     public Map<String,Object> findById(Integer foserId) {
         return foservPulMapper.findById(foserId);
+    }
+
+    @Override
+    public List<FoservPul> findUserId(Integer pultubfoId) {
+        return foservPulMapper.findUserId(pultubfoId);
+    }
+
+    @Override
+    public int add(FoservPul foservPul) {
+        return foservPulMapper.add(foservPul);
+    }
+
+    @Override
+    public int update(FoservPul foservPul) {
+        return foservPulMapper.update(foservPul);
     }
 }

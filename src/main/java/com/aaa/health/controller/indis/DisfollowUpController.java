@@ -5,11 +5,16 @@ import com.aaa.health.page.admin.Page;
 import com.aaa.health.service.indis.DisfollowUpService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,15 +31,12 @@ public class DisfollowUpController {
     @RequestMapping(value = "/findId", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getList(Page page,Integer infdisId) {
-        System.out.println(infdisId);
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-        System.out.println("接受值"+disfollowUpService.findId(infdisId));
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
-        ret.put("rows", disfollowUpService.findById(infdisId));// 页面加载数据使用
-        ret.put("total", disfollowUpService.getTotal(queryMap));// 分页使用
-        System.out.println(ret);
+        ret.put("rows", disfollowUpService.findId(infdisId));// 页面加载数据使用
+        ret.put("total", disfollowUpService.getTotal(infdisId));// 分页使用
         return ret;
     }
 
@@ -65,15 +67,41 @@ public class DisfollowUpController {
         ret.put("msg", "删除成功！");
         return ret;
     }
+    @RequestMapping(value = "/findUserId", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> findUserId(Integer infdisId) {
+        System.out.println(infdisId);
+        Map<String, Object> fd = new HashMap<String, Object>();
+        fd.put("finduser", disfollowUpService.findUserId(infdisId));// 页面加载数据使用
+        System.out.println(disfollowUpService.findUserId(infdisId));
+        return fd;
+    }
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> add(Integer infdisId,DisfollowUp disfollowUp) {
+        disfollowUp.getInfdisId();
+        Map<String, String> ret = new HashMap<String, String>();
+        if (disfollowUp == null) {
+            ret.put("type", "error");
+            ret.put("msg", "后台获取信息失败！");
+            return ret;
+        }
+        if (disfollowUpService.add(disfollowUp) <= 0) {
+            ret.put("type", "error");
+            ret.put("msg", "添加信息失败，请联系管理员！");
+            return ret;
+        }
+        ret.put("type", "success");
+        ret.put("msg", "添加失败！");
+        return ret;
+    }
     @RequestMapping(value = "/findById", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> findById(Page page,Integer disfopId) {
+    public Map<String, Object> findById(Integer disfopId) {
         Map<String, Object> ret = new HashMap<String, Object>();
-//        System.out.println("收到参数id："+disfopId);
-//        System.out.println("通过id查询到数据："+infDiseaseService.findById(disfopId));
-//
+        Map<String, Object> queryMap = new HashMap<String, Object>();
+        System.out.println("后台数据"+disfollowUpService.findById(disfopId));
         ret.put("InfDisease", disfollowUpService.findById(disfopId));// 页面加载数据使用
-
         return ret;
     }
     /**
@@ -82,13 +110,12 @@ public class DisfollowUpController {
      * @param disfollowUp
      * @return
      */
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> update(DisfollowUp disfollowUp) {
         Map<String, String> ret = new HashMap<String, String>();
-        int b=disfollowUpService.edit(disfollowUp);
-        System.out.println(b+"sss");
-        if (disfollowUpService.edit(disfollowUp) <= 0) {
+        int b=disfollowUpService.update(disfollowUp);
+        if (disfollowUpService.update(disfollowUp) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "信息修改失败，请联系管理员！");
             return ret;
@@ -96,6 +123,11 @@ public class DisfollowUpController {
         ret.put("type", "success");
         ret.put("msg", "修改成功！");
         return ret;
+    }
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 
 }

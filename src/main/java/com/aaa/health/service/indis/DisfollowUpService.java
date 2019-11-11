@@ -12,7 +12,8 @@ public interface DisfollowUpService {
     int delete(String disfopId);
     List<DisfollowUp> findById(Integer disfopId);
     List<DisfollowUp> findId(Integer infdisId);
-    int edit(DisfollowUp disfollowUp);
+    List<DisfollowUp> findUserId(Integer infdisId);
+    int update(DisfollowUp disfollowUp);
     int add(DisfollowUp disfollowUp);
-    int getTotal(Map<String, Object> queryMap);
+    int getTotal(Integer queryMap);
 }

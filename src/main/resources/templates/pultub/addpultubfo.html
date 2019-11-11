@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
+
+<body>
+<div th:fragment="pultubfo" th:height="500">
+    <div class="pultubfo">
+        <style>
+            input[type="text"] {
+                border: 0px;
+                width: 50px;
+            }
+
+            input[type="checkbox"] {
+                margin-left: 15px;
+            }
+        </style>
+        <form id="pulform" class="easyui-form" method="post" data-options="novalidate:true">
+        <table width="650" th:height="480" border="1" cellspacing="0" cellpadding="1">
+            <caption>
+                <h3>肺结核第一次入户随访记录表</h3>
+            </caption>
+            <input type="text" name="pultubfoId">
+            <tr>
+                <td colspan="2">姓名</td>
+                <td colspan="2"><input type="text"  style="width: 120px"  name="recordName" readonly></td>
+                <td>编号</td>
+                <td>
+                    <input type="text" style="width: 120px"  name="userId" readonly>
+                </td>
+            </tr>
+                <tr>
+                <td colspan="2">随访时间</td>
+                    <td colspan="4"><input type="text" class="easyui-datebox" style="width: 120px"  name="pultubfoTime"></td>
+            </tr>
+            <tr>
+                <td colspan="2">随访方式</td>
+                <td colspan="4">
+                    <input type="radio" name="pultubfoMode" value="1">门诊
+                    <input type="radio" name="pultubfoMode" value="2">家庭
+                    <input type="radio" name="pultubfoMode" value="3">电话
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">患者类型</td>
+                <td colspan="4">
+                    <input type="radio" name="pultubfoType" value="1">初治
+                    <input type="radio" name="pultubfoType" value="2">复治
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">痰菌情况</td>
+                <td colspan="4">
+                    <input type="radio" name="spuBacteria" value="1">阳性
+                    <input type="radio" name="spuBacteria" value="2">阴性
+                    <input type="radio" name="spuBacteria" value="3">未查痰
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">耐药情况</td>
+                <td colspan="4">
+                    <input type="radio" name="druResistance" value="1">耐药
+                    <input type="radio" name="druResistance" value="2">非耐药
+                    <input type="radio" name="druResistance" value="3">未检测
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2">症状及体征</td>
+                <td colspan="5">
+                    <input type="checkbox" name="symptomSign" value="1"/>没有症状
+                    <input type="checkbox" name="symptomSign" value="2"/>咳嗽咳痰
+                    <input type="checkbox" name="symptomSign" value="3"/>低热盗汗
+                    <input type="checkbox" name="symptomSign" value="4"/>咯血或血痰
+                    <input type="checkbox" name="symptomSign" value="5"/>胸痛消瘦
+                    <input type="checkbox" name="symptomSign" value="6"/>恶心纳差
+                    <input type="checkbox" name="symptomSign" value="7"/>头痛失眠
+                    <input type="checkbox" name="symptomSign" value="8"/>视物模糊
+                    <input type="checkbox" name="symptomSign" value="9"/>皮肤瘙痒、皮疹
+                    <input type="checkbox" name="symptomSign" value="10"/>耳鸣、听力下降
+                    <input type="checkbox" name="symptomSign" value="11" onclick="checkItem1(this)"/>其他
+                </td>
+            </tr>
+            <tr>
+                <td>其他</td>
+                <td colspan="4"><input type="text"  style="width: 120px"  name="symptomOther"></td>
+            </tr>
+            <tr>
+                <td rowspan="4">用药</td>
+                <td>化疗方案</td>
+                <td colspan="4"><input type="text"  style="width: 120px"  name="cheRegimen"></td>
+            </tr>
+            <tr>
+                <td>用法</td>
+                <td colspan="4">
+                    <input type="radio" name="drugUsage" value="1">每日
+                    <input type="radio" name="drugUsage" value="2">间歇
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2">药品剂型</td>
+                <td colspan="4">
+                    <input type="checkbox" name="drugDosage" value="1"/>固定剂量复合制剂
+                    <input type="checkbox" name="drugDosage" value="2"/>散装药
+                    <input type="checkbox" name="drugDosage" value="3"/>板式组合药
+                    <input type="checkbox" name="drugDosage" value="4"/>注射剂
+                </td>
+            </tr>
+            <tr>
+                <td>督导人员选择</td>
+                <td colspan="4">
+                    <input type="radio" name="supervisorStaff" value="1">医生
+                    <input type="radio" name="supervisorStaff" value="2">家属
+                    <input type="radio" name="supervisorStaff" value="3">自服药
+                    <input type="radio" name="supervisorStaff" value="4">其他
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2" colspan="2">家庭居住环境评估</td>
+                <td>单独的居室</td>
+                <td colspan="3">
+                    <input type="radio" name="separateRoom" value="1">有
+                    <input type="radio" name="separateRoom" value="2">无
+                </td>
+            </tr>
+            <tr>
+                <td>通风情况</td>
+                <td colspan="3">
+                    <input type="radio" name="aerationSituation" value="1">良好
+                    <input type="radio" name="aerationSituation" value="2">一般
+                    <input type="radio" name="aerationSituation" value="3">差
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" rowspan="2">生活方式评估</td>
+                <td colspan="4">
+                    吸&nbsp;&nbsp;烟<input type="text" name="pultubfoSmokcount" size="5"/>/&nbsp;<input type="text" name="pultubfoSmokday" size="5"/>支/天
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    饮&nbsp;&nbsp;酒<input type="text" name="pultubfoRumbi" size="5"/>/&nbsp;<input type="text" name="pultubfoRumday" size="5"/>两/天
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" rowspan="11">健康教育及培训</td>
+                <td>取药地点：</td>
+                <td colspan="3">
+                <input type="text" name="pultubfoDrugaddress"/>
+                </td>
+            </tr>
+            <tr>
+                <td>取药时间：</td>
+                <td colspan="3">
+                    <input type="text" class="easyui-datebox" name="pultubfoDrugtime"/>
+                </td>
+            </tr>
+            <tr>
+                <td>服药记录卡的填写</td>
+                <td colspan="3">
+                    <input type="radio" name="pultubfoWriter" value="1">掌握
+                    <input type="radio" name="pultubfoWriter" value="2">未掌握
+                </td>
+            </tr>
+            <tr>
+                <td>服药方法及药品存放</td>
+                <td colspan="3">
+                    <input type="radio" name="pultubfoRelease" value="1">掌握
+                    <input type="radio" name="pultubfoRelease" value="2">未掌握
+                </td>
+            </tr>
+            <tr>
+                <td>肺结核治疗疗程</td>
+                <td colspan="3">
+                    <input type="radio" name="pultubfoTreat" value="1">掌握
+                    <input type="radio" name="pultubfoTreat" value="2">未掌握
+                </td>
+            </tr>
+            <tr>
+                <td>不规律服药危害</td>
+                <td colspan="3">
+                    <input type="radio" name="pultubfoHarm" value="1">掌握
+                    <input type="radio" name="pultubfoHarm" value="2">未掌握
+                </td>
+            </tr>
+            <tr>
+                <td>服药后不良反应及处理</td>
+                <td colspan="3">
+                    <input type="radio" name="pultubfoReaction" value="1">掌握
+                    <input type="radio" name="pultubfoReaction" value="2">未掌握
+                </td>
+            </tr>
+            <tr>
+                <td>治疗期间复诊查痰</td>
+                <td colspan="3">
+                    <input type="radio" name="pultubfoFurcon" value="1">掌握
+                    <input type="radio" name="pultubfoFurcon" value="2">未掌握
+                </td>
+            </tr>
+            <tr>
+                <td>外出期间如何坚持服药</td>
+                <td colspan="3">
+                    <input type="radio" name="pultubfoTmedicine" value="1">掌握
+                    <input type="radio" name="pultubfoTmedicine" value="2">未掌握
+                </td>
+            </tr>
+            <tr>
+                <td>生活习惯及注意事项</td>
+                <td colspan="3">
+                    <input type="radio" name="pultubfoBecareful" value="1">掌握
+                    <input type="radio" name="pultubfoBecareful" value="2">未掌握
+                </td>
+            </tr>
+            <tr>
+            <td>密切接触者检查</td>
+            <td colspan="3">
+                <input type="radio" name="pultubfoInspect" value="1">掌握
+                <input type="radio" name="pultubfoInspect" value="2">未掌握
+            </td>
+        </tr>
+            <tr>
+                <td colspan="2">下次随访时间</td>
+                <td colspan="4"><input type="text" class="easyui-datebox" style="width: 120px"  name="nextfoTime"></td>
+            </tr>
+            <tr>
+                <td colspan="2">评估医生签名</td>
+                <td colspan="4">
+                    <select name="pultubfofoDoctor" class="easyui-combobox" panelHeight="auto" style="width:268px" >
+                        <a th:each="doctor:${session.doctor}" >
+                            <option   th:value="${doctor.id}" ><span th:text="${doctor.lastname }"></span></option>
+                        </a>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

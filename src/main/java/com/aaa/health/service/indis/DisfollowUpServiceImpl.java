@@ -34,17 +34,22 @@ public class DisfollowUpServiceImpl implements DisfollowUpService{
     }
 
     @Override
-    public int edit(DisfollowUp disfollowUp) {
-        return disfollowUpMapper.edit(disfollowUp);
+    public List<DisfollowUp> findUserId(Integer infdisId) {
+        return disfollowUpMapper.findUserId(infdisId);
+    }
+
+    @Override
+    public int update(DisfollowUp disfollowUp) {
+        return disfollowUpMapper.update(disfollowUp);
     }
 
     @Override
     public int add(DisfollowUp disfollowUp) {
-        return 0;
+        return disfollowUpMapper.add(disfollowUp);
     }
 
     @Override
-    public int getTotal(Map<String, Object> queryMap) {
+    public int getTotal(Integer queryMap) {
         return disfollowUpMapper.getTotal(queryMap);
     }
 }

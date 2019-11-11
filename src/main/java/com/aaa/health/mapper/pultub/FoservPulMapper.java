@@ -1,6 +1,8 @@
 package com.aaa.health.mapper.pultub;
 
+import com.aaa.health.entity.indis.DisfollowUp;
 import com.aaa.health.entity.pultub.FoservPul;
+import com.aaa.health.entity.pultub.PulTubfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -11,4 +13,7 @@ public interface FoservPulMapper {
     List<FoservPul> findId(Integer pultubfoId);
     int getTotal(Map<String, Object> queryMap);
     Map<String,Object> findById(Integer foserId);
+    List<FoservPul> findUserId(Integer pultubfoId);
+    int add(FoservPul foservPul);
+    int update(FoservPul foservPul);
 }

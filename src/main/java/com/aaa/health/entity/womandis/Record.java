@@ -3,10 +3,10 @@ package com.aaa.health.entity.womandis;
 import java.util.Date;
 
 public class Record {
-    private Integer wodisId,userId,wodisMenage,wodisMencycle,wodisMentime,wodisMenamount,wodisMenapain,
+    private Integer wodisbh,wodisId,userId,wodisMenage,wodisMencycle,wodisMentime,wodisMenamount,wodisMenapain,
             wodisAge,wodisBlood,mateId,wodisNowmethod,woinId,wodisHandlestate,wodisReview,wodisState;
     private Date wodisBegintime,wodisClotime,wodisRevtime,wodisLoginregtime;
-    private String wodisBh,wodisSideeffect,pastIllness,familyTumor,wodisCloreason,wodisOpinion,wodisProposal,
+    private String wodisSideeffect,pastIllness,familyTumor,wodisCloreason,wodisOpinion,wodisProposal,
             wodisColumn;
 
     public Integer getWodisId() {
@@ -161,12 +161,12 @@ public class Record {
         this.wodisLoginregtime = wodisLoginregtime;
     }
 
-    public String getWodisBh() {
-        return wodisBh;
+    public Integer getWodisbh() {
+        return wodisbh;
     }
 
-    public void setWodisBh(String wodisBh) {
-        this.wodisBh = wodisBh;
+    public void setWodisbh(Integer wodisbh) {
+        this.wodisbh = wodisbh;
     }
 
     public String getWodisSideeffect() {
@@ -247,7 +247,7 @@ public class Record {
                 ", wodisClotime=" + wodisClotime +
                 ", wodisRevtime=" + wodisRevtime +
                 ", wodisLoginregtime=" + wodisLoginregtime +
-                ", wodisBh='" + wodisBh + '\'' +
+                ", wodisbh='" + wodisbh + '\'' +
                 ", wodisSideeffect='" + wodisSideeffect + '\'' +
                 ", pastIllness='" + pastIllness + '\'' +
                 ", familyTumor='" + familyTumor + '\'' +

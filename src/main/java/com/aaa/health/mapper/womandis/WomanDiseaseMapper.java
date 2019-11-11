@@ -10,7 +10,7 @@ public interface WomanDiseaseMapper {
     List<WomanDisease> findList(Map<String, Object> queryMap);
     int getTotal(Map<String, Object> queryMap);
     int add(WomanDisease womanDisease);
+    Map<String,Object> findById(Integer wodisId);
     int update(WomanDisease womanDisease);
     int delete(String ids);
-    //List<WomanDisease> queryRe(Integer wodisId);
 }

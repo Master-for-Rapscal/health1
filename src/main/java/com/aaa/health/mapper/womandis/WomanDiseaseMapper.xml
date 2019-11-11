@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.womandis.WomanDiseaseMapper">
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.womandis.WomanDisease">
-        select w.wodisId,w.userId,u.recordName,u.userIdnumber,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(u.userBirthday))/365) userAge,u.recordAdress,u.userMyphone,u.recordData from womanDisease w left join userinfo u on w.userId=u.userId
+        select u.userId,u.recordName,u.userIdnumber,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(u.userBirthday))/365) userAge,u.recordAdress,u.userMyphone,u.recordData from userinfo u
         <if test="username != null">
             and username like '%${username}%'
         </if>
@@ -19,14 +19,27 @@
         </if>
     </select>
 
-    <!--<select id="queryRe" parameterType="Integer" resultType="com.aaa.health.entity.womandis.WomanDisease">
-    select wodisBh,wodisMenage,wodisMencycle,wodisLoginregtime from womanDisease where wodisId=#{wodisId}
-    </select>-->
 
-    <!--<insert id="add" parameterType="com.aaa.health.entity.suppat.SupmanPatrol">-->
-    <!--INSERT INTO ADDSUPMANREPORT(ADDRESS_ID,ADDRESS_ID2,REPORT_FINDTIME,REPORT_CATEGORY,REPORT_TIME,REPORT_NAME)-->
-    <!--VALUES(#{ADDRESSID},#{ADDRESSID2},REPORTFINDTIME,REPORTCATEGORY,REPORTTIME,REPORTNAME)-->
-    <!--</insert>-->
+    <insert id="add" parameterType="com.aaa.health.entity.womandis.WomanDisease">
+insert into womanDisease(userId,wodisbh,wodisMenage,wodisMencycle,wodisMentime,wodisMenamount,wodisMenapain,
+wodisAge,wodisBlood,mateAge,mateDystocia,mateTerm,mateGravidity,mateOutgravidity,matePredelivery,
+mateAbortion,matePeoabort,mateIndlabor,mateStbirth,mateStbir,mateBirthdie,mateBirthdefect,wodisNowmethod,
+wodisBegintime,wodisSideeffect,pastIllness,familyTumor,woinVulva,woinVuremarks,
+woinVagina,woinVaremarks,woinSecretion,woinSeremarks,woinCervical,woinCeremarks,
+woinReview,woinReviewTime,ubodySize,ubodyPosition,ubodyHardness,ubodyActivity,ubodySurface,ubodyTenderness,
+ubodyLeft,ubodyLeremarks,ubodyRight,ubodyRiremarks,gbodyLeft,gbodyRight,tumorLeft,tumorRight,
+woinRemarks,woinGlandular,woinGlandularTime,wodisHandlestate,wodisClotime,wodisCloreason,
+wodisOpinion,wodisProposal,wodisReview,wodisRevtime,wodisLoginregtime)
+    values(#{userId},#{wodisbh},#{wodisMenage},#{wodisMencycle},#{wodisMentime},#{wodisMenamount},#{wodisMenapain},#{
+wodisAge},#{wodisBlood},#{mateAge},#{mateDystocia},#{mateTerm},#{mateGravidity},#{mateOutgravidity},#{matePredelivery},#{
+mateAbortion},#{matePeoabort},#{mateIndlabor},#{mateStbirth},#{mateStbir},#{mateBirthdie},#{mateBirthdefect},#{wodisNowmethod},#{
+wodisBegintime},#{wodisSideeffect},#{pastIllness},#{familyTumor},#{woinVulva},#{woinVuremarks},#{
+woinVagina},#{woinVaremarks},#{woinSecretion},#{woinSeremarks},#{woinCervical},#{woinCeremarks},#{
+woinReview},#{woinReviewTime},#{ubodySize},#{ubodyPosition},#{ubodyHardness},#{ubodyActivity},#{ubodySurface},#{ubodyTenderness},#{
+ubodyLeft},#{ubodyLeremarks},#{ubodyRight},#{ubodyRiremarks},#{gbodyLeft},#{gbodyRight},#{tumorLeft},#{tumorRight},#{
+woinRemarks},#{woinGlandular},#{woinGlandularTime},#{wodisHandlestate},#{wodisClotime},#{wodisCloreason},#{
+wodisOpinion},#{wodisProposal},#{wodisReview},#{wodisRevtime},#{wodisLoginregtime})
+    </insert>
 
     <delete id="delete" parameterType="String">
         delete from womanDisease where wodisId in(${value})
@@ -46,8 +59,7 @@
             and sex = #{sex}
         </if>
     </select>
-<!--    <select id="findId" parameterType="Map" resultType="com.aaa.health.entity.womandis.WomanDisease">
-/*select w.wodisId,w.userId,u.recordName,u.userIdnumber,u.userBirthday,u.recordAdress,u.userMyphone,u.recordData,w.wodisBh,w.wodisMenage,w.wodisMencycle,w.wodisLoginregtime from womanDisease w left join userinfo u on w.userId=u.userId
-*/      select * from foservpul where pultubfoId=#{pultubfoId}
-    </select>-->
+    <select id="findById" parameterType="Integer" resultType="Map">
+     select * from womanDisease w join userinfo u on w.userId=u.userId where wodisId=#{wodisId}
+    </select>
 </mapper>

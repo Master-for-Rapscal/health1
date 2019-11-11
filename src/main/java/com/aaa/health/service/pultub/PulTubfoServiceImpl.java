@@ -27,8 +27,13 @@ public class PulTubfoServiceImpl implements PulTubfoService{
     }
 
     @Override
-    public int update(PulTubfo pulTubfo) {
-        return pulTubfoMapper.update(pulTubfo);
+    public Map<String, Object> findById(Integer pultubfoId) {
+        return pulTubfoMapper.findById(pultubfoId);
+    }
+
+    @Override
+    public int edit(PulTubfo pulTubfo) {
+        return pulTubfoMapper.edit(pulTubfo);
     }
 
     @Override

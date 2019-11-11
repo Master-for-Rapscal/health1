@@ -12,6 +12,7 @@ public interface InfDiseaseMapper {
     List<InfDisease> findList(Map<String, Object> queryMap);
     int getTotal(Map<String, Object> queryMap);
     int add(InfDisease infDisease);
-    int update(InfDisease infDisease);
+    Map<String,Object> findById(Integer infdisId);
+    int edit(InfDisease infDisease);
     int delete(String ids);
 }

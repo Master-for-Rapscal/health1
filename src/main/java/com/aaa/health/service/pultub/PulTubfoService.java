@@ -10,6 +10,7 @@ public interface PulTubfoService {
     List<PulTubfo> findList(Map<String, Object> queryMap);
     int getTotal(Map<String, Object> queryMap);
     int add(PulTubfo pulTubfo);
-    int update(PulTubfo pulTubfo);
+    Map<String,Object> findById(Integer pultubfoId);
+    int edit(PulTubfo pulTubfo);
     int delete(String ids);
 }

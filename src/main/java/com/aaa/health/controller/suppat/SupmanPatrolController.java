@@ -12,10 +12,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,11 +36,16 @@ public class SupmanPatrolController {
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page) {
+    public Map<String, Object> getList(Page page, @RequestParam(name = "patrolName", required = false, defaultValue = "") String patrolName,
+                                       @RequestParam(name = "beginTime", required = false, defaultValue = "") Date beginTime,
+                                       @RequestParam(name = "endTime", required = false, defaultValue = "") Date endTime){
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         System.out.println("------------"+queryMap);
         System.out.println( "------------"+supmanPatrolService.findList(queryMap));
+        queryMap.put("patrolName",patrolName);
+        queryMap.put("beginTime",beginTime);
+        queryMap.put("endTime",endTime);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", supmanPatrolService.findList(queryMap));// 页面加载数据使用
@@ -110,6 +112,9 @@ public class SupmanPatrolController {
         ret.put("msg", "修改成功！");
         return ret;
     }
+
+
+
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

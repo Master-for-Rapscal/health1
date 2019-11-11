@@ -17,8 +17,8 @@ public class RecordServiceImpl implements RecordService{
     }
 
     @Override
-    public List<Record> findList(Map<String, Object> queryMap) {
-        return recordMapper.findList(queryMap);
+    public List<Record> findList(Integer userId) {
+        return recordMapper.findList(userId);
     }
 
     @Override

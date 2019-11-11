@@ -6,20 +6,41 @@
     <delete id="delete" parameterType="String">
         delete from foservpul where foserId in(${value})
     </delete>
-
-
-    <!-- 分页获取用户列表 -->
-    <!--<select id="findId" parameterType="Map" resultType="com.aaa.health.entity.pultub.FoservPul">
-        select foserId,foserTime,foserNexttime,foserDoctor,foserMode from foservpul where pultubfoId=#{pultubfoId}
-    </select>-->
+    <insert id="add" parameterType="com.aaa.health.entity.pultub.FoservPul">
+        insert into foservpul(pultubfoId,foserTime,foserMonthsequence,foserSupervisorStaff,
+foserMode,foserSypend,foserOther,foserSmokpay,foserSmokday,foserDrinkbi,
+foserDrinkday,foserRegimen,foserUsage,foserDosage,foserDosagenum,foserSideeffects,
+foserComplication,foserCategory,foserCause,foserTwoweek,
+foserHandleOpinion,foserNexttime,foserDoctor,stoptreatTime,stoptreatReason,
+foserNum,foserActualNum,foserTmednum,foserActualTmednum,foserAssessDoctor)
+    values(#{pultubfoId},#{foserTime},#{foserMonthsequence},#{foserSupervisorStaff},#{
+foserMode},#{foserSypend},#{foserOther},#{foserSmokpay},#{foserSmokday},#{foserDrinkbi},#{
+foserDrinkday},#{foserRegimen},#{foserUsage},#{foserDosage},#{foserDosagenum},#{foserSideeffects},#{
+foserComplication},#{foserCategory},#{foserCause},#{foserTwoweek},#{
+foserHandleOpinion},#{foserNexttime},#{foserDoctor},#{stoptreatTime},#{stoptreatReason},#{
+foserNum},#{foserActualNum},#{foserTmednum},#{foserActualTmednum},#{foserAssessDoctor})
+    </insert>
+<update id="update" parameterType="com.aaa.health.entity.pultub.FoservPul">
+update foservpul set pultubfoId=pultubfoId,foserTime=foserTime,foserMonthsequence=foserMonthsequence,
+foserSupervisorStaff=foserSupervisorStaff,foserMode=foserMode,foserSypend=foserSypend,foserOther=foserOther,
+foserSmokpay=foserSmokpay,foserSmokday=foserSmokday,foserDrinkbi=foserDrinkbi,foserDrinkday=foserDrinkday,
+foserRegimen=foserRegimen,foserUsage=foserUsage,foserDosage=foserDosage,foserDosagenum=foserDosagenum,
+foserSideeffects=foserSideeffects,foserComplication=foserComplication,foserCategory=foserCategory,
+foserCause=foserCause,foserTwoweek=foserTwoweek,foserHandleOpinion=foserHandleOpinion,foserNexttime=foserNexttime,
+foserDoctor=foserDoctor,stoptreatTime=stoptreatTime,stoptreatReason=stoptreatReason,foserNum=foserNum,
+foserActualNum=foserActualNum,foserTmednum=foserTmednum,foserActualTmednum=foserActualTmednum,foserAssessDoctor=foserAssessDoctor
+    where foserId=#{foserId}
+</update>
     <select id="findId" parameterType="Map" resultType="com.aaa.health.entity.pultub.FoservPul">
-        select * from foservpul where pultubfoId=#{pultubfoId}
-    </select>
+        select * from foservpul f join user u on f.foserDoctor=u.id where pultubfoId=#{pultubfoId}
+</select>
     <select id="findById" parameterType="Integer" resultType="Map">
-select f.*,p.userId,u.recordName from foservpul f join pultubfo p on f.pultubfoId=p.pultubfoId join userinfo u on u.userId=p.userId where foserId=#{foserId}
+select f.*,p.userId,u.recordName,s.lastname from foservpul f join pultubfo p on f.pultubfoId=p.pultubfoId join userinfo u on u.userId=p.userId join user s on u.recordCreateuserid =s.id where foserId=#{foserId}
+    </select>
+    <select id="findUserId" parameterType="Integer" resultType="com.aaa.health.entity.pultub.FoservPul">
+select p.userId,u.recordName,u.userSex,u.userBirthday,u.userGam,u.userCareer,u.userMyphone,u.recordAdress from pultubfo p join userinfo u on p.userId=u.userId where pultubfoId=#{pultubfoId}
     </select>
     <select id="getTotal" parameterType="Map" resultType="Integer">
 select count(*) from foservpul where pultubfoId=#{pultubfoId}
     </select>
-
 </mapper>

@@ -8,7 +8,15 @@ public class FoservPul {
             foserNum,foserActualNum,foserTmednum,foserActualTmednum,foserAssessDoctor,foserState;
     private Date foserTime,foserNexttime,stoptreatTime;
     private String foserSypend,foserOther,foserRegimen,foserDosage,foserSideeffects,foserComplication,
-            foserCategory,foserCause,foserTwoweek,foserHandleOpinion,stoptreatReason,foserColumn,recordName ;
+            foserCategory,foserCause,foserTwoweek,foserHandleOpinion,stoptreatReason,foserColumn,recordName,lastname ;
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
 
     public String getRecordName() {
         return recordName;
@@ -328,6 +336,7 @@ public class FoservPul {
                 ", stoptreatReason='" + stoptreatReason + '\'' +
                 ", foserColumn='" + foserColumn + '\'' +
                 ", recordName='" + recordName + '\'' +
+                ", lastname='" + lastname + '\'' +
                 '}';
     }
 }

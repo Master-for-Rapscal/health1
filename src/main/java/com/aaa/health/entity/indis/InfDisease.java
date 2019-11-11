@@ -5,12 +5,85 @@ import java.util.Date;
 public class InfDisease {
     private Integer infdisId,userId,infdisCardtype,infdisPatis,infdisChbjob,infdisCateone,infdisCatetwo,
             infdisOutcome,diseaseId,infdisDoctor,infdisState,userSex,outcomeWhether,userGam,userCareer,
-            disfopMode,disfopQuarantine,attackCate,disfopSituation,disfopDoctor;
+            disfopMode,disfopQuarantine,attackCate,disfopSituation,disfopDoctor,diseaseNail,diseaseB,diseaseC,diseaseOther;
     private String infdisCardnum,infdisParentname,infdisUnbrith,infdisUnit,infdisPhone,infdisNowaddress,
             infdisIllness,infdisCard,infdisReport,infdisTel,infdisHandle,infdisColumn,recordName,userMyphone,lastname,
-            recordAdress,disfopSymptom,disfopRemarks,disfopDisinfect,disfopMedicine,disfopRecovery;
+            recordAdress,disfopSymptom,disfopRemarks,disfopDisinfect,disfopMedicine,disfopRecovery,outcomeReason,
+            outcomeOtherreason,outcomeRemarks,userWorkunit,userIdnumber;
     private Date infdisMdytime,infdisDigtime,infdisDietime,infdisTime,userBirthday,disfopTime,firstVisit,
             nextfoTime;
+
+    public Integer getDiseaseNail() {
+        return diseaseNail;
+    }
+
+    public void setDiseaseNail(Integer diseaseNail) {
+        this.diseaseNail = diseaseNail;
+    }
+
+    public Integer getDiseaseB() {
+        return diseaseB;
+    }
+
+    public void setDiseaseB(Integer diseaseB) {
+        this.diseaseB = diseaseB;
+    }
+
+    public Integer getDiseaseC() {
+        return diseaseC;
+    }
+
+    public void setDiseaseC(Integer diseaseC) {
+        this.diseaseC = diseaseC;
+    }
+
+    public Integer getDiseaseOther() {
+        return diseaseOther;
+    }
+
+    public void setDiseaseOther(Integer diseaseOther) {
+        this.diseaseOther = diseaseOther;
+    }
+
+    public String getUserIdnumber() {
+        return userIdnumber;
+    }
+
+    public void setUserIdnumber(String userIdnumber) {
+        this.userIdnumber = userIdnumber;
+    }
+
+    public String getUserWorkunit() {
+        return userWorkunit;
+    }
+
+    public void setUserWorkunit(String userWorkunit) {
+        this.userWorkunit = userWorkunit;
+    }
+
+    public String getOutcomeReason() {
+        return outcomeReason;
+    }
+
+    public void setOutcomeReason(String outcomeReason) {
+        this.outcomeReason = outcomeReason;
+    }
+
+    public String getOutcomeOtherreason() {
+        return outcomeOtherreason;
+    }
+
+    public void setOutcomeOtherreason(String outcomeOtherreason) {
+        this.outcomeOtherreason = outcomeOtherreason;
+    }
+
+    public String getOutcomeRemarks() {
+        return outcomeRemarks;
+    }
+
+    public void setOutcomeRemarks(String outcomeRemarks) {
+        this.outcomeRemarks = outcomeRemarks;
+    }
 
     public Integer getUserSex() {
         return userSex;
@@ -427,6 +500,10 @@ public class InfDisease {
                 ", attackCate=" + attackCate +
                 ", disfopSituation=" + disfopSituation +
                 ", disfopDoctor=" + disfopDoctor +
+                ", diseaseNail=" + diseaseNail +
+                ", diseaseB=" + diseaseB +
+                ", diseaseC=" + diseaseC +
+                ", diseaseOther=" + diseaseOther +
                 ", infdisCardnum='" + infdisCardnum + '\'' +
                 ", infdisParentname='" + infdisParentname + '\'' +
                 ", infdisUnbrith='" + infdisUnbrith + '\'' +
@@ -448,6 +525,11 @@ public class InfDisease {
                 ", disfopDisinfect='" + disfopDisinfect + '\'' +
                 ", disfopMedicine='" + disfopMedicine + '\'' +
                 ", disfopRecovery='" + disfopRecovery + '\'' +
+                ", outcomeReason='" + outcomeReason + '\'' +
+                ", outcomeOtherreason='" + outcomeOtherreason + '\'' +
+                ", outcomeRemarks='" + outcomeRemarks + '\'' +
+                ", userWorkunit='" + userWorkunit + '\'' +
+                ", userIdnumber='" + userIdnumber + '\'' +
                 ", infdisMdytime=" + infdisMdytime +
                 ", infdisDigtime=" + infdisDigtime +
                 ", infdisDietime=" + infdisDietime +

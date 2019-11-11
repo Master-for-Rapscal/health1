@@ -10,15 +10,11 @@
 
     <!-- 分页获取用户列表 -->
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.womandis.Record">
-        select w.wodisId,w.userId,u.recordName,u.userIdnumber,u.userBirthday,u.recordAdress,u.userMyphone,u.recordData,w.wodisBh,w.wodisMenage,w.wodisMencycle,w.wodisLoginregtime from womanDisease w left join userinfo u on w.userId=u.userId
-        where 1 = 1
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
+        select wodisId,wodisbh,wodisMenage,wodisMencycle,wodisLoginregtime from womanDisease where userId=#{userId}
     </select>
 
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*) from womanDisease w left join userinfo u on w.userId=u.userId where 1 = 1
+        select count(*) from womanDisease where userId=#{userId}
     </select>
 
 </mapper>

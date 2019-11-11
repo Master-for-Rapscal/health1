@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
+
+<body>
+<div th:fragment="womandisease" th:height="500">
+    <div class="womandisease">
+        <style>
+            input[type="text"] {
+                border: 0px;
+                width: 50px;
+            }
+
+            input[type="checkbox"] {
+                margin-left: 15px;
+            }
+        </style>
+            <table width="500" th:height="150" border="0" cellspacing="0" cellpadding="1" id="tabuserinfo">
+                <caption>
+                    <h3>妇女病普查登记表</h3>
+                </caption>
+                <input type="text" name="userId" hidden>
+                <input type="text" name="wodisId" hidden>
+                <tr>
+                    <td>姓名：</td>
+                    <td colspan="2"><input type="text"  name="recordName" readonly></td>
+                    <td colspan="2">出生日期：</td>
+                    <td colspan="2">
+                        <input type="text"  name="userBirthday" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>身份证号：</td>
+                    <td colspan="2"><input type="text" style="width: 97%;height: 100%"  name="userIdnumber" readonly></td>
+                    <td colspan="2">学历：</td>
+                    <td colspan="2">
+                        <input type="text" style="width: 97%;height: 100%"  name="userCulture" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>职业：</td>
+                    <td colspan="2"><input type="text" style="width: 97%;height: 100%"  name="userCareer" readonly></td>
+                    <td colspan="2">婚姻状况：</td>
+                    <td colspan="2"><input type="text" style="width: 97%;height: 100%" name="userGam"></td>
+                </tr>
+                <tr>
+                    <td>联系方式：</td>
+                    <td colspan="6"><input type="text" style="width: 97%;height: 100%"  name="userMyphone"></td>
+                </tr>
+                <tr>
+                    <td>单位（户口）住址：</td>
+                    <td colspan="6"><input type="text" style="width: 97%;height: 100%"  name="recordPlaceadress"></td>
+                </tr>
+            </table><br/>
+
+        编号：<input type="text" name="wodisbh"><br/>
+
+        <form id="womanform" class="easyui-form" method="post" data-options="novalidate:true">
+            <table width="650" th:height="480" border="1" cellspacing="0" cellpadding="1">
+                <tr>
+                    <td rowspan="3">月经史</td>
+                    <td>初潮年龄：</td>
+                    <td>
+                        <input type="text" name="wodisMenage">岁
+                    </td>
+                    <td>月经周期：</td>
+                    <td>
+                        <input type="text"   name="wodisMencycle">天
+                    </td>
+                    <td>持续时间：</td>
+                    <td>
+                        <input type="text"  name="wodisMentime">天
+                    </td>
+                </tr>
+                <tr>
+                    <td>月经量：</td>
+                    <td colspan="2">
+                        <input type="radio" name="wodisMenamount" value="1">多
+                        <input type="radio" name="wodisMenamount" value="2">中
+                        <input type="radio" name="wodisMenamount" value="3">少
+                    </td>
+                    <td>月经痛：</td>
+                    <td colspan="2">
+                        <input type="radio" name="wodisMenapain" value="1">无
+                        <input type="radio" name="wodisMenapain" value="2">有
+                    </td>
+                </tr>
+                <tr>
+                    <td>绝经年龄：</td>
+                    <td colspan="2">
+                        <input type="text"   name="wodisAge">岁
+                    </td>
+                    <td>绝经后出血：</td>
+                    <td colspan="2">
+                        <input type="radio" name="wodisBlood" value="1">无
+                        <input type="radio" name="wodisBlood" value="2">有
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="3">孕产史</td>
+                    <td>初产年龄：</td>
+                    <td>
+                        <input type="text"  name="mateAge">岁
+                    </td>
+                    <td>难产：</td>
+                    <td>
+                        <input type="text"  name="mateDystocia">次
+                    </td>
+                    <td>足月产：</td>
+                    <td>
+                        <input type="text"  name="mateTerm">次
+                    </td>
+                </tr>
+                <tr>
+                    <td>孕次：</td>
+                    <td>
+                        <input type="text"  name="mateGravidity">次
+                    </td>
+                    <td>宫外孕次：</td>
+                    <td>
+                        <input type="text"  name="mateOutgravidity">次
+                    </td>
+                    <td>早产：</td>
+                    <td>
+                        <input type="text"  name="matePredelivery">次
+                    </td>
+                </tr>
+                <tr>
+                    <td>自然流产：</td>
+                    <td>
+                        <input type="text"  name="mateAbortion">次
+                    </td>
+                    <td>人流：</td>
+                    <td>
+                        <input type="text"  name="matePeoabort">次
+                    </td>
+                    <td>引产：</td>
+                    <td>
+                        <input type="text"  name="mateIndlabor">次
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">避孕史</td>
+                    <td>现用方法：</td>
+                    <td colspan="5">
+                        <input type="radio" name="wodisNowmethod" value="1">宫内节育器
+                        <input type="radio" name="wodisNowmethod" value="2">结扎
+                        <input type="radio" name="wodisNowmethod" value="3">口服避孕药
+                        <input type="radio" name="wodisNowmethod" value="4">皮下埋植
+                        <input type="radio" name="wodisNowmethod" value="5">安全期避孕
+                    </td>
+                </tr>
+                <tr>
+                    <td>开始日期：</td>
+                    <td>
+                        <input type="text" style="width: 97%;height: 100%"  name="wodisBegintime">
+                    </td>
+                    <td>副作用：</td>
+                    <td colspan="3">
+                        <input type="text" style="width: 97%;height: 100%"  name="wodisSideeffect">
+                    </td>
+                </tr>
+                <tr>
+                    <td>既往病史</td>
+                    <td colspan="6">
+                        <input type="radio" name="pastIllness" value="1">无
+                        <input type="radio" name="pastIllness" value="2">有
+                    </td>
+                </tr>
+                <tr>
+                    <td>家族肿瘤史</td>
+                    <td colspan="6">
+                        <input type="text" style="width: 97%;height: 100%"  name="familyTumor">
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="24">妇科检查</td>
+                    <td>外阴：</td>
+                    <td colspan="4">
+                        <input type="radio" name="woinVulva" value="1">色素减退
+                        <input type="radio" name="woinVulva" value="2">巴氏腺囊肿
+                        <input type="radio" name="woinVulva" value="3">白斑
+                        <input type="radio" name="woinVulva" value="4">炎症
+                        <input type="radio" name="woinVulva" value="5">肿物
+                        <input type="radio" name="woinVulva" value="6">潮红
+                        <input type="radio" name="woinVulva" value="7">囊肿
+                        <input type="radio" name="woinVulva" value="8">尖锐湿庞
+                        <input type="radio" name="woinVulva" value="9">粗糙
+                        <input type="radio" name="woinVulva" value="10">其他
+                    </td>
+                </tr>
+                <tr>
+                    <td>备注：</td>
+                    <td colspan="5">
+                        <input type="text" style="width: 97%;height: 100%"  name="woinVuremarks">
+                    </td>
+                </tr>
+                <tr>
+                    <td>阴道：</td>
+                    <td colspan="4">
+                        <input type="radio" name="woinVagina" value="1">充血
+                        <input type="radio" name="woinVagina" value="2">肿物
+                        <input type="radio" name="woinVagina" value="3">炎症
+                        <input type="radio" name="woinVagina" value="4">粘膜粗糙
+                        <input type="radio" name="woinVagina" value="5">尖锐湿庞
+                        <input type="radio" name="woinVagina" value="6">膨出
+                        <input type="radio" name="woinVagina" value="7">其他
+                    </td>
+                </tr>
+                <tr>
+                    <td>备注：</td>
+                    <td colspan="5">
+                        <input type="text" style="width: 97%;height: 100%"  name="woinVaremarks">
+                    </td>
+                </tr>
+                <tr>
+                    <td>分泌物：</td>
+                    <td colspan="4">
+                        <input type="radio" name="woinSecretion" value="1">正常
+                        <input type="radio" name="woinSecretion" value="2">糊状
+                        <input type="radio" name="woinSecretion" value="3">白色
+                        <input type="radio" name="woinSecretion" value="4">脓性
+                        <input type="radio" name="woinSecretion" value="5">暗红
+                        <input type="radio" name="woinSecretion" value="6">豆渣
+                        <input type="radio" name="woinSecretion" value="7">鲜红
+                        <input type="radio" name="woinSecretion" value="8">其他
+                    </td>
+                </tr>
+                <tr>
+                    <td>备注：</td>
+                    <td colspan="5">
+                        <input type="text" style="width: 97%;height: 100%"  name="woinSeremarks">
+                    </td>
+                </tr>
+                <tr>
+                    <td>宫颈：</td>
+                    <td colspan="4">
+                        <input type="radio" name="woinCervical" value="1">肿物
+                        <input type="radio" name="woinCervical" value="2">充血
+                        <input type="radio" name="woinCervical" value="3">息肉萎缩
+                        <input type="radio" name="woinCervical" value="4">轻糜
+                        <input type="radio" name="woinCervical" value="5">中糜
+                        <input type="radio" name="woinCervical" value="6">重糜
+                        <input type="radio" name="woinCervical" value="7">易出血
+                        <input type="radio" name="woinCervical" value="8">肥大
+                        <input type="radio" name="woinCervical" value="9">硬
+                        <input type="radio" name="woinCervical" value="10">潴留肿
+                        <input type="radio" name="woinCervical" value="11">其他
+                    </td>
+                </tr>
+                <tr>
+                    <td>备注：</td>
+                    <td colspan="5">
+                        <input type="text" style="width: 97%;height: 100%"  name="woinCeremarks">
+                    </td>
+                </tr>
+                <tr>
+                    <td>是否复查宫颈癌</td>
+                    <td colspan="2">
+                        <select name="woinReview" class="easyui-combobox"  style="width:120px;" >
+                            <option value="1">有</option>
+                            <option value="2">无</option>
+                        </select>
+                    </td>
+                    <td>宫颈癌复查日期</td>
+                    <td colspan="2">
+                        <input type="text" class="easyui-datebox" style="width: 97%;"  name="woinCeremarks">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">宫体：大小：</td>
+                    <td colspan="4">
+                        <input type="radio" name="ubodySize" value="1">略大
+                        <input type="radio" name="ubodySize" value="2">增大如40天
+                        <input type="radio" name="ubodySize" value="3">增大如50天
+                        <input type="radio" name="ubodySize" value="4">增大如60天
+                        <input type="radio" name="ubodySize" value="5">其他
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">位置：</td>
+                    <td colspan="2">
+                        <input type="radio" name="ubodyPosition" value="1">前位
+                        <input type="radio" name="ubodyPosition" value="2">中位
+                        <input type="radio" name="ubodyPosition" value="3">后位
+                    </td>
+                    <td colspan="2">
+                        硬度：
+                        <input type="radio" name="ubodyHardness" value="1">质软
+                        <input type="radio" name="ubodyHardness" value="2">质硬
+                        <input type="radio" name="ubodyHardness" value="3">质中
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">活动：</td>
+                    <td colspan="2">
+                        <input type="radio" name="ubodyActivity" value="1">不活动
+                        <input type="radio" name="ubodyActivity" value="2">活动
+                    </td>
+                    <td colspan="2">
+                        表面：
+                        <input type="radio" name="ubodySurface" value="1">光滑
+                        <input type="radio" name="ubodySurface" value="2">突起
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">压痛：</td>
+                    <td colspan="4">
+                        <input type="radio" name="ubodyTenderness" value="1">无
+                        <input type="radio" name="ubodyTenderness" value="2">有
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">附件：左：</td>
+                    <td colspan="4">
+                        <input type="radio" name="ubodyLeft" value="1">正常
+                        <input type="radio" name="ubodyLeft" value="2">增粗
+                        <input type="radio" name="ubodyLeft" value="3">压痛
+                        <input type="radio" name="ubodyLeft" value="4">包块
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">备注：</td>
+                    <td colspan="4">
+                        <input type="text" style="width: 97%;height: 100%"  name="ubodyLeremarks">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">右：</td>
+                    <td colspan="4">
+                        <input type="radio" name="ubodyRight" value="1">正常
+                        <input type="radio" name="ubodyRight" value="2">增粗
+                        <input type="radio" name="ubodyRight" value="3">压痛
+                        <input type="radio" name="ubodyRight" value="4">包块
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">备注：</td>
+                    <td colspan="4">
+                        <input type="text" style="width: 97%;height: 100%"  name="ubodyRiremarks">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6">乳房检查：</td>
+                </tr>
+                <tr>
+                    <td colspan="2">腺体：左：</td>
+                    <td colspan="4">
+                        <input type="radio" name="gbodyLeft" value="1">正常
+                        <input type="radio" name="gbodyLeft" value="2">条索状
+                        <input type="radio" name="gbodyLeft" value="3">局限性增厚
+                        <input type="radio" name="gbodyLeft" value="4">结节性增厚
+                        <input type="radio" name="gbodyLeft" value="5">肿块
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">右：</td>
+                    <td colspan="4">
+                        <input type="radio" name="gbodyRight" value="1">正常
+                        <input type="radio" name="gbodyRight" value="2">条索状
+                        <input type="radio" name="gbodyRight" value="3">局限性增厚
+                        <input type="radio" name="gbodyRight" value="4">结节性增厚
+                        <input type="radio" name="gbodyRight" value="5">肿块
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">肿块：左：</td>
+                    <td colspan="4">
+                        <input type="radio" name="tumorLeft" value="1">无
+                        <input type="radio" name="tumorLeft" value="2">外上
+                        <input type="radio" name="tumorLeft" value="3">外下
+                        <input type="radio" name="tumorLeft" value="4">内上
+                        <input type="radio" name="tumorLeft" value="5">内下
+                        <input type="radio" name="tumorLeft" value="5">中央
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">右：</td>
+                    <td colspan="4">
+                        <input type="radio" name="tumorRight" value="1">无
+                        <input type="radio" name="tumorRight" value="2">外上
+                        <input type="radio" name="tumorRight" value="3">外下
+                        <input type="radio" name="tumorRight" value="4">内上
+                        <input type="radio" name="tumorRight" value="5">内下
+                        <input type="radio" name="tumorRight" value="5">中央
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">备注：</td>
+                    <td colspan="4">
+                        <input type="text" style="width: 97%;height: 100%"  name="woinRemarks">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">是否复查乳腺癌</td>
+                    <td>
+                        <select name="woinGlandular" class="easyui-combobox"  style="width:120px;" >
+                            <option value="1">有</option>
+                            <option value="2">无</option>
+                        </select>
+                    </td>
+                    <td>乳腺癌复查日期</td>
+                    <td colspan="2">
+                        <input type="text" class="easyui-datebox" style="width: 97%;"  name="woinGlandularTime">
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">处理状态</td>
+                    <td colspan="2">结案状态：</td>
+                    <td colspan="4">
+                        <input type="radio" name="wodisHandlestate" value="1">有
+                        <input type="radio" name="wodisHandlestate" value="2">无
+                    </td>
+                </tr>
+                <tr>
+                    <td>结案日期</td>
+                    <td>
+                        <input type="text" class="easyui-datebox" style="width: 97%"  name="wodisClotime">
+                    </td>
+                    <td>结案原因</td>
+                    <td colspan="3">
+                        <input type="text"  style="width: 97%;"  name="wodisCloreason">
+                    </td>
+                </tr>
+                <tr>
+                    <td>指导意见</td>
+                    <td colspan="6">
+                    <textarea name="wodisOpinion" rows="2" cols="80"></textarea></td>
+                </tr>
+                <tr>
+                    <td>干预建议</td>
+                    <td colspan="6"><textarea name="wodisProposal" rows="4" cols="80"></textarea></td>
+                </tr>
+                <tr>
+                    <td>是否需要复查</td>
+                    <td colspan="3">
+                    <select name="wodisReview" class="easyui-combobox"  style="width:120px;" >
+                        <option value="1">有</option>
+                        <option value="2">无</option>
+                    </select>
+                    </td>
+                    <td>复查日期</td>
+                    <td colspan="2">
+                        <input type="text" class="easyui-datebox" style="width: 97%;"  name="wodisRevtime">
+                    </td>
+                </tr>
+
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -9,7 +9,23 @@ public class PulTubfo {
             pultubfoReaction,pultubfoFurcon,pultubfoTmedicine,pultubfoBecareful,pultubfoInspect,pulState,
             pulDoctor,pultubfofoDoctor,pultubfoState,userSex;
     private Date pultubfoTime,pultubfoDrugtime,puljkTime,nextfoTime,userBirthday;
-    private String symptomSign,symptomOther,cheRegimen,pultubfoDrugaddress,pultubfoColumn,recordName,userMyphone,userPrivyPhone;
+    private String symptomSign,symptomOther,cheRegimen,pultubfoDrugaddress,pultubfoColumn,recordName,userMyphone,userPrivyPhone,lastname,recordAdress;
+
+    public String getRecordAdress() {
+        return recordAdress;
+    }
+
+    public void setRecordAdress(String recordAdress) {
+        this.recordAdress = recordAdress;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
 
     public Integer getUserSex() {
         return userSex;
@@ -392,6 +408,8 @@ public class PulTubfo {
                 ", recordName='" + recordName + '\'' +
                 ", userMyphone='" + userMyphone + '\'' +
                 ", userPrivyPhone='" + userPrivyPhone + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", recordAdress='" + recordAdress + '\'' +
                 '}';
     }
 }

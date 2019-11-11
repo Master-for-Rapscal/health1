@@ -4,32 +4,62 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.indis.InfDiseaseMapper">
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.indis.InfDisease">
-        select i.infdisId,i.userId,u.recordName,u.userSex,u.userMyphone,i.infdisPhone,i.infdisIllness,i.infdisMdytime,i.infdisDoctor,i.infdisTime,i.infdisDigtime,o.outcomeWhether from infdisease i join userinfo u on i.userId=u.userId join outcome o on i.outcomeId=o.outcomeId
+        select i.infdisId,i.userId,u.recordName,u.userSex,u.userMyphone,i.infdisPhone,i.infdisIllness,i.infdisMdytime,i.infdisTime,i.infdisDigtime,i.outcomeWhether,s.lastname from infdisease i join userinfo u on i.userId=u.userId join user s on i.infdisDoctor=s.id
         where 1 = 1
-        <if test="username != null">
-            and username like '%${username}%'
+       <!-- <if test="userId != null">
+            and i.userId like '%${userId}%'
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="recordName != null">
+            and u.recordName like '%${recordName}%'
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
+        <if test="userSex != null">
+            and u.userSex=#{userSex}
+        </if>
+        <if test="lastname != null">
+            and s.lastname=#{lastname}
+        </if>
+        <if test="beginTime != null">
+            and i.infdisTime  >= #{beginTime}
+        </if>
+        <if test="endTime != null">
+            and   #{endTime} >= i.infdisTime
+        </if>
+        <if test="beginTimet != null">
+            and i.infdisDigtime  >= #{beginTimet}
+        </if>
+        <if test="endTimet != null">
+            and   #{endTimet} >= i.infdisDigtime
+        </if>
+        <if test="outcomeWhether != null">
+            and i.outcomeWhether=#{outcomeWhether}
         </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
-        </if>
+        </if>-->
     </select>
 
     <insert id="add" parameterType="com.aaa.health.entity.indis.InfDisease">
- insert into infdisease(userId,infdisCardnum,infdisCardtype,infdisParentname,infdisUnbrith,infdisUnit,
-infdisPhone,infdisPatis,infdisNowaddress,infdisChbjob,infdisCateone,infdisCatetwo,infdisMdytime,infdisDigtime,
-infdisDietime,infdisOutcome,outcomeId,diseaseId,infdisIllness,infdisCard,infdisReport,infdisTel,infdisDoctor,infdisTime,
+ insert into infdisease(userId,infdisCardnum,infdisCardtype,infdisParentname,
+infdisPhone,infdisPatis,infdisChbjob,infdisCateone,infdisCatetwo,infdisMdytime,infdisDigtime,
+infdisDietime,infdisOutcome,outcomeWhether,outcomeReason,outcomeOtherreason,outcomeRemarks,diseaseNail,diseaseB,diseaseC,diseaseOther,infdisIllness,infdisCard,infdisReport,infdisTel,infdisDoctor,infdisTime,
 infdisHandle)
-    values(#{userId},#{infdisCardnum},#{infdisCardtype},#{infdisParentname},#{infdisUnbrith},#{infdisUnit},#{
-infdisPhone},#{infdisPatis},#{infdisNowaddress},#{infdisChbjob},#{infdisCateone},#{infdisCatetwo},#{infdisMdytime},#{infdisDigtime},#{
-infdisDietime},#{infdisOutcome},#{outcomeId},#{diseaseId},#{infdisIllness},#{infdisCard},#{infdisReport},#{infdisTel},#{infdisDoctor},#{infdisTime},#{
+    values(#{userId},#{infdisCardnum},#{infdisCardtype},#{infdisParentname},#{
+infdisPhone},#{infdisPatis},#{infdisChbjob},#{infdisCateone},#{infdisCatetwo},#{infdisMdytime},#{infdisDigtime},#{
+infdisDietime},#{infdisOutcome},1,#{outcomeReason},#{outcomeOtherreason},#{outcomeRemarks},#{diseaseNail},#{diseaseB},#{diseaseC},#{diseaseOther},#{infdisIllness},#{infdisCard},#{infdisReport},#{infdisTel},#{infdisDoctor},#{infdisTime},#{
 infdisHandle})
     </insert>
+    <update id="edit" parameterType="com.aaa.health.entity.indis.InfDisease">
+        update infdisease set infdisCardnum=#{infdisCardnum},infdisCardtype=#{infdisCardtype},
+infdisParentname=#{infdisParentname},infdisPhone=#{infdisPhone},infdisPatis=#{infdisPatis},
+infdisChbjob=#{infdisChbjob},infdisCateone=#{infdisCateone},infdisCatetwo=#{infdisCatetwo},
+infdisMdytime=#{infdisMdytime},infdisDigtime=#{infdisDigtime},infdisDietime=#{infdisDietime},
+infdisOutcome=#{infdisOutcome},outcomeWhether=#{outcomeWhether},outcomeReason=#{outcomeReason},
+outcomeOtherreason=#{outcomeOtherreason},outcomeRemarks=#{outcomeRemarks},diseaseNail=#{diseaseNail},
+diseaseB=#{diseaseB},diseaseC=#{diseaseC},diseaseOther=#{diseaseOther},infdisIllness=#{infdisIllness},
+infdisCard=#{infdisCard},infdisReport=#{infdisReport},infdisTel=#{infdisTel},infdisDoctor=#{infdisDoctor},
+infdisTime=#{infdisTime},infdisHandle=#{infdisHandle}
+    where infdisId=#{infdisId}
+    </update>
 
     <delete id="delete" parameterType="String">
         delete from infdisease where infdisId in(${value})
@@ -38,21 +68,40 @@ infdisHandle})
 
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*) from infdisease where 1 = 1
-        <if test="username != null">
-            and username like '%${username}%'
+        select count(*) from infdisease i join userinfo u on i.userId=u.userId join user s on i.infdisDoctor=s.id
+        where 1 = 1
+        <if test="userId != null">
+            and i.userId like '%${userId}%'
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="recordName != null">
+            and u.recordName like '%${recordName}%'
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
+        <if test="userSex != null">
+            and u.userSex=#{userSex}
+        </if>
+        <if test="lastname != null">
+            and s.lastname=#{lastname}
+        </if>
+        <if test="beginTime != null">
+            and i.infdisTime  >= #{beginTime}
+        </if>
+        <if test="endTime != null">
+            and   #{endTime} >= i.infdisTime
+        </if>
+        <if test="beginTimet != null">
+            and i.infdisDigtime  >= #{beginTimet}
+        </if>
+        <if test="endTimet != null">
+            and   #{endTimet} >= i.infdisDigtime
+        </if>
+        <if test="outcomeWhether != null">
+            and i.outcomeWhether=#{outcomeWhether}
         </if>
     </select>
     <select id="queryDoctor" resultType="Map">
           select * from user where roleId != 1
     </select>
-<!--    <select id="findUser" resultType="">
-select u.userId,u.recordName,u.userIdnumber,u.userSex,u.userMyphone,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(u.userBirthday))/365) userAge,u.userBirthday,u.recordAdress from userinfo u
-    </select>-->
+    <select id="findById" parameterType="Integer" resultType="Map">
+select i.*,u.recordName,u.userIdnumber,u.userSex,u.userBirthday,u.userWorkunit,u.recordAdress,s.lastname from infdisease i join userinfo u on i.userId=u.userId join user s on i.infdisDoctor=s.id where infdisId=#{infdisId}
+    </select>
 </mapper>

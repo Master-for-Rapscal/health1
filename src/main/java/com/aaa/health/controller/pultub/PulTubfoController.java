@@ -1,15 +1,21 @@
 package com.aaa.health.controller.pultub;
 
+import com.aaa.health.entity.indis.InfDisease;
+import com.aaa.health.entity.pultub.PulTubfo;
 import com.aaa.health.page.admin.Page;
 import com.aaa.health.service.pultub.PulTubfoService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,6 +60,58 @@ public class PulTubfoController {
         ret.put("type", "success");
         ret.put("msg", "删除成功！");
         return ret;
+    }
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> add(PulTubfo pulTubfo) {
+        Map<String, String> ret = new HashMap<String, String>();
+        if (pulTubfo == null) {
+            ret.put("type", "error");
+            ret.put("msg", "后台获取信息失败！");
+            return ret;
+        }
+        if (pulTubfoService.add(pulTubfo) <= 0) {
+            ret.put("type", "error");
+            ret.put("msg", "添加信息失败，请联系管理员！");
+            return ret;
+        }
+        ret.put("type", "success");
+        ret.put("msg", "添加失败！");
+        return ret;
+    }
+
+    @RequestMapping(value = "/findById", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> findById(Integer pultubfoId) {
+        System.out.println(pultubfoId);
+        System.out.println(pulTubfoService.findById(pultubfoId));
+        Map<String, Object> pul = new HashMap<String, Object>();
+        pul.put("pultu", pulTubfoService.findById(pultubfoId));// 页面加载数据使用
+        return pul;
+    }
+    /**
+     * 修改信息
+     *
+     * @param pulTubfo
+     * @return
+     */
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> edit(PulTubfo pulTubfo) {
+        Map<String, String> ret = new HashMap<String, String>();
+        if (pulTubfoService.edit(pulTubfo) <= 0) {
+            ret.put("type", "error");
+            ret.put("msg", "信息修改失败，请联系管理员！");
+            return ret;
+        }
+        ret.put("type", "success");
+        ret.put("msg", "修改成功！");
+        return ret;
+    }
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 }
 
