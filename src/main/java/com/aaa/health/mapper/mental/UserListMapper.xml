@@ -39,6 +39,26 @@ values(#{followName},#{followNumber},#{followDate},#{followForm},#{followLoss},
 */
         SELECT * from userinfo WHERE recordInputtingcard not in (SELECT  followNumber from followInsanityrecords)
 
+
+        <if test="recordInputtingcard != null and recordInputtingcard != 0">
+            and recordInputtingcard LIKE '%${recordInputtingcard}%'
+        </if>
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
+        </if>
+        <if test="userMyphone != null and userMyphone != ''">
+            AND userMyphone LIKE '%${userMyphone}%'
+        </if>
+        <if test="userBirthday != null and userBirthday != ''">
+            AND userBirthday LIKE '%${userBirthday}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND recordAdress LIKE '%${recordAdress}%'
+        </if>
+        <if test="userIdnumber != null and userIdnumber != ''">
+            AND userIdnumber LIKE '%${userIdnumber}%'
+        </if>
+
         /*join
         userPrivy on userPrivy.userId=userinfo.userId where 1 = 1*/
         /*       select * from userinfo join addnewborn on
@@ -70,8 +90,25 @@ followSort=#{followSort},followNextdate=#{followNextdate},followDoctorsign=#{fol
 
     <select id="getTotal" parameterType="Map" resultType="Integer">
         select count(*) from userinfo WHERE recordInputtingcard not in (SELECT  followNumber from followInsanityrecords)
+
+        <if test="recordInputtingcard != null and recordInputtingcard != 0">
+            and recordInputtingcard LIKE '%${recordInputtingcard}%'
+        </if>
         <if test="recordName != null and recordName != ''">
             AND recordName LIKE '%${recordName}%'
+        </if>
+        <if test="userMyphone != null and userMyphone != ''">
+            AND userMyphone LIKE '%${userMyphone}%'
+        </if>
+        <if test="userBirthday != null and userBirthday != ''">
+            AND userBirthday LIKE '%${userBirthday}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND recordAdress LIKE '%${recordAdress}%'
+        </if>
+
+        <if test="userIdnumber != null and userIdnumber != ''">
+            AND userIdnumber LIKE '%${userIdnumber}%'
         </if>
         /*join
         userPrivy on userPrivy.userId=userinfo.userId where 1 = 1*/

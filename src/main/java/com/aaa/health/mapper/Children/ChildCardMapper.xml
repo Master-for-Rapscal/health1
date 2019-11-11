@@ -37,6 +37,9 @@ addnewbornDischargeddate,addnewbornMidwiferyhosp,addnewbornMidwiferymain,addnewb
         <if test="userMyphone != null and userMyphone != ''">
             AND userMyphone LIKE '%${userMyphone}%'
         </if>
+        <if test="userBirthday != null and userBirthday != ''">
+            AND userBirthday LIKE '%${userBirthday}%'
+        </if>
         <if test="recordAdress != null and recordAdress != ''">
             AND recordAdress LIKE '%${recordAdress}%'
         </if>

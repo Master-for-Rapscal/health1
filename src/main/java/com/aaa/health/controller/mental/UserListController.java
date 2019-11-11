@@ -46,10 +46,18 @@ public class UserListController {
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page) {
+    public Map<String, Object> getList(Page page,@RequestParam(name = "recordInputtingcard", required = false, defaultValue = "") String recordInputtingcard,
+                                       @RequestParam(name = "recordName2", required = false, defaultValue = "") String recordName2,
+                                       @RequestParam(name = "recordAdress1", required = false, defaultValue = "") String recordAdress1,
+                                       @RequestParam(name = "userMyphone", required = false, defaultValue = "") String userMyphone,
+                                       @RequestParam(name = "userBirthday1", required = false, defaultValue = "") String userBirthday1
+                                       ) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-
+        queryMap.put("recordName",recordName2);
+        queryMap.put("recordAdress",recordAdress1);
+        queryMap.put("userMyphone",userMyphone);
+        queryMap.put("userBirthday",userBirthday1);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", userListService.findList(queryMap));

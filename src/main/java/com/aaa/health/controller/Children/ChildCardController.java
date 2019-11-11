@@ -40,15 +40,18 @@ public class ChildCardController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getList(Page page,@RequestParam(name = "recordInputtingcard", required = false, defaultValue = "") String recordInputtingcard,
-                                       @RequestParam(name = "userName", required = false, defaultValue = "") String userName,
-                                       @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
-                                       @RequestParam(name = "userMyphone", required = false, defaultValue = "") String userMyphone) {
+                                       @RequestParam(name = "recordName1", required = false, defaultValue = "") String recordName1,
+                                       @RequestParam(name = "recordAdress", required = false, defaultValue = "") String recordAdress,
+                                       @RequestParam(name = "userMyphone", required = false, defaultValue = "") String userMyphone,
+                                       @RequestParam(name = "userBirthday", required = false, defaultValue = "") String userBirthday
+                                       ) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("recordInputtingcard",recordInputtingcard);
-        queryMap.put("recordName",userName);
-        queryMap.put("recordAdress",userAdress);
+        queryMap.put("recordName",recordName1);
+        queryMap.put("recordAdress",recordAdress);
         queryMap.put("userMyphone",userMyphone);
+        queryMap.put("userBirthday",userBirthday);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", childCardService.findList(queryMap));
