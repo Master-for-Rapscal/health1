@@ -284,6 +284,7 @@
                 iconCls: 'icon-cancel',
                 handler: function () {
                     $('#woman-dialog').dialog('close');
+                    $("#dataAll").datagrid('getSelections').length = 0;
                 }
             }],
             onBeforeOpen:function(){

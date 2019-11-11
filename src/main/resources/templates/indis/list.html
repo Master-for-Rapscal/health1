@@ -47,258 +47,27 @@
 </div>
 <!-- Begin of easyui-dialog -->
 
-<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:420px; padding:10px;">
-   <!-- <form id="add-form" method="post">
-        <h1 style="text-align: center">突发公共卫生事件相关信息报告卡</h1>
-        <div style="margin-left: 450px">
-            <input type="radio" name="emgPrireport" value="1" checked="true" />初步报告
-            <input type="radio" name="emgPrireport" value="2" checked="true" />进程报告
-            <input type="radio" name="emgPrireport" value="3" checked="true" />结案报告
-        </div>
-        <table border="1" style="margin-left: 50px;width: 650px">
-            <tr>
-                <td width="60" data-options="required:true,min:1,precision:0, missingMessage:'请填写'" >填报机构</td>
-                <td colspan="2">
-                    <select th:name="areaId" class="easyui-combobox" panelHeight="auto" style="width:150px">
-
-                        <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
-                    </select>
-                </td>
-                <td valign="middle">
-                    填表时间
-                </td>
-                <td valign="middle" colspan="2">
-                    <input type="text" class="easyui-datebox" name="emgTime" style="width: 160px;" />
-                </td>
-            </tr>
-            <tr>
-                <td width="60">报告人</td>
-                <td colspan="2"> <input type="text" name="emgPeople" style="width: 160px;" /></td>
-                <td width="60">联系电话</td>
-                <td colspan="2">
-                    <input type="text" name="emgPhone" style="width: 160px;" />
-                </td>
-            </tr>
-            <tr>
-                <td width="60">事件名称</td>
-                <td colspan="5">
-                    <input type="text" name="emgName" style="width: 160px;" />
-                </td>
-            </tr>
-            <tr>
-                <td width="60">信息类别</td>
-                <td colspan="5">
-                    <input type="radio" name="emgCategory" value="1" checked="true" />传染病
-                    <input type="radio" name="emgCategory" value="2" />食物中毒
-                    <input type="radio" name="emgCategory" value="3"/>职业中毒
-                    <input type="radio" name="emgCategory" value="4" />其它中毒事件
-                    <input type="radio" name="emgCategory" value="5" />环境卫生
-                    <input type="radio" name="emgCategory" value="6" />免疫接种
-                    <input type="radio" name="emgCategory" value="7" />群体性不明原因疾病
-                    <input type="radio" name="emgCategory" value="8" />医疗机构内感染
-                    <input type="radio" name="emgCategory" value="9" />放射性卫生
-                    <input type="radio" name="emgCategory" value="10" />其它公共卫生
-                </td>
-            </tr>
-            <tr>
-                <td>突发事件等级</td>
-                <td colspan="5">
-                    <input type="radio" name="emgGrade" value="1" />特别重大
-                    <input type="radio" name="emgGrade" value="2" checked="true" />重大
-                    <input type="radio" name="emgGrade" value="3" />较大
-                    <input type="radio" name="emgGrade" value="4"  />一般
-                    <input type="radio" name="emgGrade" value="5" />未分级
-                    <input type="radio" name="emgGrade" value="6"  />非突发事件
-                </td>
-            </tr>
-            <tr>
-                <td width="60">初步诊断</td>
-                <td colspan="2">
-                    <input type="text" name="emgPreDiagnosis" style="width: 160px;"/>
-                </td>
-                <td width="60">初步诊断时间</td>
-                <td colspan="2">
-                    <input type="text" class="easyui-datebox" name="emgPrediaTime" style="width: 160px;"/>
-                </td>
-            </tr>
-            <tr>
-                <td width="60">订正诊断</td>
-                <td colspan="2">
-                    <input type="text" name="emgRevDiagnosis" style="width: 160px;"/>
-                </td>
-                <td width="60">订正诊断时间</td>
-                <td colspan="2">
-                    <input type="text" class="easyui-datebox" name="emgRevdiaTime" style="width: 160px;"/>
-                </td>
-            </tr>
-            <tr>
-                <td width="60">确认分级时间</td>
-                <td colspan="2">
-                    <input type="text" class="easyui-datebox" name="emgClassifyTime" style="width: 160px;"/>
-                </td>
-                <td width="60">订正分级时间</td>
-                <td colspan="2">
-                    <input type="text" class="easyui-datebox" name="emgRevclyTime" style="width: 160px;"/>
-                </td>
-            </tr>
-            <tr>
-                <td width="60">报告地区</td>
-                <td colspan="5">
-                    <textarea name="emgReportAddress" rows="1" cols="80" ></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td width="60">发生地区</td>
-                <td colspan="5">
-                    <textarea name="emgHappenAddress" rows="1" cols="80" ></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td width="60">详细地点</td>
-                <td colspan="5">
-                    <textarea name="emgDetailAddress" rows="1" cols="80" ></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td width="60">事件发生场所</td>
-                <td colspan="5">
-                    <input type="radio" name="eventHappen" value="1" checked="true"/>学校
-                    <input type="radio" name="eventHappen" value="2" />医疗卫生机构
-                    <input type="radio" name="eventHappen" value="3" />家庭
-                    <input type="radio" name="eventHappen" value="4" />宾馆饭店写字楼
-                    <input type="radio" name="eventHappen" value="5"  />餐饮服务单位
-                    <input type="radio" name="eventHappen" value="6" />交通运输工具
-                    <input type="radio" name="eventHappen" value="7" />菜场、商场或超市
-                    <input type="radio" name="eventHappen" value="8" />车站、码头或机场
-                    <input type="radio" name="eventHappen" value="9"  />党政机关办公场所
-                    <input type="radio" name="eventHappen" value="10" />大型厂矿企业生产场所
-                    <input type="radio" name="eventHappen" value="11" />中小型厂矿企业生产场所
-                    <input type="radio" name="eventHappen" value="12" />城市住宅小区
-                    <input type="radio" name="eventHappen" value="13"  />城市其它公共场所
-                    <input type="radio" name="eventHappen" value="14" />农村村庄
-                    <input type="radio" name="eventHappen" value="15" />农村农田野外
-                    <input type="radio" name="eventHappen" value="16" />其它重要公共场所
-                </td>
-            </tr>
-            <tr>
-                <td width="80">事件信息来源</td>
-                <td colspan="5">
-                    <input type="radio" name="eventSource" value="1" checked="true" />属地医疗机构
-                    <input type="radio" name="eventSource" value="2" />外地医疗机构
-                    <input type="radio" name="eventSource" value="3" />报纸
-                    <input type="radio" name="eventSource" value="4" />电视
-                    <input type="radio" name="eventSource" value="5"/>特服号电话95120
-                    <input type="radio" name="eventSource" value="6" />互联网
-                    <input type="radio" name="eventSource" value="7"/>市民电话报告
-                    <input type="radio" name="eventSource" value="8" />上门直接报告
-                    <input type="radio" name="eventSource" value="9"/>本系统自动预警产生
-                    <input type="radio" name="eventSource" value="10" />广播
-                    <input type="radio" name="eventSource" value="11"/>填报单位人员目睹
-                    <input type="radio" name="eventSource" value="12" />其它<input type="text"/>
-                </td>
-            </tr>
-            <tr>
-                <td width="80">事件信息来源详细</td>
-                <td colspan="5">
-                    <textarea name="evsoDetail" rows="1" cols="80" ></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td width="80">事件波及的地域范围</td>
-                <td colspan="5">
-                    <textarea name="eventRange" rows="1" cols="80" ></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td width="60">新报告病例数</td>
-                <td>
-                    <input type="text" name="emgCase"  style="width: 160px;"/>
-                </td>
-                <td width="60">新报告死亡数</td>
-                <td>
-                    <input type="text" name="emgDie"  style="width: 160px;" />
-                </td>
-                <td>排除病例数</td>
-                <td>
-                    <input type="text" name="emgRecase"  style="width: 160px;" />
-                </td>
-            </tr>
-            <tr>
-                <td width="60">累计报告病例数</td>
-                <td colspan="2">
-                    <input type="text" name="emgCatotal" style="width: 160px;"/>
-                </td>
-                <td width="60">累计报告死亡数</td>
-                <td colspan="2">
-                    <input type="text" name="emgDietotal" style="width: 160px;"/>
-                </td>
-            </tr>
-            <tr>
-                <td width="60">事件发生时间</td>
-                <td colspan="2">
-                    <input type="text" class="easyui-datetimebox" name="emgTimes" style="width: 160px;"/>
-                </td>
-                <td width="60">接到报告时间</td>
-                <td colspan="2">
-                    <input type="text" class="easyui-datetimebox" name="emgReportTime" style="width: 160px;"/>
-                </td>
-            </tr>
-            <tr>
-                <td width="60">首例病人发病时间</td>
-                <td colspan="2">
-                    <input type="text" class="easyui-datetimebox" name="firstPatient" style="width: 160px;"/>
-                </td>
-                <td width="60">末例病人发病时间</td>
-                <td colspan="2">
-                    <input type="text" class="easyui-datetimebox" name="lastPatient" style="width: 160px;"/>
-                </td>
-            </tr>
-            <tr>
-                <td>主要症状</td>
-                <td colspan="5">
-                    <div>
-                        <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="1">呼吸道症状
-                        <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="2">胃肠道症状
-                        <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="3">神经系统症状
-                        <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="4">皮肤粘膜症状
-                        <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="5">神经症状
-                        <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="6">其它<input type="text"/>
-                        &lt;!&ndash;<input class="easyui-textbox"  id="mainSymptomsid" name="mainSymptoms"></input>&ndash;&gt;
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td width="60">主要体征</td>
-                <td colspan="5">
-                    <textarea name="mainSign" rows="5" cols="80" ></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td width="60">主要措施与效果</td>
-                <td colspan="5">
-                    <textarea name="mainMese" rows="5" cols="80" ></textarea>
-                </td>
-            </tr>
-
-
-        </table>
-    </form>-->
-</div>
-
 <!--传染病随访记录-->
-<div id="disfoll-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:600px;">
+<div id="disfoll-dialog" class="easyui-dialog" data-options="closed:true" style="width:600px;">
     <table id="dataAll" class="easyui-datagrid" style="width: 580px; height: 400px;" ></table>
 </div>
 
 <!--健康档案-->
-<div id="userinfo-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:700px;height: 580px">
+<div id="userinfo-dialog" class="easyui-dialog" data-options="closed:true" style="width:700px;height: 580px">
+    <!--按条件查询-->
+    <label> 健康档案号:</label><input name="userId" class="easyui-numberbox" maxlength="9" data-options="validType:'length[0,9]'"  style="width: 120px"/>
+    <label> 姓名:</label><input name="recordName" style="width: 100px"/>
+    <label> 出生日期:</label><input type="text" class="easyui-datebox" editable="fasle" name="beginTime" style="width: 100px"/>至
+    <input type="text" class="easyui-datebox"  name="endTime" style="width: 100px"/>
+    <a href="#" id="userinfo-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+
     <table id="userAll" class="easyui-datagrid" style="width: 650px;height: 500px" ></table>
 </div>
-<!-- 添加传染病报告卡 -->
+<!-- 添加/修改传染病报告卡 -->
 <div id="addinfd" class="easyui-dialog" style="width: 730px;height: 620px; margin-left: 20px;padding:10px;">
     <div th:replace="indis/addinfdis :: infdisease"></div>
 </div>
-<!-- 修改传染病随访记录 -->
+<!-- 添加/修改传染病随访记录 -->
 <div id="editinf" class="easyui-dialog" style="width: 700px;height: 600px; padding:10px;">
     <div th:replace="indis/editinfdis :: infdis"></div>
 </div>
@@ -882,6 +651,7 @@
                 iconCls: 'icon-cancel',
                 handler: function () {
                     $('#disfoll-dialog').dialog('close');
+                    $("#dataAll").datagrid('getSelections').length = 0;
                 }
             }],
             onBeforeOpen:function(){
@@ -1041,6 +811,25 @@
                 $.messager.alert('提示',"开始日期不能大于结束日期");
             }
             if (beginTimet>endTimet){
+                $.messager.alert('提示',"开始日期不能大于结束日期");
+            }
+
+        });
+    });
+    $(function () {
+        $("#userinfo-Search").click(function () {
+            $("#userAll").datagrid({
+                queryParams: {
+                    userId: $("input[name=userId]").val(),
+                    recordName: $("input[name=recordName]").val(),
+                    beginTime: $("input[name=beginTime]").val(),
+                    endTime: $("input[name=endTime]").val()
+                }
+
+            });
+            var beginTime=$("input[name=beginTime]").val();
+            var endTime=$("input[name=endTime]").val();
+            if (beginTime>endTime){
                 $.messager.alert('提示',"开始日期不能大于结束日期");
             }
 

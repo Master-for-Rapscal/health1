@@ -33,4 +33,16 @@ public class PuserinfoController {
     public Object queryById(Integer userId){
         return puserinfoService.queryUserById(userId);
     }
+
+   /* @RequestMapping(value = "/list", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> findUser(Page page) {
+        Map<String, Object> ret = new HashMap<String, Object>();
+        Map<String, Object> queryMap = new HashMap<String, Object>();
+        queryMap.put("offset", page.getOffset());
+        queryMap.put("pageSize", page.getRows());
+        ret.put("rows", puserinfoService.findUser(queryMap));// 页面加载数据使用
+        ret.put("total", puserinfoService.getTotal(queryMap));// 分页使用
+        return ret;
+    }*/
 }

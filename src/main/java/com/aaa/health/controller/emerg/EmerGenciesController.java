@@ -89,6 +89,18 @@ public class EmerGenciesController {
         ret.put("msg", "添加失败！");
         return ret;
     }
+
+
+
+    @RequestMapping(value = "/findById", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> findById(Integer emgId) {
+        System.out.println(emgId);
+        System.out.println(emerGenciesService.findById(emgId));
+        Map<String, Object> em = new HashMap<String, Object>();
+        em.put("emg", emerGenciesService.findById(emgId));// 页面加载数据使用
+        return em;
+    }
     /**
      * 修改信息
      *

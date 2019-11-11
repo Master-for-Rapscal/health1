@@ -307,7 +307,17 @@
 
 
 
+<!--健康档案-->
+<div id="userinfo-dialog" class="easyui-dialog" data-options="closed:true" style="width:700px;height: 580px">
+    <!--按条件查询-->
+    <label> 健康档案号:</label><input name="userId" class="easyui-numberbox" maxlength="9" data-options="validType:'length[0,9]'"  style="width: 120px"/>
+    <label> 姓名:</label><input name="recordName" style="width: 100px"/>
+    <label> 出生日期:</label><input type="text" class="easyui-datebox" editable="fasle" name="beginTime" style="width: 100px"/>至
+    <input type="text" class="easyui-datebox"  name="endTime" style="width: 100px"/>
+    <a href="#" id="userinfo-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
 
+    <table id="userAll" class="easyui-datagrid" style="width: 650px;height: 500px" ></table>
+</div>
 <div id="process-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-upload',title:'正在上传图片'" style="width:450px; padding:10px;">
     <div id="p" class="easyui-progressbar" style="width:400px;" data-options="text:'正在上传中...'"></div>
 </div>
@@ -455,14 +465,12 @@
     }
 
     /**
-     * Name 打开添加窗口
+     *  添加传染病报告卡
      */
-    function openAdd(){
-        //$('#add-form').form('clear');
-        $('#add-dialog').dialog({
-            closed: false,
-            modal:true,
-            title: "新增",
+   /* function addindis(userId){
+        $('#userinfo-dialog').dialog('close');
+        $("#addinfd").dialog({
+            title : "新增",
             buttons: [{
                 text: '确定',
                 iconCls: 'icon-ok',
@@ -471,14 +479,84 @@
                 text: '取消',
                 iconCls: 'icon-cancel',
                 handler: function () {
-                    $('#add-dialog').dialog('close');
+                    $('#addinfd').dialog('close');
                 }
             }],
-            onBeforeOpen:function(){
-                //$("#add-form input").val('');
+            model : true,
+            onBeforeOpen: function(){
+                touserinfo(userId);
             }
         });
     }
+    function touserinfo(userId) {
+        $("#userId").val(userId);
+        $('#userinfo-dialog').dialog('close');
+        $("#addinfd").dialog({
+            title: "新增",
+            model: true,
+            onBeforeOpen: function () {
+                $.ajax({
+                    url: '../puserinfo/queryUserById',
+                    type: 'post',
+                    data: "userId=" + userId,
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#infdisform").form("load",data);
+                    }
+
+                });
+            }
+        });
+    }*/
+
+    /**
+     *  打开健康档案窗口
+     */
+    function openAdd(){
+        $('#userinfo-dialog').dialog({
+            closed: false,
+            modal:true,
+            title: "健康档案选取",
+            buttons: [{
+                text: '确定',
+                iconCls: 'icon-ok',
+                //handler:addindis
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#userinfo-dialog').dialog('close');
+                }
+            }],
+            onBeforeOpen:function(){
+                $("#userAll").datagrid({
+                    url: '../puserinfo/list',
+                    fitColumns: true,
+                    striped: true,
+                    singleSelect: true,
+                    pagination: true,
+                    rownumbers: true,
+                    pageSize: 20,
+                    multiSort: true,
+                    /*onDblClickRow: function (index, row) {
+                        addbusman(row.userId);
+                    },*/
+                    columns:[[
+                        { field:'userId',title:'健康档案号',width:100,align:'center'},
+                        { field:'recordName',title:'姓名',width:100},
+                        { field:'userBirthday',title:'出生日期',width:100,formatter:function(value,row,index){
+                                return format(value);}},
+                        { field:'recordAdress',title:'现住地址',width:100},
+                        { field:'userMyphone',title:'联系电话',width:100}
+                    ]],
+                    onLoadSuccess:function(data) {
+                        $('.authority-edit').linkbutton({text: '编辑权限', plain: true, iconCls: 'icon-edit'});
+                    }
+                });
+            }
+        });
+    }
+
 
     /**
      * 打开修改窗口

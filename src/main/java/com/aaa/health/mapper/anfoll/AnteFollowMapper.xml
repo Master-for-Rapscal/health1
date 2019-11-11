@@ -5,6 +5,8 @@
 <mapper namespace="com.aaa.health.mapper.anfoll.AnteFollowMapper">
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.anfoll.AnteFollow">
         select userId,recordName,userBirthday,recordAdress,userMyphone,recordData from userinfo
+        where 1=1
+        and userSex=2
         <if test="username != null">
             and username like '%${username}%'
         </if>

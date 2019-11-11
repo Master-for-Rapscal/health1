@@ -34,4 +34,20 @@
             and sex = #{sex}
         </if>
     </select>
+    <!--<select id="findUser" parameterType="Map" resultType="com.aaa.health.entity.pultub.Puserinfo">
+        select *,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(userBirthday))/365) userAge from userinfo where 1 = 1
+        and userSex=2
+        <if test="username != null">
+            and username like '%${username}%'
+        </if>
+        <if test="roleId != null">
+            and roleId = #{roleId}
+        </if>
+        <if test="sex != null">
+            and sex = #{sex}
+        </if>
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>-->
 </mapper>

@@ -11,6 +11,7 @@ public interface EmerGenciesMapper {
     List<EmerGencies> findList(Map<String, Object> queryMap);
     int getTotal(Map<String, Object> queryMap);
     int add(EmerGencies emerGencies);
+    Map<String,Object> findById(Integer emgId);
     int update(EmerGencies emerGencies);
     int delete(String ids);
     List<Area> findArea();

@@ -76,4 +76,7 @@ firstPatient=#{firstPatient},lastPatient=#{lastPatient},mainSymptoms=#{mainSympt
     <select id="findArea" resultType="com.aaa.health.entity.area.Area">
  select * from area
     </select>
+    <select id="findById" parameterType="Integer" resultType="Map">
+select * from emergencies where emgId=#{emgId}
+    </select>
 </mapper>

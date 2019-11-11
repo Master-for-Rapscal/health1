@@ -49,6 +49,7 @@ public class DisfollowUpController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> delete(String ids) {
+        System.out.println(ids);
         Map<String, String> ret = new HashMap<String, String>();
         if (StringUtils.isEmpty(ids)) {
             ret.put("type", "error");

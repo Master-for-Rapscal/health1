@@ -28,6 +28,11 @@ public class EmerGenciesServiceImpl implements EmerGenciesService{
     }
 
     @Override
+    public Map<String, Object> findById(Integer emgId) {
+        return emerGenciesMapper.findById(emgId);
+    }
+
+    @Override
     public int update(EmerGencies emerGencies) {
         return emerGenciesMapper.update(emerGencies);
     }

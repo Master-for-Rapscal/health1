@@ -22,6 +22,11 @@ public class PuserinfoServiceImpl implements PuserinfoService{
         return puserinfoMapper.getTotal(queryMap);
     }
 
+   /* @Override
+    public List<Puserinfo> findUser(Map<String, Object> queryMap) {
+        return puserinfoMapper.findUser(queryMap);
+    }*/
+
     @Override
     public Map<String, Object> queryUserById(Integer userId) {
         return puserinfoMapper.queryUserById(userId);

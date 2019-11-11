@@ -32,7 +32,7 @@
             </tr>
                 <tr>
                 <td colspan="2">随访时间</td>
-                    <td colspan="4"><input type="text" class="easyui-datebox" style="width: 120px"  name="pultubfoTime"></td>
+                    <td colspan="4"><input type="text" class="easyui-datebox" style="width: 100%"  name="pultubfoTime"></td>
             </tr>
             <tr>
                 <td colspan="2">随访方式</td>
@@ -68,7 +68,7 @@
             <tr>
                 <td rowspan="2">症状及体征</td>
                 <td colspan="5">
-                    <input type="checkbox" name="symptomSign" value="1"/>没有症状
+                    <input type="checkbox" name="symptomSign" value="1" onclick="checkItem1(this)"/>其他
                     <input type="checkbox" name="symptomSign" value="2"/>咳嗽咳痰
                     <input type="checkbox" name="symptomSign" value="3"/>低热盗汗
                     <input type="checkbox" name="symptomSign" value="4"/>咯血或血痰
@@ -78,7 +78,7 @@
                     <input type="checkbox" name="symptomSign" value="8"/>视物模糊
                     <input type="checkbox" name="symptomSign" value="9"/>皮肤瘙痒、皮疹
                     <input type="checkbox" name="symptomSign" value="10"/>耳鸣、听力下降
-                    <input type="checkbox" name="symptomSign" value="11" onclick="checkItem1(this)"/>其他
+                    <input type="checkbox" name="symptomSign" value="11"/>没有症状
                 </td>
             </tr>
             <tr>
@@ -152,7 +152,7 @@
             <tr>
                 <td>取药时间：</td>
                 <td colspan="3">
-                    <input type="text" class="easyui-datebox" name="pultubfoDrugtime"/>
+                    <input type="text" class="easyui-datebox" style="width: 100%" name="pultubfoDrugtime"/>
                 </td>
             </tr>
             <tr>
@@ -220,12 +220,12 @@
         </tr>
             <tr>
                 <td colspan="2">下次随访时间</td>
-                <td colspan="4"><input type="text" class="easyui-datebox" style="width: 120px"  name="nextfoTime"></td>
+                <td colspan="4"><input type="text" class="easyui-datebox" style="width: 200px"  name="nextfoTime"></td>
             </tr>
             <tr>
                 <td colspan="2">评估医生签名</td>
                 <td colspan="4">
-                    <select name="pultubfofoDoctor" class="easyui-combobox" panelHeight="auto" style="width:268px" >
+                    <select name="pultubfofoDoctor" class="easyui-combobox" panelHeight="auto" style="width:200px">
                         <a th:each="doctor:${session.doctor}" >
                             <option   th:value="${doctor.id}" ><span th:text="${doctor.lastname }"></span></option>
                         </a>

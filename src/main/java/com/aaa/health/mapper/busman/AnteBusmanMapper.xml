@@ -8,6 +8,7 @@
         a.anfoParity,a.anfoName,u.recordAdress,u.userMyphone,u.recordData,a.anfoState,a.anfoStatetime,a.anfoStateReason
         from antenatalFollowup a join userinfo u on a.userId=u.userId join childbirth c on a.chbirId=c.chbirId
         where 1=1
+        and u.userSex=2
         <if test="username != null">
             and username like '%${username}%'
         </if>
