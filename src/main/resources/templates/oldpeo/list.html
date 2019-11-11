@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <!--引入抬头页面-->
-<div th:replace="common/header :: header"  ></div>
+<div th:replace="common/header :: header"></div>
 
 <div class="easyui-layout" data-options="fit:true">
     <!-- Begin of toolbar -->
     <div id="wu-toolbar">
         <div class="wu-toolbar-button">
             <!--引入菜单页面-->
-            <div th:replace="common/menus :: menus"  > </div>
+            <div th:replace="common/menus :: menus"></div>
         </div>
         <div class="wu-toolbar-search">
-            <label> 个人编号:</label><input name="userId"/>
-            <label> 姓名:</label><input name="userName"/>
+            <label> 个人编号:</label><input name="bianhao"/>
+            <label> 姓名:</label><input name="ming"/>
             <label> 联系地址:</label><input name="userAdress"/>
-            <label> 联系电话:</label><input name="userMyphone"/>
+            <label> 联系电话:</label><input name="sjh"/>
+            <label> 结案状态:</label>
+            <select name="oldpeoMstate" class="easyui-combobox" panelHeight="auto" style="width:120px">
+                <option value="0">未结案</option>
+                <option value="1">已结案</option>
+            </select>
             <a href="#" id="userSearch" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
         </div>
     </div>
-
 
 
     <!-- End of toolbar -->
@@ -26,53 +30,56 @@
 </div>
 <!-- Begin of easyui-dialog -->
 
-<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:600px; padding:10px;">
+<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-saqvess'"
+     style="width:600px; padding:10px;">
     <!-- 查询个人档案-->
-    <table id="data-ins" class="easyui-datagrid" style="width: 550px; height: 500px;"></table>
+    <table id="data-ins" class="easyui-datagrid" style="width: 550px; margin: auto; height: 500px;"></table>
 </div>
 
 
-
-
-
-<div id="sele" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:600px;  height:400px;padding:10px;">
+<div id="sele" class="easyui-dialog" data-options="closed:true,iconCls:'icon-saqveqwss'"
+     style="width:600px; margin: auto;  height:400px;padding:10px;">
     <!-- 查询个人随访-->
     <table id="sele-ins" class="easyui-datagrid" style="width:600px; height:400px;"></table>
 </div>
-<div id="editArr" class="easyui-dialog" style="width: 740px;height: 600px; padding:10px;">
-    <div th:replace="common/editsui :: editsui"></div>
-</div>
+<!--<div id="editArr" class="easyui-dialog" style="width: 740px;height: 600px; padding:10px;">
+    <div th:replace="common/oldarrange :: oldsuifang"></div>
+</div>-->
 
 <div id="old" class="easyui-dialog" style="width: 620px; padding:10px;">
     <div th:include="common/oldpeo :: oldpeo"></div>
 </div>
-<div id="oldsui" class="easyui-dialog" style="width: 740px; height: 500px; padding:10px;">
+
+
+<div id="oldsui" class="easyui-dialog" style="width: 740px; height: 700px; padding:10px;">
     <div th:include="common/oldarrange :: oldsuifang"></div>
 </div>
 
 <!-- 修改窗口 -->
 
-<div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:300px; padding:10px; margin: auto">
-    <form id="edit-form" method="post" >
+<div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-savwqqe'"
+     style="width:300px; padding:10px; margin: auto">
+    <form id="edit-form" method="post">
         <input type="hidden" name="oldpeoId" id="oldpeoId">
         <table>
             <tr>
                 <td>是否结案：</td>
                 <td><input type="radio" name="oldpeoMstate" checked=＂checked＂ value="1" onclick="on()"/>是&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio"  onclick="off()" id="bs" name="oldpeoMstate" value="0"/>否
+                    <input type="radio" onclick="off()" id="bs" name="oldpeoMstate" value="0"/>否
                 </td>
             </tr>
             <tr>
                 <td>结案日期：</td>
-                <td><input id="oldcloseDate"  class="easyui-datebox" style="width: 150px;border: 1px solid;" name="oldcloseDate" /> </td>
+                <td><input id="oldcloseDate" class="easyui-datebox" style="width: 150px;border: 1px solid;"
+                           name="oldcloseDate"/></td>
             </tr>
             <tr>
                 <td>结案原因：</td>
-                <td><select name="oldcloseRea"  id="oldcloseRea" style="width: 150px" >
+                <td><select name="oldcloseRea" id="oldcloseRea" style="width: 150px">
                     <option value="外出">外出</option>
                     <option value="失访">失访</option>
                     <option value="死亡">死亡</option>
-                </select> </td>
+                </select></td>
             </tr>
 
 
@@ -82,30 +89,31 @@
 
 
 <script>
-function on(){//是
-    $("#oldcloseDate.easyui-datebox").datebox({ disabled: false});
-    $("#oldcloseRea").removeAttr("disabled");
-}
+    function on() {//是
+        $("#oldcloseDate.easyui-datebox").datebox({disabled: false});
+        $("#oldcloseRea").removeAttr("disabled");
+    }
 
-function off(){//否
-    $("#oldcloseDate.easyui-datebox").datebox({ disabled: true});
-    $("#oldcloseDate").datebox('clear');
-    $("#oldcloseRea").attr({ disabled: 'true' });
-/*    $("#form").form("clear");*/
-}
+    function off() {//否
+        $("#oldcloseDate.easyui-datebox").datebox({disabled: true});
+        $("#oldcloseDate").datebox('clear');
+        $("#oldcloseRea").attr({disabled: 'true'});
+        /*    $("#form").form("clear");*/
+    }
 
+    $('#oldcloseDate').datebox({
+        required: true
+    });
 </script>
 
 
-
-
-
-<div id="process-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-upload',title:'正在上传图片'" style="width:450px; padding:10px;">
+<div id="process-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-upload',title:'正在上传图片'"
+     style="width:450px; padding:10px;">
     <div id="p" class="easyui-progressbar" style="width:400px;" data-options="text:'正在上传中...'"></div>
 </div>
 <input type="file" id="photo-file" style="display:none;" onchange="upload()">
 <!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
-<div th:replace="common/footer :: myfooter"  ></div>
+<div th:replace="common/footer :: myfooter"></div>
 
 
 <!-- End of easyui-dialog -->
@@ -119,31 +127,35 @@ function off(){//否
         $("#sele").dialog('close');
     })
 
+    /*
+        $(function () {
+            $("#editArr").dialog('close');
+        })
+        function  CloseArr(){
 
-    $(function () {
-        $("#editArr").dialog('close');
-    })
-    function  CloseArr(){
-
-        $("#editArr").dialog('close');
-    }
+            $("#editArr").dialog('close');
+        }*/
     $(function () {
         $("#oldsui").dialog('close');
     })
+
     function goClose() {
         $("#sele").dialog("close");
     }
+
     function Close() {
         $("#oldsui").dialog("close");
     }
+
     $(function () {
         $("#userSearch").click(function () {
             $("#data-datagrid").datagrid({
                 queryParams: {
-                    userId: $("input[name=userId]").val(),
-                    userName: $("input[name=userName]").val(),
+                    bianhao: $("input[name=bianhao]").val(),
+                    ming: $("input[name=ming]").val(),
                     userAdress: $("input[name=userAdress]").val(),
-                    userMyphone: $("input[name=userMyphone]").val()
+                    sjh: $("input[name=sjh]").val(),
+                    oldpeoMstate: $("input[name=oldpeoMstate]").val()
                 }
             });
         });
@@ -152,12 +164,14 @@ function off(){//否
 
     var gxy;
     var ed;
-    function opensele(userId,oldpeoId){
-         gxy=userId;
-         ed=oldpeoId;
+
+    function opensele(userId, oldpeoId) {
+        gxy = userId;
+        ed = oldpeoId;
+
         $('#sele').dialog({
             closed: false,
-            modal:true,
+            modal: true,
             title: "随访记录",
             buttons: [{
                 text: '取消',
@@ -166,7 +180,7 @@ function off(){//否
                     $('#sele').dialog('close');
                 }
             }],
-            onBeforeOpen:function(){
+            onBeforeOpen: function () {
                 $("#sele-ins").datagrid({
                     url: 'queryArrange?oldpeoId=' + oldpeoId,
                     fitColumns: true,
@@ -183,123 +197,153 @@ function off(){//否
                         {field: 'oldarrangeId', title: '新增序号', width: 100, align: 'center', hidden: true},
                         {field: 'oldarrangeFoltime', title: '随访日期', width: 100, align: 'center'},
                         {field: 'oldarrangeNextflup', title: '下次检查日期', width: 100, align: 'center'},
-                        {field: 'lastname', title: '检查医生', width: 100,  align: 'center'},
+                        {field: 'lastname', title: '检查医生', width: 100, align: 'center'},
                         {field: 'recordMedical', hidden: true},
                         {field: 'userId', hidden: true},
-                        {field: 'recordName',  hidden: true},
-                        {field: 'userSex',   hidden: true},
-                        {field: 'userGam',  hidden: true},
+                        {field: 'recordName', hidden: true},
+                        {field: 'userSex', hidden: true},
+                        {field: 'userGam', hidden: true},
                         {field: 'userWorKunit', hidden: true},
-                        {field: 'userBirthdy',  hidden: true},
+                        {field: 'userBirthdy', hidden: true},
                         {field: 'userMyphone', hidden: true},
-                        {field: 'recordAdress',  hidden: true},
+                        {field: 'recordAdress', hidden: true},
                     ]],
                     toolbar: [{
                         text: '新增',
                         iconCls: 'icon-add',
-                        handler:  addSui
+                        handler: addSui
 
                     }, '-', {
                         text: '删除',
                         iconCls: 'icon-cancel',
                         handler: deleteArr
+                    }, '-', {
+                        text: '**双击修改记录**',
+                        iconCls: 'icon-jingshenke',
+                        handler: function () {
+                        }
                     }], onDblClickRow: function (index, row) {
-                        updaArr(row.oldarrangeId, row.oldpeoId,row.userId);
+                        updaArr(row.oldarrangeId, row.oldpeoId, row.userId);
 
                     },
                 });
             }
         });
     }
-    function deleteArr(){
-        $.messager.confirm('信息提示','确定要删除该记录？', function(result){
-            if(result){
+
+    function deleteArr() {
+        $.messager.confirm('信息提示', '确定要删除该记录？', function (result) {
+            if (result) {
                 var item = $('#sele-ins').datagrid('getSelections');
-                if(item == null || item.length == 0){
-                    $.messager.alert('信息提示','请选择要删除的数据！','info');
+                if (item == null || item.length == 0) {
+                    $.messager.alert('信息提示', '请选择要删除的数据！', 'info');
                     return;
                 }
                 var ids = '';
-                for(var i=0;i<item.length;i++){
+                for (var i = 0; i < item.length; i++) {
                     ids += item[i].oldarrangeId + ',';
                 }
                 $.ajax({
-                    url:'deleteArr',
-                    dataType:'json',
-                    type:'post',
-                    data:{ids:ids},
-                    success:function(data){
-                        if(data.type == 'success'){
-                            $.messager.alert('信息提示','删除成功！','info');
+                    url: 'deleteArr',
+                    dataType: 'json',
+                    type: 'post',
+                    data: {ids: ids},
+                    success: function (data) {
+                        if (data.type == 'success') {
+                            $.messager.alert('信息提示', '删除成功！', 'info');
                             $("#sele").dialog('close');
                             $('#data-datagrid').datagrid('reload');
-                        }else{
-                            $.messager.alert('信息提示',data.msg,'warning');
+                            $("#sele").datagrid('getSelections').length = 0;
+                            $("#data-datagrid").datagrid('getSelections').length = 0;
+                        } else {
+                            $.messager.alert('信息提示', data.msg, 'warning');
+                            $("#sele").datagrid('getSelections').length = 0;
+                            $("#data-datagrid").datagrid('getSelections').length = 0;
                         }
                     }
                 });
             }
         });
     }
+
     var cd;
-function updaArr(oldarrangeId,oldpeoId,userId){
-    $('#sele').dialog('close');
+
+    function updaArr(oldarrangeId, oldpeoId, userId) {
+        $('#sele').dialog('close');
         gxy = oldpeoId;
-        ed=userId;
+        ed = userId;
         cd = oldarrangeId;
-        $('#editArr').dialog({
+        $('#oldsui').dialog({
             closed: false,
             modal: true,
             title: "修改",
+            buttons: [{
+                text: '修改',
+                iconCls: 'icon-add',
+                handler: updateA
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#oldsui').dialog('close');
+                }
+            }],
+
             onBeforeOpen: function () {
-                $("#editoldpeoId").val(gxy);
-                $("#editoldarrangeId").val(cd);
+                $("#userId").val(gxy);
+                $("#oldpeoId").val(ed);
+                $("#oldarrangeId").val(cd);
                 $.ajax({
                     url: 'queryById',
                     type: 'post',
                     data: "uid=" + ed,
                     dataType: 'json',
                     success: function (data) {
-                        $("#recordMedical4").val(data.recordMedical);
-                        $("#userId4").val(data.userId);
-                        $("#recordName4 ").val(data.recordName );
-                        $("#userWorKunit4").val(data.userWorKunit);
-                        $("#userBirthday4").val(data.userBirthday);
-                        $("#userMyphone4").val(data.userMyphone);
-                        $("#recordAdress4").val(data.recordAdress);
-                        var sex="未知";
-                        var hunyin="未说明婚姻情况";
-                        if( data.userSex==1){
-                            sex= "男";
-                        }else if(data.userSex==2){
-                            sex= "女";
-                        }
-                        if(data.userGam==1){
-                            hunyin="已婚";
-                        }else if(data.userGam==2){
-                            hunyin="丧偶";
-                        }else if(data.userGam==3){
-                            hunyin="离婚";
-                        }else if(data.userGam==0){
-                            hunyin="未婚";
-                        }
-                        $("#userSex4").val(sex);
-                        $("#userGam4").val(hunyin);
+                        $("input[name='recordMedical']").val(data.recordMedical);
+                        $("input[name='userId']").val(data.userId);
+                        $("input[name='recordName']").val(data.recordName);
+                        $("input[name='userWorKunit']").val(data.userWorKunit);
+                        $("input[name='userBirthday']").val(data.userBirthday);
+                        $("input[name='userMyphone']").val(data.userMyphone);
+                        $("input[name='recordAdress']").val(data.recordAdress);
 
+
+                        var sex = "未知";
+                        var hunyin = "未说明婚姻情况";
+                        if (data.userSex == 1) {
+                            sex = "男";
+                        } else if (data.userSex == 2) {
+                            sex = "女";
+                        } else {
+                            sex = "未知";
+                        }
+                        if (data.userGam == 1) {
+                            hunyin = "已婚";
+                        } else if (data.userGam == 2) {
+                            hunyin = "丧偶";
+                        } else if (data.userGam == 3) {
+                            hunyin = "离婚";
+                        } else if (data.userGam == 0) {
+                            hunyin = "未婚";
+                        }
+
+                        $("input[name='userSex']").val(sex);
+                        $("input[name='userGam']").val(hunyin);
 
                     }
 
-                });   $.ajax({
-                    type : "post",
-                    url : "queryDoctor",
-                    dataType : "json",
-                    success : function (date) {
-                        $("#healthcheckDoctor2").combobox({
-                            mode:'remote',
-                            url:'queryDoctor',
-                            valueField:'id',
-                            textField:'lastname',
-                            delay:100
+                });
+                $.ajax({
+                    type: "post",
+                    url: "queryDoctor",
+                    dataType: "json",
+                    success: function (date) {
+                        $("#healthcheckDoctor").combobox({
+                            mode: 'remote',
+                            url: 'queryDoctor',
+                            valueField: 'id',
+                            textField: 'lastname',
+                            delay: 100
                         });
                     }
                 });
@@ -310,7 +354,7 @@ function updaArr(oldarrangeId,oldpeoId,userId){
                     dataType: 'json',
                     success: function (d) {
 
-                        $('#editsuiform').form('load', d[0]);
+                        $('#sfform').form('load', d[0]);
                     }
 
                 })
@@ -319,86 +363,118 @@ function updaArr(oldarrangeId,oldpeoId,userId){
         })
     }
 
-    function updateA(){
+    function updateA() {
 
-        var validate = $("#editsuiform").form("validate");
+        var validate = $("#sfform").form("validate");
 
-        if(!validate){
+        if (!validate) {
             return;
         }
-        var date=$("#editsuiform").serialize();
-
+        var endTime=$("input[name='oldarrangeNextflup']").val();
+        var beginTime=$("input[name='oldarrangeFoltime']").val();
+        if(endTime<beginTime){
+            $.messager.alert("错误提示","下次随访日期必须大于此次随访日期");
+            return;
+        }
+        var date = $("#sfform").serialize();
+/*alert(cd);*/
         $.ajax({
-            url:'updateArr',
-            dataType:'json',
-            type:'post',
-            data: date,
-            success:function(data){
-                if(data>0){
-                    $.messager.alert('信息提示','修改成功！','info');
+            url: 'updateArr',
+            dataType: 'json',
+            type: 'post',
+            data: "oldarrangeId="+cd+"&"+date,
+            success: function (data) {
+                if (data > 0) {
+                    $.messager.alert('信息提示', '修改成功！', 'info');
 
-                    $('#editArr').dialog('close');
+                    $('#oldsui').dialog('close');
                     $('#data-datagrid').datagrid('reload');
-                }else{
-                    $.messager.alert('信息提示',data.msg,'warning');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#sele").datagrid('getSelections').length = 0;
+                } else {
+                    $.messager.alert('信息提示', data.msg, 'warning');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#sele").datagrid('getSelections').length = 0;
                 }
             }
         });
     }
 
-    function addSui(){
+    function addSui() {
+        /*        alert(gxy);
+                alert(ed);*/
         $('#sele').dialog('close');
         $("#oldsui").dialog({
-            title : "新增随访表",
-            model : true,
-            onBeforeOpen: function(){
-                $("#userId3").val(gxy);
-                $("#oldpeoId3").val(ed);
+            title: "新增随访表",
+            model: true,
+            buttons: [{
+                text: '添加',
+                iconCls: 'icon-add',
+                handler: goSui
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#oldsui').dialog('close');
+                }
+            }],
+            onBeforeOpen: function () {
+                $("#oldpeoId").val(ed);
+
                 $.ajax({
-                    url:'queryById',
-                    type:'post',
-                    data:"uid="+gxy,
-                    dataType:'json',
-                    success:function(data){
-                        $("#recordMedical3").val(data.recordMedical);
-                        $("#userId3").val(data.userId);
-                        $("#recordName3 ").val(data.recordName );
-                        $("#userWorKunit3").val(data.userWorKunit);
-                        $("#userBirthday3").val(data.userBirthday);
-                        $("#userMyphone3").val(data.userMyphone);
-                        $("#recordAdress3").val(data.recordAdress);
-                        var sex="未知";
-                        var hunyin="未说明婚姻情况";
-                        if( data.userSex==1){
-                            sex= "男";
-                        }else if(data.userSex==2){
-                            sex= "女";
+                    url: 'queryById',
+                    type: 'post',
+                    data: "uid=" + gxy,
+                    dataType: 'json',
+                    success: function (data) {
+
+                        /*      $('#queryForm').form('load',data.datainfo);*/
+                        /*   alert(data.recordMedical);*/
+                        $("input[name='recordMedical']").val(data.recordMedical);
+                        $("input[name='userId']").val(data.userId);
+                        $("input[name='recordName']").val(data.recordName);
+                        $("input[name='userWorKunit']").val(data.userWorKunit);
+                        $("input[name='userBirthday']").val(data.userBirthday);
+                        $("input[name='userMyphone']").val(data.userMyphone);
+                        $("input[name='recordAdress']").val(data.recordAdress);
+
+
+                        var sex = "未知";
+                        var hunyin = "未说明婚姻情况";
+                        if (data.userSex == 1) {
+                            sex = "男";
+                        } else if (data.userSex == 2) {
+                            sex = "女";
+                        } else {
+                            sex = "未知";
                         }
-                        if(data.userGam==1){
-                            hunyin="已婚";
-                        }else if(data.userGam==2){
-                            hunyin="丧偶";
-                        }else if(data.userGam==3){
-                            hunyin="离婚";
-                        }else if(data.userGam==0){
-                            hunyin="未婚";
+                        if (data.userGam == 1) {
+                            hunyin = "已婚";
+                        } else if (data.userGam == 2) {
+                            hunyin = "丧偶";
+                        } else if (data.userGam == 3) {
+                            hunyin = "离婚";
+                        } else if (data.userGam == 0) {
+                            hunyin = "未婚";
                         }
-                        $("#userSex3").val(sex);
-                        $("#userGam3").val(hunyin);
+
+                        $("input[name='userSex']").val(sex);
+                        $("input[name='userGam']").val(hunyin);
 
                     }
 
-                });$.ajax({
-                    type : "post",
-                    url : "queryDoctor",
-                    dataType : "json",
-                    success : function (date) {
+                });
+                $.ajax({
+                    type: "post",
+                    url: "queryDoctor",
+                    dataType: "json",
+                    success: function (date) {
                         $("#healthcheckDoctor").combobox({
-                            mode:'remote',
-                            url:'queryDoctor',
-                            valueField:'id',
-                            textField:'lastname',
-                            delay:100
+                            mode: 'remote',
+                            url: 'queryDoctor',
+                            valueField: 'id',
+                            textField: 'lastname',
+                            delay: 100
                         });
                     }
                 });
@@ -406,22 +482,19 @@ function updaArr(oldarrangeId,oldpeoId,userId){
             }
         });
     }
-    function add(uid){
-        $('#add-dialog').dialog('close');
-        $("#old").dialog({
-            title : "老年人专项卡添加",
-            model : true,
-            onBeforeOpen: function(){
-              /*  $('#form1').form('clear');*/
-                fuzhi(uid);
-            }
-        });
-    }
+
 
     function goSui() {
+
         var validate = $("#sfform").form("validate");
         if (!validate) {
             $.messager.alert("消息提醒", "请检查你输入的数据!", "warning");
+            return;
+        }
+        var endTime=$("input[name='oldarrangeNextflup']").val();
+        var beginTime=$("input[name='oldarrangeFoltime']").val();
+        if(endTime<beginTime){
+            $.messager.alert("错误提示","下次随访日期必须大于此次随访日期");
             return;
         }
         var date = $("#sfform").serialize();
@@ -431,103 +504,115 @@ function updaArr(oldarrangeId,oldpeoId,userId){
             type: 'post',
             data: date,
             success: function (data) {
-                if (data>0) {
+                if (data > 0) {
                     $.messager.alert('信息提示', '添加成功！', 'info');
                     $('#oldsui').dialog('close');
                     $('#data-datagrid').datagrid('reload');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#sele").datagrid('getSelections').length = 0;
+
                 } else {
                     $.messager.alert('信息提示', data.msg, 'warning');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#sele").datagrid('getSelections').length = 0;
                 }
             }
         });
     }
-/*    $('#dd').datebox({
-        required:true
-    });*/
 
 
-var uid;
+    function add(uid) {
+        $('#add-dialog').dialog('close');
+        $("#old").dialog({
+            title: "老年人专项卡添加",
+            model: true,
+            onBeforeOpen: function () {
+                /*  $('#form1').form('clear');*/
+                fuzhi(uid);
+            }
+        });
+    }
+
+    var uid;
+
     // 开始添加
     function goAdd() {
+
         // 验证
-        if( !$("#form1").form('validate')){
+        if (!$("#form1").form('validate')) {
             return;
         }
 
-        var Dmsmdata=$("#form1").serialize();
+        var Dmsmdata = $("#form1").serialize();
         console.log(Dmsmdata);
-        var uid= $("#userId").val();
+        var uid = $("#userId").val();
 
         $.ajax({
-            type : "post",
-            url : "add",
-            data : "uid="+uid+"&"+Dmsmdata,
-            dataType :"json",
-            success : function (date) {
-                if(date>0){
-                    $.messager.alert('信息提示','添加成功！','info');
+            type: "post",
+            url: "add",
+            data: "uid=" + uid + "&" + Dmsmdata,
+            dataType: "json",
+            success: function (date) {
+                if (date > 0) {
+                    $.messager.alert('信息提示', '添加成功！', 'info');
                     $("#old").dialog("close");
                     $('#data-datagrid').datagrid('reload');
-                }else{
-                    $.messager.alert('信息提示',data.msg,'warning');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                } else {
+                    $.messager.alert('信息提示', data.msg, 'warning');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 }
 
             }
         });
     }
 
-    function start(){
+    function start() {
         var value = $('#p').progressbar('getValue');
-        if (value < 100){
+        if (value < 100) {
             value += Math.floor(Math.random() * 10);
             $('#p').progressbar('setValue', value);
-        }else{
-            $('#p').progressbar('setValue',0)
+        } else {
+            $('#p').progressbar('setValue', 0)
         }
     };
 
-    function upload(){
-        if($("#photo-file").val() == '')return;
+    function upload() {
+        if ($("#photo-file").val() == '') return;
         var formData = new FormData();
-        formData.append('photo',document.getElementById('photo-file').files[0]);
+        formData.append('photo', document.getElementById('photo-file').files[0]);
         $("#process-dialog").dialog('open');
-        var interval = setInterval(start,200);
+        var interval = setInterval(start, 200);
         $.ajax({
-            url:'upload_photo',
-            type:'post',
-            data:formData,
-            contentType:false,
-            processData:false,
-            success:function(data){
+            url: 'upload_photo',
+            type: 'post',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
                 clearInterval(interval);
                 $("#process-dialog").dialog('close');
-                if(data.type == 'success'){
-                    $("#preview-photo").attr('src',data.filepath);
+                if (data.type == 'success') {
+                    $("#preview-photo").attr('src', data.filepath);
                     $("#add-photo").val(data.filepath);
-                    $("#edit-preview-photo").attr('src',data.filepath);
+                    $("#edit-preview-photo").attr('src', data.filepath);
                     $("#edit-photo").val(data.filepath);
-                }else{
-                    $.messager.alert("消息提醒",data.msg,"warning");
+                } else {
+                    $.messager.alert("消息提醒", data.msg, "warning");
                 }
             },
-            error:function(data){
+            error: function (data) {
                 clearInterval(interval);
                 $("#process-dialog").dialog('close');
-                $.messager.alert("消息提醒","上传失败!","warning");
+                $.messager.alert("消息提醒", "上传失败!", "warning");
             }
         });
     }
 
-    function uploadPhoto(){
+    function uploadPhoto() {
         $("#photo-file").click();
 
     }
-
-
-
-
-
-
 
     //关闭添加窗口
     function goBack() {
@@ -535,17 +620,17 @@ var uid;
     }
 
 
-    function checkDb(data,dmsmName) {// 复选框分割选中
-        var array=[];
-        var Famihis=[];
-        var Dm=data[0][dmsmName];
+    function checkDb(data, dmsmName) {// 复选框分割选中
+        var array = [];
+        var Famihis = [];
+        var Dm = data[0][dmsmName];
         alert(Dm);
         alert("000")
-        array.push(Dm.substring(0,Dm.length-1));
-        Famihis=$("input[name="+[dmsmName]+"");
+        array.push(Dm.substring(0, Dm.length - 1));
+        Famihis = $("input[name=" + [dmsmName] + "");
         $(Famihis).each(function () {
-            for(var j=0;j<array.length;j++) {
-                $(this).attr("checked",$(this).val()==array[j]);
+            for (var j = 0; j < array.length; j++) {
+                $(this).attr("checked", $(this).val() == array[j]);
             }
         })
     }
@@ -554,22 +639,22 @@ var uid;
     /**
      *  添加记录
      */
-    function fuzhi(uid){
+    function fuzhi(uid) {
         $("#userId").val(uid);
         $('#add-dialog').dialog('close');
         $("#old").dialog({
-            title : "老人专项卡添加",
-            model : true,
-            onBeforeOpen: function(){
+            title: "老人专项卡添加",
+            model: true,
+            onBeforeOpen: function () {
                 $.ajax({
-                    url:'queryById',
-                    type:'post',
-                    data:"uid="+uid,
-                    dataType:'json',
-                    success:function(data){
+                    url: 'queryById',
+                    type: 'post',
+                    data: "uid=" + uid,
+                    dataType: 'json',
+                    success: function (data) {
                         /*alert(data.userDisability);*/
-                  /*    $("#form1").form("load",data[0]);*/
-                    /*  $('#editsuiform').form('load', d[0]);*/
+                        /*    $("#form1").form("load",data[0]);*/
+                        /*  $('#editsuiform').form('load', d[0]);*/
                         $("#recordName").val(data.recordName);
                         $("#userBirthday").val(data.userBirthday);
                         $("#userId").val(data.userId);
@@ -581,18 +666,16 @@ var uid;
                         $("#userHeredity").val(data.userHeredity);
                         $("#userIllness").val(data.userIllness);
                         $("#userDisability").val(data.userDisability);
-        /*                alert(data.userDisability);*/
-                        var sex="未知";
-                        if( data.userSex==1){
-                            sex= "男";
-                        }else if(data.userSex==2){
-                            sex= "女";
+                        /*                alert(data.userDisability);*/
+                        var sex = "未知";
+                        if (data.userSex == 1) {
+                            sex = "男";
+                        } else if (data.userSex == 2) {
+                            sex = "女";
                         }
                         $("#userSex").val(sex);
 
-                        checkDb(data,"userDisability");
-
-
+                        checkDb(data, "userDisability");
 
 
                     }
@@ -604,15 +687,14 @@ var uid;
     }
 
 
-
     /**
      * Name 打开添加窗口
      */
-    function openAdd(){
+    function openAdd() {
         //$('#add-form').form('clear');
         $('#add-dialog').dialog({
             closed: false,
-            modal:true,
+            modal: true,
             title: "添加用户信息",
             buttons: [{
                 text: '取消',
@@ -621,26 +703,26 @@ var uid;
                     $('#add-dialog').dialog('close');
                 }
             }],
-            onBeforeOpen:function(){
+            onBeforeOpen: function () {
                 $("#data-ins").datagrid({
-                    url:'userList',
-                    fitColumns:true,
+                    url: 'userList',
+                    fitColumns: true,
                     striped: true,
-                    singleSelect : true,
-                    pagination:true,
-                    rownumbers:true,
-                    pageSize:20,
-                    multiSort:true,
-                    idField:'userId',
+                    singleSelect: true,
+                    pagination: true,
+                    rownumbers: true,
+                    pageSize: 20,
+                    multiSort: true,
+                    idField: 'userId',
                     onDblClickRow: function (index, row) {
                         add(row.userId);
                     },
-                    columns:[[
-                        { field:'userId',title:'个人编号',width:100,align:'center'},
-                        { field:'recordName',title:'姓名',width:100,align:'center'},
-                        { field:'userBirthday',title:'出生日期',width:100,align:'center'},
-                        { field:'recordAdress',title:'联系地址',width:100,align:'center'},
-                        { field:'userMyphone',title:'联系地址',width:100,align:'center'}
+                    columns: [[
+                        {field: 'userId', title: '个人编号', width: 100, align: 'center'},
+                        {field: 'recordName', title: '姓名', width: 100, align: 'center'},
+                        {field: 'userBirthday', title: '出生日期', width: 100, align: 'center'},
+                        {field: 'recordAdress', title: '联系地址', width: 100, align: 'center'},
+                        {field: 'userMyphone', title: '联系地址', width: 100, align: 'center'}
                     ]]
                 });
             }
@@ -648,34 +730,36 @@ var uid;
     }
 
 
-
-
     /**
      * 删除记录
      */
-    function remove(){
-        $.messager.confirm('信息提示','确定要删除该记录？', function(result){
-            if(result){
+    function remove() {
+        $.messager.confirm('信息提示', '确定要删除该记录？', function (result) {
+            if (result) {
                 var item = $('#data-datagrid').datagrid('getSelections');
-                if(item == null || item.length == 0){
-                    $.messager.alert('信息提示','请选择要删除的数据！','info');
+                if (item == null || item.length == 0) {
+                    $.messager.alert('信息提示', '请选择要删除的数据！', 'info');
                     return;
                 }
                 var ids = '';
-                for(var i=0;i<item.length;i++){
+                for (var i = 0; i < item.length; i++) {
                     ids += item[i].oldpeoId + ',';
                 }
                 $.ajax({
-                    url:'delete',
-                    dataType:'json',
-                    type:'post',
-                    data:{ids:ids},
-                    success:function(data){
-                        if(data.type == 'success'){
-                            $.messager.alert('信息提示','删除成功！','info');
+                    url: 'delete',
+                    dataType: 'json',
+                    type: 'post',
+                    data: {ids: ids},
+                    success: function (data) {
+                        if (data.type == 'success') {
+                            $.messager.alert('信息提示', '删除成功！', 'info');
                             $('#data-datagrid').datagrid('reload');
-                        }else{
-                            $.messager.alert('信息提示',data.msg,'warning');
+                            item.length=0;
+                            $("#data-datagrid").datagrid('getSelections').length = 0;
+                        } else {
+                            $.messager.alert('信息提示', data.msg, 'warning');
+                            item.length=0;
+                            $("#data-datagrid").datagrid('getSelections').length = 0;
                         }
                     }
                 });
@@ -687,44 +771,53 @@ var uid;
     /**
      * 打开修改窗口
      */
-    function update(){
+    function update() {
+
+
+
+
         var validate = $("#edit-form").form("validate");
-         if(!validate){
+        if (!validate) {
             return;
         }
-        var date=$("#edit-form").serialize();
+        var date = $("#edit-form").serialize();
         $.ajax({
-            url:'update',
-            dataType:'json',
-            type:'post',
+            url: 'update',
+            dataType: 'json',
+            type: 'post',
             data: date,
-            success:function(data){
-                if(data>0){
-                    $.messager.alert('信息提示','修改成功！','info');
+            success: function (data) {
+                if (data > 0) {
+                    $.messager.alert('信息提示', '修改成功！', 'info');
                     $('#edit-dialog').dialog('close');
                     $('#data-datagrid').datagrid('reload');
-                }else{
-                    $.messager.alert('信息提示',data.msg,'warning');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#sele").datagrid('getSelections').length = 0;
+                } else {
+                    $.messager.alert('信息提示', data.msg, 'warning');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#sele").datagrid('getSelections').length = 0;
                 }
             }
         });
     }
-    function openEdit(){
+
+    function openEdit() {
         var item = $('#data-datagrid').datagrid('getSelections');
 
-        if(item == null || item.length == 0){
-            $.messager.alert('信息提示','请选择要修改的数据！','info');
+        if (item == null || item.length == 0) {
+            $.messager.alert('信息提示', '请选择要修改的数据！', 'info');
             return;
         }
-        if(item.length > 1){
-            $.messager.alert('信息提示','请选择一条数据进行修改！','info');
+        if (item.length > 1) {
+            $.messager.alert('信息提示', '请选择一条数据进行修改！', 'info');
             return;
         }
         item = item[0];
 
         $('#edit-dialog').dialog({
             closed: false,
-            modal:true,
+            modal: true,
             title: "结案",
             buttons: [{
                 text: '确定',
@@ -736,7 +829,7 @@ var uid;
                 handler: function () {
                     $('#edit-dialog').dialog('close');
                 }
-            }],onBeforeOpen:function (){
+            }], onBeforeOpen: function () {
                 $("#oldpeoId").val(item.oldpeoId);
 
                 $("#oldcloseDate").val(item.oldcloseDate);
@@ -748,81 +841,84 @@ var uid;
     }
 
 
-
-
-
     //搜索按钮监听
-    $("#search-btn").click(function(){
+    $("#search-btn").click(function () {
         var roleId = $("#search-role").combobox('getValue');
         var sex = $("#search-sex").combobox('getValue')
-        var option = {username:$("#search-name").val()};
-        if(roleId != -1){
+        var option = {username: $("#search-name").val()};
+        if (roleId != -1) {
             option.roleId = roleId;
         }
-        if(sex != -1){
+        if (sex != -1) {
             option.sex = sex;
         }
-        $('#data-datagrid').datagrid('reload',option);
+        $('#data-datagrid').datagrid('reload', option);
     });
 
     /**
      * 载入数据
      */
+
     $('#data-datagrid').datagrid({
-        url:'list',
-        rownumbers:true,
-        singleSelect:false,
-        pageSize:20,
-        pagination:true,
-        multiSort:true,
-        fitColumns:true,
+        url: 'list',
+        rownumbers: true,
+        singleSelect: false,
+        pageSize: 20,
+        pagination: true,
+        multiSort: true,
+        fitColumns: true,
         striped: true,
-        idField:'oldpeoId',
-        treeField:'name',
-        fit:true,
-        columns:[[
-            { field:'chk',checkbox:true,width:100},
-            { field:'oldpeoId',title:'信息ID',width:100,hidden:true},
-            { field:'userId',title:'个人编号',width:100,align:'center'},
-            { field:'userNumber',title:'个人健康档案号',hidden:true},
-            { field:'recordName',title:'姓名',width:100,align:'center'},
-            { field:'userSex',title:'性别',width:100,align:'center',formatter(value,row,index){
-                    switch(value){
-                        case 0:{
+        idField: 'oldpeoId',
+        treeField: 'name',
+        fit: true,
+        columns: [[
+            {field: 'chk', checkbox: true, width: 100},
+            {field: 'oldpeoId', title: '信息ID', width: 100, hidden: true},
+            {field: 'userId', title: '个人编号', width: 100, align: 'center'},
+            {field: 'userNumber', title: '个人健康档案号', hidden: true},
+            {field: 'recordName', title: '姓名', width: 100, align: 'center'},
+            {
+                field: 'userSex', title: '性别', width: 100, align: 'center', formatter(value, row, index) {
+                    switch (value) {
+                        case 0: {
                             return '未知';
                         }
-                        case 1:{
+                        case 1: {
                             return '男';
                         }
-                        case 2:{
+                        case 2: {
                             return '女';
                         }
                     }
                     return value;
-                }},
-            { field:'userBirthday',title:'生日',width:100,align:'center'},
-            { field:'recordAdress',title:'地址',width:100,align:'center'},
-            { field:'userMyphone',title:'联系电话',width:100,align:'center'},
-            { field:'oldpeoMstate',title:'管理状态',width:100,align:'center',formatter(value,row,index){
-                    switch(value){
-                        case 0:{
+                }
+            },
+            {field: 'userBirthday', title: '生日', width: 100, align: 'center'},
+            {field: 'recordAdress', title: '地址', width: 100, align: 'center'},
+            {field: 'userMyphone', title: '联系电话', width: 100, align: 'center'},
+            {field: 'oldpeoMstate', title: '管理状态', width: 100, align: 'center', formatter(value, row, index) {
+                    switch (value) {
+                        case 0: {
                             return '未结案';
                         }
-                        case 1:{
+                        case 1: {
                             return '已结案';
                         }
 
                     }
                     return value;
-                }},
+                }
+            },
 
-        ]],onDblClickRow: function (index, row) {
-        opensele(row.userId,row.oldpeoId);
-    },
-        onLoadSuccess:function(data){
-            $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
+        ]], onDblClickRow: function (index, row) {
+            opensele(row.userId, row.oldpeoId);
+        },
+        onLoadSuccess: function (data) {
+            $('.authority-edit').linkbutton({text: '编辑权限', plain: true, iconCls: 'icon-edit'});
         }
     });
+
+
 
 
 </script>

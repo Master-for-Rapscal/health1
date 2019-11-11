@@ -38,17 +38,18 @@ public class OldpeoController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getList(Page page,
-                                       @RequestParam(name = "userId", required = false, defaultValue = "") Integer userId,
-                                       @RequestParam(name = "userName", required = false, defaultValue = "") String userName,
+                                       @RequestParam(name = "bianhao", required = false, defaultValue = "") Integer bianhao,
+                                       @RequestParam(name = "ming", required = false, defaultValue = "") String ming,
                                        @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
-                                       @RequestParam(name = "userMyphone", required = false, defaultValue = "") String userMyphone) {
+                                       @RequestParam(name = "sjh", required = false, defaultValue = "") String sjh,
+                                       @RequestParam(name = "oldpeoMstate", required = false, defaultValue = "0") String oldpeoMstate) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-        queryMap.put("userId",userId);
-        queryMap.put("recordName",userName);
+        queryMap.put("userId",bianhao);
+        queryMap.put("recordName",ming);
         queryMap.put("recordAdress",userAdress);
-        queryMap.put("userMyphone",userMyphone);
-
+        queryMap.put("userMyphone",sjh);
+        queryMap.put("oldpeoMstate",oldpeoMstate);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", oldPeopleService.findList(queryMap));// 页面加载数据使用
@@ -115,7 +116,7 @@ public class OldpeoController {
     @RequestMapping( "/queryById")
     @ResponseBody
     public Object queryById(Integer uid){
-        System.out.println(oldPeopleService.queryUserById(uid));
+/*        System.out.println(oldPeopleService.queryUserById(uid));*/
         return oldPeopleService.queryUserById(uid);
     }
 
@@ -156,9 +157,8 @@ public class OldpeoController {
     @ResponseBody
     public Object addSuif(Integer oldpeoId, Oldarrange oldarrange){
         oldarrange.setOldpeoId(oldpeoId);
-/*        System.out.println(  "aaaaaaaaaaaaaaaa"+oldpeoId);
-        System.out.println(  "aaaaaaaaaaaaaaaa"+oldarrange);*/
         Map<String,Object> map=new HashMap<String,Object>();
+        System.out.println(oldarrange);
         int num=oldPeopleService.addSui(oldarrange);
 /*        if(num>0){
             map.put("success","添加成功");
@@ -193,9 +193,10 @@ public class OldpeoController {
 
     @RequestMapping(value = "/updateArr", method = RequestMethod.POST)
     @ResponseBody
-    public Object  updateArr(Oldarrange oldarrange) {
+    public Object  updateArr(int oldarrangeId,Oldarrange oldarrange) {
+        oldarrange.setOldarrangeId(oldarrangeId);
         Map<String,Object> map=new HashMap<String,Object>();
-                System.out.println("aa"+oldarrange);
+   /*             System.out.println("aa"+oldarrange);*/
         int ret=oldPeopleService.updateArr(oldarrange);
         return ret;
     }

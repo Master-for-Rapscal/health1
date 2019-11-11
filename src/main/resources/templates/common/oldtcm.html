@@ -16,7 +16,7 @@
                 margin-left: 15px;
             }
         </style>
-        <form id="tcmform">
+        <form id="tcmform" method="post">
             <table width="600" th:height="450" border="1" cellspacing="0" cellpadding="1" id="tab1">
                 <caption>
                     <h3>老年人中医药健康服务管理记录卡</h3>
@@ -218,16 +218,21 @@
                     <td><input type="radio" name="oldtcmLimb" value="5">5</td>
                 </tr>
                 <tr>
-                    <td>填表日期</td>
-                    <td colspan="4"><input type="text" class="easyui-datebox"  name="oldtcmFilldate" style="width: 200px;"/></td>
-                    <td>医生签名</td>
-                 <td colspan="4"> <select name="healthcheckDoctor" id="healthcheckDoctor" class="easyui-combobox"  style="width:100%;" >
+                    <td colspan="2">填表日期</td>
+                    <td colspan="3"><input type="text"  class="easyui-datebox easyui-validatebox"  id="oldtcmFilldate" name="oldtcmFilldate" style="width: 100%;"/></td>
+                    <td colspan="2">医生签名</td>
+                 <td colspan="3"> <select name="healthcheckDoctor" id="healthcheckDoctor" class="easyui-combobox easyui-validatebox"  data-options="required:true, missingMessage:'请填写姓名'"  style="width:80%;" >
                  </select></td>
                 </tr>
-                <tr style="margin-bottom: 40px">
+                <script>
+                    $('#oldtcmFilldate').datebox({
+                        required:true
+                    });
+                </script>
+<!--                <tr style="margin-bottom: 40px">
                     <td colspan="3" align="center" style="border: none;"><a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="goAdd()">保存</a></td>
                     <td colspan="3" align="center"  style="border: none;"><a class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px" onclick="goBack()">取消</a></td>
-                </tr>
+                </tr>-->
             </table>
         </form>
     </div>

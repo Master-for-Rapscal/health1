@@ -31,22 +31,23 @@ public class OthSlowController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getList(Page page,
-                                       @RequestParam(name = "userId", required = false, defaultValue = "") Integer userId,
-                                       @RequestParam(name = "userName", required = false, defaultValue = "") String userName,
-                                       @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
-                                       @RequestParam(name = "userMyphone", required = false, defaultValue = "") String userMyphone
-    ) {
+                                       @RequestParam(name = "bianhao", required = false, defaultValue = "0") Integer bianhao,
+                                       @RequestParam(name = "ming", required = false, defaultValue = "") String ming,
+                /*                       @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,*/
+                                       @RequestParam(name = "sjh", required = false, defaultValue = "") String sjh,
+                                       @RequestParam(name = "othslowOutfor", required = false, defaultValue = "") String othslowOutfor) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-        queryMap.put("userId",userId);
-        queryMap.put("recordName",userName);
-        queryMap.put("recordAdress",userAdress);
-        queryMap.put("userMyphone",userMyphone);
+        queryMap.put("userId",bianhao);
+        queryMap.put("recordName",ming);
+   /*     queryMap.put("recordAdress",userAdress);*/
+        queryMap.put("userMyphone",sjh);
+        queryMap.put("othslowOutfor",othslowOutfor);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", othSlowService.findList(queryMap));// 页面加载数据使用
         ret.put("total", othSlowService.getTotal(queryMap));// 分页使用
-        System.out.println(ret);
+/*        System.out.println(ret);*/
         return ret;
     }
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -105,6 +106,7 @@ public class OthSlowController {
     public Object add(Integer uid, Othslow othslow){
         othslow.setRecordId(uid);
         Map<String,Object> map=new HashMap<String,Object>();
+        System.out.println(othslow);
         int num=othSlowService.add(othslow);
 /*        if(num>0){
             map.put("success","添加成功");
@@ -132,11 +134,12 @@ public class OthSlowController {
         return othSlowService.queryName();
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateOth", method = RequestMethod.POST)
     @ResponseBody
-    public Object  edit(Othslow othslow) {
+    public Object  edit(int othslowId,Othslow othslow) {
         Map<String,Object> map=new HashMap<String,Object>();
-        /*        System.out.println(oldpeo);*/
+        othslow.setOthslowId(othslowId);
+                System.out.println(othslow);
         int ret=othSlowService.edit(othslow);
         return ret;
     }
@@ -145,7 +148,7 @@ public class OthSlowController {
     @ResponseBody
     public Object  upState(Othslow othslow) {
         Map<String,Object> map=new HashMap<String,Object>();
-                System.out.println(othslow);
+/*                System.out.println(othslow);*/
         int ret=othSlowService.upState(othslow);
         return ret;
     }

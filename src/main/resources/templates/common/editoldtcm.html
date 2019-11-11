@@ -218,17 +218,24 @@
                     <td><input type="radio" name="oldtcmLimb" value="5">5</td>
                 </tr>
                 <tr>
-                    <td>填表日期</td>
-                    <td colspan="4"><input type="text" class="easyui-datebox"  id="oldtcmFilldate" name="oldtcmFilldate" style="width: 200px;"/></td>
-                    <td>医生签名</td>
-                    <td colspan="4">
-                        <select name="healthcheckDoctor" id="healthcheckDoctor2" class="easyui-combobox"  style="width:100%;" >
+                    <td colspan="2">填表日期</td>
+                    <td colspan="3"><input type="text" class="easyui-datebox"    id="oldtcmFilldate2" name="oldtcmFilldate" style="width: 100%;"/></td>
+                    <td colspan="2">医生签名</td>
+                    <td colspan="3">
+                        <select name="healthcheckDoctor" id="healthcheckDoctor2" class="easyui-combobox easyui-validatebox"  data-options="required:true, missingMessage:'请填写姓名'"    style="width:100%;" >
                     </select></td>
                 </tr>
-                <tr style="margin-bottom: 40px">
+                <script>
+
+                    $('#oldtcmFilldate2').datebox({
+                        required:true
+                    });
+                </script>
+
+<!--                <tr style="margin-bottom: 40px">
                     <td colspan="3" align="center" style="border: none;"><a class="easyui-linkbutton" data-options="iconCls:'icon-save'" onclick="update()">保存</a></td>
                     <td colspan="3" align="center"  style="border: none;"><a class="easyui-linkbutton" data-options="iconCls:'icon-reload'" style="width:80px" onclick="Close()">取消</a></td>
-                </tr>
+                </tr>-->
             </table>
         </form>
     </div>

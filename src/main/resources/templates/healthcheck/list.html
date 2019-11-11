@@ -360,13 +360,13 @@
                                 }},
                             {field: 'healthcheckDoctor', title: '责任医生', width: 100, formatter: function (value, row, index) {
                                     switch (value) {
-                                        case 3: {
+                                        case 4: {
                                             return '曾子墨';
                                         }
-                                        case 1: {
+                                        case 2: {
                                             return '金峰';
                                         }
-                                        case 2: {
+                                        case 3: {
                                             return '张承天';
                                         }
                                     }
@@ -383,7 +383,7 @@
             {field: 'userPapernumber', title: '纸质编号', width: 100},
             {field: 'recordName', title: '姓名', width: 100, sortable: true},
             {
-                field: 'userNamtion', title: '名族', width: 100, formatter: function (value, row, index) {
+                field: 'userNamtion', title: '民族', width: 100, formatter: function (value, row, index) {
                     switch (value) {
                         case 0: {
                             return '未知';

@@ -76,6 +76,24 @@ public class OldpeoZhongYiController {
 
         Map<String,Object> map=new HashMap<String,Object>();
         int num=oldtcmService.add(oldtcm);
+/*        if (oldtcm == null) {
+            map.put("type", "error");
+            map.put("msg", "信息添加不全，请仔细审查！");
+            return num;
+        }*/
+/*        if(oldtcm.getHealthcheckDoctor()==null){
+            map.put("type", "error");
+            map.put("msg", "信息添加不全，请仔细审查您添加的数据！");
+            return map;
+
+        }*/
+/*
+        if(num>0){
+            map.put("success","添加成功");
+        }else{
+            map.put("error","添加失败");
+        }
+*/
 
         return num;
     }

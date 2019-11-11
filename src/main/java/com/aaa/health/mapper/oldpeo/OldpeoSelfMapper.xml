@@ -18,7 +18,7 @@ oldselfClean= #{oldselfClean},oldselfEvent=#{oldselfEvent}  where oldselfId=#{ol
         delete from oldself where oldselfId in(${value})
     </delete>
     <select id="queryAllUser" parameterType="map" resultType="Map">
-        select * from oldself where oldpeoId=#{oldpeoId}
+        select * from oldself where oldpeoId=#{oldpeoId} ORDER BY oldselfDe desc
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
@@ -60,16 +60,25 @@ oldselfClean= #{oldselfClean},oldselfEvent=#{oldselfEvent}  where oldselfId=#{ol
 
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select *
+        select count(*)
         from userinfo u ,oldpeo o where 1=1 and o.recordId=u.userId and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
-        <if test="username != null">
-            and username like '%${username}%'
+        <if test="userId != null and userId != 0">
+            and u.userId LIKE '%${userId}%'
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
+        <if test="userMyphone != null and userMyphone != ''">
+            AND userMyphone LIKE '%${userMyphone}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND u.recordAdress LIKE '%${recordAdress}%'
+        </if>
+        <if test="userIdnumber != null and userIdnumber != ''">
+            AND u.userIdnumber LIKE '%${userIdnumber}%'
+        </if>
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
         </if>
     </select>
 
@@ -81,29 +90,6 @@ oldselfClean= #{oldselfClean},oldselfEvent=#{oldselfEvent}  where oldselfId=#{ol
     </select>
 
 
-        <select id="queryLike" parameterType="Map" resultType="Map">
-        SELECT * from dmsmcard dm join userinfo u on dm.recordId=u.userId where 1=1
-        <if test="userId != null and userId != 0">
-            and u.userId LIKE '%${userId}%'
-        </if>
-        <if test="recordName != null and recordName != ''">
-            AND recordName LIKE '%${recordName}%'
-        </if>
-        <if test="usersex != null and usersex != 0">
-            AND u.usersex = ${usersex}
-        </if>
-        <if test="userMyphone != null and userMyphone != ''">
-            AND u.userMyphone LIKE '%${userMyphone}%'
-        </if>
-        <if test="recordAdress != null and recordAdress != ''">
-            AND recordAdress LIKE '%${recordAdress}%'
-        </if>
-        <if test="userIdnumber != null and userIdnumber != ''">
-            AND userIdnumber LIKE '%${userIdnumber}%'
-        </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
-        </select>
+
 
     </mapper>

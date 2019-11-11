@@ -80,6 +80,17 @@ and oa.oldpeoId=#{oldpeoId}
         <if test="userIdnumber != null and userIdnumber != ''">
             AND u.userIdnumber LIKE '%${userIdnumber}%'
         </if>
+        <if test="oldpeoMstate != null and oldpeoMstate != ''">
+            AND o.oldpeoMstate LIKE '%${oldpeoMstate}%'
+        </if>
+<!--        <choose>
+        <when test=" hypertensionOutcome == 2">
+            AND dm.hypertensionOutcome is not null
+        </when>
+        <otherwise>
+            AND dm.hypertensionOutcome is null
+        </otherwise>
+        </choose>-->
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
@@ -113,6 +124,9 @@ and oa.oldpeoId=#{oldpeoId}
         where userId not in (select recordId from oldpeo) and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
+        </if>
+        <if test="oldpeoMstate != null and oldpeoMstate != ''">
+            AND o.oldpeoMstate LIKE '%${oldpeoMstate}%'
         </if>
     </select>
 

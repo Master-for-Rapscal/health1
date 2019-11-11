@@ -60,7 +60,7 @@ public class OthSlowServiceImpl implements OthSlowService{
     }
 
     @Override
-    public List<Othslow>  queryEdit(int othslowId) {
+    public   Map<String,Object>   queryEdit(int othslowId) {
         return othSlowMapper.queryEdit(othslowId);
     }
 

@@ -23,7 +23,7 @@ public interface OthSlowService {
     List<Map> queryName();
     Map<String,Object> queryUserById(Integer uid);
     //修改之前查询
-    List<Othslow>  queryEdit(int othslowId);
+    Map<String,Object>  queryEdit(int othslowId);
     //修改
     int edit(Othslow othslow);
     //修改结案

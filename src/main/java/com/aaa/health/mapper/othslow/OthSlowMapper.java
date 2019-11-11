@@ -32,7 +32,7 @@ import java.util.Map;
         int edit(Othslow othslow);
 
         //修改之前查询
-        List<Othslow>  queryEdit(int othslowId);
+        Map<String,Object>  queryEdit(int othslowId);
         //修改结案
         int upState(Othslow othslow);
         //查询慢病

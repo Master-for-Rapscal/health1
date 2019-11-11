@@ -1,63 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.aaa.health.mapper.othslow.OthMECMapper">
-
-
+<mapper namespace="com.aaa.health.mapper.oldpeo.OldpeoHeaMapper">
 
     <select id="findList" parameterType="Map" resultType="map">
-        select * from othslow o,userinfo u,othslowName ot where u.userId=o.recordId
-        and ot.othslowNameId=o.othslowNameId and ot.othslowNameState=0
-
-        <if test="userId != null and userId != 0">
-            and u.userId LIKE '%${userId}%'
-        </if>
-        <if test="recordName != null and recordName != ''">
-            AND recordName LIKE '%${recordName}%'
-        </if>
-        <if test="userMyphone != null and userMyphone != ''">
-            AND userMyphone LIKE '%${userMyphone}%'
-        </if>
-        <if test="recordAdress != null and recordAdress != ''">
-            AND u.recordAdress LIKE '%${recordAdress}%'
-        </if>
-        <if test="userIdnumber != null and userIdnumber != ''">
-            AND u.userIdnumber LIKE '%${userIdnumber}%'
+        SELECT * from healthcheck h, userinfo u ,oldpeo o where 1=1 and o.recordId=u.userId and h.userinfoId=o.recordId
+        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
+        <if test="userinfoId != null">
+        and userinfoId = #{userinfoId}
         </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
     </select>
-
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*)from othslow o,userinfo u,othslowName ot where u.userId=o.recordId
-        and ot.othslowNameId=o.othslowNameId and ot.othslowNameState=0
-
-        <if test="userId != null and userId != 0">
-            and u.userId LIKE '%${userId}%'
-        </if>
-        <if test="recordName != null and recordName != ''">
-            AND recordName LIKE '%${recordName}%'
-        </if>
-        <if test="userMyphone != null and userMyphone != ''">
-            AND userMyphone LIKE '%${userMyphone}%'
-        </if>
-        <if test="recordAdress != null and recordAdress != ''">
-            AND u.recordAdress LIKE '%${recordAdress}%'
-        </if>
-        <if test="userIdnumber != null and userIdnumber != ''">
-            AND u.userIdnumber LIKE '%${userIdnumber}%'
-        </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
-    </select>
-
-
-    <select id="findList2" parameterType="Map" resultType="map">
-        select * from othslow o,healthcheck h,userinfo u,othslowName ot where u.userId=o.recordId and h.userinfoId=o.recordId
-        and ot.othslowNameId=o.othslowNameId and ot.othslowNameState=0
+        SELECT count(*) from healthcheck h, userinfo u ,oldpeo o where 1=1 and o.recordId=u.userId and h.userinfoId=o.recordId
+        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
         <if test="userinfoId != null">
             and userinfoId = #{userinfoId}
         </if>
@@ -66,18 +26,6 @@
         </if>
     </select>
 
-    <!-- 获取符合结果的总记录数 -->
-    <select id="getTotal2" parameterType="Map" resultType="Integer">
-        select count(*) from othslow o,healthcheck h,userinfo u,othslowName ot where u.userId=o.recordId and h.userinfoId=o.recordId
-        and ot.othslowNameId=o.othslowNameId and ot.othslowNameState=0
-
-        <if test="userinfoId != null">
-            and userinfoId = #{userinfoId}
-        </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
-    </select>
     <!-- 删除用户 -->
     <delete id="delete" parameterType="com.aaa.health.entity.zzh.Healthcheck">
         delete from healthcheck where healthcheckId in(${value})
@@ -161,6 +109,5 @@ healthcheckProblemaOthersdis=#{healthcheckProblemaOthersdis}
 
     <select id="findById" parameterType="Long" resultType="com.aaa.health.entity.zzh.Healthcheck">
         SELECT * from healthcheck where  healthcheckId=#{healthcheckId}
-
     </select>
 </mapper>

@@ -11,9 +11,19 @@
             <div th:replace="common/menus :: menus"  > </div>
         </div>
         <div class="wu-toolbar-search">
-            <label> 个人编号:</label><input  name="userId"/>
-            <label> 姓名:</label><input name="userName"/>
-            <label> 联系电话:</label><input  name="userMyphone"/>
+            <label> 个人编号:</label><input  name="bianhao"/>
+            <label> 姓名:</label><input name="ming"/>
+            <label> 联系电话:</label><input  name="sjh"/>
+            <label> 管理状态:</label><select  name="othslowOutfor" class="easyui-combobox" >
+            <option value="">管理中</option>
+            <option value="好转">好转</option>
+            <option value="外出">外出</option>
+            <option value="失访">失访</option>
+            <option value="暂时失访">暂时失访</option>
+            <option value="拒绝">拒绝</option>
+            <option value="死亡">死亡</option>
+
+        </select>
             <a href="#" id="userSearch" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
         </div>
     </div>
@@ -23,23 +33,23 @@
 </div>
 <!-- Begin of easyui-dialog -->
 
-<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:620px; padding:10px;">
+<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-sa00ve'" style="width:620px; padding:10px;">
         <!-- 查询个人档案-->
         <table id="data-ins" class="easyui-datagrid" style="width: 600px; height: 500px;"></table>
 </div>
-<div id="othslowname" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:500px; padding:10px;">
+<div id="othslowname" class="easyui-dialog" data-options="closed:true,iconCls:'icon-sassve'" style="width:500px; padding:10px;">
     <!-- 查询所有慢病-->
     <table id="othname" class="easyui-datagrid" style="width: 450px; height: 400px;"></table>
 </div>
 
-<div id="addoth" class="easyui-dialog" style="width: 740px;height: 600px; padding:10px;">
+<div id="addoth" class="easyui-dialog" style="width: 740px;height: 650px; padding:10px;">
     <div th:replace="common/othslow :: othslow"></div>
 </div>
 <!-- 修改窗口 -->
-<div id="edit-dialog" class="easyui-dialog" style="width: 740px;height: 600px; padding:10px;">
-    <div th:replace="common/editslow :: editslow"></div>
-</div>
-<div id="upState" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:300px; padding:10px; margin: auto">
+<!--<div id="edit-dialog" class="easyui-dialog" style="width: 740px;height: 600px; padding:10px;">
+    <div th:replace="common/othslow :: othslow"></div>
+</div>-->
+<div id="upState" class="easyui-dialog" data-options="closed:true,iconCls:'icon-sav12e'" style="width:300px; padding:10px; margin: auto">
     <form id="edit-form" method="post" >
         <input type="hidden" name="othslowId" id="othslowId">
         <table>
@@ -53,10 +63,16 @@
                 <td>转归日期：</td>
                 <td><input id="othslowOutdate"  class="easyui-datebox" style="width: 150px;border: 1px solid;" name="othslowOutdate" /> </td>
             </tr>
+            <script>
+                $('#othslowOutdate').datebox({
+                    required:true
+                });
+            </script>
+
             <tr>
                 <td>转归原因：</td>
                 <td><select name="othslowOutfor"  id="othslowOutfor" style="width: 150px" >
-                    <option value=""></option>
+
                     <option value="好转">好转</option>
                     <option value="外出">外出</option>
                     <option value="失访">失访</option>
@@ -84,6 +100,10 @@
         /*    $("#form").form("clear");*/
     }
 
+    $('#othslowOutdate').datebox({
+        required:true
+    });
+
 </script>
 
 <div id="process-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-upload',title:'正在上传图片'" style="width:450px; padding:10px;">
@@ -95,19 +115,20 @@
 
 <!-- End of easyui-dialog -->
 <script type="text/javascript" th:inline="none">
-    function othslowname(){
-        $("#othslowname").dialog('close');
+    var all;
+    var sss;
+    var user;
+    function goCo(){
+        $("#data-ins").dialog('close');
     }
     $(function () {
         $("#othslowname").dialog('close');
     })
 
     $(function () {
-        $("#edit-dialog").dialog('close');
-    })
-    $(function () {
         $("#addoth").dialog('close');
     })
+
 
     function goBack(){
         $("#addoth").dialog('close');
@@ -117,16 +138,20 @@
         $("#userSearch").click(function () {
             $("#data-datagrid").datagrid({
                 queryParams: {
-                    userId: $("input[name=userId]").val(),
-                    userName: $("input[name=userName]").val(),
-                    userAdress: $("input[name=userAdress]").val(),
-                    userMyphone: $("input[name=userMyphone]").val()
+                    bianhao: $("input[name=bianhao]").val(),
+                    ming: $("input[name=ming]").val(),
+        /*            userAdress: $("input[name=userAdress]").val(),*/
+                    sjh: $("input[name=sjh]").val(),
+                    othslowOutfor: $("input[name=othslowOutfor]").val()
+
                 }
             });
         });
     });
 
-
+    /**
+     * Name 修改记录
+     */
     function upState(){
         var validate = $("#edit-form").form("validate");
         if(!validate){
@@ -244,6 +269,18 @@
         $("#addoth").dialog({
             title : "其他慢病专项卡添加",
             model : true,
+            buttons: [   {
+                text: '添加',
+                iconCls: 'icon-ok',
+                handler: goAdd
+            },{
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#addoth').dialog('close');
+                }
+            }],
+
             onBeforeOpen: function(){
                 /*  $('#form1').form('clear');*/
                 fuzhi(uid);
@@ -263,15 +300,15 @@
                     data:"uid="+uid,
                     dataType:'json',
                     success:function(data){
-                        $("#recordName").val(data.recordName);
-                        $("#userBirthday").val(data.userBirthday);
-                        $("#userId").val(data.userId);
-                        $("#userWorKunit").val(data.userWorkunit);
-                        $("#recordAdress").val(data.recordAdress);
-                        $("#userMyphone").val(data.userMyphone);
-                        $("#recordPostalcode").val(data.recordPostalcode);
-                        $("#userIdnumber").val(data.userIdnumber);
-
+                        $("input[name='recordName']").val(data.recordName);
+                        $("input[name='userBirthday']").val(data.userBirthday);
+                        $("input[name='userId']").val(data.userId);
+                        $("input[name='userWorKunit']").val(data.userWorKunit);
+                 /*       alert(data.userWorKunit);*/
+                        $("input[name='recordAdress']").val(data.recordAdress);
+                        $("input[name='userMyphone']").val(data.userMyphone);
+                        $("input[name='recordPostalcode']").val(data.recordPostalcode);
+                        $("input[name='userIdnumber']").val(data.userIdnumber);
                         var blood="未知";
                       if (data.userBloodtype==1) {
                           blood="A型";
@@ -289,51 +326,38 @@
 
                           blood="未知";
                       }
-                        $("#userBloodtype").val(blood);
+
+                        $("input[name='userBloodtype']").val(blood);
+                    /*    $("#userBloodtype").val(blood);*/
                         var sex="未知";
                         if( data.userSex==1){
                             sex= "男";
                         }else if(data.userSex==2){
                             sex= "女";
                         }
-                        $("#userSex").val(sex);
 
+                        $("input[name='userSex']").val(sex);
+                    },
 
+                });  $.ajax({
+                    type: "post",
+                    url: "queryDis",
+                    dataType: "json",
+                    success: function (date) {
+                        $(".othslowNameId").combobox({
+                            mode: 'remote',
+                            url: 'queryDis',
+                            valueField: 'othslowNameId',
+                            textField: 'othslowNameName',
+                            delay: 100
+                        });
                     }
-
                 });
             }
         });
 
     }
 
-
-    /**
-     * Name 修改记录
-     */
-/*  function edit(){
-        var validate = $("#editothform").form("validate");
-        if(!validate){
-            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
-            return;
-        }
-        var data = $("#editothform").serialize();
-        $.ajax({
-            url:'edit',
-            dataType:'json',
-            type:'post',
-            data:data,
-            success:function(data){
-                if(data.type == 'success'){
-                    $.messager.alert('信息提示','修改成功！','info');
-                    $('#edit-dialog').dialog('close');
-                    $('#data-datagrid').datagrid('reload');
-                }else{
-                    $.messager.alert('信息提示',data.msg,'warning');
-                }
-            }
-        });
-    }*/
 
     /**
      * 删除记录
@@ -359,8 +383,12 @@
                         if(data.type == 'success'){
                             $.messager.alert('信息提示','删除成功！','info');
                             $('#data-datagrid').datagrid('reload');
+                            item.length=0;
+                            $("#data-datagrid").datagrid('getSelections').length = 0;
                         }else{
                             $.messager.alert('信息提示',data.msg,'warning');
+                            item.length=0;
+                            $("#data-datagrid").datagrid('getSelections').length = 0;
                         }
                     }
                 });
@@ -376,7 +404,7 @@
             closed: false,
             modal: true,
             title: "添加用户信息",
-            buttons: [{
+            buttons: [ {
                 text: '取消',
                 iconCls: 'icon-cancel',
                 handler: function () {
@@ -398,7 +426,9 @@
                         add(row.userId);
                     },
                     columns: [[
-                        {field: 'userId', title: '个人编号', width: 100, align: 'center'},
+                        {field: 'userId', title: '个人编号', width: 100, align: 'center',formatter(value,row,index){
+                                all=value;
+                            }},
                         {field: 'recordName', title: '姓名', width: 100, align: 'center'},
                         {field: 'userBirthday', title: '出生日期', width: 100, align: 'center'},
                         {field: 'recordAdress', title: '联系地址', width: 100, align: 'center'},
@@ -413,19 +443,19 @@
                     url: "queryDoctor",
                     dataType: "json",
                     success: function (date) {
-                        $("#othslowResdoc").combobox({
+                        $(".othslowResdoc").combobox({
                             mode: 'remote',
                             url: 'queryDoctor',
                             valueField: 'id',
                             textField: 'lastname',
                             delay: 100
                         });
-                        $.ajax({
+/*                        $.ajax({
                             type: "post",
                             url: "queryDis",
                             dataType: "json",
                             success: function (date) {
-                                $("#othslowNameId").combobox({
+                                $("#othn").combobox({
                                     mode: 'remote',
                                     url: 'queryDis',
                                     valueField: 'othslowNameId',
@@ -433,7 +463,7 @@
                                     delay: 100
                                 });
                             }
-                        });
+                        });*/
                     }
                 });
             }
@@ -446,8 +476,11 @@
             return;
         }
         var Dmsmdata=$("#othform").serialize();
-        console.log(Dmsmdata);
-        var uid= $("#userId").val();
+
+   /*     alert(Dmsmdata);
+        alert(Dmsmdata.othslowNameId);*/
+        var uid= all;
+/*        alert(all);*/
         $.ajax({
             type : "post",
             url : "add",
@@ -467,75 +500,67 @@
     /**
      * 打开修改窗口
      */
-
     function openEdit(){
-        //$('#edit-form').form('clear');
-        $("#editothslowId").val(sss);
-        $('#edit-dialog').dialog('close');
- /*       var item = $('#data-datagrid').datagrid('getSelections');
-
-        if(item == null || item.length == 0){
-            $.messager.alert('信息提示','请选择要修改的数据！','info');
-            return;
-        }
-        if(item.length > 1){
-            $.messager.alert('信息提示','请选择一条数据进行修改！','info');
-            return;
-        }
-        item = item[0];*/
-        /*   alert(sss);*/
-        $('#edit-dialog').dialog({
+        $('#addoth').dialog({
             closed: false,
             modal:true,
             title: "修改用户信息",
             buttons: [{
-                text: '确定',
+                text: '修改',
                 iconCls: 'icon-ok',
                 handler: update
             }, {
                 text: '取消',
                 iconCls: 'icon-cancel',
                 handler: function () {
-                    $('#edit-dialog').dialog('close');
+                    $('#addoth').dialog('close');
                 }
             }],
             onBeforeOpen:function(){
-                /*   fuzhi(all);*/
-                /*  alert("all"+all);*/
+/*                alert(sss);
+                alert(user);*/
                 $.ajax({
                     url:'queryById',
                     type:'post',
-                    data:"uid="+all,
+                    data:"uid="+user,
                     dataType:'json',
                     success:function(data){
-                        $("#recordName2").val(data.recordName);
-                        $("#userBirthday2").val(data.userBirthday);
-                        $("#userId2").val(data.userId);
-                        $("#userWorKunit2").val(data.userWorkunit);
-                        $("#recordAdress2").val(data.recordAdress);
-                        $("#userMyphone2").val(data.userMyphone);
-                        $("#recordPostalcode2").val(data.recordPostalcode);
-                        $("#userIdnumber2").val(data.userIdnumber);
+                        $("input[name='recordName']").val(data.recordName);
+                        $("input[name='userBirthday']").val(data.userBirthday);
+                        $("input[name='userId']").val(data.userId);
+                        $("input[name='userWorKunit']").val(data.userWorKunit);
+                        $("input[name='recordAdress']").val(data.recordAdress);
+                        $("input[name='userMyphone']").val(data.userMyphone);
+                        $("input[name='recordPostalcode']").val(data.recordPostalcode);
+                        $("input[name='userIdnumber']").val(data.userIdnumber);
                         var blood="未知";
                         if (data.userBloodtype==1) {
                             blood="A型";
+
                         }else if(data.userBloodtype==2){
+
                             blood="B型";
                         }else if(data.userBloodtype==3){
+
                             blood="O型";
                         }else if(data.userBloodtype==4){
+
                             blood="AB型";
                         }else if(data.userBloodtype==5){
+
                             blood="未知";
                         }
-                        $("#userBloodtype2").val(blood);
+
+                        $("input[name='userBloodtype']").val(blood);
+                        /*    $("#userBloodtype").val(blood);*/
                         var sex="未知";
                         if( data.userSex==1){
                             sex= "男";
                         }else if(data.userSex==2){
                             sex= "女";
                         }
-                        $("#userSex2").val(sex);
+
+                        $("input[name='userSex']").val(sex);
                     }
                 });
                 $.ajax({
@@ -543,9 +568,11 @@
                     type: 'post',
                     data: "othslowId=" + sss,
                     dataType: 'json',
-                    success: function (da) {
-              /*    alert("da"+da);*/
-                        $('#editothform').form('load', da[0]);
+                    success: function (d) {
+                        $("othslowId").val(sss);
+
+   /*                     $("input[name='othslowJkdate']").val(d.othslowJkdate);*/
+                        $('#othform').form('load', d);
                     }
 
                 });
@@ -554,7 +581,7 @@
                     url : "queryDoctor",
                     dataType : "json",
                     success : function (date) {
-                        $("#othslowResdoc2").combobox({
+                        $(".othslowResdoc").combobox({
                             mode:'remote',
                             url:'queryDoctor',
                             valueField:'id',
@@ -568,7 +595,7 @@
                     url : "queryDis",
                     dataType : "json",
                     success : function (date) {
-                        $("#othslowNameId2").combobox({
+                        $(".othslowNameId").combobox({
                             mode:'remote',
                             url:'queryDis',
                             valueField:'othslowNameId',
@@ -582,30 +609,31 @@
         });
     }
     function update(){
-        var validate = $("#editothform").form("validate");
+        var validate = $("#othform").form("validate");
         if(!validate){
             return;
         }
-        var date=$("#editothform").serialize();
+        var date=$("#othform").serialize();
+   /*     alert(sss);*/
         $.ajax({
-            url:'update',
+            url:'updateOth',
             dataType:'json',
             type:'post',
-            data: date,
+            data: "othslowId="+sss+"&"+date,
             success:function(data){
                 if(data>0){
                     $.messager.alert('信息提示','修改成功！','info');
-                    $('#edit-dialog').dialog('close');
+                    $('#addoth').dialog('close');
                     $('#data-datagrid').datagrid('reload');
+
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 }else{
                     $.messager.alert('信息提示',data.msg,'warning');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 }
             }
         });
     }
-
-
-
     //搜索按钮监听
     $("#search-btn").click(function(){
         var roleId = $("#search-role").combobox('getValue');
@@ -624,12 +652,11 @@
      * 载入数据
      */
     var sta="管理中";
-    var sss;
-    var all;
+
     $('#data-datagrid').datagrid({
         url:'list',
         rownumbers:true,
-        singleSelect:false,
+        singleSelect:true,
         pageSize:20,
         pagination:true,
         multiSort:true,
@@ -638,16 +665,19 @@
         treeField:'name',
         fit:true,
         columns:[[
-            { field:'chk',checkbox:true},
-            { field:'userId',hidden:true,formatter(value,row,index){
-        all=value;
-    }},
-            { field:'recordId',width:80,title:'个人健康档案号',title:'个人编号',width:80,align:'center'},
+      /*      { field:'chk',checkbox:true},*/
+            { field:'othslowId',hidden:true,formatter(value,row,index){
+                    sss=value;
+                }},
+            { field:'userId',width:80,title:'个人健康档案号',align:'center'},
+            { field:'recordId',hidden:true,formatter(value,row,index){
+                    user=value;
+                }},
             { field:'userNumber',title:'个人健康档案号',hidden:true},
             { field:'recordName',title:'姓名',width:60,align:'center'},
             { field:'userSex',title:'性别',width:60,align:'center',formatter(value,row,index){
                     switch(value){
-                        case 0:{
+                        case 3:{
                             return '未知';
                         }
                         case 1:{
@@ -674,10 +704,8 @@
                    }
                   return  value;
                 }},
-            { field:'othslowId',hidden:true,formatter(value,row,index){
-                    sss=value;
-                }},
 
+            { field:'userWorKunit',hidden:true},
             { field:'othslowNameId',hidden:true},
             { field:'othslowDiatime',hidden:true},
             { field:'othslowDiabwh',hidden:true},

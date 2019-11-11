@@ -81,6 +81,20 @@ select * from othslowName
         <if test="userIdnumber != null and userIdnumber != ''">
             AND u.userIdnumber LIKE '%${userIdnumber}%'
         </if>
+
+
+        <choose>
+        <when test="othslowOutfor != null and othslowOutfor != ''">
+            AND othslowOutfor LIKE '%${othslowOutfor}%'
+        </when>
+
+        <otherwise>
+            AND othslowClosestate =0
+        </otherwise>
+        </choose>
+
+
+
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
@@ -108,6 +122,9 @@ select * from othslowName
         <if test="userIdnumber != null and userIdnumber != ''">
             AND u.userIdnumber LIKE '%${userIdnumber}%'
         </if>
+        <if test="othslowOutdate != null and othslowOutdate != ''">
+            AND othslowOutdate LIKE '%${othslowOutdate}%'
+        </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
@@ -118,7 +135,7 @@ select * from othslowName
     <select id="queryUserById" parameterType="Integer" resultType="Map">
         select * from userinfo u WHERE  u.userId=#{uid}
     </select>
-    <select id="queryEdit" parameterType="int" resultType="Map">
+    <select id="queryEdit" parameterType="int" resultType="map">
              select * from othslow WHERE othslowId=#{othslowId}
     </select>
 

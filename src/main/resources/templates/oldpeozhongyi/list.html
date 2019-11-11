@@ -132,8 +132,17 @@
     function add(){
         $('#add-dialog').dialog('close');
         $("#tcm").dialog({
-            title : "新增自理评估表",
+            title : "新增中医药服务管理表",
             model : true,
+            buttons: [   {
+                text: '保存',
+                iconCls: 'icon-ok',
+                handler: goAdd
+            },{
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: goBack
+            }],
             onBeforeOpen: function(){
                 $("#oldpeoId").val(gxy);
                 $.ajax({
@@ -167,11 +176,18 @@
         });
     }
     function goAdd() {
+
         var validate = $("#tcmform").form("validate");
+/*        var doc=validate.combobox().val();*/
+      /*  var validate = $("#tcmform").form("validate");*/
         if (!validate) {
-            $.messager.alert("消息提醒", "请检查你输入的数据!", "warning");
+            $.messager.alert("消息提醒", "信息不全，请检查你输入的数据!", "warning");
             return;
         }
+/*        if (doc==null) {
+            $.messager.alert("消息提醒", "信息不全，请检查你输入的数据!", "warning");
+            return;
+        }*/
         var data = $("#tcmform").serialize();
         $.ajax({
             url: 'add',
@@ -183,8 +199,10 @@
                     $.messager.alert('信息提示', '添加成功！', 'info');
                     $('#tcm').dialog('close');
                     $('#data-datagrid').datagrid('reload');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 } else {
                     $.messager.alert('信息提示', data.msg, 'warning');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 }
             }
         });
@@ -196,6 +214,7 @@
      */
     var ed;
     function upda(oldtcmId,oldpeoId) {
+
         $('#add-dialog').dialog('close');
         gxy = oldpeoId;
         ed = oldtcmId;
@@ -203,6 +222,15 @@
             closed: false,
             modal: true,
             title: "修改",
+            buttons: [   {
+                text: '保存',
+                iconCls: 'icon-ok',
+                handler: update
+            },{
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: Close
+            }],
             onBeforeOpen: function () {
                 $("#editoldpeoId").val(gxy);
                 $("#editoldtcmId").val(ed);
@@ -265,8 +293,10 @@
                     $.messager.alert('信息提示','修改成功！','info');
                     $('#edittcm').dialog('close');
                     $('#data-datagrid').datagrid('reload');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 }else{
                     $.messager.alert('信息提示',data.msg,'warning');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 }
             }
         });
@@ -299,8 +329,10 @@
                             $.messager.alert('信息提示','删除成功！','info');
                             $('#add-dialog').dialog('close');
                             $('#data-datagrid').datagrid('reload');
+                            $("#data-datagrid").datagrid('getSelections').length = 0;
                         }else{
                             $.messager.alert('信息提示',data.msg,'warning');
+                            $("#data-datagrid").datagrid('getSelections').length = 0;
                         }
                     }
                 });
@@ -361,6 +393,10 @@
                     text: '删除',
                     iconCls: 'icon-cancel',
                     handler: remove
+                }, '-', {
+                    text: '**双击修改随访信息**',
+        /*            iconCls: 'icon-jingshenke',
+                    handler: function(){}*/
                 }]
             });
             }
