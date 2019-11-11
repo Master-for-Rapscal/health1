@@ -57,7 +57,7 @@ public class HyPerServiceImpl implements HyPerService {
     }
 
     @Override
-    public HyPer queryHyById(Integer userId) {
+    public List<HyPer> queryHyById(Integer userId) {
         return hyPerMapper.queryHyById(userId);
     }
 

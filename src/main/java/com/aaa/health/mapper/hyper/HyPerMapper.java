@@ -25,7 +25,7 @@ public interface HyPerMapper {
     //查询地址
     List<Map<String,Object>> queryArea();
     //修改之前的查询
-    HyPer queryHyById(Integer userId);
+    List<HyPer> queryHyById(Integer userId);
     //根据用户ID来进行修改
     Integer updateByUserId(HyPer hyper);
     /*//根据用户ID来查询随访记录

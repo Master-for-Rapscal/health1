@@ -9,6 +9,7 @@
         <div class="wu-toolbar-button">
             <!--引入菜单页面-->
             <div th:replace="common/menus :: menus"></div>
+            <a href="javascript:prn1_preview()">打印预览</a>
         </div>
         <div class="wu-toolbar-search">
             个人编号:<input id="search-id" class="wu-text" style="width:100px"/>
@@ -31,23 +32,23 @@
     <!-- End of toolbar -->
     <table id="data-datagrid" class="easyui-datagrid" toolbar="#wu-toolbar"></table>
 </div>
-<!-- Begin of easyui-dialog -->
 
+<!-- 专项卡添加之前的用户条件查询 -->
 <div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'"
-     style="width:600px; padding:10px;">
+     style="width:800px; padding:10px;">
     <!-- 查询个人档案-->
     个人编号:<input name="userbianhao"/>
-    姓名:<input name="userName"/><br/>
+    姓名:<input name="userName"/><label>**双击来进行添加</label><br/>
     联系地址:<input name="userAdress"/>
     联系电话:<input name="userPhone"/>
     <a href="#" id="userSearch" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
-    <table id="data-ins" class="easyui-datagrid" style="width: 550px; height: 500px;">
+    <table id="data-ins" class="easyui-datagrid" style="width: 750px; height: 500px;">
     </table>
 </div>
 
 <!-- 修改窗口 -->
 
-<div id="insHy" class="easyui-dialog" style="width: 700px; height: 550px; padding:10px;">
+<div id="insHy" class="easyui-dialog" style="width: 850px; height: 550px; padding:10px;">
     <div th:include="common/tang :: tang"></div>
 </div>
 
@@ -64,7 +65,7 @@
 
 <!--随访记录详细-->
 <div id="suifang" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'"
-     style="width:650px; height: 500px; padding:10px;">
+     style="width:750px; height: 600px; padding:10px;">
     <div th:replace="common/suifang :: suifang"></div>
 </div>
 
@@ -85,13 +86,27 @@
 
 <!-- End of easyui-dialog -->
 <script type="text/javascript" th:inline="none">
+    var LODOP; //声明为全局变量
+    function CreateOneFormPage(){
+        LODOP=getLodop();
+        LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_表单一");
+        LODOP.ADD_PRINT_TEXT(50,231,260,39,"糖尿病专项卡");
+        LODOP.ADD_PRINT_HTM("100px","0px","70%","70%",document.getElementById("insHy").innerHTML);
+        // LODOP.ADD_PRINT_HTM("100px","0px","70%","70%",document.getElementsByClassName("tang").innerHTML);
+    };
+
+        function prn1_preview() {  //表单一打印预览
+            CreateOneFormPage();
+            LODOP.PREVIEW();
+        };
+
     // 窗体加载关闭引用页面
     $(function () {
         $("#insHy").dialog('close');//专项卡添加修改页面
         $("#suifang").dialog('close');//随访记录详情页
         $("#xiaosuifang").dialog('close');//随访记录小表
         $("#YaoWu").dialog('close');//随访药物
-    });
+    })
 
     /**
      *  添加记录
@@ -99,8 +114,19 @@
     function add(uid) {
         $('#add-dialog').dialog('close');
         $("#insHy").dialog({
-            title: "糖尿病专项卡",
-            model: true,
+            closed: false,
+            modal:true,
+            title: "专项卡管理",
+            buttons: [{
+                text: '添加',
+                handler: goAdd
+            },{
+                text: '取消',
+                handler: goBack
+            },{
+                text: '打印预览',
+                handler:prn1_preview
+            }],
             onBeforeOpen: function () {
                 $('#form1').form('clear');
                 fuzhi(uid);
@@ -171,11 +197,11 @@
             success: function (data) {
                 //alert(data.msg);
                 if (data.msg == "success") {
-                    alert(data.info);
+                    $.messager.alert('信息提示',"添加成功",'info');
                     goBack();
 
                 } else {
-                    alert(data.info);
+                    $.messager.alert('信息提示',"添加失败",'info');
                 }
             }
         });
@@ -184,6 +210,7 @@
     //关闭添加窗口
     function goBack() {
         $("#insHy").dialog("close");
+        $("#add_form").form('reset');
         $('#data-datagrid').datagrid('reload');
     }
 
@@ -192,9 +219,17 @@
      * Name 修改记录
      */
     function edit() {
-        if (!$("#form1").form('validate')) {
+
+
+        var jddate= $("#jiandangdate").datetimebox('getValue');
+
+        //alert(jddate);
+        if(jddate == null || jddate == ''){
+            $.messager.alert('信息提示','请填写建卡日期！','info');
             return;
         }
+
+
         var Dmsmdata = $("#form1").serialize();
         var uid = $("#userId").val();
         $.ajax({
@@ -203,13 +238,14 @@
             data: "uid=" + uid + "&" + Dmsmdata,
             dataType: "json",
             success: function (data) {
-                alert(data.msg);
-                if (data.msg == success) {
-                    alert(data.info);
+                //alert(data.msg);
+                if (data.msg == 'success') {
+                    //alert(data.info);
+                    $.messager.alert('信息提示',"修改成功",'info');
                     goBack();
-                    //location.reload();
                 } else {
-                    alert(data.info);
+                  //  alert(data.info);
+                    $.messager.alert('信息提示',"修改失败",'info');
                 }
             }
         });
@@ -268,8 +304,6 @@
                     }
                 }],
             onBeforeOpen: function () {
-                $("#edit").css({display: "none"});
-                $("#addHyL").css({display: "block"});
                 $("#data-ins").datagrid({
                     url: 'userList',
                     fitColumns: true,
@@ -315,12 +349,6 @@
         $("#search-btn").click(function () {
             $('#data-datagrid').datagrid({
                 queryParams: {
-                    //          个人编号:search-id
-                    //         用户名search-name
-                    //         性别:
-                    //          search-sex
-                    //         联系地址:search-Adress
-                    //         联系电话:search-phone
                     userbian: $("#search-id").val(),
                     userMing: $("#search-name").val(),
                     usersex: $("#search-sex").val(),
@@ -355,7 +383,7 @@
     $('#data-datagrid').datagrid({
         url: 'list',
         rownumbers: true,
-        singleSelect: true,
+        singleSelect: false,
         pageSize: 20,
         pagination: true,
         multiSort: true,
@@ -368,7 +396,7 @@
             selSui(row.userId);
         },
         columns: [[
-            {field: 'chk', checkbox: true, hidden:true},
+            {field: 'chk', checkbox: true, width: 100},
             {field: 'userId', title: '个人编号', width: 50, align: 'center'},
             {field: 'recordName', title: '姓名', width: 100, sortable: true},
             {
@@ -432,12 +460,19 @@
                 // addSelect(data,"dmsmcardSources");
                 // addSelect(data,"dmsmcardAdminid");
                 // addSelect(data,"dmsmcardDoctor");
-                $("#dmsmcardBmi").val('');
                 $("#form1").form('load', data[0]);
-                $("#insHy").dialog('open');
+                $("#insHy").dialog({
+                    title : "糖尿病专项卡修改",
+                    model : true,
+                    buttons: [{
+                        text: '修改',
+                        handler: edit
+                    }, {
+                        text: '取消',
+                        handler: goBack
+                    }]
+                });
                 BmiVal();
-                $("#edit").css({display: "block"});
-                $("#addHyL").css({display: "none"});
 
             }
 
@@ -479,7 +514,17 @@
     var sid;// 定义一个全局使用的ID
     function selSui(uid) {
         sid = uid;
-        $("#xiaosuifang").dialog('open');
+        $("#xiaosuifang").dialog({
+            title : "糖尿病随访记录",
+            closed: false,
+            modal: true,
+            buttons: [{
+                text: '取消',
+                handler: function () {
+                    $('#xiaosuifang').dialog('close');
+                }
+            }]
+        });
         $("#suitab").datagrid({
             url: 'querySuiById?uid=' + sid,
             rownumbers: true,
@@ -493,16 +538,14 @@
             fit: true,
             onDblClickRow: function (index, row) {
                 //处方详情
-                selYaoWu(row.hypertenId);
+                //selYaoWu(row.hypertenId);
             },
             columns: [[
                 {field: 'chk', checkbox: true, width: 100},
                 {field: 'hypertenId', title: 'ID', width: 100, sortable: true, hidden: true},
-                {field: 'recordId', title: '个人编号', width: 50, hidden: true, formatter(value, row, index) {
-                        if (value == null) {
-                            alert("未拥有随访记录，请尽快安排");
-                        }
-                    }},
+                {
+                    field: 'recordId', title: '个人编号', width: 50, hidden: true
+                },
                 {field: 'hypertenVisit', title: '随访日期', width: 100, sortable: true,formatter(value,row,index){
                     return upDate(value);
                     }},
@@ -531,15 +574,28 @@
     }
 
     function addSui() {
-        $("#YongYao").css({display: "block"});
-        $("#suifangeaid").css({display: "none"});
-        $("#suifangadd").css({display: "block"});
-
         $("#xiaosuifang").dialog('close');
+        $("#Yaotab tr:not(:first)").remove();
+        if($("#suitab").datagrid('getRows')[0]!=null){
+            var date = new Date ($("#suitab").datagrid('getRows')[0].hypertenVisitdate);
+            $("#hypertenVisit").datebox('setValue',date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate())
+            checkDate(date);
+        }
         $("#suifang").dialog({
             closed: false,
             modal: true,
-            title: "添加用户信息",
+            title: "添加随访记录",
+            buttons: [{
+                text: '添加',
+                handler: goSuiAdd
+            },{
+                text: '取消',
+                handler: function () {
+                    $("#suifang").dialog('close');
+                    $('#xiaosuifang').dialog('open');
+                    $("#suiform").form('reset');
+                }
+            }]
         });
     }
 
@@ -596,7 +652,8 @@
                     }
 
                 } else {
-                    alert("添加失败,请检查数据");
+                  //  alert("");
+                    $.messager.alert('信息提示', '添加失败,请检查数据！', 'info');
                 }
             }
         });
@@ -658,11 +715,26 @@
             dataType: "json",
             success: function (data) {
                 //alert(data);
-                $("#YongYao").css({display: "none"});
-                $("#suifang").dialog('open');
-                $("#suifangeaid").css({display: "block"});
-                $("#suifangadd").css({display: "none"});
+                //$("#YongYao").css({display: "none"});
+                $("#suifang").dialog({
+                    closed: false,
+                    modal: true,
+                    title: "修改随访记录",
+                    buttons: [{
+                        text: '修改',
+                        handler: goSuiEdit
+                    },{
+                        text: '取消',
+                        handler: function () {
+                            $('#xiaosuifang').dialog('open');
+                            $('#suifang').dialog('close');
+                            $("#suiform").form('reset');
+                        }
+                    }]
+                });
                 $("#suiform").form("load", data);
+                $("#Yaotab tr:not(:first)").html("");
+                selYaoWu(item);
             }
         });
     }
@@ -676,19 +748,60 @@
             success: function (data) {
                 ///alert(data);
                 if (data > 0) {
-                    alert("修改成功");
-                    $("#suifang").dialog('close');
-                    $("#xiaosuifang").dialog('open');
+//--------------------
+                    var num = $("#Yaotab tr").length;//表格行数
+                    if (num != 1) {
+                        for (var i = 1; i < num; i++) {
+                            var recordRecipeName = $("#Yaotab tr:eq(" + i + ") td:eq(0)").find("input").val();
+                            if (recordRecipeName == '') {
+                               // alert("请填写医药");
+                               // alert("");
+                                $.messager.alert('信息提示', '修改成功！', 'info');
+                                $("#suifang").dialog('close');
+                                $("#xiaosuifang").dialog('open');
+                                return;
+                            }
+                            var recordRecipeContent = $("#Yaotab tr:eq(" + i + ") td:eq(1)").find("input").val();
+                            if (recordRecipeContent == '') {
+                               // alert("请填写该药物的用法");
+                                $.messager.alert('信息提示', '修改成功！', 'info');
+                                $("#suifang").dialog('close');
+                                $("#xiaosuifang").dialog('open');
+                                return;
+                            }
+                            var recordRecipePian = $("#Yaotab tr:eq(" + i + ") td:eq(2)").find("input").val();
+                            if (recordRecipePian == '') {
+                               // alert("请填写该药物的用法");
+                                $.messager.alert('信息提示', '修改成功！', 'info');
+                                $("#suifang").dialog('close');
+                                $("#xiaosuifang").dialog('open');
+                                return;
+                            }
+                            $.ajax({
+                                type: "post",
+                                url: "updateYaoById",
+                                data:"hid="+yongyaoid+ "&recordRecipeName=" + recordRecipeName + "&recordRecipeContent=" + recordRecipeContent + "&recordRecipePian=" + recordRecipePian,
+                                dataType: "json",
+                                success: function (data) {
+                                }
+                            });
+                        }
+//---------------------
+                        $.messager.alert('信息提示', '修改成功！', 'info');
+                        $("#suifang").dialog('close');
+                        $("#xiaosuifang").dialog('open');
+                    }
                 } else {
-                    alert("修改失败，请联系管理员");
+                    $.messager.alert('信息提示', '修改失败，请联系管理员！', 'info');
                 }
             }
         })
     }
 
     function selYaoWu(hid) {
-        $("#yaowuDetial").html('');
-        $("#YaoWu").dialog('open');//随访药物
+       // $("#yaowuDetial").html('');
+       // $("#YaoWu").dialog('open');//随访药物
+        //$("#delhang,#addhang").css({display:'none'});
         $.ajax({
             type: "post",
             url: "queryYao",
@@ -698,17 +811,17 @@
                 //alert("length"+data.length);
                 // alert("size"+data.size());
                 if (data.length < 1) {
-                    alert("此次随访没有开药方");
-                    $("#YaoWu").dialog('close');
+                    $.messager.alert('信息提示', '此次随访没有开药方,请尽快为患者配药！', 'info');
+                    //$("#YaoWu").dialog('close');
                 } else {
                     var yaodetial = "";
                     for (var i = 0; i < data.length; i++) {
-                        yaodetial += "<div style='margin: 30px;'>药名及用法:" + data[i].recordRecipeName + ",每天" + data[i].recordRecipeContent + "次，每次" + data[i].recordRecipePian + "片（粒）</div>";
+                        yaodetial +="<tr><td><input type='text' value='" + data[i].recordRecipeName + "'/></td><td><input type='text' value='" + data[i].recordRecipeContent + "'/></td><td><input type='text' value='" + data[i].recordRecipePian + "'/></td></tr>";
                     }
-                    //alert(yaodetial);
-                    $("#yaowuDetial").html(yaodetial);
+                    $("#Yaotab").append(yaodetial);
                 }
             }
         });
     }
+
 </script>

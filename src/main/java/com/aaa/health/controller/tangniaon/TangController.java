@@ -95,7 +95,6 @@ public class TangController {
                                @RequestParam(name = "userName", required = false, defaultValue = "") String userName,
                                @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
                                @RequestParam(name = "username", required = false, defaultValue = "") String userPhone){
-        System.out.println("----------------------------------");
         System.out.println(userbianhao);
         System.out.println(userName);
         System.out.println(userAdress);
@@ -154,6 +153,7 @@ public class TangController {
     @ResponseBody
     public Object updateByUserId(Integer uid, TangNiaon tangNiaon){
         tangNiaon.setRecordId(uid);
+        System.out.println("糖尿病修改的查询"+tangNiaon);
         Map<String,Object> map=new HashMap<String,Object>();
         int num=tangService.updateByUserId(tangNiaon);
         if(num>0){
@@ -240,7 +240,7 @@ int sid=0;
         //System.out.println(hid);
        // System.out.println("备注"+tang.getHypertenRemark());
         int num=tangService.updateSuiFangById(tang);
-        //int num=1;
+        tangService.deleteYaoById(hid);
         return num;
     }
 
@@ -249,5 +249,18 @@ int sid=0;
     public Object queryYao(Integer hid){
         List<Map<String,Object>> list = tangService.queryYao(hid);
         return list;
+    }
+
+    @RequestMapping("updateYaoById")
+    @ResponseBody
+    public Object updateYaoById(Integer hid,String recordRecipeName,String recordRecipeContent, String recordRecipePian){
+        Map<String,Object> map=new HashMap<String,Object>();
+        Map<String,Object> ret=new HashMap<String,Object>();
+        map.put("hypertenId",hid);
+        map.put("recordRecipeName",recordRecipeName);
+        map.put("recordRecipeContent",recordRecipeContent);
+        map.put("recordRecipePian",recordRecipePian);
+        int num=tangService.insertYao(map);
+        return num;
     }
 }

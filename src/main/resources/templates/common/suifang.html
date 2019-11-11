@@ -17,40 +17,11 @@
 </style>
 
         <form id="suiform">
-        <table border="1px" style="margin-top: 20px">
+        <table width="700px" border="1px" style="margin-top: 20px;">
             <tr>
                 <td colspan="4">随访日期</td>
-                <td colspan="6"><input class="easyui-datebox" data-options="onSelect:checkDate" id="hypertenVisit" name="hypertenVisit"/></td>
+                <td colspan="6"><input editable="fasle" class="easyui-datebox" data-options="onSelect:checkDate" id="hypertenVisit" name="hypertenVisit"/></td>
             </tr>
-            <script>
-                var tf;
-                function checkDate(date1){
-
-                    // var  date1=$("#hypertenVisit").datetimebox('getValue');
-                    // // var now = new Date();
-                   // alert(date1);
-                   // var d1 = new Date(date1.getFullYear(), date1.getMonth()+3, date1.getDate());
-
-                    // // var d2 = new Date(now.getFullYear(), now.getMonth(), now.getDate()+10);
-                    //
-
-                        var y = date1.getFullYear();
-                        var m = date1.getMonth()+4;
-                        var d = date1.getDate();
-                   if(m>12){
-                       y=y+1;
-                       m=m-12;
-                   }
-                    tf=y+'-'+m+'-'+d;
-                    $('#hypertenVisitdate').datebox('setValue',tf);
-
-                }
-                // $(function () {
-                //     $('#hypertenVisit').datebox().datebox('calendar').calendar({
-                //         validator:
-                //     });
-                // })
-            </script>
             <tr>
                 <td colspan="4">随访方式</td>
                 <td colspan="6"><input type="radio" name="hypertenVisitway" value="1"/>门诊
@@ -157,14 +128,32 @@
 
             <tr>
                 <td colspan="2">检查日期</td>
-                <td colspan="4"><input class="easyui-datebox" name="hypertenJianchadate "/></td>
+                <td colspan="4"><input editable="fasle" class="easyui-datebox" name="hypertenJianchadate "/></td>
             </tr>
 
             <tr>
                 <td colspan="2">其他检查</td>
                 <td colspan="4"><input name="hypertenLeftothers" style="width: 100%;height: 100%; border: 0px"/></td>
             </tr>
+        </table>
 
+                    <!--药------------------------------------------------->
+            <div id="YongYao" style="width: 100%; overflow: hidden">
+                <table border="1px" id="Yaotab" width="700px" style="overflow: hidden;">
+                    <caption>用药情况</caption>
+                    <tr>
+                        <th>药物名称</th><th>每日/次</th><th>每次(片，粒)</th>
+                    </tr>
+                </table>
+
+                <a onclick="addhang()" id="addhang" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加药物信息</a>
+                <a onclick="delhang()" id="delhang" class="easyui-linkbutton" data-options="iconCls:'icon-cross'">删除药物信息</a>
+
+            </div>
+            <!--方法在下边-->
+
+
+            <table border="1px"  width="700px">
             <tr>
                 <td colspan="4">服药依从性</td>
                 <td colspan="6"><select name="hypertenCompliance">
@@ -210,7 +199,7 @@
 
             <tr>
                 <td colspan="3">下次随访日期</td>
-                <td colspan="7"><input class="easyui-datebox" data-options="onSelect:jiancha" id="hypertenVisitdate" name="hypertenVisitdate"/></td>
+                <td colspan="7"><input class="easyui-datebox" editable="fasle" data-options="onSelect:jiancha" id="hypertenVisitdate" name="hypertenVisitdate"/></td>
             </tr>
 
             <script>
@@ -219,35 +208,10 @@
                     //alert(date);
                      var  date2=$("#hypertenVisit").datetimebox('getValue');
                     var  date3=$("#hypertenVisitdate").datetimebox('getValue');
-                  //alert(date2);
-                 //   alert(date);
-                    // var a1=date.getFullYear();
-                    // var a2= date.getMonth()+1;
-                    // var a3=date.getDate();
-                    // var d1=a1+a2+a3;
-                    // alert(d1);
-
-                    // var b1=date2.getFullYear();
-                    // var b2= date2.getMonth()+1;
-                    // var b3=date2.getDate();
-                    // var d2=b1+b2+b3;
-                    // var start=new Date(date.replace("-", "/").replace("-", "/"));
-                    // alert(start);
-                    // var end=new Date(date2.replace("-", "/").replace("-", "/"));
-                  //  var d1 = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-                   // var d2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
-                  //  alert(d1);
-                    //alert(d2);
                     alert(date3>date2);
                  if(date3>date2){
-                     alert("t");
                      $('#hypertenVisitdate').datebox('setValue',date3 );
                  }else{
-                     alert("f");
-                     // var nian=date.getFullYear();
-                     // var yue=date.getMonth()+1;
-                     // var day=date.getDate();
-                     // var d4=nian+"-"+yue+"-"+day;
                      $('#hypertenVisitdate').datebox('setValue',tf);
                  }
                 }
@@ -257,7 +221,7 @@
                 <td colspan="7">
                 <select name="hypertenDoctor">
                     <a th:each="ltf : ${session.ltf}">
-                        <option th:value="${ltf.id}">[[${ltf.username}]]</span></option>
+                        <option th:value="${ltf.id}">[[${ltf.lastname}]]</span></option>
                     </a>
                 </select>
                 </td>
@@ -269,20 +233,9 @@
             </tr>
         </table>
 
-            <div id="YongYao" style="width: 100%; overflow: auto">
-                <table border="1px" id="Yaotab" width="500px">
-                    <caption>用药情况</caption>
-                    <tr>
-                        <th>药物名称</th><th>每日/次</th><th>每次(片，粒)</th>
-                    </tr>
-                </table>
 
-                <a onclick="addhang()" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加药物信息</a>
-                <a onclick="delhang()" class="easyui-linkbutton" data-options="iconCls:'icon-cross'">删除药物信息</a>
-
-            </div>
-            <a onclick="goSuiAdd()" class="easyui-linkbutton" id="suifangadd" data-options="iconCls:'icon-add'">添加随访记录</a>
-            <a onclick="goSuiEdit()" id="suifangeaid" class="easyui-linkbutton" style="display: none;width: 110px" data-options="iconCls:'icon-bullet-edit'">修改随访记录</a>
+            <!--<a onclick="goSuiAdd()" class="easyui-linkbutton" id="suifangadd" data-options="iconCls:'icon-add'">添加随访记录</a>-->
+            <!--<a onclick="goSuiEdit()" id="suifangeaid" class="easyui-linkbutton" style="display: none;width: 110px" data-options="iconCls:'icon-bullet-edit'">修改随访记录</a>-->
             <script>
                 function addhang() {
                     var tr="<tr><td><input type='text'/></td><td><input type='text'/></td><td><input type='text'/></td></tr>";

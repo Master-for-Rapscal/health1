@@ -47,4 +47,9 @@ public interface TangService {
     List<Map<String,Object>> queryYao(Integer hid);
     //查询地区
     List<Map<String,Object>> queryArea();//SELECT * from area
+    //根据随访ID来修改用药情况
+    //Integer updateYaoById(Map<String,Object> map);
+
+    Integer deleteYaoById(Integer hid);
+    Integer insertYao(Map map);
 }

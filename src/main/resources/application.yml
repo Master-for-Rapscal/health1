@@ -9,7 +9,7 @@ spring:
 #spring:
 #  datasource:
 #    username: root
-#    password: 123456
+#    password: Dipper
 #    url: jdbc:mysql://localhost/health?serverTimezone=Asia/Shanghai
 
     driver-Class-Name: com.mysql.cj.jdbc.Driver
@@ -105,6 +105,8 @@ pagehelper:
   #配置别名扫描
 mybatis:
   type-aliases-package: com.aaa.health.entity.admin,com.aaa.health.entity.zzh,com.aaa.health.entity.oldpeo,com.aaa.health.entity.othslow
+server:
+  port: 18080
 
 #  configuration:
 #    map-underscore-to-camel-case:

@@ -39,7 +39,7 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
         //定制请求的授权规则
         http.exceptionHandling().authenticationEntryPoint(new UnauthorizedEntryPoint());
         http.authorizeRequests()
-                .antMatchers("/admin/**", "/system/login", "/system/get_cpacha").permitAll()
+                .antMatchers("/admin/**","/role/list", "/system/login", "/system/get_cpacha").permitAll()
                 .anyRequest()//任何请求
                 .authenticated();//都需要身份验证
         //开启自动配置的登录功能，如果没有登录就去登录页面

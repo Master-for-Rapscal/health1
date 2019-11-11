@@ -61,6 +61,18 @@
     <select id="queryUserTotal" parameterType="Map" resultType="Integer">
         SELECT count(*) from userinfo u
         where u.userId not in (SELECT recordId from dmsmcard)
+        <if test="userId != null and userId != 0">
+            and userId LIKE '%${userId}%'
+        </if>
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND recordAdress LIKE '%${recordAdress}%'
+        </if>
+        <if test="userMyphone  != null and userMyphone != ''">
+            AND userMyphone LIKE '%${userMyphone}%'
+        </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
@@ -234,4 +246,20 @@ dmsmcardDe=#{dmsmcardDe}
     <select id="queryArea" resultType="Map">
         SELECT * from area
     </select>
+
+
+    <!--<update id="updateYaoById" parameterType="Map">-->
+        <!--UPDATE recordRecipe SET recordRecipeName=#{recordRecipeName},-->
+<!--recordRecipeContent=#{recordRecipeContent},-->
+<!--recordRecipePian=#{recordRecipePian}-->
+<!--WHERE hypertenId=#{hypertenId}-->
+    <!--</update>-->
+    <delete id="deleteYaoById" parameterType="Integer">
+        DELETE FROM recordRecipe WHERE hypertenId=#{hypertenId}
+    </delete>
+
+    <insert id="insertYao" parameterType="Map">
+         INSERT INTO recordRecipe(hypertenId,recordRecipeName,recordRecipeContent,recordRecipePian)
+        VALUES(#{hypertenId},#{recordRecipeName},#{recordRecipeContent},#{recordRecipePian});
+    </insert>
 </mapper>

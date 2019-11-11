@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -47,11 +44,13 @@ public class HyPerController {
 
     @RequestMapping(value = "/list",method = RequestMethod.POST)
     @ResponseBody
-    public Object queryHy(Page page){
+    public Object queryHy(Page page,
+                          @RequestParam(name = "gui", required = false, defaultValue = "") Integer gui){
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
+        queryMap.put("hypertensionOutcome",gui);
         ret.put("rows", hyPerService.queryHyAll(queryMap));// 页面加载数据使用
         ret.put("total", hyPerService.queryHyTotal(queryMap));// 分页使用
         //System.out.println("高血压"+ret);
@@ -84,11 +83,19 @@ public class HyPerController {
 
     @RequestMapping("userList")
     @ResponseBody
-    public Object queryList(Page page){
+    public Object queryList(Page page,
+                            @RequestParam(name = "userbianhao", required = false, defaultValue = "") String userbianhao,
+                            @RequestParam(name = "userName", required = false, defaultValue = "") String userName,
+                            @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
+                            @RequestParam(name = "username", required = false, defaultValue = "") String userPhone){
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
+        queryMap.put("userId",userbianhao);
+        queryMap.put("recordName",userName);
+        queryMap.put("recordAdress",userAdress);
+        queryMap.put("userMyphone",userPhone);
         ret.put("rows", hyPerService.queryNotUser(queryMap));// 页面加载数据使用
         ret.put("total", hyPerService.queryNoUserTotal(queryMap));// 分页使用
         return ret;
@@ -114,17 +121,20 @@ public class HyPerController {
     @RequestMapping("queryHyById")
     @ResponseBody
     public Object queryHyById(Integer userId){
-        HyPer hyPer = hyPerService.queryHyById(userId);
-        Map<String,Object> map=new HashMap<String,Object>();
-        map.put("hyper",hyPer);
-        return  map;
+        List<HyPer> list = hyPerService.queryHyById(userId);
+       // Map<String,Object> map=new HashMap<String,Object>();
+      //  map.put("hyper",hyPer);
+        System.out.println("asdasdasdas"+list);
+        return  list;
     }
 
     @RequestMapping("updateByUserId")
     @ResponseBody
     public Object updateByUserId(Integer uid,HyPer hyPer){
         hyPer.setRecordId(uid);
+        System.out.println(hyPer);
         int num=hyPerService.updateByUserId(hyPer);
+
         Map<String,Object> map=new HashMap<String,Object>();
         if(num>0){
             map.put("msg","success");
@@ -213,7 +223,7 @@ public class HyPerController {
     public Object updateSuiFangById(Integer hid,Tang tang){
         tang.setHypertenId(hid);
         int num=hyPerService.updateSuiFangById(tang);
-        //int num=1;
+        tangService.deleteYaoById(hid);
         return num;
     }
 
@@ -224,6 +234,8 @@ public class HyPerController {
         return list;
     }
 
+
+
     @RequestMapping("updateZhuan")
     @ResponseBody
     public Object updateZhuan(Integer uid,String zhuancause,Date zhuandate){
@@ -231,9 +243,22 @@ public class HyPerController {
         map.put("uid",uid);
         map.put("zhuancause",zhuancause);
         map.put("zhuandate",zhuandate);
+       // System.out.println("aaaaaaaa"+map);
         int num=hyPerService.updateZhuan(map);
         return num;
     }
 
 
+    @RequestMapping("updateYaoById")
+    @ResponseBody
+    public Object updateYaoById(Integer hid,String recordRecipeName,String recordRecipeContent, String recordRecipePian){
+        Map<String,Object> map=new HashMap<String,Object>();
+        Map<String,Object> ret=new HashMap<String,Object>();
+        map.put("hypertenId",hid);
+        map.put("recordRecipeName",recordRecipeName);
+        map.put("recordRecipeContent",recordRecipeContent);
+        map.put("recordRecipePian",recordRecipePian);
+        int num=tangService.insertYao(map);
+        return num;
+    }
 }

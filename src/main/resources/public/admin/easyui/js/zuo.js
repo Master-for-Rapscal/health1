@@ -65,17 +65,14 @@ function  copyAddress2(v) {
     $("input[name='recordAdress']").val(v);
 }
 
+//自动计算下次随访日期 并赋值
+var tf;
+function checkDate(date1){
+    var y = date1.getFullYear();
+    var m = date1.getMonth()+4;
+    var d = date1.getDate();
+    if(m>12){y=y+1;m=m-12;}
+    tf=y+'-'+m+'-'+d;
+    $('#hypertenVisitdate').datebox('setValue',tf);
 
-//日期转换
-function add0(m){return m<10?'0'+m:m }
-function format(shijianchuo){
-    //shijianchuo是整数，否则要parseInt转换
-    var time = new Date(shijianchuo);
-    var y = time.getFullYear();
-    var m = time.getMonth()+1;
-    var d = time.getDate();
-    var h = time.getHours();
-    var mm = time.getMinutes();
-    var s = time.getSeconds();
-    return y+'-'+add0(m)+'-'+add0(d)+' '+add0(h)+':'+add0(mm)+':'+add0(s);
 }

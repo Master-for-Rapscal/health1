@@ -35,7 +35,7 @@ public interface TangMapper {
     Integer insertSui(Tang tang);
     //查询最大ID
     Integer querySuiMax();
-    //添加用药
+    //添加用药----------------------------------------
     Integer insertHyperYao(Map map);
     //删除随访记录
     Integer delSui(String ids);
@@ -48,4 +48,11 @@ public interface TangMapper {
 
     //查询地区
     List<Map<String,Object>> queryArea();//SELECT * from area
+
+    //-----修改药-------------------------------queryYao
+    //根据随访ID来修改用药情况
+    //Integer updateYaoById(Map<String,Object> map);
+
+    Integer deleteYaoById(Integer hid);
+    Integer insertYao(Map map);
 }

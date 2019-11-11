@@ -3,14 +3,23 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.hyper.HyPerMapper">
     <select id="queryHyAll" parameterType="Map" resultType="Map">
-        SELECT * from hypertension dm join userinfo u on dm.recordId=u.userId left join userPrivy pr on pr.userId=u.userId
+        SELECT * from hypertension dm join userinfo u on dm.recordId=u.userId
+
+        <choose>
+          <when test=" hypertensionOutcome == 2">
+              AND dm.hypertensionOutcome is not null
+          </when>
+            <otherwise>
+                AND dm.hypertensionOutcome is null
+            </otherwise>
+        </choose>
         <if test="offset != null and pageSize != null">
              limit #{offset},#{pageSize}
         </if>
     </select>
     
     <select id="queryHyTotal" parameterType="Map" resultType="Integer">
-        SELECT count(*) from hypertension dm join userinfo u on dm.recordId=u.userId left join userPrivy pr on pr.userId=u.userId
+        SELECT count(*) from hypertension dm join userinfo u on dm.recordId=u.userId
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
@@ -22,7 +31,19 @@
     
     <select id="queryNotUser" parameterType="Map" resultType="Map">
  SELECT u.userId,u.recordName,u.userBirthday,u.recordAdress,u.userMyphone from userinfo u
-        where u.userId not in (SELECT recordId from hypertension)
+        where u.userId not in (SELECT recordId from hypertension WHERE hypertensionOutcome is null)
+        <if test="userId != null and userId != 0">
+            and userId LIKE '%${userId}%'
+        </if>
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND recordAdress LIKE '%${recordAdress}%'
+        </if>
+        <if test="userMyphone  != null and userMyphone != ''">
+            AND userMyphone LIKE '%${userMyphone}%'
+        </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
@@ -211,8 +232,8 @@ WHERE recordId=#{recordId}
     </select>
 
     <update id="updateZhuan" parameterType="Map">
-        UPDATE hypertension set hypertensionOutcome=#{hypertensionOutcome},
-hypertensionOutcomedate=#{hypertensionOutcomedate}
+        UPDATE hypertension set hypertensionOutcome=#{zhuancause},
+hypertensionOutcomedate=#{zhuandate}
 WHERE recordId=#{uid}
     </update>
 </mapper>

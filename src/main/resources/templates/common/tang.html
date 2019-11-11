@@ -18,13 +18,11 @@
             }
         </style>
 
-    <table width="600" border="1" cellspacing="0" cellpadding="1" id="tab1">
+    <table width="100%" border="1" cellspacing="0" cellpadding="1" id="tab1">
         <caption>
             糖尿病专项管理卡
         </caption>
         <tr>
-            <!--<td width="100px">管理卡编号:</td>-->
-            <!--<td width="200px"><input type="text" name="userPapernumber" id="userPapernumber" readonly/></td>-->
             <td colspan="2" width="294px">个人健康档案号:</td>
             <td colspan="2" width="300px"><input type="text" name="userId" id="userId" readonly/></td>
         </tr>
@@ -221,7 +219,7 @@
                 <td>建档医生:</td>
                 <td><select name="dmsmcardDoctor" id="dmsmcardDoctor" style="width:100%;">
                     <a th:each="ltf : ${session.ltf}">
-                        <option th:value="${ltf.id}">[[${ltf.username}]]</span></option>
+                        <option th:value="${ltf.id}">[[${ltf.lastname}]]</span></option>
 
                     </a>
                 </select>
@@ -242,9 +240,9 @@
 
                 <td colspan="4" align="center">
                     <!--<a class="easyui-linkbutton"  ></a>-->
-                    <input type="button" id="addHyL" style="width: 80px;border-radius: 15px;float: left;" onclick="goAdd()" value="添加"/>
-                      <input type="button" id="edit" style="width: 80px;border-radius: 15px;float: left;" onclick="edit()" value="编辑"/>
-                                 <input type="button" style="width: 80px;border-radius: 15px;float: left;" onclick="goBack()" value="取消"/>
+                    <!--<input type="button" id="addHyL" style="width: 80px;border-radius: 15px;float: left;" onclick="goAdd()" value="添加"/>-->
+                      <!--<input type="button" id="edit" style="width: 80px;border-radius: 15px;float: left;" onclick="edit()" value="编辑"/>-->
+                                 <!--<input type="button" style="width: 80px;border-radius: 15px;float: left;" onclick="goBack()" value="取消"/>-->
                     <!--<a class="easyui-linkbutton"  onclick="edit()" id="edit" style="display: none">编辑</a>-->
 
                     <!--<a class="easyui-linkbutton" style="width:80px" onclick="goBack()">取消</a>-->

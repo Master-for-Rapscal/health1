@@ -15,31 +15,31 @@
             <!--<td width="100px">管理卡编号:</td>-->
             <!--<td width="200px"><input type="text" name="userPapernumber" id="userPapernumber" readonly/></td>-->
             <td  width="94px">个人健康档案号:</td>
-            <td colspan="3" width="500px"><input type="text" name="userId" id="userId" readonly/></td>
+            <td colspan="3" width="500px"><input type="text" name="userId" id="userId" style="width: 100%;height: 100%;border: 0px;" readonly/></td>
         </tr>
         <tr>
             <td>姓名:</td>
-            <td><input type="text" name="recordName" id="recordName" readonly/></td>
+            <td><input type="text" style="width: 100%;height: 100%;border: 0px;" name="recordName" id="recordName" readonly/></td>
             <td>性别:</td>
-            <td><input type="text" name="userSex" id="userSex" readonly/></td>
+            <td><input type="text" style="width: 100%;height: 100%;border: 0px;" name="userSex" id="userSex" readonly/></td>
         </tr>
         <tr>
             <td>婚姻:</td>
-            <td><input type="text" name="userGam" id="userGam" readonly/></td>
+            <td><input type="text" style="width: 100%;height: 100%;border: 0px;" name="userGam" id="userGam" readonly/></td>
             <td>职业:</td>
-            <td><input type="text" name="userWorKunit" id="userWorKunit" readonly/></td>
+            <td><input type="text" style="width: 100%;height: 100%;border: 0px;" name="userWorKunit" id="userWorKunit" readonly/></td>
         </tr>
         <tr>
             <td>出生日期:</td>
-            <td><input type="text" name="userBirthday" id="userBirthday" readonly/></td>
+            <td><input type="text" style="width: 100%;height: 100%;border: 0px;" name="userBirthday" id="userBirthday" readonly/></td>
             <td>本人电话:</td>
-            <td><input type="text" name="userMyphone" id="userMyphone" readonly/></td>
+            <td><input type="text" style="width: 100%;height: 100%;border: 0px;" name="userMyphone" id="userMyphone" readonly/></td>
         </tr>
         <tr>
             <td>现住址:</td>
-            <td><input type="text" name="recordAdress" id="recordAdress" readonly/></td>
+            <td><input type="text" style="width: 100%;height: 100%;border: 0px;" name="recordAdress" id="recordAdress" readonly/></td>
             <td>建档机构;</td>
-            <td><input type="text" name="recordUnit" id="recordUnit" readonly/></td>
+            <td><input type="text" style="width: 100%;height: 100%;border: 0px;" name="recordUnit" id="recordUnit" readonly/></td>
         </tr>
 </table>
 
@@ -58,12 +58,12 @@
                     </td>
                     <td colspan="2">确诊日期</td>
                     <td colspan="3">
-                                     <input class="easyui-datebox" id="dd" name="hypertensionConfirmed" style="width:100%;height: 30%;border: 0px">
+                                     <input class="easyui-datebox" id="dd" name="hypertensionConfirmed" editable="false" style="width:100%;height: 30%;border: 0px">
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">发病日期</td>
-                    <td colspan="3"><input class="easyui-datebox" name="hypertensionAccident" style="width: 100%;height: 30%;border: 0px"></td>
+                    <td colspan="3"><input  class="easyui-datebox" name="hypertensionAccident"  editable="false" style="width: 100%;height: 30%;border: 0px"></td>
                     <td colspan="2">确诊单位</td>
                     <td colspan="3"><input name="hypertensionConfirmedunit" type="text" style="width: 100%;height: 100%;border: 0px"></td>
                 </tr>
@@ -166,7 +166,7 @@
                             <option value="6">缺乏体力活动</option>
                         </select>
                     </td>
-                    <td colspan="1">靶器官损坏></td>
+                    <td colspan="1">靶器官损坏</td>
                     <td colspan="3">
 
                         <select class="easyui-combobox" multiple="true" multiline="true" name="hypertensionTargetorgan"
@@ -220,21 +220,28 @@
                     <td colspan="2">
                         <select class="easyui-combobox" name="hypertensionDoctor" style="width:100%;border: 0px">
                             <a th:each="ltf : ${session.ltf}">
-                                <option th:value="${ltf.id}">[[${ltf.username}]]</span></option>
+                                <option th:value="${ltf.id}">[[${ltf.lastname}]]</span></option>
                             </a>
                         </select>
 
                     </td>
-                    <td colspan="1">建档日期*</td>
+                    <td colspan="1">建卡日期*</td>
                     <td colspan="2">
-                        <input type="date" id="dada" data-options="required:true" name="hypertensionJiankadate" style="width:100%;border: 0px">
+                        <input editable="false" class="easyui-datebox" id="dada" name="hypertensionJiankadate" style="width:100%;border: 0px">
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="3"><a id="tian" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="goAdd()">保存</a></td>
-                    <td colspan="4"><a id="xiu" class="easyui-linkbutton" onclick="edit()" style="display: none" data-options="iconCls:'icon-bullet-edit'">修改</a></td>
-                    <td colspan="3"><a class="easyui-linkbutton" onclick="goBack()" data-options="iconCls:'icon-cross'">取消</a></td>
-                </tr>
+                <script>
+                    $(function () {
+                        var date=new Date();
+
+                        $("#dada").datebox('setValue',date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate());
+                    })
+                </script>
+                <!--<tr>-->
+                    <!--&lt;!&ndash;<td colspan="3"><a id="tian" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="goAdd()">保存</a></td>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<td colspan="4"><a id="xiu" class="easyui-linkbutton" onclick="edit()" style="display: none" data-options="iconCls:'icon-bullet-edit'">修改</a></td>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<td colspan="3"><a class="easyui-linkbutton" onclick="goBack()" data-options="iconCls:'icon-cross'">取消</a></td>&ndash;&gt;-->
+                <!--</tr>-->
             </table>
 
         </form>

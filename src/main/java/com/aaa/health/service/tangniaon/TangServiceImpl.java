@@ -115,7 +115,21 @@ public  class TangServiceImpl implements TangService {
 
     @Override
     public List<Map<String, Object>> queryArea() {
-
         return tangMapper.queryArea();
     }
+
+    @Override
+    public Integer deleteYaoById(Integer hid) {
+        return tangMapper.deleteYaoById(hid);
+    }
+
+    @Override
+    public Integer insertYao(Map map) {
+        return tangMapper.insertYao(map);
+    }
+
+//    @Override
+//    public Integer updateYaoById(Map<String, Object> map) {
+//        return tangMapper.updateYaoById(map);
+//    }
 }
