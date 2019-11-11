@@ -579,7 +579,6 @@ function closesui() {
     $("#xiaosuifang").dialog('open');
 }
 function goSuiAdd() {
-    //alert($("#hypertenVisit").datetimebox('getValue'));
     if($("#hypertenVisit").datetimebox('getValue') == null || $("#hypertenVisit").datetimebox('getValue') == ''){
         $.messager.alert('信息提示','请添加随访日期','error');
         return;

@@ -58,7 +58,6 @@
     <a onclick="addSui()" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加</a>
     <a onclick="delSui()" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除</a>
     <a onclick="editSui()" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'">修改</a>
-    <label>**双击打开药物处方详细</label>
     <table id="suitab" class="easyui-datagrid" border="1px" width="590px" align="center">
     </table>
 </div>
@@ -90,9 +89,9 @@
     function CreateOneFormPage(){
         LODOP=getLodop();
         LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_表单一");
-        LODOP.ADD_PRINT_TEXT(50,231,260,39,"糖尿病专项卡");
+        LODOP.ADD_PRINT_TEXT(50,231,260,39," ");
+       // LODOP.READ_PORT_DATA();
         LODOP.ADD_PRINT_HTM("100px","0px","70%","70%",document.getElementById("insHy").innerHTML);
-        // LODOP.ADD_PRINT_HTM("100px","0px","70%","70%",document.getElementsByClassName("tang").innerHTML);
     };
 
         function prn1_preview() {  //表单一打印预览
@@ -468,6 +467,9 @@
                         text: '修改',
                         handler: edit
                     }, {
+                        text: '打印预览',
+                        handler: prn1_preview
+                    }, {
                         text: '取消',
                         handler: goBack
                     }]
@@ -539,6 +541,7 @@
             onDblClickRow: function (index, row) {
                 //处方详情
                 //selYaoWu(row.hypertenId);
+                //editSui()
             },
             columns: [[
                 {field: 'chk', checkbox: true, width: 100},
@@ -601,7 +604,8 @@
 
 
     function goSuiAdd() {
-        if (!$("#suiform").form('validate')) {
+        if($("#hypertenVisit").datetimebox('getValue') == null || $("#hypertenVisit").datetimebox('getValue') == ''){
+            $.messager.alert('信息提示','请添加随访日期','error');
             return;
         }
         var Suidata = $("#suiform").serialize();
@@ -652,7 +656,6 @@
                     }
 
                 } else {
-                  //  alert("");
                     $.messager.alert('信息提示', '添加失败,请检查数据！', 'info');
                 }
             }
