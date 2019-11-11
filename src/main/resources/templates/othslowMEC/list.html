@@ -336,6 +336,7 @@
                     iconCls: 'icon-cancel',
                     handler: function () {
                         $('#healcheck-dialog').dialog('close');
+                        $("#healcheckdata-datagrid").datagrid('getSelections').length = 0;
                     }
                 }],
                 onBeforeOpen: function () {

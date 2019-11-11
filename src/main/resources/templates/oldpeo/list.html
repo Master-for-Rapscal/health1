@@ -38,7 +38,7 @@
 
 
 <div id="sele" class="easyui-dialog" data-options="closed:true,iconCls:'icon-saqveqwss'"
-     style="width:600px; margin: auto;  height:400px;padding:10px;">
+     style="width:600px; margin: auto;  height:450px;padding:10px;">
     <!-- 查询个人随访-->
     <table id="sele-ins" class="easyui-datagrid" style="width:600px; height:400px;"></table>
 </div>
@@ -178,6 +178,8 @@
                 iconCls: 'icon-cancel',
                 handler: function () {
                     $('#sele').dialog('close');
+                    $("#sele-ins").datagrid('getSelections').length = 0;
+
                 }
             }],
             onBeforeOpen: function () {
@@ -286,6 +288,7 @@
                 iconCls: 'icon-cancel',
                 handler: function () {
                     $('#oldsui').dialog('close');
+
                 }
             }],
 

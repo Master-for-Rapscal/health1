@@ -4,7 +4,7 @@
 <!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
 
 <body>
-<div th:fragment="editoldtcm" style="height: 580px">
+<div th:fragment="editoldtcm">
     <div class="editoldtcm">
         <style>
             input[type="text"] {
@@ -17,17 +17,17 @@
             }
         </style>
         <form id="editform" method="post">
-            <table width="600" style="height:500px; margin-bottom: 40px" border="1" cellspacing="0" cellpadding="1" id="tab1">
+            <table width="100%"  border="1" cellspacing="0" cellpadding="1" id="tab1">
                 <caption>
-                    <h3>修改</h3>
+                    <h3>修改老年人中医药健康服务管理记录卡</h3>
                 </caption>
                 <input type="hidden" name="oldtcmId"  id="editoldtcmId">
                 <input type="hidden" name="oldpeoId"  id="editoldpeoId">
                 <tr>
-                    <td>姓名</td>
+                    <td style="border: none">姓名</td>
                     <td colspan="4"><input type="text" style="width: 200px" name="recordName" id="recordName2" readonly></td>
-                    <td>编号</td>
-                    <td colspan="4"><input type="text" style="width: 200px" name="userNumber" id="userNumber2" readonly></td>
+                    <td style="border: none">编号</td>
+                    <td colspan="4"><input type="text" style="width: 200px" name="userId" id="userId2" readonly></td>
                 </tr>
                 <tr style="height: 100px;">
                     <td colspan="5" style="width:300px;">请根据最近的体检和感觉回答以下问题</td>

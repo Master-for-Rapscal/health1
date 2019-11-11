@@ -33,17 +33,18 @@
     <table id="data-datagrid" class="easyui-datagrid" toolbar="#wu-toolbar"></table>
 </div>
 <!-- Begin of easyui-dialog -->
-<div id="zili" class="easyui-dialog" style="width: 640px;height:700px; padding:10px;">
+<div id="zili" class="easyui-dialog" style="width: 740px; height:740px;padding:10px;">
     <div th:replace="common/oldself :: oldzili"></div>
 </div>
-<div id="editzili" class="easyui-dialog" style="width: 640px;height:700px; padding:10px;">
+<div id="editzili" class="easyui-dialog" style="width: 740px; height:740px;padding:10px;">
     <div th:replace="common/editoldself :: editoldzili"></div>
 </div>
 
 <div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-sssave'"
-     style="width:610px; height:500px; padding:10px;margin: auto">
+     style="width:610px; padding:10px;margin: auto">
+
     <!-- 查询此用户所有随访记录-->
-    <table id="data-ins" class="easyui-datagrid" style="width: 580px;height:500px "></table>
+    <table id="data-ins" class="easyui-datagrid" style="width: 580px;height:500px;margin: auto "></table>
 </div>
 <!-- 修改窗口 -->
 
@@ -158,7 +159,7 @@
                           $("#oldpeoId").val(data.oldpeoId);
                           $("#add-id").val(data.oldselfId);
                           $("#recordName").val(data.recordName);
-                          $("#userNumber ").val(data.userNumber );
+                          $("#userId ").val(data.userId );
                       }
 
                   });
@@ -253,9 +254,11 @@
                     $('#zili').dialog('close');
                     $('#data-datagrid').datagrid('reload');
                     $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#data-ins").datagrid('getSelections').length = 0;
                 } else {
                     $.messager.alert('信息提示', data.msg, 'warning');
                     $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#data-ins").datagrid('getSelections').length = 0;
                 }
             }
         });
@@ -284,9 +287,11 @@
                     $('#editzili').dialog('close');
                     $('#data-datagrid').datagrid('reload');
                     $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#data-ins").datagrid('getSelections').length = 0;
                 }else{
                     $.messager.alert('信息提示',data.msg,'warning');
                     $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#data-ins").datagrid('getSelections').length = 0;
                 }
             }
         });
@@ -326,7 +331,7 @@
                     dataType: 'json',
                     success: function (data) {
                         $("#recordName2").val(data.recordName);
-                        $("#userNumber2 ").val(data.userNumber);
+                        $("#userId2 ").val(data.userId);
                     }
 
                 });
@@ -375,10 +380,12 @@
                             $('#add-dialog').dialog('close');
                             $('#data-datagrid').datagrid('reload');
                             $("#data-datagrid").datagrid('getSelections').length = 0;
+                            $("#data-ins").datagrid('getSelections').length = 0;
 /*                            $("#sele").datagrid('getSelections').length = 0;*/
                         } else {
                             $.messager.alert('信息提示', data.msg, 'warning');
                             $("#data-datagrid").datagrid('getSelections').length = 0;
+                            $("#data-ins").datagrid('getSelections').length = 0;
                         }
                     }
                 });
@@ -403,6 +410,8 @@
                         iconCls: 'icon-cancel',
                         handler: function () {
                             $('#add-dialog').dialog('close');
+                            $("#data-ins").datagrid('getSelections').length = 0;
+
                         }
                     }],
                 onBeforeOpen: function () {

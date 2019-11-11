@@ -4,7 +4,7 @@
 <!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
 
 <body>
-<div th:fragment="editoldzili" style="height:600px;">
+<div th:fragment="editoldzili" >
     <div class="editoldzili">
         <style>
             option{
@@ -31,7 +31,7 @@
             }
         </style>
         <form id="form2" method="post">
-            <table width="600" border="1" style="height:400px;" cellspacing="0" cellpadding="1" id="tab2">
+            <table width="100%" border="1"  cellspacing="0" cellpadding="1" id="tab2">
                 <tr>
                     <caption>
                         <h1>老年人自理评估</h1>
@@ -42,7 +42,7 @@
                 </tr>
                 <tr>
                     <td  colspan="3" >姓名：<input type="text" name="recordName" id="recordName2" style="width: 200px;border:none;" readonly></td>
-                    <td colspan="3" >健康档案号：<input type="text"name="userNumber" id="userNumber2"  style="width: 200px;border:none;" readonly></td>
+                    <td colspan="3" >健康档案号：<input type="text"name="userId" id="userId2"  style="width: 200px;border:none;" readonly></td>
 
                 </tr>
                 <tr>

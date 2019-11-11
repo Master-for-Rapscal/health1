@@ -130,6 +130,7 @@ public class OldpeoZiLiController {
     @RequestMapping(value = "/updateold", method = RequestMethod.POST)
     @ResponseBody
     public Object  edit(Oldself oldself) {
+  /*      oldself.setOldpeoId(oldselfId);*/
         Map<String,Object> map=new HashMap<String,Object>();
 /*        System.out.println(oldself);*/
         int ret=oldSelfService.edit(oldself);
