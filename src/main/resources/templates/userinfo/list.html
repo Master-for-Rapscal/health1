@@ -272,10 +272,10 @@
            recordPlaceadress:$("#search-recordPlaceadress").val(),
            userIdnumber:$("#search-userIdnumber").val()
        };
-       if(roleId != -1){
+       if(recordUnit != -1){
            option.recordUnit = recordUnit;
        }
-       if(sex != -1){
+       if(userSex != -1){
            option.userSex = userSex;
        }
        $('#data-datagrid').datagrid('reload',option);

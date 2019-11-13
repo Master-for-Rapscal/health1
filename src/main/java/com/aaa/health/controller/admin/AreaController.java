@@ -144,24 +144,22 @@ public class AreaController {
     public Map<String, String> delete(
             @RequestParam(name = "id", required = true) Long id
     ) {
+        System.out.println(
+           "areaid删除;"+     id
+        );
         Map<String, String> ret = new HashMap<String, String>();
         if (id == null) {
             ret.put("type", "error");
             ret.put("msg", "后台“菜单id”获取失败！");
             return ret;
         }
-        List<Area> findChildernList = areaService.findChildernList(id);
-        if (findChildernList != null && findChildernList.size() > 0) {
-            //判断该菜单是否存在
-            ret.put("type", "error");
-            ret.put("msg", "该菜单已删除！");
-            return ret;
-        }
+
         if (areaService.delete(id) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "删除菜单信息失败！");
             return ret;
         }
+        System.out.println(areaService.delete(id) );
         ret.put("type", "success");
         ret.put("msg", "删除菜单信息成功！");
         return ret;

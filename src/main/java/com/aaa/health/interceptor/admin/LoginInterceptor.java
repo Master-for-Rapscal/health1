@@ -37,15 +37,29 @@ public class LoginInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,Object arg2) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,Object arg2) throws IOException {
             String mid = request.getParameter("_mid");
         String uri = request.getRequestURI();//获取请求资源名
-            List<Menu> aaaa=  ( List<Menu>) request.getSession().getAttribute("userMenus");
-//            if (aaaa!=null) {System.out.println(uri+"拦截器数据"+aaaa.size());}else {System.out.println(uri+"拦截器数据"+0);}
+        System.out.println("拦截器数据：本次请求路径"+uri);
+            List<Menu> userMenus=  ( List<Menu>) request.getSession().getAttribute("userMenus");
+//            &&uri!="system/login"
+        if (!uri.contains(".")){
+          if (userMenus==null && !uri.equals("/system/login")&& !uri.equals("/system/box")&& !uri.equals("/system/index") ) {
+              String tf="/system/login";
+              response.sendRedirect(tf);
+
+              System.out.println("拦截器数据，一重新跳转到登录页面"+uri);
+//              System.out.println(uri+"拦截器数据"+userMenus.size()) ;
+              return false;}
+
+              else {
+//              System.out.println(uri+"拦截器数据(lujing!=login)"+0);
+          }
+
             if (!StringUtils.isEmpty(mid)) {
-                List<Menu> allThirdMenu = MenuUtil.getAllThirdMenu(aaaa,Long.valueOf(mid));
+                List<Menu> allThirdMenu = MenuUtil.getAllThirdMenu(userMenus,Long.valueOf(mid));
                 request.setAttribute("thirdMenuList", allThirdMenu);
-            }
+            }}
          return true;
     }
 
