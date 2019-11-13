@@ -1,7 +1,9 @@
 package com.aaa.health;
 
+import com.aaa.health.util.GlobalVariable;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 /**
  * 1.引入springSecurity
@@ -11,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 
 @SpringBootApplication
+@EnableConfigurationProperties({GlobalVariable.class})
 public class Health1Application {
 
 	public static void main(String[] args) {

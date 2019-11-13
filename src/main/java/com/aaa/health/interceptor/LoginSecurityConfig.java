@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 
@@ -39,11 +40,11 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
         //定制请求的授权规则
         http.exceptionHandling().authenticationEntryPoint(new UnauthorizedEntryPoint());
         http.authorizeRequests()
-                .antMatchers("/admin/**","/role/list", "/system/login", "/system/get_cpacha").permitAll()
+                .antMatchers("/admin/**","/role/list", "/system/login","/system/box", "/system/get_cpacha").permitAll()
                 .anyRequest()//任何请求
                 .authenticated();//都需要身份验证
         //开启自动配置的登录功能，如果没有登录就去登录页面
-        http.formLogin()
+        http.formLogin().loginProcessingUrl("/login").permitAll()
                .loginProcessingUrl("/system/login")//自定义 登录frome表单里的action路径
                 .successForwardUrl("/system/box")//登陆成功后无法跳转到指定页面 ,不定义的话就是默认页面
                 .permitAll();
@@ -51,8 +52,8 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
         http.rememberMe().rememberMeParameter("remember-me")
                 .userDetailsService(userDetailsService) // 设置userDetailsService
                 .tokenRepository(persistentTokenRepository())//设置操作表的Repository,设置数据访问层
-                .tokenValiditySeconds(60 * 60 * 24 * 7)
-                .rememberMeCookieName("remember"); // 记住我的时间(秒)
+                .tokenValiditySeconds(60 * 60 * 24 * 7) // 记住我的时间(秒)
+                .rememberMeCookieName("remember");
         //ifrom 可以添加文件
         http.headers().frameOptions().sameOrigin();
         //开启自动配置的注销功能
@@ -60,12 +61,14 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessUrl("/system/login")
                 .clearAuthentication(true)
-                .invalidateHttpSession(true);
-//                .deleteCookies("JSESSIONID");
+                .invalidateHttpSession(false).deleteCookies("areaId")
+                .deleteCookies("remember")
+                .deleteCookies("areaId");
+//                .deleteCookies("remember");
 
         http //session管理
                 .sessionManagement()
-                .maximumSessions(4).maxSessionsPreventsLogin(true);//设置一个用户允许登录的个数    maxSessionsPreventsLogin 启用超出报错。
+                .maximumSessions(4).maxSessionsPreventsLogin(true).expiredUrl("/system/login");//设置一个用户允许登录的个数    maxSessionsPreventsLogin 启用超出报错。
 
         //
         http.csrf().disable();
@@ -83,5 +86,7 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
         return tokenRepository;
 
     }
+
+
 
 }

@@ -9,15 +9,15 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.aaa.health.controller.toCamer;
-import com.aaa.health.page.admin.Page;
+import com.aaa.health.service.admin.*;
 import com.aaa.health.service.oldpeo.OldtcmService;
+import com.aaa.health.util.CookiesUnit;
+import com.aaa.health.util.GlobalVariable;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,11 +31,6 @@ import com.aaa.health.entity.admin.Authority;
 import com.aaa.health.entity.admin.Menu;
 import com.aaa.health.entity.admin.Role;
 import com.aaa.health.entity.admin.SysUser;
-import com.aaa.health.service.admin.AuthorityService;
-import com.aaa.health.service.admin.LogService;
-import com.aaa.health.service.admin.MenuService;
-import com.aaa.health.service.admin.RoleService;
-import com.aaa.health.service.admin.UserService;
 import com.aaa.health.util.CpachaUtil;
 import com.aaa.health.util.MenuUtil;
 
@@ -47,6 +42,9 @@ import com.aaa.health.util.MenuUtil;
 @Controller
 @RequestMapping("/system")
 public class SystemController {
+
+    @Autowired
+    private AreaService areaService;
 
     @Autowired
     private UserService userService;
@@ -79,6 +77,7 @@ public class SystemController {
      */
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Model model, HttpServletRequest request) {
+       // CookiesUnit.delCookies("areaId");
         //(String) request.getSession().getAttribute("username");
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
       //  System.out.println("security获取用户信息" + user.getUsername());
@@ -93,13 +92,20 @@ public class SystemController {
         if (!StringUtils.isEmpty(menuIds)) {
             menuIds = menuIds.substring(0, menuIds.length() - 1);
         }
+        int areaId =findByUsername.getAreaId();
         List<Menu> userMenus = menuService.findListByIds(menuIds);
-         Object doctor = oldtcmService.queryDoctor();
+        Object doctor = oldtcmService.queryDoctor();
         request.getSession().setAttribute("admin", findByUsername);
         request.getSession().setAttribute("role", role);
         request.getSession().setAttribute("doctor", doctor);
+        request.getSession().setAttribute("areaId", areaId+"");
+        request.getSession().setAttribute("area",  areaService.findChildernList(findByUsername.getAreaId().longValue()));
+
+//        System.out.println( areaService.findChildernList(findByUsername.getAreaId().longValue()));
+
         request.getSession().setAttribute("userMenus", userMenus);
-//        System.out.println("用户所拥有的权限"+userMenus);
+
+//     System.out.println("用户所拥有的权限"+userMenus);
         model.addAttribute("topMenuList", MenuUtil.getAllTopMenu(userMenus));
         model.addAttribute("secondMenuList", MenuUtil.getAllSecondMenu(userMenus));
         System.out.println("进入登录");

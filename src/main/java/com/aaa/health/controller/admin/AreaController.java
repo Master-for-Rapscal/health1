@@ -1,15 +1,9 @@
 package com.aaa.health.controller.admin;
 
-import java.io.File;
-import java.lang.management.GarbageCollectorMXBean;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import com.aaa.health.util.GlobalVariable;
+import com.aaa.health.entity.area.Area;
+import com.aaa.health.page.admin.Page;
+import com.aaa.health.service.admin.AreaService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,26 +12,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.aaa.health.entity.admin.Menu;
-import com.aaa.health.page.admin.Page;
-import com.aaa.health.service.admin.MenuService;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 菜单管理控制层
  *
  * @author llq
  */
-@RequestMapping("/admin/menu")
+@RequestMapping("/admin/area")
 @Controller
-public class MenuController {
+public class AreaController {
 
     @Autowired
-    private  GlobalVariable globalVariable;
-
-    @Autowired
-    private MenuService menuService;
+    private AreaService areaService;
 
 
     /**
@@ -49,9 +38,9 @@ public class MenuController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model,
                        @RequestParam(name = "_mid", required = false, defaultValue = "") String _mid) {
-        model.addAttribute("topList", menuService.findTopList());
-        System.out.println(globalVariable.getSysuserName());
-        return "menu/list";
+        model.addAttribute("topList", areaService.findTopList());
+        //System.out.println(areaService.findTopList());
+        return "area/list";
     }
 
     /**
@@ -63,83 +52,44 @@ public class MenuController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getMenuList(Page page,
-                                           @RequestParam(name = "name", required = false, defaultValue = "") String name
+    public Map<String, Object> getAreaList(Page page,
+                                           @RequestParam(name = "areaName", required = false, defaultValue = "") String areaName
     ) {
 
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
-        queryMap.put("name", name);
-        List<Menu> findList = menuService.findList(queryMap);
+        queryMap.put("areaName", areaName);
+        List<Area> findList = areaService.findList(queryMap);
         ret.put("rows", findList);
-//        System.out.println(findList);
-        ret.put("total", menuService.getTotal(queryMap));
+        System.out.println(findList);
+        ret.put("total", areaService.getTotal(queryMap));
 
         return ret;
     }
 
-    /**
-     * 获取全部图标方法
-     *
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "/get_icons", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> getIconList(HttpServletRequest request) {
-        Map<String, Object> ret = new HashMap<String, Object>();
-        String realPath = System.getProperty("user.dir");
-        File file = new File(realPath + "\\src\\main\\resources\\public\\admin\\easyui\\css\\icons");
-        List<String> icons = new ArrayList<String>();
-        if (!file.exists()) {
-            ret.put("type", "error");
-            ret.put("msg", "获取图标方法失败");
-            return ret;
-        }
-        File[] listFiles = file.listFiles();
-        for (File f : listFiles) {
-            if (f != null && f.getName().contains("png")) {
-                icons.add("icon-" + f.getName().substring(0, f.getName().indexOf(".")).replace("_", "-"));
-            }
-        }
-        System.out.println( "系统方法listFiles！"+listFiles);
-        System.out.println( "系统方法icons！"+icons);
-        ret.put("type", "success");
-        ret.put("content", icons);
-        return ret;
-    }
 
     /**
      * 添加菜单方法
      *
-     * @param menu
+     * @param Area
      * @return
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, String> add(Menu menu) {
+    public Map<String, String> add(Area area) {
         Map<String, String> ret = new HashMap<String, String>();
-        if (menu == null) {
+        if (area == null) {
             ret.put("type", "error");
             ret.put("msg", "后台未收到菜单信息，请联系管理员添加！");
             return ret;
         }
-        if (StringUtils.isEmpty(menu.getName())) {
-            ret.put("type", "error");
-            ret.put("msg", "获取菜单名称失败！");
-            return ret;
+        System.out.println("添加— 获取的信息"+area);
+        if (area.getParentId() == null) {
+           area.setParentId(01);
         }
-        if (StringUtils.isEmpty(menu.getIcon())) {
-            ret.put("type", "error");
-            ret.put("msg", "获取菜单图标失败！");
-            return ret;
-        }
-        if (menu.getParentId() == null) {
-            menu.setParentId(0l);
-        }
-        if (menuService.add(menu) <= 0) {
+        if (areaService.add(area) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "添加菜单失败！");
             return ret;
@@ -152,32 +102,28 @@ public class MenuController {
     /**
      * 修改菜单方法
      *
-     * @param menu
+     * @param Area
      * @return
      */
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, String> edit(Menu menu) {
+    public Map<String, String> edit(Area area) {
         Map<String, String> ret = new HashMap<String, String>();
-        if (menu == null) {
+        if (area == null) {
             ret.put("type", "error");
             ret.put("msg", "后台未收到菜单信息，请联系管理员添加！");
             return ret;
         }
-        if (StringUtils.isEmpty(menu.getName())) {
+        System.out.println("编辑— 获取的信息"+area);
+        if (StringUtils.isEmpty(area.getAreaName())) {
             ret.put("type", "error");
             ret.put("msg", "获取菜单名称失败！");
             return ret;
         }
-        if (StringUtils.isEmpty(menu.getIcon())) {
-            ret.put("type", "error");
-            ret.put("msg", "获取菜单图标失败！");
-            return ret;
+        if (area.getParentId() == null) {
+            area.setParentId(01);
         }
-        if (menu.getParentId() == null) {
-            menu.setParentId(0l);
-        }
-        if (menuService.edit(menu) <= 0) {
+        if (areaService.edit(area) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "修改菜单失败");
             return ret;
@@ -204,14 +150,14 @@ public class MenuController {
             ret.put("msg", "后台“菜单id”获取失败！");
             return ret;
         }
-        List<Menu> findChildernList = menuService.findChildernList(id);
+        List<Area> findChildernList = areaService.findChildernList(id);
         if (findChildernList != null && findChildernList.size() > 0) {
             //判断该菜单是否存在
             ret.put("type", "error");
             ret.put("msg", "该菜单已删除！");
             return ret;
         }
-        if (menuService.delete(id) <= 0) {
+        if (areaService.delete(id) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "删除菜单信息失败！");
             return ret;

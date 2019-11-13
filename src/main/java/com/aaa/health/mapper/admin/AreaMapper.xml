@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.admin.AreaMapper">
+    <!-- 菜单插入操作 -->
+    <insert id="add" parameterType="com.aaa.health.entity.area.Area">
+        insert into area(parentId,areaName) values(#{parentId},#{areaName})
+    </insert>
+    <!-- 菜单信息模糊分页搜索查询 -->
+    <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.area.Area">
+        select * from area where 1 = 1
+        <if test="parentId != null">
+            and parentId = #{parentId}
+        </if>
+        <if test="areaName != null">
+            and areaName like '%${areaName}%'
+        </if>
+        <if test="offset != null and pageSize != null">
+            limit #{offset},#{pageSize}
+        </if>
+    </select>
+    <!-- 菜单信息模糊分页搜索查询总记录数 -->
+    <select id="getTotal" parameterType="Map" resultType="Integer">
+        select count(*) from area where 1 = 1
+        <if test="parentId != null">
+            and parentId = #{parentId}
+        </if>
+        <if test="areaName != null">
+            and areaName like '%${areaName}%'
+        </if>
+    </select>
+    <!-- 获取顶级菜单信息 -->
+    <select id="findTopList" parameterType="Map" resultType="com.aaa.health.entity.area.Area">
+        select * from area where parentId = 410000
+    </select>
+    <!-- 获取某一分类的子菜单信息 -->
+    <select id="findChildernList" parameterType="Long" resultType="com.aaa.health.entity.area.Area">
+        select * from area where 1=1
+        <if test="parentId == 0">
+
+        </if>
+        <if test="parentId == 410000">
+
+        </if>
+        <if test="parentId != 0">
+           and parentId = #{parentId} or areaId = #{parentId}
+        </if>
+        <if test="parentId == 888888">
+
+        </if>
+
+    </select>
+    <!-- 根据菜单id获取菜单信息 -->
+    <select id="findListByIds" parameterType="String" resultType="com.aaa.health.entity.area.Area">
+        select * from area where areaId in(${value})
+    </select>
+    <!-- 修改菜单信息 -->
+    <update id="edit" parameterType="com.aaa.health.entity.area.Area">
+        update area set areaName = #{areaName},parentId = #{parentId} where areaId = #{areaId}
+    </update>
+    <!-- 删除菜单信息 -->
+    <delete id="delete" parameterType="Long">
+        delete from area where areaId = #{id}
+    </delete>
+
+</mapper>

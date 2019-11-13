@@ -9,11 +9,11 @@
     </select>
     <!-- 添加用户 -->
     <insert id="add" parameterType="SysUser">
-        insert into user(id,username,password,roleId,lastname,photo,sex,age,address) values(null,#{username},#{password},#{roleId},#{lastname},#{photo},#{sex},#{age},#{address})
+        insert into user(id,username,password,roleId,lastname,photo,sex,age,address,areaId) values(null,#{username},#{password},#{roleId},#{lastname},#{photo},#{sex},#{age},#{address},#{areaId})
     </insert>
     <!-- 修改用户 -->
     <update id="edit" parameterType="SysUser">
-        update user set username = #{username},roleId = #{roleId},lastname=#{lastname},photo = #{photo},sex = #{sex},age = #{age},address = #{address} where id = #{id}
+        update user set username = #{username},roleId = #{roleId},lastname=#{lastname},photo = #{photo},sex = #{sex},age = #{age},address = #{address},areaId = #{areaId} where id = #{id}
     </update>
     <!-- 修改用户密码 -->
     <update id="editPassword" parameterType="SysUser">
@@ -34,6 +34,9 @@
         </if>
         <if test="sex != null">
             and sex = #{sex}
+        </if>
+        <if test="areaId != null">
+            and areaId = #{areaId}
         </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
@@ -57,6 +60,9 @@
         </if>
         <if test="sex != null">
             and sex = #{sex}
+        </if>
+        <if test="areaId != null">
+            and areaId = #{areaId}
         </if>
     </select>
 </mapper>

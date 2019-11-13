@@ -2,6 +2,7 @@ package com.aaa.health.controller.zzh;
 import com.aaa.health.entity.admin.SysUser;
 import com.aaa.health.entity.zzh.Userinfo;
 import com.aaa.health.page.admin.Page;
+import com.aaa.health.service.admin.AreaService;
 import com.aaa.health.service.zzh.UserinfoService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -28,6 +30,8 @@ public class UserinfoController {
 
     @Autowired
     public UserinfoService userinfoService;
+    @Autowired
+    private AreaService areaService;
 
     /**
      * 跳转到用户页面
@@ -36,8 +40,14 @@ public class UserinfoController {
      * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
+    public String list(Model model, HttpServletRequest request) {
 
+        Long areaId=Long.parseLong((String)request.getSession().getAttribute("areaId"));
+        System.out.println("userInfo接受区域id："+areaId);
+        System.out.println("userInfo接受区域id："+request.getSession().getAttribute("areaId"));
+        System.out.println("userInfo查询到的区域："+areaService.findChildernList(areaId));
+        if (areaId==410000) areaId= new Long((long)0);
+        model.addAttribute("area",areaService.findChildernList(areaId));
         return "userinfo/list";
     }
 
@@ -53,10 +63,12 @@ public class UserinfoController {
         @RequestParam(name = "userId", required = false)  Long userId,
         @RequestParam(name = "recordName", required = false, defaultValue = "")  String recordName,
         @RequestParam(name = "userIdnumber", required = false, defaultValue = "")  String userIdnumber,
-        @RequestParam(name = "recordUnit", required = false, defaultValue = "")  String recordUnit,
+        @RequestParam(name = "recordUnit", required = false, defaultValue = "-1")  int recordUnit,
         @RequestParam(name = "recordPlaceadress", required = false, defaultValue = "")  String recordPlaceadress,
-        @RequestParam(name = "userSex", required = false, defaultValue = "-1")  Integer userSex) {
-//        System.out.println(userId+"-"+recordName+"-"+userIdnumber+"-"+recordUnit+"-"+recordPlaceadress+"-"+userSex);
+        @RequestParam(name = "userSex", required = false, defaultValue = "-1")  Integer userSex,
+        @RequestParam(name = "areaId", required = false, defaultValue = "-1")  Integer areaId
+                                       ) {
+       System.out.println(userId+"-"+recordName+"-"+userIdnumber+"-"+recordUnit+"-"+recordPlaceadress+"-"+userSex+"-"+areaId);
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("userId",userId);
@@ -65,6 +77,7 @@ public class UserinfoController {
         queryMap.put("recordUnit",recordUnit);
         queryMap.put("recordPlaceadress",recordPlaceadress);
         queryMap.put("userSex",userSex);
+        queryMap.put("areaId",areaId);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", userinfoService.findList(queryMap));

@@ -6,15 +6,13 @@
     <!-- 分页获取用户列表 -->
     <select id="findList" parameterType="Map" resultType="Userinfo">
         SELECT * from userinfo where 1 = 1
-        <if test="userId != null">
-            and userId like '%${userId}%'
+        <if test="recordUnit != -1">
+            and recordUnit=${recordUnit}
         </if>
         <if test="recordPlaceadress != null">
             and recordPlaceadress like '%${recordPlaceadress}%'
         </if>
-        <if test="recordUnit != null">
-            and recordUnit like '%${recordUnit}%'
-        </if>
+
         <if test="recordName != null">
             and recordName like '%${recordName}%'
         </if>

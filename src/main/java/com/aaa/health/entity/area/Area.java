@@ -1,8 +1,19 @@
 package com.aaa.health.entity.area;
 
 public class Area {
+
+    private Integer id;
     private Integer areaId;
     private String areaName;
+    private Integer parentId;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getAreaId() {
         return areaId;
@@ -20,11 +31,21 @@ public class Area {
         this.areaName = areaName;
     }
 
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
     @Override
     public String toString() {
-        return "Area{" +
+        return "area{" +
+                "id=" + id +
                 "areaId=" + areaId +
                 ", areaName='" + areaName + '\'' +
+                ", parentId=" + parentId +
                 '}';
     }
 }

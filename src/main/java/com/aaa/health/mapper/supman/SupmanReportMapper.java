@@ -14,5 +14,5 @@ public interface SupmanReportMapper {
     int add(SupmanReport supmanReport);
     int update(SupmanReport supmanReport);
     int delete(String ids);
-    /*List<Area> findArea();*/
+    /*List<area> findArea();*/
 }

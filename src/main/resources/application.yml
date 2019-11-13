@@ -87,14 +87,6 @@ spring:
 #打开SpringBoot  Debug！
 debug: false
 
-
-
-#pagehelper 分页
-#pagehelper.helperDialect = mysql
-#pagehelper.reasonable = true
-#pagehelper.supportMethodsArguments = true
-#pagehelper.pageSizeZero =  true
-#pagehelper.params = countSql
 pagehelper:
   helper-dialect: mysql
   reasonable: true
