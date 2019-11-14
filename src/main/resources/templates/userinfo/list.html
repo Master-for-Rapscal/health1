@@ -28,7 +28,22 @@
             <div th:replace="common/menus :: menus"  > </div><a href="javascript:prn1_preview()">打印预览</a>
         </div>
         <div class="wu-toolbar-search">
-            <label>用户名:</label><input id="search-name" class="wu-text" style="width:100px">
+            <label>用 户 名:</label><input id="search-recordName" class="wu-text" style="width:100px">
+            <label>户籍地址:</label><input id="search-recordPlaceadress" class="wu-text" style="width:100px">
+            <label>身份证号码:</label><input id="search-userIdnumber" class="wu-text" style="width:100px">
+            <label>性    别:</label>
+            <select id="search-userSex" class="easyui-combobox" panelHeight="auto" style="width:120px">
+                <option value="-1">全部</option>
+                <option value="0">未知</option>
+                <option value="1">男</option>
+                <option value="2">女</option>
+            </select>
+            <label>所属单位:</label><select id="search-recordUnit" class="easyui-combobox" panelHeight="200px" style="width:120px">
+                <option  th:each="area:${area}"  th:value="${area.areaId}" ><span th:text="${area.areaName}"></span></option>
+        </select>
+
+
+
             <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
         </div>
     </div>
@@ -67,8 +82,7 @@
     function prn1_preview() {  //表单一打印预览
         CreateOneFormPage();
         LODOP.PREVIEW();
-    };
-
+    }
     function CreateOneFormPage(){
         LODOP=getLodop();
         // alert(LODOP);
@@ -79,9 +93,8 @@
         LODOP.ADD_PRINT_TEXT(50,231,260,39,"打印页面部分内容");
         LODOP.ADD_PRINT_HTM("0%","0%","70%","70%",document.getElementById("add-form").innerHTML);
         // LODOP.ADD_PRINT_HTM("0%","0%","100%","100%",document.getElementById("add-form").innerHTML);
-    };
-
-   function  closeWin() {
+    }
+    function  closeWin() {
        $('#add-dialog').dialog('close');
    }
 
@@ -252,14 +265,18 @@
 
    //搜索按钮监听
    $("#search-btn").click(function(){
-       var roleId = $("#search-role").combobox('getValue');
-       var sex = $("#search-sex").combobox('getValue');
-       var option = {username:$("#search-name").val()};
-       if(roleId != -1){
-           option.roleId = roleId;
+       var recordUnit = $("#search-recordUnit").combobox('getValue');
+       var userSex = $("#search-userSex").combobox('getValue');
+       var option = {
+           recordName:$("#search-recordName").val(),
+           recordPlaceadress:$("#search-recordPlaceadress").val(),
+           userIdnumber:$("#search-userIdnumber").val()
+       };
+       if(recordUnit != -1){
+           option.recordUnit = recordUnit;
        }
-       if(sex != -1){
-           option.sex = sex;
+       if(userSex != -1){
+           option.userSex = userSex;
        }
        $('#data-datagrid').datagrid('reload',option);
    });

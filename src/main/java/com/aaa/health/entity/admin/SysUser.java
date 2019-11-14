@@ -9,15 +9,16 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class SysUser {
-	private Long id;//�û�id����������
-	private String username;//�û�������¼��
-	private String password;//��¼����
-	private String lastname;//��¼����
-	private Long roleId;//������ɫid
-	private String photo;//ͷ����Ƭ��ַ
-	private int sex;//�Ա�0,����δ֪��1�����У�2����Ů
-	private Integer age;//����
-	private String address;//��ͥסַ
+	private Long id;//
+	private String username;//
+	private String password;//
+	private String lastname;//
+	private Long roleId;//
+	private String photo;//
+	private int sex;//
+	private Integer age;//
+	private String address;//
+	private Integer areaId;//
 
 	public String getLastname() {
 		return lastname;
@@ -75,6 +76,12 @@ public class SysUser {
 	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
+	public Integer getAreaId() {
+		return areaId;
+	}
+	public void setAreaId(Integer areaId) {
+		this.areaId = areaId;
+	}
 
 	@Override
 	public String toString() {
@@ -87,6 +94,7 @@ public class SysUser {
 				", sex=" + sex +
 				", age=" + age +
 				", address='" + address + '\'' +
+				", areaId='" + areaId + '\'' +
 				'}';
 	}
 }

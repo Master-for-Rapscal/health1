@@ -1,6 +1,7 @@
 package com.aaa.health.controller.admin;
 
 import java.io.File;
+import java.lang.management.GarbageCollectorMXBean;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.aaa.health.util.GlobalVariable;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +34,9 @@ import com.aaa.health.service.admin.MenuService;
 public class MenuController {
 
     @Autowired
+    private  GlobalVariable globalVariable;
+
+    @Autowired
     private MenuService menuService;
 
 
@@ -45,6 +50,7 @@ public class MenuController {
     public String list(Model model,
                        @RequestParam(name = "_mid", required = false, defaultValue = "") String _mid) {
         model.addAttribute("topList", menuService.findTopList());
+        System.out.println(globalVariable.getSysuserName());
         return "menu/list";
     }
 
@@ -68,6 +74,7 @@ public class MenuController {
         queryMap.put("name", name);
         List<Menu> findList = menuService.findList(queryMap);
         ret.put("rows", findList);
+//        System.out.println(findList);
         ret.put("total", menuService.getTotal(queryMap));
 
         return ret;

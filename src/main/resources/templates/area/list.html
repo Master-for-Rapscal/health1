@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--引入抬头页面-->
+<div th:replace="common/header :: header"  ></div>
+
+<div class="easyui-layout" data-options="fit:true">
+    <!-- Begin of toolbar -->
+    <div id="wu-toolbar">
+        <div class="wu-toolbar-button">
+
+            <!--引入菜单页面-->
+            <div th:replace="common/menus :: menus"  > </div>
+        </div>
+        <div class="wu-toolbar-search">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="collapseAll()">全部合并</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="expandAll()">全部展开</a>
+            <label>地区名称：</label><input id="search-areaName" class="wu-text" style="width:100px">
+            <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+        </div>
+    </div>
+    <!-- End of toolbar -->
+    <table id="data-datagrid" class="easyui-treegrid"  toolbar="#wu-toolbar"></table>
+</div>
+
+<!-- Begin of easyui-dialog -->
+<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:450px; padding:10px;">
+    <form id="add-form" method="post">
+        <table>
+            <tr>
+                <td width="60" align="right">地区名称:</td>
+                <td><input type="text" name="areaName" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写地区名称'" /></td>
+            </tr>
+            <tr>
+                <td align="right">上级地区:</td>
+                <td>
+                    <select name="parentId" class="easyui-combobox" panelHeight="auto" style="width:268px">
+                        <option value="410000">顶级分类</option>
+                        <option th:each="menu:${topList }" th:value="${menu.areaId }"  th:text="${menu.areaName }">子分类</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<!-- 修改窗口 -->
+<div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:450px; padding:10px;">
+    <form id="edit-form" method="post">
+        <input type="hidden" name="areaId" id="edit-areaId">
+        <table>
+            <tr>
+                <td width="60" align="right">菜单名称:</td>
+                <td><input type="text" id="edit-areaName" name="areaName" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写菜单名称'" /></td>
+            </tr>
+            <tr>
+                <td align="right">上级菜单:</td>
+                <td>
+                    <select id="edit-parentId" name="parentId" class="easyui-combobox" panelHeight="auto" style="width:268px">
+                        <option value="410000">顶级分类</option>
+                            <option th:each="menu:${topList }" th:value="${menu.areaId }"  th:text="${menu.areaName }">子分类</option>
+
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
+<div th:replace="common/footer :: myfooter"  ></div>
+
+<!-- End of easyui-dialog -->
+<script type="text/javascript" th:inline="none">
+    /**
+     *  添加记录
+     */
+    function add(){
+        var validate = $("#add-form").form("validate");
+        if(!validate){
+            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
+            return;
+        }
+        var data = $("#add-form").serialize();
+        $.ajax({
+            url:'../../admin/area/add',
+            dataType:'json',
+            type:'post',
+            data:data,
+            success:function(data){
+                if(data.type == 'success'){
+                    $.messager.alert('信息提示','添加成功！','info');
+                    $('#add-dialog').dialog('close');
+                    $('#data-datagrid').treegrid('reload');
+                }else{
+                    $.messager.alert('信息提示',data.msg,'warning');
+                }
+            }
+        });
+    }
+
+    /**
+     * Name 修改记录
+     */
+    function edit(){
+        var validate = $("#edit-form").form("validate");
+        if(!validate){
+            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
+            return;
+        }
+        var data = $("#edit-form").serialize();
+        $.ajax({
+            url:'../../admin/area/edit',
+            dataType:'json',
+            type:'post',
+            data:data,
+            success:function(data){
+                if(data.type == 'success'){
+                    $.messager.alert('信息提示','修改成功！','info');
+                    $('#edit-dialog').dialog('close');
+                    $('#data-datagrid').treegrid('reload');
+                }else{
+                    $.messager.alert('信息提示',data.msg,'warning');
+                }
+            }
+        });
+    }
+
+    /**
+     * 删除记录
+     */
+    function remove(){
+        $.messager.confirm('信息提示','确定要删除该记录？', function(result){
+            if(result){
+                var item = $('#data-datagrid').datagrid('getSelected');
+                $.ajax({
+                    url:'../../admin/area/delete',
+                    dataType:'json',
+                    type:'post',
+                    data:{id:item.areaId},
+                    success:function(data){
+                        if(data.type == 'success'){
+                            $.messager.alert('信息提示','删除成功！','info');
+                            $('#data-datagrid').treegrid('reload');
+                        }else{
+                            $.messager.alert('信息提示',data.msg,'warning');
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * Name 打开添加窗口
+     */
+    function openAdd(){
+        //$('#add-form').form('clear');
+        $('#add-dialog').dialog({
+            closed: false,
+            modal:true,
+            title: "添加菜单信息",
+            buttons: [{
+                text: '添加',
+                iconCls: 'icon-ok',
+                handler: add
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#add-dialog').dialog('close');
+                }
+            }]
+        });
+    }
+
+    /**
+     * 打开修改窗口
+     */
+    function openEdit(){
+        //$('#edit-form').form('clear');
+        var item = $('#data-datagrid').treegrid('getSelected');
+        if(item == null || item.length == 0){
+            $.messager.alert('信息提示','请选择要修改的数据！','info');
+            return;
+        }
+
+        $('#edit-dialog').dialog({
+            closed: false,
+            modal:true,
+            title: "修改信息",
+            buttons: [{
+                text: '修改',
+                iconCls: 'icon-ok',
+                handler: edit
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#edit-dialog').dialog('close');
+                }
+            }],
+            onBeforeOpen:function(){
+                $("#edit-areaId").val(item.areaId);
+                $("#edit-areaName").val(item.areaName);
+                $("#edit-parentId").combobox('setValue',item.parentId);
+                $("#edit-parentId").combobox('readonly',true);
+                //判断是否是按钮
+                var parent = $('#data-datagrid').treegrid('getParent',item.areaId);
+                if(parent != null){
+                    if(parent.parentId != 0){
+                        $("#edit-parentId").combobox('setText',parent.areaName);
+                        $("#edit-parentId").combobox('readonly',true);
+                    }
+                }
+            }
+        });
+    }
+
+
+    //搜索按钮监听
+    $("#search-btn").click(function(){
+        $('#data-datagrid').treegrid('reload',{
+
+            areaName:$("#search-areaName").val()
+
+        });
+        console.log($("#search-areaName").val());
+    });
+
+    //控制菜单下拉框
+    function collapseAll(){
+        $('#data-datagrid').treegrid('collapseAll');
+    }
+    function expandAll(){
+        $('#data-datagrid').treegrid('expandAll');
+    }
+    // Menu{id=1, parentId=0, _parentId=null, name='系统设置', url='', icon='icon-advancedsettings'},
+    // Menu{id=5, parentId=1, _parentId=null, name='菜单管理', url='../admin/menu/list', icon='icon-chart-organisation'}
+    // area{areaId=410000, areaName='河南省', parentId=0},
+    // area{areaId=410100, areaName='郑州市', parentId=410000},
+    /**
+     * 载入数据
+     */
+    $('#data-datagrid').treegrid({
+        url:'../../admin/area/list',
+        rownumbers:true,//	设置为true将显示行数。
+        singleSelect:true,//设置为true将只允许选择一行。
+        pageSize:200,
+        pageList:[10,20,30,40,50,100,200],
+        pagination:true,//	设置true将在数据表格底部显示分页工具栏。
+        multiSort:true,
+        animate: true,
+        // onLoadSuccess: collapseAll(),
+        collapsible: true,
+        fitColumns:true,//让列宽自动适应数据表格的宽度。
+        idField:'areaId',//表明该列是一个唯一列。
+        treeField:'areaName',
+        fit:true,
+        columns:[[
+            { field:'areaId',title:'编号',width:100,hidden:true},
+            { field:'areaName',title:'菜单名称',width:100,sortable:true},
+            { field:'parentId',title:'父级编号',width:100},
+        ]]
+
+    });
+    $(function(){
+
+        collapseAll();
+    });
+</script>

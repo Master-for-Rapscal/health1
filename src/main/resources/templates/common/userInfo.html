@@ -21,10 +21,8 @@
             }
         </script>
         <td><input class="easyui-textbox tdText_h"  readonly="ture"  value="所属单位:" ></input></td>
-        <td><select class=""  name="recordUnit"  style=" border:0px; border-bottom: 1px solid black;">
-            <option   value="1" ><span >长葛市</span></option>
-            <option   value="2" ><span >李良店村</span></option>
-            <option   value="3" ><span >马屯村</span></option>
+        <td><select name="recordUnit" class="easyui-combobox"  panelHeight="200px" style=" border:0px; border-bottom: 1px solid black;">
+            <option  th:each="area:${area}"  th:value="${area.areaId}" ><span th:text="${area.areaName}"></span></option>
         </select>
         </td>
     </tr>

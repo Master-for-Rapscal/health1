@@ -99,6 +99,17 @@
                 <td width="60" align="right">地址:</td>
                 <td><input type="text" name="address" class="wu-text easyui-validatebox" /></td>
             </tr>
+            <tr>
+                <td width="60" align="right">所属单位:</td>
+                <td>
+                    <select name="areaId" class="easyui-combobox" panelHeight="200px" style="width:268px" data-options="required:true, missingMessage:'请选择角色'">
+                        <a th:each="area:${area }" >
+                            <option   th:value="${area.areaId }" ><span th:text="${area.areaName }"></span></option>
+                        </a>
+
+                    </select>
+                </td>
+            </tr>
         </table>
     </form>
 </div>
@@ -154,6 +165,17 @@
             <tr>
                 <td width="60" align="right">地址:</td>
                 <td><input type="text" id="edit-address" name="address" class="wu-text easyui-validatebox" /></td>
+            </tr>
+            <tr>
+                <td width="60" align="right">所属单位:</td>
+                <td>
+                    <select name="areaId"  id="edit-areaId" class="easyui-combobox" panelHeight="200px" style="width:268px" data-options="required:true, missingMessage:'请选择角色'">
+                        <a th:each="area:${area }" >
+                            <option   th:value="${area.areaId }" ><span th:text="${area.areaName }"></span></option>
+                        </a>
+
+                    </select>
+                </td>
             </tr>
         </table>
     </form>
@@ -380,6 +402,7 @@
                 $("#edit-age").val(item.age);
                 $("#edit-address").val(item.address);
                $("#edit-lastname").val(item.lastname);
+               $("#edit-areaId").val(item.areaId);
             }
         });
     }
@@ -404,8 +427,8 @@
      */
     $('#data-datagrid').datagrid({
         url:'list',
-        rownumbers:true,
-        singleSelect:false,
+        rownumbers:false,
+        singleSelect:true,
         pageSize:20,
         pagination:true,
         multiSort:true,
@@ -424,13 +447,13 @@
             { field:'lastname',title:'姓名',width:100},
             { field:'roleId',title:'所属角色',width:100,formatter:function(value,row,index){
                     switch(value){
-                        case 0:{
+                        case 1:{
                             return '超级管理员';
                         }
-                        case 1:{
+                        case 2:{
                             return '普通用户';
                         }
-                        case 2:{
+                        case 4:{
                             return '医生';
                         }
                     }
@@ -451,7 +474,8 @@
                     return value;
                 }},
             { field:'age',title:'年龄',width:100},
-            { field:'address',title:'地址',width:200}
+            { field:'address',title:'地址',width:200},
+            { field:'areaId',title:'所属单位',width:200}
         ]],
         onLoadSuccess:function(data){
             $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.aaa.health.service.admin.AreaService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private AreaService areaService;
 
     /**
      * 跳转到用户页面
@@ -45,6 +48,8 @@ public class UserController {
     public String list(Model model) {
         Map<String, Object> queryMap = new HashMap<String, Object>();
         model.addAttribute("roleList", roleService.findList(queryMap));
+        Long areaId = new Long((long)0);
+        model.addAttribute("area",areaService.findChildernList(areaId));
         return "user/list";
     }
 
