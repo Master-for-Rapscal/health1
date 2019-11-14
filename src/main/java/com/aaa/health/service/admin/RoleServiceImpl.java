@@ -52,7 +52,9 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public Role find(Long id) {
 		// TODO Auto-generated method stub
-		return roleMapper.find(id);
+		Role  a = roleMapper.find(id);
+		System.out.println(a);
+		return a;
 	}
 
 }
