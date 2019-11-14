@@ -43,7 +43,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         System.out.println("拦截器数据：本次请求路径"+uri);
             List<Menu> userMenus=  ( List<Menu>) request.getSession().getAttribute("userMenus");
 //            &&uri!="system/login"
-        if (!uri.contains(".")){
+        if (!uri.contains(".")&&!uri.contains("/out")){
           if (userMenus==null && !uri.equals("/system/login")&& !uri.equals("/system/box")&& !uri.equals("/system/index") ) {
               String tf="/system/login";
               response.sendRedirect(tf);

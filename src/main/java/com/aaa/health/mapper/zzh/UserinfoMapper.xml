@@ -7,7 +7,7 @@
     <select id="findList" parameterType="Map" resultType="Userinfo">
         SELECT * from userinfo where 1 = 1
         <if test="recordUnit != -1">
-            and recordUnit=${recordUnit}
+            and recordUnit = #{recordUnit}
         </if>
         <if test="recordPlaceadress != null">
             and recordPlaceadress like '%${recordPlaceadress}%'

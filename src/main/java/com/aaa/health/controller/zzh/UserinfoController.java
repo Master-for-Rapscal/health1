@@ -85,9 +85,7 @@ public class UserinfoController {
         queryMap.put("recordName",recordName);
         queryMap.put("userIdnumber",userIdnumber);
         int areaid = Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-//        System.out.println("session"+areaid);
-//        System.out.println("传值"+recordUnit);
-//        如果areaid=410000 说明 最高管理者在操作
+
 
         if (recordUnit==-1){//代表不是待条件查询/首次登录
             if (areaid==410000){areaid=-1; }
@@ -97,8 +95,6 @@ public class UserinfoController {
         }
         queryMap.put("recordPlaceadress",recordPlaceadress);
         queryMap.put("userSex",userSex);
-//        queryMap.put("areaId",areaId);
-//        queryMap.put("areaId",areaId);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", userinfoService.findList(queryMap));

@@ -39,7 +39,8 @@
                 <option value="2">女</option>
             </select>
             <label>所属单位:</label><select id="search-recordUnit" class="easyui-combobox" panelHeight="200px" style="width:120px">
-                <option  th:each="area:${area}"  th:value="${area.areaId}" ><span th:text="${area.areaName}"></span></option>
+            <option  value="-1" >全部</option>
+            <option  th:each="area:${area}"  th:value="${area.areaId}" ><span th:text="${area.areaName}"></span></option>
         </select>
 
 

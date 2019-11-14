@@ -40,7 +40,7 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
         //定制请求的授权规则
         http.exceptionHandling().authenticationEntryPoint(new UnauthorizedEntryPoint());
         http.authorizeRequests()
-                .antMatchers("/admin/**","/role/list", "/system/login","/system/box", "/system/get_cpacha").permitAll()
+                .antMatchers("/admin/**","/role/list", "/system/login","/system/box", "/system/get_cpacha", "/out/**").permitAll()
                 .anyRequest()//任何请求
                 .authenticated();//都需要身份验证
         //开启自动配置的登录功能，如果没有登录就去登录页面
@@ -64,9 +64,9 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("remember");
 
 
-        http //session管理
-                .sessionManagement()
-                .maximumSessions(4).maxSessionsPreventsLogin(true).expiredUrl("/system/login");//设置一个用户允许登录的个数    maxSessionsPreventsLogin 启用超出报错。
+//        http //session管理
+//                .sessionManagement()
+//                .maximumSessions(8).maxSessionsPreventsLogin(true).expiredUrl("/system/login");//设置9个用户允许登录的个数    maxSessionsPreventsLogin 启用超出报错。
 
 
         http.csrf().disable();
