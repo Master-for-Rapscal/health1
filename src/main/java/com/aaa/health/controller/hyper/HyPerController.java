@@ -9,12 +9,14 @@ import com.aaa.health.service.tangniaon.TangService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,12 +47,28 @@ public class HyPerController {
     @RequestMapping(value = "/list",method = RequestMethod.POST)
     @ResponseBody
     public Object queryHy(Page page,
-                          @RequestParam(name = "gui", required = false, defaultValue = "") Integer gui){
+                          @RequestParam(name = "gui", required = false, defaultValue = "") Integer gui,
+                          @RequestParam(name = "recordUnit", required = false, defaultValue = "0")Integer recordUnit,
+                          HttpServletRequest request){
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         queryMap.put("hypertensionOutcome",gui);
+
+        int areaId= Integer.parseInt((String) request.getSession().getAttribute("areaId"));
+
+        if(recordUnit == 0){//没传值
+
+            if(areaId == 410000){
+                areaId =0 ;
+            }//最高权限
+        }
+        System.out.println("-------------"+areaId);
+        queryMap.put("recordUnit",areaId);
+
+
+
         ret.put("rows", hyPerService.queryHyAll(queryMap));// 页面加载数据使用
         ret.put("total", hyPerService.queryHyTotal(queryMap));// 分页使用
         //System.out.println("高血压"+ret);
@@ -87,7 +105,8 @@ public class HyPerController {
                             @RequestParam(name = "userbianhao", required = false, defaultValue = "") String userbianhao,
                             @RequestParam(name = "userName", required = false, defaultValue = "") String userName,
                             @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
-                            @RequestParam(name = "username", required = false, defaultValue = "") String userPhone){
+                            @RequestParam(name = "username", required = false, defaultValue = "") String userPhone,
+                            HttpSession session){
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("offset", page.getOffset());
@@ -96,6 +115,8 @@ public class HyPerController {
         queryMap.put("recordName",userName);
         queryMap.put("recordAdress",userAdress);
         queryMap.put("userMyphone",userPhone);
+        //----------where recordUnit=#{recordUnit}↓名
+       // queryMap.put("MApper条件查询里的#{recordUnit}",session.getAttribute("登录人所在地区ID"));
         ret.put("rows", hyPerService.queryNotUser(queryMap));// 页面加载数据使用
         ret.put("total", hyPerService.queryNoUserTotal(queryMap));// 分页使用
         return ret;

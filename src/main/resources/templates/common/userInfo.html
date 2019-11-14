@@ -38,11 +38,15 @@
         <td> <input class="easyui-textbox tdText_h"  onchange="copyAddress2(this.value)"   name="recordPlaceadress" style="border:0px;border-bottom: 1px solid black"></input></td>
         <td><input class="easyui-textbox tdText_h"  readonly="true" type="text"  value="建档医生:" ></input></td>
         <td>
-            <select class=""  name="recordCreateuserid"  style="width:100%; border:0px;border-bottom: 1px solid black">
-                <option   value="2" ><span >金峰</span></option>
-                <option   value="4" ><span >张承天</span></option>
-                <option   value="3" ><span >曾子墨</span></option>
+            <select name="recordCreateuserid"  panelHeight="200px" style="width:100%; border:0px;border-bottom: 1px solid black">
+                <option  th:each="doctor:${doctor}" th:value="${doctor.id}" ><span th:text="${doctor.lastname}"></span></option>
             </select>
+
+            <!--<select class=""  name="recordCreateuserid"  style="width:100%; border:0px;border-bottom: 1px solid black">-->
+                <!--<option   value="2" ><span >金峰</span></option>-->
+                <!--<option   value="4" ><span >张承天</span></option>-->
+                <!--<option   value="3" ><span >曾子墨</span></option>-->
+            <!--</select>-->
 
         </td>
     </tr>

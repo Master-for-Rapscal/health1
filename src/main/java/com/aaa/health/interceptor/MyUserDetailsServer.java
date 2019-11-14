@@ -30,13 +30,17 @@ public class MyUserDetailsServer implements UserDetailsService {
 
         System.out.println("MyUserdetailsServer接受用户信息" + username);
         SysUser user = userService.findByUsername(username);
+        System.out.println(user);
         if (user == null) {
             throw new UsernameNotFoundException("用户不存在");
         }
         // 添加 用户 拥有的 多个角色
         System.out.println("MyUserdetailsServer发现该用户为"+roleService.find(user.getRoleId()).getName());
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + roleService.find(user.getId()).getName()));
+        System.out.println(user.getId());
+       // System.out.println(roleService.find(user.getId()).getName());
+
+        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + roleService.find(user.getRoleId()).getName()));
 
         return new User(
                 user.getUsername(),

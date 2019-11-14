@@ -4,6 +4,14 @@
 <mapper namespace="com.aaa.health.mapper.hyper.HyPerMapper">
     <select id="queryHyAll" parameterType="Map" resultType="Map">
         SELECT * from hypertension dm join userinfo u on dm.recordId=u.userId
+        where
+
+        <if test="recordUnit == 0">
+             1=1
+        </if>
+        <if test="recordUnit != 0">
+           u.recordUnit=#{recordUnit}
+        </if>
 
         <choose>
           <when test=" hypertensionOutcome == 2">

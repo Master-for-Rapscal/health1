@@ -3,6 +3,8 @@ package com.aaa.health.controller.zzh;
 import com.aaa.health.entity.zzh.Healthcheck;
 import com.aaa.health.entity.zzh.Userinfo;
 import com.aaa.health.page.admin.Page;
+import com.aaa.health.service.admin.UserService;
+import com.aaa.health.service.oldpeo.OldtcmService;
 import com.aaa.health.service.zzh.HealthcheckService;
 import com.aaa.health.service.zzh.UserinfoService;
 import org.apache.commons.lang.StringUtils;
@@ -21,6 +23,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("zzh/Healthcheck")
 public class HealthcheckController {
+
+    @Autowired
+    private OldtcmService oldtcmService;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -41,7 +46,7 @@ public class HealthcheckController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
-
+       model.addAttribute("doctor",oldtcmService.queryDoctor());
         return "healthcheck/list";
     }
 

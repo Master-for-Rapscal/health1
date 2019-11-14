@@ -61,16 +61,14 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessUrl("/system/login")
                 .clearAuthentication(true)
-                .invalidateHttpSession(false).deleteCookies("areaId")
-                .deleteCookies("remember")
-                .deleteCookies("areaId");
-//                .deleteCookies("remember");
+                .deleteCookies("remember");
+
 
         http //session管理
                 .sessionManagement()
                 .maximumSessions(4).maxSessionsPreventsLogin(true).expiredUrl("/system/login");//设置一个用户允许登录的个数    maxSessionsPreventsLogin 启用超出报错。
 
-        //
+
         http.csrf().disable();
     }
 

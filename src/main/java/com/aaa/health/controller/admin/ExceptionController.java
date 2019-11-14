@@ -17,8 +17,8 @@ public class ExceptionController {
 
      @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String list3() {
-        System.out.println("登录异常3！");return "/system/index";}
+        System.out.println("登录异常3！");return "/system/login";}
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String list4(String error) {
-        System.out.println("登录异常4！"); return "/system/index";}
+        System.out.println("登录异常4！"); return "/system/login";}
 }

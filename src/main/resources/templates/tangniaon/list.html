@@ -9,7 +9,7 @@
         <div class="wu-toolbar-button">
             <!--引入菜单页面-->
             <div th:replace="common/menus :: menus"></div>
-            <a href="javascript:prn1_preview()">打印预览</a>
+            <a href="javascript:prn1_preview()">专项卡结构打印预览</a>
         </div>
         <div class="wu-toolbar-search">
             个人编号:<input id="search-id" class="wu-text" style="width:100px"/>
@@ -88,8 +88,8 @@
     var LODOP; //声明为全局变量
     function CreateOneFormPage(){
         LODOP=getLodop();
-        LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_表单一");
-        LODOP.ADD_PRINT_TEXT(50,231,260,39," ");
+        LODOP.PRINT_INIT("打印控件功能演示");
+        //LODOP.ADD_PRINT_TEXT(50,231,260,39," ");
        // LODOP.READ_PORT_DATA();
         LODOP.ADD_PRINT_HTM("100px","0px","70%","70%",document.getElementById("insHy").innerHTML);
     };
@@ -99,6 +99,37 @@
             LODOP.PREVIEW();
         };
 
+        function prn1_preview_data() {
+            LODOP=getLodop();
+            LODOP.PRINT_INIT("");
+            LODOP.ADD_PRINT_HTM("0","0","2000px","2000px",document.getElementById("insHy").innerHTML);
+            LODOP.ADD_PRINT_TEXT(58,114,285,20, $("#recordName").val());//姓名
+            LODOP.ADD_PRINT_TEXT(33,406,285,20, $("#userId").val());//健康档案号
+            LODOP.ADD_PRINT_TEXT(56,569,285,20, $("#userSex").val());//性别
+            LODOP.ADD_PRINT_TEXT(80,112,285,20, $("#userGam").val());//婚姻
+            LODOP.ADD_PRINT_TEXT(77,569,285,20, $("#userWorKunit").val());//职业
+            LODOP.ADD_PRINT_TEXT(102,113,285,20, $("#userBirthday").val());//出生日期
+            LODOP.ADD_PRINT_TEXT(102,569,285,20, $("#userMyphone").val());//本人电话
+            LODOP.ADD_PRINT_TEXT(126,112,284,20, $("#recordAdress").val());//现住址
+            //LODOP.SET_PRINT_STYLEA(0,"ReadOnly",0);
+            LODOP.ADD_PRINT_TEXT(212,108,678,20, $("input[name=dmsmcardConunit]").val());//确诊单位
+            LODOP.ADD_PRINT_TEXT(238,112,285,20, $("input[name=dmsmcardAccidate]").val());//发病日期
+            LODOP.ADD_PRINT_TEXT(237,567,153,20, $("input[name=dmsmcardCondate]").val());//确诊日期
+            LODOP.ADD_PRINT_TEXT(355,113,143,20, $("input[name=dmsmcardHeight]").val());//身高
+            LODOP.ADD_PRINT_TEXT(350,569,142,25, $("input[name=dmsmcardWeight]").val());//体重
+            LODOP.ADD_PRINT_TEXT(376,115,143,20, $("input[name=dmsmcardBmi]").val());//体质指数
+            LODOP.ADD_PRINT_TEXT(397,137,265,20, $("input[name=dmsmcardBp1]").val());//血压高
+            LODOP.ADD_PRINT_TEXT(420,135,265,20, $("input[name=dmsmcardBp2]").val());//血压低
+            LODOP.ADD_PRINT_TEXT(464,115,285,20, $("input[name=dmsmcardHazards]").val());//危险因素
+            //------
+            // LODOP.ADD_PRINT_TEXT(464,115,285,20, $("input[name=dmsmcardHazards]").val());//空腹血糖
+            // LODOP.ADD_PRINT_TEXT(464,115,285,20, $("input[name=dmsmcardHazards]").val());//餐后两小时
+            // LODOP.ADD_PRINT_TEXT(464,115,285,20, $("input[name=dmsmcardHazards]").val());//危险因素
+            // LODOP.ADD_PRINT_TEXT(464,115,285,20, $("input[name=dmsmcardHazards]").val());//危险因素
+            LODOP.SET_SHOW_MODE("SETUP_ENABLESS","01111111000111");
+           // LODOP.SET_SHOW_MODE("HIDE_GROUND_LOCK",1);  //隐藏纸钉按钮
+            LODOP.PRINT_SETUP();
+        }
     // 窗体加载关闭引用页面
     $(function () {
         $("#insHy").dialog('close');//专项卡添加修改页面
@@ -111,6 +142,7 @@
      *  添加记录
      */
     function add(uid) {
+        dayin=uid;
         $('#add-dialog').dialog('close');
         $("#insHy").dialog({
             closed: false,
@@ -124,7 +156,7 @@
                 handler: goBack
             },{
                 text: '打印预览',
-                handler:prn1_preview
+                handler:prn1_preview_data
             }],
             onBeforeOpen: function () {
                 $('#form1').form('clear');
@@ -145,7 +177,6 @@
             dataType: 'json',
             success: function (date) {
                 var work = date.userWorkunit;
-
                 $("#userMyphone").val(date.userMyphone);
                 $("#recordName").val(date.recordName);
                 $("#userWorKunit").val(work);
@@ -467,8 +498,8 @@
                         text: '修改',
                         handler: edit
                     }, {
-                        text: '打印预览',
-                        handler: prn1_preview
+                        text: '内容打印预览',
+                        handler: prn1_preview_data
                     }, {
                         text: '取消',
                         handler: goBack
