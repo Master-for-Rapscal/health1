@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,8 +46,13 @@ public class HealthcheckController {
      * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
-       model.addAttribute("doctor",oldtcmService.queryDoctor());
+    public String list(Model model,HttpServletRequest request) {
+
+        int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        Map<String, Object> queryMap = new HashMap<String, Object>();
+        queryMap.put("areaId",areaId);
+       model.addAttribute("doctor",oldtcmService.queryDoctor2(queryMap));
+
         return "healthcheck/list";
     }
 
@@ -65,9 +71,9 @@ public class HealthcheckController {
         @RequestParam(name = "recordPlaceadress", required = false, defaultValue = "")  String recordPlaceadress,
         @RequestParam(name = "userSex", required = false, defaultValue = "-1")  Integer userSex
        ) {
-
-        Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
+        Map<String, Object> ret = new HashMap<String, Object>();
+
         queryMap.put("userId",userId);
         queryMap.put("recordName",recordName);
         queryMap.put("userIdnumber",userIdnumber);

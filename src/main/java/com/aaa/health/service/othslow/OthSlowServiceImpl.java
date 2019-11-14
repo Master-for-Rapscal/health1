@@ -35,8 +35,8 @@ public class OthSlowServiceImpl implements OthSlowService{
     }
 
     @Override
-    public List<Map> queryDoctor() {
-        return othSlowMapper.queryDoctor();
+    public List<Map> queryDoctor(Map<String, Object> queryMap) {
+        return othSlowMapper.queryDoctor(queryMap);
     }
 
     @Override

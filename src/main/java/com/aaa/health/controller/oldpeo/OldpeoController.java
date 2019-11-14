@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -42,9 +43,13 @@ public class OldpeoController {
                                        @RequestParam(name = "ming", required = false, defaultValue = "") String ming,
                                        @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
                                        @RequestParam(name = "sjh", required = false, defaultValue = "") String sjh,
-                                       @RequestParam(name = "oldpeoMstate", required = false, defaultValue = "0") String oldpeoMstate) {
+                                       @RequestParam(name = "oldpeoMstate", required = false, defaultValue = "0") String oldpeoMstate,
+                                       HttpServletRequest request) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
+       int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        System.out.println("登录的值是"+areaId);
+        queryMap.put("areaId",areaId);
         queryMap.put("userId",bianhao);
         queryMap.put("recordName",ming);
         queryMap.put("recordAdress",userAdress);
@@ -103,9 +108,12 @@ public class OldpeoController {
 
     @RequestMapping( "/userList")
     @ResponseBody
-    public Object queryAllUser(Page page){
+    public Object queryAllUser(Page page,HttpServletRequest request){
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
+        int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        System.out.println("登录的用户值是"+areaId);
+        queryMap.put("areaId",areaId);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", oldPeopleService.queryAllUser(queryMap));// 页面加载数据使用
@@ -147,12 +155,16 @@ public class OldpeoController {
         }*/
         return num;
     }
-
     @RequestMapping("/queryDoctor")
     @ResponseBody
-    public Object queryDoctor(){
-        return oldPeopleService.queryDoctor();
+    public Object queryDoctor(HttpServletRequest request){
+        Map<String, Object> queryMap = new HashMap<String, Object>();
+        int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        System.out.println("登录的用户值是"+areaId);
+        queryMap.put("areaId",areaId);
+        return oldPeopleService.queryDoctor(queryMap);
     }
+
     @RequestMapping( "/addSuif")
     @ResponseBody
     public Object addSuif(Integer oldpeoId, Oldarrange oldarrange){

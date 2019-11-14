@@ -53,8 +53,14 @@ and oa.oldpeoId=#{oldpeoId}
         delete from oldarrange where oldarrangeId in(${value})
     </delete>
 
-    <select id="queryDoctor" resultType="Map">
-          select * from user where roleId != 1
+    <select id="queryDoctor" resultType="Map" parameterType="Map">
+          select * from user u,area a where roleId != 1 and u.areaId=a.areaId
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and a.areaId=#{areaId}
+        </if>
     </select>
     <select id="queryId" resultType="com.aaa.health.entity.oldpeo.Oldpeo">
  select * from oldpeo
@@ -63,8 +69,14 @@ and oa.oldpeoId=#{oldpeoId}
  select * from oldarrange where oldarrangeId=#{oldarrangeId}
   </select>
     <select id="findList" parameterType="Map" resultType="map">
-        select* from userinfo u ,oldpeo o where 1=1 and o.recordId=u.userId
-        and oldpeoMstate=0 and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
+        select * from userinfo u ,oldpeo o,area a where o.recordId=u.userId  and u.recordUnit=a.areaId
+        and oldpeoMstate=0
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and areaId=#{areaId}
+        </if>
         <if test="userId != null and userId != 0">
             and u.userId LIKE '%${userId}%'
         </if>
@@ -98,8 +110,14 @@ and oa.oldpeoId=#{oldpeoId}
 
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*) from oldpeo o,userinfo u where 1 = 1  and o.recordId=u.userId
-        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365)>=65
+        select count(*) from userinfo u ,oldpeo o,area a where o.recordId=u.userId  and u.recordUnit=a.areaId
+        and oldpeoMstate=0
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and areaId=#{areaId}
+        </if>
         <if test="userId != null and userId != 0">
             and u.userId LIKE '%${userId}%'
         </if>
@@ -120,8 +138,14 @@ and oa.oldpeoId=#{oldpeoId}
         </if>
     </select>
     <select id="queryAllUser" parameterType="Map" resultType="Map">
-        select * from userinfo u
-        where userId not in (select recordId from oldpeo) and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
+        select * from userinfo u,area a where userId not in (select recordId from oldpeo)  and u.recordUnit=a.areaId
+        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and a.areaId=#{areaId}
+        </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
@@ -131,8 +155,14 @@ and oa.oldpeoId=#{oldpeoId}
     </select>
 
     <select id="queryUserTotal" parameterType="Map" resultType="Integer">
-        select  count(*) from userinfo u,oldpeo where userId not in (select recordId from oldpeo)
+        select count(*) from userinfo u,area a where userId not in (select recordId from oldpeo)  and u.recordUnit=a.areaId
         and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
+        <if test="areaId == 410000">
+        and 1=1
+    </if>
+        <if test="areaId != 410000">
+            and a.areaId=#{areaId}
+        </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>

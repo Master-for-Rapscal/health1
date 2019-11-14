@@ -15,7 +15,7 @@ import java.util.Map;
         //添加
         int add(Othslow othslow);
 //查询医生
-        List<Map> queryDoctor();
+        List<Map> queryDoctor(Map<String, Object> queryMap);
 //查询所有慢病
         List<Map> queryName();
         // 查询所有用户

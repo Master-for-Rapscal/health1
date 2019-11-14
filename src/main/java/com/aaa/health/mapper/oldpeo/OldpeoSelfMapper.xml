@@ -36,8 +36,13 @@ oldselfClean= #{oldselfClean},oldselfEvent=#{oldselfEvent}  where oldselfId=#{ol
   </select>
 
     <select id="findList" parameterType="Map" resultType="map">
-        select *
-        from userinfo u ,oldpeo o where 1=1 and o.recordId=u.userId and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
+        select * from userinfo u ,oldpeo o,area a where o.recordId=u.userId  and u.recordUnit=a.areaId
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and a.areaId=#{areaId}
+        </if>
         <if test="userId != null and userId != 0">
             and u.userId LIKE '%${userId}%'
         </if>
@@ -60,8 +65,13 @@ oldselfClean= #{oldselfClean},oldselfEvent=#{oldselfEvent}  where oldselfId=#{ol
 
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*)
-        from userinfo u ,oldpeo o where 1=1 and o.recordId=u.userId and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
+        select count(* )from userinfo u ,oldpeo o,area a where o.recordId=u.userId  and u.recordUnit=a.areaId
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and a.areaId=#{areaId}
+        </if>
         <if test="userId != null and userId != 0">
             and u.userId LIKE '%${userId}%'
         </if>

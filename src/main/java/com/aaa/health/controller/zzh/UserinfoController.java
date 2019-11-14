@@ -51,8 +51,12 @@ public class UserinfoController {
         System.out.println("userInfo接受区域id："+request.getSession().getAttribute("areaId"));
         System.out.println("userInfo查询到的区域："+areaService.findChildernList(areaId));
         if (areaId==410000) areaId= new Long((long)0);
-        model.addAttribute("doctor",oldtcmService.queryDoctor());
         model.addAttribute("area",areaService.findChildernList(areaId));
+
+        int areaId2= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        Map<String, Object> queryMap = new HashMap<String, Object>();
+        queryMap.put("areaId",areaId2);
+        model.addAttribute("doctor",oldtcmService.queryDoctor2(queryMap));
         return "userinfo/list";
     }
 

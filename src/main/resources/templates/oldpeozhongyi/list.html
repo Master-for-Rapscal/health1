@@ -159,12 +159,12 @@
 
                 });$.ajax({
                     type : "post",
-                    url : "queryDoctor",
+                    url : "queryDoctor2",
                     dataType : "json",
                     success : function (date) {
                         $("#healthcheckDoctor").combobox({
                             mode:'remote',
-                            url:'queryDoctor',
+                            url:'queryDoctor2',
                             valueField:'id',
                             textField:'lastname',
                             delay:100
@@ -248,12 +248,12 @@
 
                 });   $.ajax({
                     type : "post",
-                    url : "queryDoctor",
+                    url : "queryDoctor2",
                     dataType : "json",
                     success : function (date) {
                         $("#healthcheckDoctor2").combobox({
                             mode:'remote',
-                            url:'queryDoctor',
+                            url:'queryDoctor2',
                             valueField:'id',
                             textField:'lastname',
                             delay:100

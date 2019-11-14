@@ -83,8 +83,8 @@ public class OldPeopleServiceImpl implements OldPeopleService{
     }
 
     @Override
-    public List<Map> queryDoctor() {
-        return oldPeopleMapper.queryDoctor();
+    public List<Map> queryDoctor(Map<String, Object> queryMap) {
+        return oldPeopleMapper.queryDoctor(queryMap);
     }
 
     @Override

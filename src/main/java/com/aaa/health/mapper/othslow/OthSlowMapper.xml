@@ -39,8 +39,14 @@ othslowOutdate=#{othslowOutdate}, othslowClosesrtwhy=#{ othslowClosesrtwhy},oths
           select * from othslowName
     </select>
 
-    <select id="queryDoctor" resultType="Map">
-          select * from user where roleId != 1
+    <select id="queryDoctor" resultType="Map" >
+        select * from user u,area a where roleId != 1 and u.areaId=a.areaId
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and a.areaId=#{areaId}
+        </if>
     </select>
     <select id="queryName" resultType="Map">
 select * from othslowName
@@ -50,22 +56,41 @@ select * from othslowName
         delete from othslow where othslowId in(${value})
     </delete>
     <select id="queryAllUser" parameterType="Map" resultType="Map">
-        select * from userinfo u
-        where userId not in (select recordId from othslow)
+        select * from userinfo u,area a
+        where userId not in (select recordId from othslow)  and u.recordUnit=a.areaId
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and a.areaId=#{areaId}
+        </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
     </select>
 
     <select id="queryUserTotal" parameterType="Map" resultType="Integer">
-        select count(*) from userinfo u,othslow o where u.userId!=o.recordId
+        select count(*) from userinfo u,area a
+        where userId not in (select recordId from othslow)  and u.recordUnit=a.areaId
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and a.areaId=#{areaId}
+        </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
     </select>
     <select id="findList" parameterType="Map" resultType="map">
-        select * from othslow o,userinfo u,othslowName ot where u.userId=o.recordId and ot.othslowNameId=o.othslowNameId
-
+        select * from othslow o,userinfo u,othslowName ot,area a
+        where u.userId=o.recordId and ot.othslowNameId=o.othslowNameId and u.recordUnit=a.areaId
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and a.areaId=#{areaId}
+        </if>
         <if test="userId != null and userId != 0">
             and u.userId LIKE '%${userId}%'
         </if>
@@ -81,8 +106,6 @@ select * from othslowName
         <if test="userIdnumber != null and userIdnumber != ''">
             AND u.userIdnumber LIKE '%${userIdnumber}%'
         </if>
-
-
         <choose>
         <when test="othslowOutfor != null and othslowOutfor != ''">
             AND othslowOutfor LIKE '%${othslowOutfor}%'
@@ -92,9 +115,6 @@ select * from othslowName
             AND othslowClosestate =0
         </otherwise>
         </choose>
-
-
-
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
@@ -105,8 +125,14 @@ select * from othslowName
 
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        /*select count(*) from othslow where 1 = 1*/
-        select count(*) from othslow o,userinfo u,othslowName ot where u.userId=o.recordId and ot.othslowNameId=o.othslowNameId
+        select count(*) from othslow o,userinfo u,othslowName ot,area a
+        where u.userId=o.recordId and ot.othslowNameId=o.othslowNameId and u.recordUnit=a.areaId
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and areaId=#{areaId}
+        </if>
         <if test="userId != null and userId != 0">
             and u.userId LIKE '%${userId}%'
         </if>
