@@ -3,6 +3,7 @@ import com.aaa.health.entity.admin.SysUser;
 import com.aaa.health.entity.zzh.Userinfo;
 import com.aaa.health.page.admin.Page;
 import com.aaa.health.service.admin.AreaService;
+import com.aaa.health.service.oldpeo.OldtcmService;
 import com.aaa.health.service.zzh.UserinfoService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class UserinfoController {
     }
 
     @Autowired
+    private OldtcmService oldtcmService;
+
+    @Autowired
     public UserinfoService userinfoService;
     @Autowired
     private AreaService areaService;
@@ -47,6 +51,7 @@ public class UserinfoController {
         System.out.println("userInfo接受区域id："+request.getSession().getAttribute("areaId"));
         System.out.println("userInfo查询到的区域："+areaService.findChildernList(areaId));
         if (areaId==410000) areaId= new Long((long)0);
+        model.addAttribute("doctor",oldtcmService.queryDoctor());
         model.addAttribute("area",areaService.findChildernList(areaId));
         return "userinfo/list";
     }
