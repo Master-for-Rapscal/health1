@@ -46,8 +46,11 @@ public class HealthcheckController {
      * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
-       model.addAttribute("doctor",oldtcmService.queryDoctor());
+    public String list(Model model, HttpServletRequest request) {
+        int areaId2= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        Map<String, Object> queryMap = new HashMap<String, Object>();
+        queryMap.put("areaId",areaId2);
+        model.addAttribute("doctor",oldtcmService.queryDoctor2(queryMap));
         return "healthcheck/list";
     }
 
