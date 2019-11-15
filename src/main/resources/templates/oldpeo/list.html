@@ -386,7 +386,6 @@
             return;
         }
         var date = $("#sfform").serialize();
-/*alert(cd);*/
         $.ajax({
             url: 'updateArr',
             dataType: 'json',
@@ -569,6 +568,7 @@
                 if (date > 0) {
                     $.messager.alert('信息提示', '添加成功！', 'info');
                     $("#old").dialog("close");
+                    $("#data-datagrid").datagrid('reload');
                     $("#sele").datagrid('getSelections').length = 0;
                     $("#data-datagrid").datagrid('getSelections').length = 0;
                     $("#add-dialog").datagrid('getSelections').length = 0;
@@ -582,52 +582,6 @@
         });
     }
 
-    function start() {
-        var value = $('#p').progressbar('getValue');
-        if (value < 100) {
-            value += Math.floor(Math.random() * 10);
-            $('#p').progressbar('setValue', value);
-        } else {
-            $('#p').progressbar('setValue', 0)
-        }
-    };
-
-    function upload() {
-        if ($("#photo-file").val() == '') return;
-        var formData = new FormData();
-        formData.append('photo', document.getElementById('photo-file').files[0]);
-        $("#process-dialog").dialog('open');
-        var interval = setInterval(start, 200);
-        $.ajax({
-            url: 'upload_photo',
-            type: 'post',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function (data) {
-                clearInterval(interval);
-                $("#process-dialog").dialog('close');
-                if (data.type == 'success') {
-                    $("#preview-photo").attr('src', data.filepath);
-                    $("#add-photo").val(data.filepath);
-                    $("#edit-preview-photo").attr('src', data.filepath);
-                    $("#edit-photo").val(data.filepath);
-                } else {
-                    $.messager.alert("消息提醒", data.msg, "warning");
-                }
-            },
-            error: function (data) {
-                clearInterval(interval);
-                $("#process-dialog").dialog('close');
-                $.messager.alert("消息提醒", "上传失败!", "warning");
-            }
-        });
-    }
-
-    function uploadPhoto() {
-        $("#photo-file").click();
-
-    }
 
     //关闭添加窗口
     function goBack() {
@@ -681,6 +635,7 @@
                         $("#userHeredity").val(data.userHeredity);
                         $("#userIllness").val(data.userIllness);
                         $("#userDisability").val(data.userDisability);
+
                         /*                alert(data.userDisability);*/
                         var sex = "未知";
                         if (data.userSex == 1) {
@@ -695,6 +650,20 @@
 
                     }
 
+                });
+                $.ajax({
+                    type: "post",
+                    url: "queryDoctor",
+                    dataType: "json",
+                    success: function (date) {
+                        $("#recordDoctor").combobox({
+                            mode: 'remote',
+                            url: 'queryDoctor',
+                            valueField: 'id',
+                            textField: 'lastname',
+                            delay: 100
+                        });
+                    }
                 });
             }
         });

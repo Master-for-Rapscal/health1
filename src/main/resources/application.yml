@@ -6,8 +6,8 @@ spring:
     password: Dipper
     url: jdbc:mysql://115.238.27.106/health?serverTimezone=Asia/Shanghai
 
-#spring:
-#  datasource:
+#  spring:
+#   datasource:
 #    username: root
 #    password: 123456
 #    url: jdbc:mysql://localhost/health?serverTimezone=Asia/Shanghai
