@@ -24,5 +24,6 @@ public interface OldtcmMapper {
     //修改结案
     int edit(Oldtcm oldtcm);
 //查询医生
-    List<Map> queryDoctor();
+List<Map> queryDoctor();
+List<Map> queryDoctor2(Map<String, Object> queryMap);
 }

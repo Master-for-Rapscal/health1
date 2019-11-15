@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,22 +35,17 @@ public class OldpeoZiLiController {
                                        @RequestParam(name = "userId", required = false, defaultValue = "") Integer userId,
                                        @RequestParam(name = "userName", required = false, defaultValue = "") String userName,
                                        @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
-                                       @RequestParam(name = "userMyphone", required = false, defaultValue = "") String userMyphone) {
+                                       @RequestParam(name = "userMyphone", required = false, defaultValue = "") String userMyphone,
+                                       HttpServletRequest request) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-/*        queryMap.put("offset", page.getOffset());
-        queryMap.put("pageSize", page.getRows());*/
+        int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        System.out.println("登录的用户值是"+areaId);
+        queryMap.put("areaId",areaId);
         queryMap.put("userId",userId);
         queryMap.put("recordName",userName);
         queryMap.put("recordAdress",userAdress);
         queryMap.put("userMyphone",userMyphone);
-
-/*        System.out.println("AA"+userName);
-        System.out.println("BB"+userName);
-
-        System.out.println("DD"+userAdress);
-        System.out.println("EE"+userphone);*/
-
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", oldSelfService.findList(queryMap));// 页面加载数据使用

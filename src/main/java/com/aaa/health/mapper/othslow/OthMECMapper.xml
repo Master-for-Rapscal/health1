@@ -6,9 +6,14 @@
 
 
     <select id="findList" parameterType="Map" resultType="map">
-        select * from othslow o,userinfo u,othslowName ot where u.userId=o.recordId
+        select * from othslow o,userinfo u,othslowName ot,area a where u.userId=o.recordId and u.recordUnit=a.areaId
         and ot.othslowNameId=o.othslowNameId and ot.othslowNameState=0
-
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and a.areaId=#{areaId}
+        </if>
         <if test="userId != null and userId != 0">
             and u.userId LIKE '%${userId}%'
         </if>
@@ -31,9 +36,14 @@
 
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*)from othslow o,userinfo u,othslowName ot where u.userId=o.recordId
+        select count(*) from othslow o,userinfo u,othslowName ot,area a where u.userId=o.recordId and u.recordUnit=a.areaId
         and ot.othslowNameId=o.othslowNameId and ot.othslowNameState=0
-
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and a.areaId=#{areaId}
+        </if>
         <if test="userId != null and userId != 0">
             and u.userId LIKE '%${userId}%'
         </if>

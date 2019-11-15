@@ -14,7 +14,7 @@ public interface OthSlowService {
     //添加
     int add(Othslow othslow);
     //查询医生
-    List<Map> queryDoctor();
+    List<Map> queryDoctor(Map<String, Object> queryMap);
     // 查询所有用户
     List<Map> queryAllUser(Map map);
     //用户总条数

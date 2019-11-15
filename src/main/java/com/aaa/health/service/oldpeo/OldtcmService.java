@@ -3,6 +3,7 @@ package com.aaa.health.service.oldpeo;
 import com.aaa.health.entity.oldpeo.Oldtcm;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 @Service
@@ -26,4 +27,5 @@ public interface OldtcmService {
 
     //查询医生
     List<Map> queryDoctor();
+    List<Map> queryDoctor2(Map<String, Object> queryMap);
 }

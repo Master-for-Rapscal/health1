@@ -95,6 +95,11 @@ public class SystemController {
         }
         int areaId =findByUsername.getAreaId();
         List<Menu> userMenus = menuService.findListByIds(menuIds);
+
+        // 别错
+
+        /*     queryMap.put("areaId",areaId);*/
+
         Object doctor = oldtcmService.queryDoctor();
         request.getSession().setAttribute("admin", findByUsername);
         request.getSession().setAttribute("role", role);

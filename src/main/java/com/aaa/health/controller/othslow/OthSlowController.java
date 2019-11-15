@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,12 +36,15 @@ public class OthSlowController {
                                        @RequestParam(name = "ming", required = false, defaultValue = "") String ming,
                 /*                       @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,*/
                                        @RequestParam(name = "sjh", required = false, defaultValue = "") String sjh,
-                                       @RequestParam(name = "othslowOutfor", required = false, defaultValue = "") String othslowOutfor) {
+                                       @RequestParam(name = "othslowOutfor", required = false, defaultValue = "") String othslowOutfor,
+                                       HttpServletRequest request) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("userId",bianhao);
         queryMap.put("recordName",ming);
-   /*     queryMap.put("recordAdress",userAdress);*/
+        int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        System.out.println("登录的用户值是"+areaId);
+        queryMap.put("areaId",areaId);
         queryMap.put("userMyphone",sjh);
         queryMap.put("othslowOutfor",othslowOutfor);
         queryMap.put("offset", page.getOffset());
@@ -73,9 +77,12 @@ public class OthSlowController {
     }
     @RequestMapping( "/userList")
     @ResponseBody
-    public Object queryAllUser(Page page){
+    public Object queryAllUser(Page page,HttpServletRequest request){
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
+        int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        System.out.println("登录的用户值是"+areaId);
+        queryMap.put("areaId",areaId);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", othSlowService.queryAllUser(queryMap));// 页面加载数据使用
@@ -118,8 +125,12 @@ public class OthSlowController {
 
     @RequestMapping("/queryDoctor")
     @ResponseBody
-    public Object queryDoctor(){
-        return othSlowService.queryDoctor();
+    public Object queryDoctor(HttpServletRequest request){
+        Map<String,Object> queryMap=new HashMap<String,Object>();
+        int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        System.out.println("登录的用户值是"+areaId);
+        queryMap.put("areaId",areaId);
+        return othSlowService.queryDoctor(queryMap);
     }
 
     @RequestMapping("/queryDis")

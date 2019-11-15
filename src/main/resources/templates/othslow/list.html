@@ -428,7 +428,9 @@
                     columns: [[
                         {field: 'userId', title: '个人编号', width: 100, align: 'center',formatter(value,row,index){
                                 all=value;
-                            }},
+                                return value;
+                            }
+                           },
                         {field: 'recordName', title: '姓名', width: 100, align: 'center'},
                         {field: 'userBirthday', title: '出生日期', width: 100, align: 'center'},
                         {field: 'recordAdress', title: '联系地址', width: 100, align: 'center'},

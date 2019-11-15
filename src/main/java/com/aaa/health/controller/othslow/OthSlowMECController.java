@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -43,9 +44,13 @@ public class OthSlowMECController {
                                        @RequestParam(name = "ming", required = false, defaultValue = "") String ming,
                                        @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
                                        @RequestParam(name = "sjh", required = false, defaultValue = "") String sjh,
-                                       @RequestParam(name = "oldpeoMstate", required = false, defaultValue = "0") String oldpeoMstate) {
+                                       @RequestParam(name = "oldpeoMstate", required = false, defaultValue = "0") String oldpeoMstate,
+                                       HttpServletRequest request) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
+        int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        System.out.println("登录的用户值是"+areaId);
+        queryMap.put("areaId",areaId);
         queryMap.put("userId",bianhao);
         queryMap.put("recordName",ming);
         queryMap.put("recordAdress",userAdress);

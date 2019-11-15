@@ -179,6 +179,9 @@
                 handler: function () {
                     $('#sele').dialog('close');
                     $("#sele-ins").datagrid('getSelections').length = 0;
+                    $("#sele").datagrid('getSelections').length = 0;
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
 
                 }
             }],
@@ -257,10 +260,13 @@
                             $('#data-datagrid').datagrid('reload');
                             $("#sele").datagrid('getSelections').length = 0;
                             $("#data-datagrid").datagrid('getSelections').length = 0;
+                            $("#add-dialog").datagrid('getSelections').length = 0;
+
                         } else {
                             $.messager.alert('信息提示', data.msg, 'warning');
                             $("#sele").datagrid('getSelections').length = 0;
                             $("#data-datagrid").datagrid('getSelections').length = 0;
+                            $("#add-dialog").datagrid('getSelections').length = 0;
                         }
                     }
                 });
@@ -392,12 +398,14 @@
 
                     $('#oldsui').dialog('close');
                     $('#data-datagrid').datagrid('reload');
-                    $("#data-datagrid").datagrid('getSelections').length = 0;
                     $("#sele").datagrid('getSelections').length = 0;
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
                 } else {
                     $.messager.alert('信息提示', data.msg, 'warning');
-                    $("#data-datagrid").datagrid('getSelections').length = 0;
                     $("#sele").datagrid('getSelections').length = 0;
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
                 }
             }
         });
@@ -460,7 +468,7 @@
                         } else if (data.userGam == 0) {
                             hunyin = "未婚";
                         }
-
+/*alert(data.userGam);*/
                         $("input[name='userSex']").val(sex);
                         $("input[name='userGam']").val(hunyin);
 
@@ -511,13 +519,15 @@
                     $.messager.alert('信息提示', '添加成功！', 'info');
                     $('#oldsui').dialog('close');
                     $('#data-datagrid').datagrid('reload');
-                    $("#data-datagrid").datagrid('getSelections').length = 0;
                     $("#sele").datagrid('getSelections').length = 0;
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
 
                 } else {
                     $.messager.alert('信息提示', data.msg, 'warning');
-                    $("#data-datagrid").datagrid('getSelections').length = 0;
                     $("#sele").datagrid('getSelections').length = 0;
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
                 }
             }
         });
@@ -559,11 +569,13 @@
                 if (date > 0) {
                     $.messager.alert('信息提示', '添加成功！', 'info');
                     $("#old").dialog("close");
-                    $('#data-datagrid').datagrid('reload');
+                    $("#sele").datagrid('getSelections').length = 0;
                     $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
                 } else {
-                    $.messager.alert('信息提示', data.msg, 'warning');
+                    $("#sele").datagrid('getSelections').length = 0;
                     $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
                 }
 
             }
@@ -757,12 +769,14 @@
                         if (data.type == 'success') {
                             $.messager.alert('信息提示', '删除成功！', 'info');
                             $('#data-datagrid').datagrid('reload');
-                            item.length=0;
+                            $("#sele").datagrid('getSelections').length = 0;
                             $("#data-datagrid").datagrid('getSelections').length = 0;
+                            $("#add-dialog").datagrid('getSelections').length = 0;
                         } else {
                             $.messager.alert('信息提示', data.msg, 'warning');
-                            item.length=0;
+                            $("#sele").datagrid('getSelections').length = 0;
                             $("#data-datagrid").datagrid('getSelections').length = 0;
+                            $("#add-dialog").datagrid('getSelections').length = 0;
                         }
                     }
                 });
@@ -794,12 +808,14 @@
                     $.messager.alert('信息提示', '修改成功！', 'info');
                     $('#edit-dialog').dialog('close');
                     $('#data-datagrid').datagrid('reload');
-                    $("#data-datagrid").datagrid('getSelections').length = 0;
                     $("#sele").datagrid('getSelections').length = 0;
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
                 } else {
                     $.messager.alert('信息提示', data.msg, 'warning');
-                    $("#data-datagrid").datagrid('getSelections').length = 0;
                     $("#sele").datagrid('getSelections').length = 0;
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
                 }
             }
         });
@@ -865,7 +881,7 @@
     $('#data-datagrid').datagrid({
         url: 'list',
         rownumbers: true,
-        singleSelect: false,
+        singleSelect: true,
         pageSize: 20,
         pagination: true,
         multiSort: true,
@@ -875,7 +891,7 @@
         treeField: 'name',
         fit: true,
         columns: [[
-            {field: 'chk', checkbox: true, width: 100},
+    /*        {field: 'chk', checkbox: true, width: 100},*/
             {field: 'oldpeoId', title: '信息ID', width: 100, hidden: true},
             {field: 'userId', title: '个人编号', width: 100, align: 'center'},
             {field: 'userNumber', title: '个人健康档案号', hidden: true},

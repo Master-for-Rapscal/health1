@@ -34,7 +34,7 @@ public interface OldPeopleService {
     //删除随访记录
     public int deleteArr(String ids);
     //查询医生
-    List<Map> queryDoctor();
+    List<Map> queryDoctor(Map<String, Object> queryMap);
     //修改随访之前的查询
     List<Oldarrange> queryArr(int oldarrangeId);
 //修改

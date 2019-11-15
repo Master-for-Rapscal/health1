@@ -68,4 +68,9 @@ public class OldtcmServiceImpl implements OldtcmService {
     public List<Map> queryDoctor() {
         return oldtcmMapper.queryDoctor();
     }
+
+    @Override
+    public List<Map> queryDoctor2(Map<String, Object> queryMap) {
+        return oldtcmMapper.queryDoctor2(queryMap);
+    }
 }

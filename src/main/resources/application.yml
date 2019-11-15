@@ -1,16 +1,16 @@
 #server.servlet.context-path=/demo
 #
-spring:
-  datasource:
-    username: root
-    password: Dipper
-    url: jdbc:mysql://115.238.27.106/health?serverTimezone=Asia/Shanghai
-
 #spring:
 #  datasource:
 #    username: root
-#    password: 123456
-#    url: jdbc:mysql://localhost/health?serverTimezone=Asia/Shanghai
+#    password: Dipper
+#    url: jdbc:mysql://115.238.27.106/health?serverTimezone=Asia/Shanghai
+
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost/health?serverTimezone=Asia/Shanghai
 
     driver-Class-Name: com.mysql.cj.jdbc.Driver
 
