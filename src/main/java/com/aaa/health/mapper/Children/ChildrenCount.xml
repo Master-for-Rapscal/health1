@@ -10,10 +10,7 @@
 
     <!-- 分页获取用户列表 -->
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.Children.ChildInfo">
-        select * from userinfo join addnewborn on
-        userinfo.recordInputtingcard=addnewborn.addnewbornCardnum
-        join area on userinfo.recordUnit=area.areaId
-  where (date_format(CURDATE(),'%Y')-DATE_FORMAT(userinfo.userBirthday,'%Y')) BETWEEN 0 and 6
+
 
         <if test="areaId == 410000">
             and 1=1

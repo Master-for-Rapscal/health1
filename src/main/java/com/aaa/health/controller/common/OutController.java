@@ -121,11 +121,35 @@ public class OutController {
         int num=list.size();
         return list.get(num-1);
     }
+
     @CrossOrigin(value = "*")
     @RequestMapping(value = "queryIDnumberTotal", method = RequestMethod.POST)
     @ResponseBody
     public Object queryIdNumberTotal(String userIdnumber){
+        System.out.println("身份证hao："+userIdnumber);
         Integer num = userinfoService.queryIDnumberTotal(userIdnumber);
-        return num;
+        System.out.println("含有IC身份证的条数："+num);
+        if(num>0){
+            return false;
+        }
+        return true;
+    }
+    @CrossOrigin(value = "*")
+    @RequestMapping(value = "AddUser", method = RequestMethod.POST)
+    @ResponseBody
+    public Object AddUser(String recordName,String userMyphone,String userIdnumber){
+        Map map=new HashMap();
+        map.put("recordUnit",410000);
+        map.put("recordAdress","莫伊");
+        map.put("recordPlaceadress","00");
+        map.put("recordData","2019-11-06");
+        map.put("recordPostalcode","1");
+        map.put("recordResident",1);
+        map.put("recordBookbuilding",1);
+
+        map.put("recordName",recordName);
+        map.put("userMyphone",userMyphone);
+        map.put("userIdnumber",userIdnumber);
+        return map;
     }
 }

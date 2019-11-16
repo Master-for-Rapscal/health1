@@ -10,11 +10,7 @@
 
     <!-- 分页获取用户列表 -->
     <select id="findList" parameterType="Integer" resultType="com.aaa.health.entity.Children.Childinsrecord">
-        select * from insrecord where recordId=#{recordId} GROUP BY insrecordId desc/*where 1 = 1*/
-
-        <!--<if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>-->
+        select * from insrecord where recordId=#{recordId} GROUP BY insrecordId desc
     </select>
 
 

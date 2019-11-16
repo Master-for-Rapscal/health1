@@ -13,10 +13,7 @@
 
         <!--条件搜索-->
         <div class="wu-toolbar-search">
-           <!-- <label>用户名:</label><input id="search-name" class="wu-text" style="width:100px">-->
-           <!-- <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>-->
             <label> 姓名:</label><input name="recordName"/>
-
             <a href="#" id="userSearch" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
         </div>
 
@@ -32,13 +29,13 @@
             <thead><input type="text" id="Crd" name="recordId" hidden="hidden" style="border: none;outline: medium;width: 100%;height: 100%"></thead>
             <tr>
                 <td>卡号</td>
-                <td colspan="2"><input type="text" id="Ccard" name="addnewbornCardnum" style="border: none;outline: medium;width: 100%;height: 100%"></td>
+                <td colspan="2"><input type="text" readonly="readonly" id="Ccard" name="addnewbornCardnum" style="border: none;outline: medium;width: 100%;height: 100%"></td>
                 <td>建册日期</td>
-                <td colspan="2"><input type="text" id="Cdate" name="addnewbornConstructiondate" class="easyui-datebox" required="required"></td>
+                <td colspan="2"><input type="text" id="Cdate" name="addnewbornConstructiondate" readonly="readonly"></td>
             </tr>
             <tr>
                 <td>姓名</td>
-                <td colspan="2"><input type="text" id="Cname" style="border: none;outline: medium;width: 100%;height: 100%"></td>
+                <td colspan="2"><input type="text" readonly="readonly" id="Cname" style="border: none;outline: medium;width: 100%;height: 100%"></td>
                 <td>性别</td>
                 <td colspan="2">
                 <select id="Csex" style="border: none;outline: medium;width: 100%;height: 100%;appearance:none; -moz-appearance:none;-webkit-appearance:none;">
@@ -50,18 +47,18 @@
 
             <tr>
                 <td>分娩孕周</td>
-                <td colspan="2"><input type="text" name="addnewbornLaborweek" style="border: none;outline: medium;width: 100%;height: 100%"></td>
+                <td colspan="2"><input type="text" class="easyui-validatebox" data-options="required:true" name="addnewbornLaborweek" style="border: none;outline: medium;width: 100%;height: 100%"></td>
                 <td>分娩地点</td>
                 <td colspan="2"><input type="text" name="addnewbornLaborarea" style="border: none;outline: medium;width: 100%;height: 100%"></td>
             </tr>
 
             <tr>
                 <td>分娩时间</td>
-                <td colspan="2"><input type="text" id="Cbd"  class="easyui-datebox" required="required" name="addnewbornLabordate"></td>
+                <td colspan="2"><input type="text" id="Cbd" readonly="readonly" name="addnewbornLabordate"></td>
                 <td>分娩方式</td>
                 <td colspan="2">
 
-                   <!-- <input type="text" name="addnewbornLaborstyle" style="border: none;outline: medium;width: 100%;height: 100%">-->
+
 
                 <select name="addnewbornLaborstyle" style="border: none;outline: medium;width: 100%;height: 100%;appearance:none; -moz-appearance:none;-webkit-appearance:none;">
                     <option value="1">顺产</option>
@@ -78,14 +75,11 @@
 
             <tr>
                 <td>第几胎</td>
-                <td><input type="text" name="addnewbornTyrenum" style="border: none;outline: medium;width: 100%;height: 100%"></td>
+                <td><input type="text" name="addnewbornTyrenum" class="easyui-validatebox" data-options="required:true" style="border: none;outline: medium;width: 100%;height: 100%"></td>
                 <td>第几产</td>
-                <td><input type="text" name="addnewbornProducenum" style="border: none;outline: medium;width: 100%;height: 100%"></td>
+                <td><input type="text" name="addnewbornProducenum" class="easyui-validatebox" data-options="required:true" style="border: none;outline: medium;width: 100%;height: 100%"></td>
                 <td>胎数</td>
                 <td>
-
-               <!--     <input type="text" name="addnewbornTyrenumber" style="border: none;outline: medium;width: 100%;height: 100%">-->
-
                     <select name="addnewbornTyrenumber" style="border: none;outline: medium;width: 100%;height: 100%;appearance:none; -moz-appearance:none;-webkit-appearance:none;">
                         <option value="1">单胎</option>
                         <option value="2">双胎</option>
@@ -96,27 +90,27 @@
 
             <tr>
                 <td>身长</td>
-                <td colspan="2"><input type="text" name="addnewbornHeight" style="border: none;outline: medium;width: 100%;height: 100%" suffix="cm"></td>
+                <td colspan="2"><input type="text" class="easyui-validatebox" data-options="required:true" name="addnewbornHeight" style="border: none;outline: medium;width: 100%;height: 100%" suffix="cm"></td>
                 <td>体重</td>
-                <td colspan="2"><input type="text" name="addnewbornWeight" style="border: none;outline: medium;width: 100%;height: 100%" suffix="kg"></td>
+                <td colspan="2"><input type="text" class="easyui-validatebox" data-options="required:true" name="addnewbornWeight" style="border: none;outline: medium;width: 100%;height: 100%" suffix="kg"></td>
             </tr>
 
             <tr>
                 <td>Apgar评分：1分钟</td>
-                <td><input type="text" name="addnewbornApgarone" style="border: none;outline: medium;width: 100%;height: 100%"></td>
+                <td><input type="text" name="addnewbornApgarone" class="easyui-validatebox" data-options="required:true"   style="border: none;outline: medium;width: 100%;height: 100%"></td>
                 <td>5分钟</td>
-                <td><input type="text" name="addnewbornApgarfive" style="border: none;outline: medium;width: 100%;height: 100%"></td>
+                <td><input type="text" name="addnewbornApgarfive" class="easyui-validatebox" data-options="required:true"  style="border: none;outline: medium;width: 100%;height: 100%"></td>
                 <td>10分钟</td>
-                <td><input type="text" name="addnewbornApgarten" style="border: none;outline: medium;width: 100%;height: 100%"></td>
+                <td><input type="text" name="addnewbornApgarten" class="easyui-validatebox" data-options="required:true"  style="border: none;outline: medium;width: 100%;height: 100%"></td>
             </tr>
 
-            <tr><td>早接触,早吸允</td><td colspan="5"><input type="text" name="addnewbornSuckmin" style="border: none;outline: medium;width: 100%;height: 100%" prefix="产后" suffix="分钟"></td></tr>
+            <tr><td>早接触,早吸允</td><td colspan="5"><input type="text" class="easyui-validatebox" data-options="required:true"    name="addnewbornSuckmin" style="border: none;outline: medium;width: 100%;height: 100%" prefix="产后" suffix="分钟"></td></tr>
 
             <tr>
                 <td>维生素k1使用次数</td>
                 <td colspan="2"><input type="text" value="0" name="addnewbornKnum" style="border: none;outline: medium;width: 100%;height: 100%" suffix="次"></td>
                 <td>使用数量</td>
-                <td colspan="2"><input type="text" name="addnewbornKscale" style="border: none;outline: medium;width: 100%;height: 100%" suffix="ml"></td>
+                <td colspan="2"><input type="text"  class="easyui-validatebox" data-options="required:true"  name="addnewbornKscale" style="border: none;outline: medium;width: 100%;height: 100%" suffix="ml"></td>
             </tr>
 
 
@@ -132,16 +126,7 @@
             <tr>
                 <td>新生儿死亡原因</td>
                 <td colspan="5">
-                  <!--  <input type="checkbox" name="addnewbornDeathcauses"/>1前置胎盘
-                    <input type="checkbox" name="addnewbornDeathcauses"/>2胎盘早剥
-                    <input type="checkbox" name="addnewbornDeathcauses"/>3脐带因素
-                    <input type="checkbox" name="addnewbornDeathcauses"/>4胎儿窘迫
-                    <input type="checkbox" name="addnewbornDeathcauses"/>5新生儿窒息
-                    <input type="checkbox" name="addnewbornDeathcauses"/>6口腔保健指导
-                    <input type="checkbox" name="addnewbornDeathcauses"/>7产伤
-                    <input type="checkbox" name="addnewbornDeathcauses"/>8早产
-                    <input type="checkbox" name="addnewbornDeathcauses"/>9出生缺陷
-                    <input type="checkbox" name="addnewbornDeathcauses"/>10其他-->
+
                     <select id="ddlLine1" class="easyui-combotree" style="width: 650px; height: 24px;"  name="addnewbornDeathcauses" >
                     </select>
                 </td>
@@ -151,11 +136,7 @@
             <tr>
                 <td>出生缺陷</td>
                 <td colspan="5">
-                  <!--  <input type="checkbox" name="addnewbornBirthdefect"/>1神经管畸形
-                    <input type="checkbox" name="addnewbornBirthdefect"/>2唇腭裂
-                    <input type="checkbox" name="addnewbornBirthdefect"/>3先天愚型
-                    <input type="checkbox" name="addnewbornBirthdefect"/>4肢体畸形
-                    <input type="checkbox" name="addnewbornBirthdefect"/>5其他-->
+
                     <select id="ddlLine3" class="easyui-combotree" style="width: 650px; height: 24px;"  name="addnewbornBirthdefect" >
                     </select>
                 </td>
@@ -164,15 +145,7 @@
             <tr>
                 <td>新生儿并发症</td>
                 <td colspan="5">
-                 <!--   <input type="checkbox" name="addnewbornNeonatalcom"/>1重度窒息
-                    <input type="checkbox" name="addnewbornNeonatalcom"/>2肺炎
-                    <input type="checkbox" name="addnewbornNeonatalcom"/>3产伤
-                    <input type="checkbox" name="addnewbornNeonatalcom"/>4呼吸窘迫综合症
-                    <input type="checkbox" name="addnewbornNeonatalcom"/>5脐部感染
-                    <input type="checkbox" name="addnewbornNeonatalcom"/>6硬肿症
-                    <input type="checkbox" name="addnewbornNeonatalcom"/>7病理性黄疸
-                    <input type="checkbox" name="addnewbornNeonatalcom"/>8颅内出血
-                    <input type="checkbox" name="addnewbornNeonatalcom"/>9其他-->
+
                     <select id="ddlLine5" class="easyui-combotree" style="width: 650px; height: 24px;"  name="addnewbornNeonatalcom" >
                     </select>
                 </td>
@@ -205,7 +178,7 @@
 
             <tr>
                 <td>其它疫苗接种</td>
-                <td colspan="5"><input type="text" name="addnewbornOtersacc"></td>
+                <td colspan="5"><input type="text" name="addnewbornOtersacc" style="border: none;outline: medium;width: 100%;height: 100%"></td>
             </tr>
 
             <tr>
@@ -221,11 +194,7 @@
             <tr>
                 <td>体弱原因</td>
                 <td colspan="5">
-                  <!--  <input type="checkbox" name="addnewbornGuidance">1喂养指导
-                    <input type="checkbox" name="addnewbornGuidance">2发育指导
-                    <input type="checkbox" name="addnewbornGuidance">3防病指导
-                    <input type="checkbox" name="addnewbornGuidance">4预防伤害指导
-                    <input type="checkbox" name="addnewbornGuidance">5口腔保健指导-->
+
                     <select id="ddlLine7" class="easyui-combotree" style="width: 650px; height: 24px;"  name="addnewbornGuidance" >
                     </select>
                 </td>
@@ -253,9 +222,6 @@
 
 <div id="ULM" style="width: 670px;height: 500px">
     <div class="wu-toolbar-search">
-        <!-- <label>用户名:</label><input id="search-name" class="wu-text" style="width:100px">
-         <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>-->
-        <!--  <label> 个人编号:</label><input name="recordInputtingcard"/>-->
         <label> 姓名:</label><input name="recordName1"/>
         <label> 住址:</label><input name="recordAdress"/>
         <label> 出生日期:</label><input name="userBirthday"/>
@@ -273,7 +239,7 @@
             <thead><input type="text" id="Crd1" name="recordId" hidden="hidden" style="border: none;outline: medium;width: 100%;height: 100%"></thead>
             <tr>
                 <td>卡号</td>
-                <td colspan="2"><input type="text" id="Ccard1" name="addnewbornCardnum" style="border: none;outline: medium;width: 100%;height: 100%">
+                <td colspan="2"><input type="text" readonly="readonly" id="Ccard1" name="addnewbornCardnum" style="border: none;outline: medium;width: 100%;height: 100%">
                 <input type="text" name="addnewbornId" id="aid" hidden="hidden" style="border: none;outline: medium;width: 100%;height: 100%"/>
                 </td>
                 <td>建册日期</td>
@@ -281,14 +247,12 @@
             </tr>
             <tr>
                 <td>姓名</td>
-                <td colspan="2"><input type="text" id="Cname1"></td>
+                <td colspan="2"><input  readonly="readonly" type="text" id="Cname1" style="border: none;outline: medium;width: 100%;height: 100%"></td>
                 <td>性别</td>
                 <td colspan="2"><!--<input type="text" id="Csex1">-->
                 <select id="Csex1" style="border: none;outline: medium;width: 100%;height: 100%;appearance:none; -moz-appearance:none;-webkit-appearance:none;">
-
                     <option value="1">男</option>
                     <option value="2">女</option>
-
                 </select>
                 </td>
             </tr>
@@ -305,7 +269,7 @@
                 <td colspan="2"><input type="text"  class="easyui-datebox" required="required" id="Cbd1" name="addnewbornLabordate"></td>
                 <td>分娩方式</td>
                 <td colspan="2">
-                   <!-- <input type="text" name="addnewbornLaborstyle" style="border: none;outline: medium;width: 100%;height: 100%">-->
+
                     <select name="addnewbornLaborstyle" style="border: none;outline: medium;width: 100%;height: 100%;appearance:none; -moz-appearance:none;-webkit-appearance:none;">
                         <option value="1">顺产</option>
                         <option value="2">胎吸</option>
@@ -327,8 +291,6 @@
                 <td><input type="text" name="addnewbornProducenum" style="border: none;outline: medium;width: 100%;height: 100%"></td>
                 <td>胎数</td>
                 <td>
-
-          <!--          <input type="text" name="addnewbornTyrenumber" style="border: none;outline: medium;width: 100%;height: 100%">-->
                 <select name="addnewbornTyrenumber" style="border: none;outline: medium;width: 100%;height: 100%;appearance:none; -moz-appearance:none;-webkit-appearance:none;">
                     <option value="1">单胎</option>
                     <option value="2">双胎</option>
@@ -375,16 +337,6 @@
             <tr>
                 <td>新生儿死亡原因</td>
                 <td colspan="5">
-                   <!-- <input type="checkbox" name="addnewbornDeathcauses" value="1"/>1前置胎盘
-                    <input type="checkbox" name="addnewbornDeathcauses" value="2"/>2胎盘早剥
-                    <input type="checkbox" name="addnewbornDeathcauses" value="3"/>3脐带因素
-                    <input type="checkbox" name="addnewbornDeathcauses" value="4"/>4胎儿窘迫
-                    <input type="checkbox" name="addnewbornDeathcauses" value="5"/>5新生儿窒息
-                    <input type="checkbox" name="addnewbornDeathcauses" value="6"/>6口腔保健指导
-                    <input type="checkbox" name="addnewbornDeathcauses" value="7"/>7产伤
-                    <input type="checkbox" name="addnewbornDeathcauses" value="8"/>8早产
-                    <input type="checkbox" name="addnewbornDeathcauses" value="9"/>9出生缺陷
-                    <input type="checkbox" name="addnewbornDeathcauses" value="10"/>10其他-->
                     <select id="ddlLine2" class="easyui-combotree" style="width: 650px; height: 24px;"  name="addnewbornDeathcauses" >
                     </select>
                 </td>
@@ -394,11 +346,6 @@
             <tr>
                 <td>出生缺陷</td>
                 <td colspan="5">
-                    <!--<input type="checkbox" name="addnewbornBirthdefect" value="1"/>1神经管畸形
-                    <input type="checkbox" name="addnewbornBirthdefect" value="2"/>2唇腭裂
-                    <input type="checkbox" name="addnewbornBirthdefect" value="3"/>3先天愚型
-                    <input type="checkbox" name="addnewbornBirthdefect" value="4"/>4肢体畸形
-                    <input type="checkbox" name="addnewbornBirthdefect" value="5"/>5其他-->
                     <select id="ddlLine4" class="easyui-combotree" style="width: 650px; height: 24px;"  name="addnewbornBirthdefect" >
                     </select>
                 </td>
@@ -410,15 +357,6 @@
             <tr>
                 <td>新生儿并发症</td>
                 <td colspan="5">
-                 <!--   <input type="checkbox" name="addnewbornNeonatalcom" value="1"/>1重度窒息
-                    <input type="checkbox" name="addnewbornNeonatalcom" value="2"/>2肺炎
-                    <input type="checkbox" name="addnewbornNeonatalcom" value="3"/>3产伤
-                    <input type="checkbox" name="addnewbornNeonatalcom" value="4"/>4呼吸窘迫综合症
-                    <input type="checkbox" name="addnewbornNeonatalcom" value="5"/>5脐部感染
-                    <input type="checkbox" name="addnewbornNeonatalcom" value="6"/>6硬肿症
-                    <input type="checkbox" name="addnewbornNeonatalcom" value="7"/>7病理性黄疸
-                    <input type="checkbox" name="addnewbornNeonatalcom" value="8"/>8颅内出血
-                    <input type="checkbox" name="addnewbornNeonatalcom" value="9"/>9其他-->
                     <select id="ddlLine6" class="easyui-combotree" style="width: 650px; height: 24px;"  name="addnewbornNeonatalcom" >
                     </select>
                 </td>
@@ -470,11 +408,6 @@
             <tr>
                 <td>体弱原因</td>
                 <td colspan="5">
-                   <!-- <input type="checkbox" name="addnewbornGuidance" value="1">1喂养指导
-                    <input type="checkbox" name="addnewbornGuidance" value="2">2发育指导
-                    <input type="checkbox" name="addnewbornGuidance" value="3">3防病指导
-                    <input type="checkbox" name="addnewbornGuidance" value="4">4预防伤害指导
-                    <input type="checkbox" name="addnewbornGuidance" value="5">5口腔保健指导-->
                     <select id="ddlLine8" class="easyui-combotree" style="width: 650px; height: 24px;"  name="addnewbornGuidance" >
                     </select>
                 </td>
@@ -484,7 +417,7 @@
                 <td>新生儿出院日期</td>
                 <td colspan="2"><input type="text"  class="easyui-datebox" required="required" name="addnewbornDischargeddate"></td>
                 <td>接产医院</td>
-                <td colspan="2"><input type="text" name="addnewbornMidwiferyhosp"></td>
+                <td colspan="2"><input type="text" name="addnewbornMidwiferyhosp" style="border: none;outline: medium;width: 100%;height: 100%"></td>
             </tr>
 
             <tr>
@@ -741,7 +674,7 @@
                 }
                 var ids = '';
                 for(var i=0;i<item.length;i++){
-                    ids += item[i].USER_ID + ',';
+                    ids += item[i].addnewbornId + ',';
                 }
                 $.ajax({
                     url:'delete',
@@ -783,7 +716,7 @@
             $('#edit-dialog').dialog({
                 closed: false,
                 modal: true,
-                title: "修改",
+                title: "修改登记对象",
                 buttons: [{
                     text: '确定',
                     iconCls: 'icon-ok',
@@ -831,7 +764,6 @@
             { field:'recordAdress',title:'联系地址',width:100},
             { field:'userMyphone',title:'联系电话',width:100,sortable:true},
             { field:'recordData',title:'建册日期',width:100,sortable:true}
-           /* { field:'userState',title:'结案状态',width:100,sortable:true}*/
         ]],
         onLoadSuccess:function(data){
             $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
@@ -857,7 +789,7 @@
               $("#Cbd").val(row.userBirthday);
               $("#Crd").val(row.userId);
               $("#Ccard").val(row.recordInputtingcard);
-
+                $("#ULM").dialog('close');
 
                 $('#add-dialog').dialog({
                     closed: false,
@@ -934,14 +866,11 @@
             type:'post',
             data:data,
             success:function(data){
-              /*  alert( document.getElementById("ANd").value);
-                if(data>0){*/
+
                     $.messager.alert('信息提示','添加成功！','info');
                     $('#add-dialog').dialog('close');
-                    $('#add-dialog').treegrid('reload');
-               /* }else{
-                    $.messager.alert('信息提示',data.msg,'warning');
-                }*/
+                $('#data-datagrid').datagrid('reload');
+
 
             }
         });

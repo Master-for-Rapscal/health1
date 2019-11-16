@@ -1,6 +1,6 @@
 package com.aaa.health.controller.mental;
 
-import com.aaa.health.entity.admin.SysUser;
+
 import com.aaa.health.entity.mental.mentalMessage;
 import com.aaa.health.page.admin.Page;
 import com.aaa.health.service.mental.UserListService;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,21 +40,24 @@ public class UserListController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public Object add(mentalMessage mentalMessage) {
-        //  Map<String, String> ret = new HashMap<String, String>();
+
 
         return userListService.add(mentalMessage);
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page,@RequestParam(name = "recordInputtingcard", required = false, defaultValue = "") String recordInputtingcard,
+    public Map<String, Object> getList(Page page, @RequestParam(name = "recordInputtingcard", required = false, defaultValue = "") String recordInputtingcard,
                                        @RequestParam(name = "recordName2", required = false, defaultValue = "") String recordName2,
                                        @RequestParam(name = "recordAdress1", required = false, defaultValue = "") String recordAdress1,
                                        @RequestParam(name = "userMyphone", required = false, defaultValue = "") String userMyphone,
                                        @RequestParam(name = "userBirthday1", required = false, defaultValue = "") String userBirthday1
-                                       ) {
+                                       , HttpServletRequest request) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
+        int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        System.out.println("登录的值是"+areaId);
+        queryMap.put("areaId",areaId);
         queryMap.put("recordName",recordName2);
         queryMap.put("recordAdress",recordAdress1);
         queryMap.put("userMyphone",userMyphone);
@@ -98,9 +102,7 @@ public class UserListController {
 @ResponseBody
 public Object selectById(long followRecordsid){
     System.out.println("ByID:::::::"+userListService.findBymentalMessage(followRecordsid));
-    /*Map<String,Object> map=new HashMap<String,Object>();
-    map.put("aaa",userListService.findBymentalMessage(followRecordsid));
-    return map;*/
+
 
     List list=userListService.findBymentalMessage(followRecordsid);
 

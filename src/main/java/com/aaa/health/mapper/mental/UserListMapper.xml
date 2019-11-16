@@ -35,11 +35,15 @@ values(#{followName},#{followNumber},#{followDate},#{followForm},#{followLoss},
     </insert>
     <!-- 分页获取用户列表 -->
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.mental.mentalMessage">
-       /* select * from userinfo where 1=1
-*/
-        SELECT * from userinfo WHERE recordInputtingcard not in (SELECT  followNumber from followInsanityrecords)
 
+        SELECT * from userinfo,area WHERE recordInputtingcard not in (SELECT  followNumber from followInsanityrecords) and userinfo.recordUnit=area.areaId
 
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and areaId=#{areaId}
+        </if>
         <if test="recordInputtingcard != null and recordInputtingcard != 0">
             and recordInputtingcard LIKE '%${recordInputtingcard}%'
         </if>
@@ -58,11 +62,6 @@ values(#{followName},#{followNumber},#{followDate},#{followForm},#{followLoss},
         <if test="userIdnumber != null and userIdnumber != ''">
             AND userIdnumber LIKE '%${userIdnumber}%'
         </if>
-
-        /*join
-        userPrivy on userPrivy.userId=userinfo.userId where 1 = 1*/
-        /*       select * from userinfo join addnewborn on
-        userinfo.recordInputtingcard=addnewborn.addnewbornCardnum where 1=1*/
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
@@ -89,8 +88,13 @@ followSort=#{followSort},followNextdate=#{followNextdate},followDoctorsign=#{fol
     </update>
 
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*) from userinfo WHERE recordInputtingcard not in (SELECT  followNumber from followInsanityrecords)
-
+        select count(*) from userinfo,area WHERE recordInputtingcard not in (SELECT  followNumber from followInsanityrecords) and  userinfo.recordUnit=area.areaId
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and areaId=#{areaId}
+        </if>
         <if test="recordInputtingcard != null and recordInputtingcard != 0">
             and recordInputtingcard LIKE '%${recordInputtingcard}%'
         </if>
@@ -110,10 +114,7 @@ followSort=#{followSort},followNextdate=#{followNextdate},followDoctorsign=#{fol
         <if test="userIdnumber != null and userIdnumber != ''">
             AND userIdnumber LIKE '%${userIdnumber}%'
         </if>
-        /*join
-        userPrivy on userPrivy.userId=userinfo.userId where 1 = 1*/
-        /*       select * from userinfo join addnewborn on
-        userinfo.recordInputtingcard=addnewborn.addnewbornCardnum where 1=1*/
+
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
@@ -123,5 +124,9 @@ followSort=#{followSort},followNextdate=#{followNextdate},followDoctorsign=#{fol
     <select id="findBymentalMessage" parameterType="long" resultType="com.aaa.health.entity.mental.mentalMessage">
                      select * from followInsanityrecords where followRecordsid=#{followRecordsid}
     </select>
+
+    <delete id="delete" parameterType="String">
+        delete from followInsanityrecords where followRecordsid in(${value})
+    </delete>
 
 </mapper>

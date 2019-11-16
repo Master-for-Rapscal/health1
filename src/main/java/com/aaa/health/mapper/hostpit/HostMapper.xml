@@ -25,4 +25,19 @@ userBlood},#{userFather},#{userNather},#{userBirthdy},#{userSon},#{userHeredity}
         SELECT hc.* from userinfo u join healthcheck hc on u.userId=hc.userinfoid
         where u.recordName=#{recordName} and u.userIdnumber=#{userIdnumber}
     </select>
+
+    <insert id="addUserNPI" parameterType="Map">
+insert into userinfo(
+recordName,recordUnit,
+recordAdress,recordPostalcode,
+recordPlaceadress,recordData,
+recordResident,recordBookbuilding,
+userIdnumber,userMyphone)
+VALUES(
+#{recordName},#{recordUnit},
+#{recordAdress},#{recordPostalcode},
+#{recordPlaceadress},#{recordData},
+#{recordResident},#{recordBookbuilding},
+#{userIdnumber},#{userMyphone})
+    </insert>
 </mapper>

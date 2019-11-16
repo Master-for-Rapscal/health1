@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,9 +47,13 @@ public class ChildHealthCheckController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page,@RequestParam(name = "recordName", required = false, defaultValue = "") String recordName) {
+    public Map<String, Object> getList(Page page, @RequestParam(name = "recordName", required = false, defaultValue = "") String recordName
+            , HttpServletRequest request) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
+        int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        System.out.println("登录的值是"+areaId);
+        queryMap.put("areaId",areaId);
         queryMap.put("recordName",recordName);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());

@@ -14,16 +14,9 @@
 
 
 
-       <!-- 条件搜索
-        <div class="wu-toolbar-search">
-            <label>用户名:</label><input id="search-name" class="wu-text" style="width:100px">
-            <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
-        </div>-->
+
         <!--条件搜索-->
         <div class="wu-toolbar-search">
-            <!-- <label>用户名:</label><input id="search-name" class="wu-text" style="width:100px">
-             <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>-->
-            <!--  <label> 个人编号:</label><input name="recordInputtingcard"/>-->
             <label> 姓名:</label><input name="recordName"/>
             <a href="#" id="userSearch" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
         </div>
@@ -40,9 +33,6 @@
 
 <div id="ULM" style="width: 670px;height: 500px">
     <div class="wu-toolbar-search">
-        <!-- <label>用户名:</label><input id="search-name" class="wu-text" style="width:100px">
-         <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>-->
-        <!--  <label> 个人编号:</label><input name="recordInputtingcard"/>-->
         <label> 姓名:</label><input name="recordName2"/>
         <label> 住址:</label><input name="recordAdress1"/>
         <label> 出生日期:</label><input name="userBirthday1"/>
@@ -51,106 +41,6 @@
     <table id="data-datagrid1" class="easyui-datagrid"></table>
 </div>
 
-<!--&lt;!&ndash; Begin of easyui-dialog &ndash;&gt;-->
-<!--<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:420px; padding:10px;">-->
-    <!--<form id="add-form" method="post">-->
-        <!--<table>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">头像预览:</td>-->
-                <!--<td valign="middle">-->
-                    <!--<img id="preview-photo" style="float:left;" src="/admin/easyui/images/user_photo.jpg" width="100px">-->
-                    <!--<a style="float:left;margin-top:40px;" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-upload" onclick="uploadPhoto()" plain="true">上传图片</a>-->
-                <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">头像:</td>-->
-                <!--<td><input type="text" id="add-photo" name="photo" value="/admin/easyui/images/user_photo.jpg" readonly="readonly" class="wu-text " /></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">用户名:</td>-->
-                <!--<td><input type="text" name="username" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写用户名'" /></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">密码:</td>-->
-                <!--<td><input type="password" name="password" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写密码'" /></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">所属角色:</td>-->
-                <!--<td>-->
-                    <!--<select name="roleId" class="easyui-combobox" panelHeight="auto" style="width:268px" data-options="required:true, missingMessage:'请选择角色'">-->
-
-                    <!--</select>-->
-                <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">性别:</td>-->
-                <!--<td>-->
-                    <!--<select name="sex" class="easyui-combobox" panelHeight="auto" style="width:268px">-->
-                        <!--<option value="0">未知</option>-->
-                        <!--<option value="1">男</option>-->
-                        <!--<option value="2">女</option>-->
-                    <!--</select>-->
-                <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">年龄:</td>-->
-                <!--<td><input type="text" name="age" class="wu-text easyui-numberbox easyui-validatebox" data-options="required:true,min:1,precision:0, missingMessage:'请填写年龄'" /></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">地址:</td>-->
-                <!--<td><input type="text" name="address" class="wu-text easyui-validatebox" /></td>-->
-            <!--</tr>-->
-        <!--</table>-->
-    <!--</form>-->
-<!--</div>-->
-<!--&lt;!&ndash; 修改窗口 &ndash;&gt;-->
-<!--<div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:450px; padding:10px;">-->
-    <!--<form id="edit-form" method="post">-->
-        <!--<input type="hidden" name="id" id="edit-id">-->
-        <!--<table>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">头像预览:</td>-->
-                <!--<td valign="middle">-->
-                    <!--<img id="edit-preview-photo" style="float:left;" src="/admin/easyui/images/user_photo.jpg" width="100px">-->
-                    <!--<a style="float:left;margin-top:40px;" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-upload" onclick="uploadPhoto()" plain="true">上传图片</a>-->
-                <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">头像:</td>-->
-                <!--<td><input type="text" id="edit-photo" name="photo" value="/BaseProjectSSM/resources/admin/easyui/images/user_photo.jpg" readonly="readonly" class="wu-text " /></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">用户名:</td>-->
-                <!--<td><input type="text" id="edit-username" name="username" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写用户名'" /></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">所属角色:</td>-->
-                <!--<td>-->
-                    <!--<select id="edit-roleId" name="roleId" class="easyui-combobox" panelHeight="auto" style="width:268px" data-options="required:true, missingMessage:'请选择角色'">-->
-                    <!--</select>-->
-                <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">性别:</td>-->
-                <!--<td>-->
-                    <!--<select id="edit-sex" name="sex" class="easyui-combobox" panelHeight="auto" style="width:268px">-->
-                        <!--<option value="0">未知</option>-->
-                        <!--<option value="1">男</option>-->
-                        <!--<option value="2">女</option>-->
-                    <!--</select>-->
-                <!--</td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">年龄:</td>-->
-                <!--<td><input type="text" id="edit-age" name="age" value="1" class="wu-text easyui-numberbox easyui-validatebox" data-options="required:true,min:1,precision:0, missingMessage:'请填写年龄'" /></td>-->
-            <!--</tr>-->
-            <!--<tr>-->
-                <!--<td width="60" align="right">地址:</td>-->
-                <!--<td><input type="text" id="edit-address" name="address" class="wu-text easyui-validatebox" /></td>-->
-            <!--</tr>-->
-        <!--</table>-->
-    <!--</form>-->
-<!--</div>-->
 
 
 <!--修改-->
@@ -158,32 +48,19 @@
         border:1px solid black;">
     <form id="edit-form" method="post">
 <table id="AAA" style="width: 800px;height: 500px;" border="1px">
-        <th colspan="7">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名<input name="followName"  type="text" id="Uname" readonly="readonly" style="border: none;outline: medium;"/>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <th colspan="7" align="left">
 
+        姓名<input name="followName"  type="text" id="Uname" readonly="readonly" style="border: none;outline: medium;"/>
             编号<input type="text" id="Unum" name="followNumber" readonly="readonly" style="border: none;outline: medium;"/></th>
-        <!--<tr><td>姓名</td><td id="name"></td><td></td><td></td><td>编号</td><td id="number"></td></tr>-->
-        <tr><td>随访日期</td><td colspan="6"><input  type="text" name="followDate"  class="easyui-datebox" required="required" id="Udate" /></td></tr>
-        <tr><td>本次随访形式</td><td colspan="6">
+
+        <tr><td colspan="2">随访日期</td><td colspan="5"><input  type="text" name="followDate"  class="easyui-datebox" required="required" id="Udate" /></td></tr>
+        <tr><td align="2">本次随访形式</td><td colspan="5">
             <input type="radio" name="followForm" value="1">1门诊
             <input type="radio" name="followForm" value="2">2家庭访视
             <input type="radio" name="followForm" value="3">3电话
         </tr>
 
-        <tr><td>若失访,原因</td><td colspan="6">
+        <tr><td align="2">若失访,原因</td><td colspan="5">
             <input type="radio" name="followLoss" value="1">外出打工
             <input type="radio" name="followLoss" value="2">迁居他处
             <input type="radio" name="followLoss" value="3">走失
@@ -213,7 +90,7 @@
 
         </td></tr>
 
-        <tr><td>危险性评估</td><td colspan="6">
+        <tr><td colspan="2">危险性评估</td><td colspan="5">
             <input type="radio" name="followAssess" value="1">0(0级)
             <input type="radio" name="followAssess" value="2">1(1级)
             <input type="radio" name="followAssess" value="3">2(2级)
@@ -222,21 +99,8 @@
             <input type="radio" name="followAssess" value="6">5(5级)
         </td></tr>
 
-        <tr><td>目前症状</td><td colspan="6">
-           <!-- <input name="followCusym" type="checkbox" value="1"/>1幻觉
-            <input name="followCusym"  type="checkbox" value="2"  />2交流困难
-            <input name="followCusym" type="checkbox" value="3"  />3猜疑
-            <input name="followCusym" type="checkbox" value="4"  />4喜怒无常
-            <input name="followCusym" type="checkbox" value="5" />5行为怪异
-            <input name="followCusym" type="checkbox" value="6" />6兴奋话多
-            <input name="followCusym" type="checkbox" value="7" />7伤人毁物
-            <input name="followCusym" type="checkbox" value="8"  />8悲观厌世
-            <input name="followCusym" type="checkbox" value="9" />9无故外走
-            <input name="followCusym" type="checkbox" value="10"  />10自笑自语
-            <input name="followCusym" type="checkbox" value="11"  />11孤僻懒散
-            <input name="followCusym" type="checkbox" value="12"  />12其他
--->
-            <select id="ddlLine2" class="easyui-combotree" style="width: 650px; height: 24px;"  name="followCusym" >
+        <tr><td colspan="2">目前症状</td><td colspan="5">
+            <select id="ddlLine2" class="easyui-combotree" style="width: 600px; height: 24px;"  name="followCusym" >
             </select>
         </td></tr>
 
@@ -245,12 +109,12 @@
             <input type="radio" name="followInsight" value="2">自知力不全
             <input type="radio" name="followInsight" value="3">自知力缺失
         </td></tr>
-        <tr><td>睡眠情况</td><td colspan="6">
+        <tr><td colspan="2">睡眠情况</td><td colspan="5">
             <input type="radio" name="followSleep" value="1">良好
             <input type="radio" name="followSleep" value="2">一般
             <input type="radio" name="followSleep" value="3">较差
         </td></tr>
-        <tr><td>饮食情况</td><td colspan="6">
+        <tr><td colspan="2">饮食情况</td><td colspan="5">
             <input type="radio" name="followDiet" value="1">良好
             <input type="radio" name="followDiet" value="2">一般
             <input type="radio" name="followDiet" value="3">较差
@@ -299,26 +163,27 @@
             <td colspan="6"><input type="checkbox">无</td>
         </tr>
 
-        <tr><td>两次随访期间关锁情况</td><td colspan="6">
+        <tr><td colspan="2">两次随访期间关锁情况</td><td colspan="5">
             <input type="radio" name="followLockcase" value="1">1无关锁
             <input type="radio" name="followLockcase" value="2">2关锁
             <input type="radio" name="followLockcase" value="3">3关锁已解除
         </td></tr>
 
-        <tr><td>两次随访期间住院情况</td><td>
+        <tr><td colspan="2">两次随访期间住院情况</td><td colspan="3">
             <input type="radio" name="followHospital" value="1">1从未住院
             <input type="radio" name="followHospital" value="2">2目前正在住院
             <input type="radio" name="followHospital" value="3">3既往住院
         </td>
-            <td>末次出院时间</td><td colspan="4"><input type="text"  class="easyui-datebox" required="required" name="followOuthospital"> </td>
+            <td>末次出院时间</td><td><input type="text"  class="easyui-datebox" required="required" name="followOuthospital"> </td>
         </tr>
 
-        <tr><td>实验室检查</td><td colspan="6">
+
+        <tr><td colspan="2">实验室检查</td><td colspan="5">
             <input type="radio" name="followLabcheck" value="1">1无
             <input type="radio" name="followLabcheck" value="2">2有
         </td></tr>
 
-        <tr><td>用药依从性</td><td colspan="6">
+        <tr><td colspan="2">用药依从性</td><td colspan="5">
             <input type="radio" name="followPharmacy" value="1">1按医嘱规律服药
             <input type="radio" name="followPharmacy" value="2">2间断服药
             <input type="radio" name="followPharmacy" value="3">3不服药
@@ -327,7 +192,7 @@
         </tr>
 
 
-        <tr><td>药物不良反应</td><td colspan="6">
+        <tr><td colspan="2">药物不良反应</td><td colspan="5">
             <input type="radio" name="followDrugeffect" value="1">1无
             <input type="radio" name="followDrugeffect" value="2">2有
             <input type="radio" name="followDrugeffect" value="3">3此项不适用
@@ -335,7 +200,7 @@
         </tr>
 
 
-        <tr><td>治疗效果</td><td colspan="6">
+        <tr><td colspan="2">治疗效果</td><td colspan="5">
             <input type="radio" name="followTreatres" value="1">1痊愈
             <input type="radio" name="followTreatres" value="2">2好转
             <input type="radio" name="followTreatres" value="3">3无变化
@@ -361,31 +226,31 @@
             <td colspan="3"><input type="text" name="followDose" id="MUdose" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox"></td>
         </tr>
 
-        <tr><td>用药指导</td><td colspan="6"><textarea name="followDirect" cols="" rows="" id="UMdir" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox"></textarea></td></tr>
+        <tr><td colspan="2">用药指导</td><td colspan="5">
+            <input type="text"  name="followDirect" style="border: none;outline: medium;width: 100%;height: 100%"/>
+        </td></tr>
 
-        <tr><td>康复措施</td><td colspan="6">
-          <!--  <input name="followRecover" type="checkbox" value="1" />1生活劳动能力
-            <input name="followRecover" type="checkbox" value="2" />2职业训练
-            <input name="followRecover" type="checkbox" value="3" />3学习能力
-            <input name="followRecover" type="checkbox" value="4" />4社会交往-->
-            <select id="ddlLine4" class="easyui-combotree" style="width: 650px; height: 24px;"  name="followRecover" >
+        <tr><td colspan="2">康复措施</td><td colspan="5">
+            <select id="ddlLine4" class="easyui-combotree" style="width: 600px; height: 24px;"  name="followRecover" >
             </select>
         </td></tr>
 
-        <tr><td>本次随访分类</td>
-            <td colspan="6">
+        <tr><td colspan="2">本次随访分类</td>
+            <td colspan="5">
                 <input type="radio" name="followSort" value="1">1不稳定
                 <input type="radio" name="followSort" value="2">2基本稳定
                 <input type="radio" name="followSort" value="3">3稳定
             </td>
         </tr>
 
-        <tr><td>下次随访日期</td><td><input type="text"  class="easyui-datebox" required="required" id="UNd" name="followNextdate"/></td>
-            <td>随访医生签名</td><td colspan="4"><!--<input type="text" name="followDoctorsign" id="Udoctor"/>-->
-                <select name="followDoctorsign" style="border: none;outline: medium;width: 100%;height: 100%">
+        <tr><td colspan="2">下次随访日期</td><td><input type="text"  class="easyui-datebox" required="required" id="UNd" name="followNextdate"/></td>
+            <td>随访医生签名</td><td colspan="3">
+                <!--<select name="followDoctorsign" style="border: none;outline: medium;width: 100%;height: 100%;appearance:none; -moz-appearance:none;-webkit-appearance:none;">
                     <option value="左冬恩">左冬恩</option>
                     <option value="齐建科">齐建科</option>
                     <option value="孟民学">孟民学</option>
+                </select>-->
+                <select type="text"  style="border: none;outline: medium;width: 150px;appearance:none; -moz-appearance:none;-webkit-appearance:none;"  class="easyui-combobox easyui-validatebox" data-options="required:true, missingMessage:'请填写姓名'"  name="followDoctorsign" id="healthcheckDoctor">
                 </select>
             </td>
         </tr>
@@ -416,31 +281,19 @@
         <form id="add-form" method="post">
 <table id="AM1" style="width: 800px;height: 500px;border-collapse:collapse;
         border:1px solid black;" border="1px">
-    <th colspan="7">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名&nbsp;&nbsp;&nbsp;<input name="followName" type="text" id="Aname" readonly="readonly"  style="border: none;outline: medium;"/>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <th colspan="7"  align="left">
+
+        姓名<input name="followName" type="text" id="Aname" readonly="readonly"  style="border: none;outline: medium;"/>
+
         编号&nbsp;&nbsp;&nbsp;<input type="text" id="Anum" name="followNumber" readonly="readonly" style="border: none;outline: medium;"/></th>
-    <!--<tr><td>姓名</td><td id="name"></td><td></td><td></td><td>编号</td><td id="number"></td></tr>-->
     <tr><td>随访日期</td><td colspan="6"><input type="text" readonly="readonly" name="followDate" id="Adate"  style="border: none;outline: medium;width: 100%;height: 100%"/></td></tr>
-    <tr><td>本次随访形式</td><td colspan="6">
+    <tr><td colspan="2">本次随访形式</td><td colspan="5">
         <input type="radio" name="followForm" value="1">1门诊
         <input type="radio" name="followForm" value="2">2家庭访视
         <input type="radio" name="followForm" value="3">3电话
     </tr>
 
-    <tr><td>若失访,原因</td><td colspan="6">
+    <tr><td  colspan="2">若失访,原因</td><td colspan="5">
         <input type="radio" name="followLoss" value="1">外出打工
         <input type="radio" name="followLoss" value="2">迁居他处
         <input type="radio" name="followLoss" value="3">走失
@@ -449,7 +302,7 @@
     </tr>
 
     <tr><td rowspan="4">如死亡日期和原因</td></tr>
-    <tr><td>死亡时间</td><td colspan="6"><input type="text"  class="easyui-datebox" required="required" name="followDietime"></td></tr>
+    <tr><td>死亡时间</td><td colspan="6"><input type="text"  disabled="disabled" name="followDietime"></td></tr>
     <tr><td>死亡原因</td><td colspan="6">
         <input type="radio" name="followDiereason" value="1">躯体疾病
         <input type="radio" name="followDiereason" value="2">自杀
@@ -470,7 +323,7 @@
 
     </td></tr>
 
-    <tr><td>危险性评估</td><td colspan="6">
+    <tr><td colspan="2">危险性评估</td><td colspan="5">
         <input type="radio" name="followAssess" value="1">0(0级)
         <input type="radio" name="followAssess" value="2">1(1级)
         <input type="radio" name="followAssess" value="3">2(2级)
@@ -479,20 +332,7 @@
         <input type="radio" name="followAssess" value="6">5(5级)
     </td></tr>
 
-    <tr><td>目前症状</td><td colspan="6">
-      <!--  <input name="followCusym" type="checkbox" value="1"  onclick="checkItem1(this)"/>1幻觉
-        <input name="followCusym"  type="checkbox" value="2"  />2交流困难
-        <input name="followCusym" type="checkbox" value="3"  />3猜疑
-        <input name="followCusym" type="checkbox" value="4"  />4喜怒无常
-        <input name="followCusym" type="checkbox" value="5" />5行为怪异
-        <input name="followCusym" type="checkbox" value="6" />6兴奋话多
-        <input name="followCusym" type="checkbox" value="7" />7伤人毁物
-        <input name="followCusym" type="checkbox" value="8"  />8悲观厌世
-        <input name="followCusym" type="checkbox" value="9" />9无故外走
-        <input name="followCusym" type="checkbox" value="10"  />10自笑自语
-        <input name="followCusym" type="checkbox" value="11"  />11孤僻懒散
-        <input name="followCusym" type="checkbox" value="12"  />12其他
--->
+    <tr><td colspan="2">目前症状</td><td colspan="5">
         <select id="ddlLine1" class="easyui-combotree" style="width: 650px; height: 24px;"  name="followCusym" >
         </select>
     </td></tr>
@@ -556,26 +396,26 @@
         <td colspan="6"><input type="checkbox">无</td>
     </tr>
 
-    <tr><td>两次随访期间关锁情况</td><td colspan="6">
+    <tr><td colspan="2">两次随访期间关锁情况</td><td colspan="5">
         <input type="radio" name="followLockcase" value="1">1无关锁
         <input type="radio" name="followLockcase" value="2">2关锁
         <input type="radio" name="followLockcase" value="3">3关锁已解除
     </td></tr>
 
-    <tr><td>两次随访期间住院情况</td><td>
+    <tr><td colspan="3">两次随访期间住院情况</td><td colspan="2">
         <input type="radio" name="followHospital" value="1">1从未住院
         <input type="radio" name="followHospital" value="2">2目前正在住院
         <input type="radio" name="followHospital" value="3">3既往住院
     </td>
-        <td>末次出院时间</td><td colspan="4"><input type="text"  class="easyui-datebox" required="required" name="followOuthospital"> </td>
+        <td>末次出院时间</td><td><input type="text"  class="easyui-datebox" required="required" name="followOuthospital"> </td>
     </tr>
 
-    <tr><td>实验室检查</td><td colspan="6">
+    <tr><td colspan="2">实验室检查</td><td colspan="5">
         <input type="radio" name="followLabcheck" value="1">1无
         <input type="radio" name="followLabcheck" value="2">2有
     </td></tr>
 
-    <tr><td>用药依从性</td><td colspan="6">
+    <tr><td colspan="2">用药依从性</td><td colspan="5">
         <input type="radio" name="followPharmacy" value="1">1按医嘱规律服药
         <input type="radio" name="followPharmacy" value="2">2间断服药
         <input type="radio" name="followPharmacy" value="3">3不服药
@@ -584,7 +424,7 @@
     </tr>
 
 
-    <tr><td>药物不良反应</td><td colspan="6">
+    <tr><td colspan="2">药物不良反应</td><td colspan="5">
         <input type="radio" name="followDrugeffect" value="1">1无
         <input type="radio" name="followDrugeffect" value="2">2有
         <input type="radio" name="followDrugeffect" value="3">3此项不适用
@@ -592,7 +432,7 @@
     </tr>
 
 
-    <tr><td>治疗效果</td><td colspan="6">
+    <tr><td colspan="2">治疗效果</td><td colspan="5">
         <input type="radio" name="followTreatres" value="1">1痊愈
         <input type="radio" name="followTreatres" value="2">2好转
         <input type="radio" name="followTreatres" value="3">3无变化
@@ -600,13 +440,13 @@
     </td>
     </tr>
 
-    <tr><td>是否转诊</td><td>
+    <tr><td colspan="2">是否转诊</td><td>
         <input type="radio" name="followTransfer" value="1">1否
         <input type="radio" name="followTransfer" value="2">2是
 
     </td>
         <td>转诊原因</td><td><input type="text" name="followTrareason" style="border: none;outline: medium;width: 100%;height: 100%"></td>
-        <td>转诊至机构及科室</td><td colspan="2"><input type="text" name="followTraorgan" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox"></td>
+        <td>转诊至机构及科室</td><td><input type="text" name="followTraorgan" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox"></td>
     </tr>
 
     <tr><td rowspan="3">用药情况</td>
@@ -618,35 +458,36 @@
         <td colspan="3"><input type="text" name="followDose" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox"></td>
     </tr>
 
-    <tr><td>用药指导</td><td colspan="6"><textarea name="followDirect" cols="" rows="" style="border: none;outline: medium;width: 100%;height: 100%"></textarea></td></tr>
+    <tr><td colspan="2">用药指导</td>
+        <td colspan="5">
+            <input type="text" name="followDirect"  style="border: none;outline: medium;width: 100%;height: 100%"/>
+        </td></tr>
 
-    <tr><td>康复措施</td><td colspan="6">
-       <!-- <input name="followRecover" type="checkbox" value="1" onclick="checkItem1(this)"/>1生活劳动能力
-        <input name="followRecover" type="checkbox" value="2" />2职业训练
-        <input name="followRecover" type="checkbox" value="3" />3学习能力
-        <input name="followRecover" type="checkbox" value="4" />4社会交往-->
+    <tr><td colspan="2">康复措施</td><td colspan="5">
         <select id="ddlLine3" class="easyui-combotree" style="width: 650px; height: 24px;"  name="followRecover" >
         </select>
     </td></tr>
 
-    <tr><td>本次随访分类</td>
-        <td colspan="6">
+    <tr><td colspan="2">本次随访分类</td>
+        <td colspan="5">
             <input type="radio" name="followSort" value="1">1不稳定
             <input type="radio" name="followSort" value="2">2基本稳定
             <input type="radio" name="followSort" value="3">3稳定
         </td>
     </tr>
 
-    <tr><td>下次随访日期</td><td><input type="text"  readonly="readonly" id="ANd" name="followNextdate"  style="border: none;outline: medium;width: 100%;height: 100%"/></td>
-        <td>随访医生签名</td><td colspan="4"><!--<input type="text" name="followDoctorsign" id="Adoctor"/>-->
-            <select name="followDoctorsign" style="border: none;outline: medium;width: 100%;height: 100%">
+    <tr><td colspan="2">下次随访日期</td><td><input type="text"  readonly="readonly" id="ANd" name="followNextdate"  style="border: none;outline: medium;width: 100%;height: 100%"/></td>
+        <td colspan="2">随访医生签名</td><td colspan="2"><!--<input type="text" name="followDoctorsign" id="Adoctor"/>-->
+            <!--<select name="followDoctorsign" style="border: none;outline: medium;width: 100%;height: 100%;appearance:none; -moz-appearance:none;-webkit-appearance:none;">
                 <option value="左冬恩">左冬恩</option>
                 <option value="齐建科">齐建科</option>
                 <option value="孟民学">孟民学</option>
+            </select>-->
+            <select type="text"  style="border: none;width: 150px;outline: medium;appearance:none; -moz-appearance:none;-webkit-appearance:none;"  class="easyui-combobox easyui-validatebox" data-options="required:true, missingMessage:'请填写姓名'"  name="followDoctorsign" id="healthcheckDoctor1">
             </select>
         </td>
     </tr>
-   <!-- <tr><td colspan="7"><input type="button"  onclick="add()" value="保存" name="followDoctorsign" style="align:left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="取消"></td></tr>-->
+   
 </table>
 
 
@@ -880,7 +721,20 @@
                         });
                     }
                 });
-
+                        $.ajax({
+                            type: "post",
+                            url: "../OldpeoZhongYi/queryDoctor2",
+                            dataType: "json",
+                            success: function (date) {
+                                $("#healthcheckDoctor1").combobox({
+                                    mode: 'remote',
+                                    url: '../OldpeoZhongYi/queryDoctor2',
+                                    valueField: 'id',
+                                    textField: 'lastname',
+                                    delay: 100
+                                });
+                            }
+                        });
 
                     },
 
@@ -1028,8 +882,22 @@ function openAdd(){
                     h1+=1;
 
                     document.getElementById("ANd").value = h1+'-'+m1+'-'+s1;
-                }
 
+                }
+                $.ajax({
+                    type: "post",
+                    url: "../OldpeoZhongYi/queryDoctor2",
+                    dataType: "json",
+                    success: function (date) {
+                        $("#healthcheckDoctor").combobox({
+                            mode: 'remote',
+                            url: '../OldpeoZhongYi/queryDoctor2',
+                            valueField: 'id',
+                            textField: 'lastname',
+                            delay: 100
+                        });
+                    }
+                });
 
 
             },

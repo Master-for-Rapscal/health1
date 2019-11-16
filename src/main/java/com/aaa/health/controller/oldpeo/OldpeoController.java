@@ -162,6 +162,7 @@ public class OldpeoController {
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
         System.out.println("登录的用户值是"+areaId);
         queryMap.put("areaId",areaId);
+
         return oldPeopleService.queryDoctor(queryMap);
     }
 

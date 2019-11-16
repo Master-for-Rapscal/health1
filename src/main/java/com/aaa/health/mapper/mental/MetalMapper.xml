@@ -10,9 +10,15 @@
 
     <!-- 分页获取用户列表 -->
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.mental.mentalMessage">
-       /* select * from userinfo u join psychosisManagement p on u.recordInputtingcard=p.psychosisNumber where 1 = 1*/
-        select * from userinfo u join followInsanityrecords f on u.recordInputtingcard=f.followNumber where 1=1
 
+        select * from userinfo u join followInsanityrecords f on u.recordInputtingcard=f.followNumber
+        join area on u.recordUnit=area.areaId
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and areaId=#{areaId}
+        </if>
         <if test="recordName != null and recordName != ''">
             AND recordName LIKE '%${recordName}%'
         </if>
@@ -24,8 +30,15 @@
 
 
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*) from userinfo u join followInsanityrecords f on u.recordInputtingcard=f.followNumber where 1 = 1
+        select count(*) from userinfo u join followInsanityrecords f on u.recordInputtingcard=f.followNumber
+        join area on u.recordUnit=area.areaId
 
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and areaId=#{areaId}
+        </if>
         <if test="recordName != null and recordName != ''">
             AND recordName LIKE '%${recordName}%'
         </if>

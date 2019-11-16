@@ -12,4 +12,5 @@ public interface OutComeService {
     int add(OutCome outCome);
     int update(OutCome outCome);
     int delete(String ids);
+
 }

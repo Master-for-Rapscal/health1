@@ -126,6 +126,7 @@ public class OldpeoZhongYiController {
     @RequestMapping("/queryDoctor")
     @ResponseBody
     public Object queryDoctor(){
+
         return oldtcmService.queryDoctor();
     }
 

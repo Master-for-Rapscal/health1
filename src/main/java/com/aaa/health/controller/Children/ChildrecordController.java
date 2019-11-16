@@ -1,10 +1,10 @@
 package com.aaa.health.controller.Children;
 
 import com.aaa.health.entity.Children.Childinsrecord;
-import com.aaa.health.page.admin.Page;
+
 
 import com.aaa.health.service.Children.ChildinsercordService;
-import org.apache.commons.lang.StringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sun.rmi.transport.ObjectTable;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 /**
  * 健康检查记录
@@ -90,7 +90,7 @@ public class ChildrecordController {
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
     public Object edit(Childinsrecord childinsrecord) {
-     //   System.out.println("修改成功==========================="+childinsrecord);
+
 
         return childinsercordService.edit(childinsrecord);
     }
@@ -105,8 +105,7 @@ public class ChildrecordController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public Object add(Childinsrecord childinsrecord) {
-        //  Map<String, String> ret = new HashMap<String, String>();
-      //  System.out.println("childinsrecord" + childinsrecord);
+
 
         return childinsercordService.add(childinsrecord);
     }

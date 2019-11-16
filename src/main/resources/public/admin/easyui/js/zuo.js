@@ -29,17 +29,7 @@ function checkPhone(phone) {
 //出生日期码校验
 function checkUserDate(val) {
 
-    var num=1;
-    $.ajax({
-        type : "post",
-        url : "out/queryIDnumberTotal",
-        data : "userIdnumber="+val,
-        dataType : "text",
-        success : function (data) {
-            console.log("查询身份证的条数"+data);
-            num=data;
-        }
-    });
+
 
     // alert(val);
     var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
@@ -48,10 +38,23 @@ function checkUserDate(val) {
         $.messager.alert('信息提示','身份证输入不合法！','info');
         return;
     }
-    if(num != 0){
-        $.messager.alert('信息提示','该身份证号已经被绑定！','info');
-        return;
-    }
+
+    $.ajax({
+        type : "post",
+        async: false,
+        url : "../../out/queryIDnumberTotal",
+        data : "userIdnumber="+val,
+        dataType : "json",
+        success : function (data) {
+            if( data == false ){
+                console.log("进入判断"+data);
+                $.messager.alert('信息提示','该身份证号已经被绑定！','info');
+                return;
+            }
+        }
+    });
+
+
     var val = val.substring(6, 14);
     var pattern = /^(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)$/;
     // alert(val);

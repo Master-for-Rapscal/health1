@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,12 +41,16 @@ public class ChildInfoController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page,@RequestParam(name = "recordInputtingcard", required = false, defaultValue = "") String recordInputtingcard,
+    public Map<String, Object> getList(Page page, @RequestParam(name = "recordInputtingcard", required = false, defaultValue = "") String recordInputtingcard,
                                        @RequestParam(name = "recordName", required = false, defaultValue = "") String recordName,
                                        @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
-                                       @RequestParam(name = "userMyphone", required = false, defaultValue = "") String userMyphone) {
+                                       @RequestParam(name = "userMyphone", required = false, defaultValue = "") String userMyphone
+    ,HttpServletRequest request) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
+        int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        System.out.println("登录的值是"+areaId);
+        queryMap.put("areaId",areaId);
         queryMap.put("recordInputtingcard",recordInputtingcard);
         queryMap.put("recordName",recordName);
         queryMap.put("recordAdress",userAdress);
