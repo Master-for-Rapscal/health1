@@ -60,7 +60,7 @@
 <div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-savwqqe'"
      style="width:300px; padding:10px; margin: auto">
     <form id="edit-form" method="post">
-        <input type="hidden" name="oldpeoId" id="oldpeoId">
+  <!--      <input type="hidden" name="oldpeoId" id="oldpeoId">-->
         <table>
             <tr>
                 <td>是否结案：</td>
@@ -757,39 +757,8 @@
     /**
      * 打开修改窗口
      */
-    function update() {
 
-
-
-
-        var validate = $("#edit-form").form("validate");
-        if (!validate) {
-            return;
-        }
-        var date = $("#edit-form").serialize();
-        $.ajax({
-            url: 'update',
-            dataType: 'json',
-            type: 'post',
-            data: date,
-            success: function (data) {
-                if (data > 0) {
-                    $.messager.alert('信息提示', '修改成功！', 'info');
-                    $('#edit-dialog').dialog('close');
-                    $('#data-datagrid').datagrid('reload');
-                    $("#sele").datagrid('getSelections').length = 0;
-                    $("#data-datagrid").datagrid('getSelections').length = 0;
-                    $("#add-dialog").datagrid('getSelections').length = 0;
-                } else {
-                    $.messager.alert('信息提示', data.msg, 'warning');
-                    $("#sele").datagrid('getSelections').length = 0;
-                    $("#data-datagrid").datagrid('getSelections').length = 0;
-                    $("#add-dialog").datagrid('getSelections').length = 0;
-                }
-            }
-        });
-    }
-
+var jiean;
     function openEdit() {
         var item = $('#data-datagrid').datagrid('getSelections');
 
@@ -818,8 +787,7 @@
                     $('#edit-dialog').dialog('close');
                 }
             }], onBeforeOpen: function () {
-                $("#oldpeoId").val(item.oldpeoId);
-
+               jiean= item.oldpeoId;
                 $("#oldcloseDate").val(item.oldcloseDate);
                 $("#oldpeoMstate").val(item.oldpeoMstate);
                 $("#oldcloseRea").val(item.oldcloseRea);
@@ -827,7 +795,35 @@
             }
         });
     }
+    function update() {
 
+        var validate = $("#edit-form").form("validate");
+        if (!validate) {
+            return;
+        }
+        var date = $("#edit-form").serialize();
+        $.ajax({
+            url: 'update',
+            dataType: 'json',
+            type: 'post',
+            data: "oldpeoId=" + jiean + "&" +date,
+            success: function (data) {
+                if (data > 0) {
+                    $.messager.alert('信息提示', '结案成功！', 'info');
+                    $('#edit-dialog').dialog('close');
+                    $('#data-datagrid').datagrid('reload');
+                    $("#sele").datagrid('getSelections').length = 0;
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
+                } else {
+                    $.messager.alert('信息提示', data.msg, 'warning');
+                    $("#sele").datagrid('getSelections').length = 0;
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
+                }
+            }
+        });
+    }
 
     //搜索按钮监听
     $("#search-btn").click(function () {

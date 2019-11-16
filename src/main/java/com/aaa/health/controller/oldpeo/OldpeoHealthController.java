@@ -5,6 +5,7 @@ package com.aaa.health.controller.oldpeo;
 import com.aaa.health.entity.zzh.Healthcheck;
 import com.aaa.health.page.admin.Page;
 import com.aaa.health.service.oldpeo.OldpeoHeaService;
+import com.aaa.health.service.oldpeo.OldtcmService;
 import com.aaa.health.service.zzh.UserinfoService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -30,15 +32,19 @@ public class OldpeoHealthController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
-
+    @Autowired
+    private OldtcmService oldtcmService;
     @Autowired
     public UserinfoService userinfoService;
     @Autowired
     public OldpeoHeaService oldpeoHeaService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
-
+    public String list(Model model, HttpServletRequest request) {
+        int areaId2= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        Map<String, Object> queryMap = new HashMap<String, Object>();
+        queryMap.put("areaId",areaId2);
+        model.addAttribute("doctor",oldtcmService.queryDoctor2(queryMap));
         return "oldpeohealth/list";
     }
 

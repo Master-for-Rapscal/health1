@@ -3,6 +3,7 @@ package com.aaa.health.controller.othslow;
 import com.aaa.health.entity.zzh.Healthcheck;
 import com.aaa.health.page.admin.Page;
 import com.aaa.health.service.oldpeo.OldpeoHeaService;
+import com.aaa.health.service.oldpeo.OldtcmService;
 import com.aaa.health.service.othslow.OthMECService;
 import com.aaa.health.service.othslow.OthSlowService;
 import org.apache.commons.lang.StringUtils;
@@ -28,18 +29,25 @@ public class OthSlowMECController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
     @Autowired
+    private OldtcmService oldtcmService;
+    @Autowired
     private OthMECService othMECService;
 /*    @Autowired
     public OthMECService oldpeoHeaService;*/
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String zili(){
+    public String zili(Model model, HttpServletRequest request){
+
+        int areaId2= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        Map<String, Object> queryMap = new HashMap<String, Object>();
+        queryMap.put("areaId",areaId2);
+        model.addAttribute("doctor",oldtcmService.queryDoctor2(queryMap));
         return "othslowMEC/list";
     }
 
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page,
+    public Map<String, Object> getList(Model model,Page page,
                                        @RequestParam(name = "bianhao", required = false, defaultValue = "") Integer bianhao,
                                        @RequestParam(name = "ming", required = false, defaultValue = "") String ming,
                                        @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
@@ -49,7 +57,9 @@ public class OthSlowMECController {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-        System.out.println("登录的用户值是"+areaId);
+  /*      System.out.println("登录的用户值是"+areaId);*/
+ /*       queryMap.put("areaId",areaId);*/
+   /*     model.addAttribute("doctor",oldtcmService.queryDoctor2(queryMap));*/
         queryMap.put("areaId",areaId);
         queryMap.put("userId",bianhao);
         queryMap.put("recordName",ming);
