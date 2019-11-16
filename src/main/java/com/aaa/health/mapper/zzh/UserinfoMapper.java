@@ -21,4 +21,6 @@ public interface UserinfoMapper {
     int edit(Userinfo userinfo);
 
     Userinfo findById(Long id);
+    //根据身份证号查询条数
+    Integer queryIDnumberTotal(String userIdnumber);
 }

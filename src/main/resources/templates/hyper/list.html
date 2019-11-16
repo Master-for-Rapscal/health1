@@ -33,7 +33,12 @@
                 <option value="1">未转归</option>
                 <option value="2">已转归</option>
             </select>
-
+            所属单位:
+            <select id="search-area">
+                <a th:each="tff : ${area}">
+                    <option th:value="${tff.areaId}"><span>[[${tff.areaName}]]</span></option>
+                </a>
+            </select>
             <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
         </div>
     </div>
@@ -393,7 +398,6 @@ function goBack() {
 
     //搜索按钮监听
     $("#search-btn").click(function(){
-      //  alert($("#search-name").val());
         $('#data-datagrid').datagrid({
             queryParams: {
                 userbian: $("#search-id").val(),
@@ -402,7 +406,8 @@ function goBack() {
                 userAdress: $("#search-Adress").val(),
                 userphone: $("#search-phone").val(),
                 userIdcard : $("#search-idcard").val(),
-                gui: $("#gui").val()
+                gui: $("#gui").val(),
+                recordUnit : $("#search-area").val()
             }
         });
     });

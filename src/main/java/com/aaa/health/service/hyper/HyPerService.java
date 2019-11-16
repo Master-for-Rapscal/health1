@@ -49,4 +49,6 @@ public interface HyPerService {
 
     Integer updateZhuan(Map map);
 
+    Map<Object,Object> queryAreaById(Integer areaId);
+
 }

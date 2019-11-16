@@ -53,4 +53,6 @@ public interface HyPerMapper {
     List<Map<String,Object>> queryYao(Integer hid);
 
     Integer updateZhuan(Map map);
+
+    Map<Object,Object> queryAreaById(Integer areaId);
 }

@@ -23,7 +23,12 @@
             身份证号 :<input id="search-idcard"  class="wu-text" style="width:100px"/>
             联系地址:<input id="search-Adress" class="wu-text" style="width:100px"/>
             联系电话:<input id="search-phone" class="wu-text" style="width:100px"/>
-
+            所属单位:
+            <select id="search-area">
+                <a th:each="tff : ${area}">
+                    <option th:value="${tff.areaId}"><span>[[${tff.areaName}]]</span></option>
+                </a>
+            </select>
             <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
         </div>
     </div>
@@ -87,6 +92,8 @@
 <script type="text/javascript" th:inline="none">
     var LODOP; //声明为全局变量
     function CreateOneFormPage(){
+        if (CLodopIsLocal)
+            window.location.href="CLodop.protocol:setup";
         LODOP=getLodop();
         LODOP.PRINT_INIT("打印控件功能演示");
         //LODOP.ADD_PRINT_TEXT(50,231,260,39," ");
@@ -384,7 +391,8 @@
                     usersex: $("#search-sex").val(),
                     userAdress: $("#search-Adress").val(),
                     userphone: $("#search-phone").val(),
-                    userIdcard : $("#search-idcard").val()
+                    userIdcard : $("#search-idcard").val(),
+                    recordUnit : $("#search-area").val()
                 }
             });
         });
