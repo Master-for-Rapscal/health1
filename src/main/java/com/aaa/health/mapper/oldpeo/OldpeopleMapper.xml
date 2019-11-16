@@ -70,7 +70,10 @@ and oa.oldpeoId=#{oldpeoId}
   </select>
     <select id="findList" parameterType="Map" resultType="map">
         select * from userinfo u ,oldpeo o,area a where o.recordId=u.userId  and u.recordUnit=a.areaId
-        and oldpeoMstate=0
+     /*   and oldpeoMstate=0*/
+        <if test="oldpeoMstate == null and oldpeoMstate == ''">
+            and oldpeoMstate=0
+        </if>
         <if test="areaId == 410000">
             and 1=1
         </if>

@@ -25,9 +25,9 @@
                 <input type="hidden" name="oldpeoId"  id="oldpeoId">
                 <tr>
                     <td>姓名</td>
-                    <td colspan="4"><input type="text"  style="width: 200px"  name="recordName" id="recordName"></td>
+                    <td colspan="4"><input type="text"  style="width: 200px"  readonly name="recordName" id="recordName"></td>
                     <td>编号</td>
-                    <td colspan="4"><input type="text"  style="width: 200px"  name="userId" id="userId"></td>
+                    <td colspan="4"><input type="text"  style="width: 200px"  readonly name="userId" id="userId"></td>
                 </tr>
                 <tr style="height: 100px;">
                     <td colspan="5" style="width:300px;">请根据最近的体检和感觉回答以下问题</td>
@@ -221,7 +221,8 @@
                     <td colspan="2">填表日期</td>
                     <td colspan="3"><input type="text"  class="easyui-datebox easyui-validatebox"  id="oldtcmFilldate" name="oldtcmFilldate" style="width: 100%;"/></td>
                     <td colspan="2">医生签名</td>
-                 <td colspan="3"> <select name="healthcheckDoctor" id="healthcheckDoctor" class="easyui-combobox easyui-validatebox"  data-options="required:true, missingMessage:'请填写姓名'"  style="width:80%;" >
+                 <td colspan="3"> <select name="healthcheckDoctor" id="healthcheckDoctor" class="easyui-combobox easyui-validatebox"  data-options="required:true, missingMessage:'请填写姓名'"
+                                          style="width:100%; border:0px;border-bottom: 1px solid black" panelHeight="200px">
                  </select></td>
                 </tr>
                 <script>

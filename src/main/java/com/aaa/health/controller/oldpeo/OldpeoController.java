@@ -172,11 +172,6 @@ public class OldpeoController {
         Map<String,Object> map=new HashMap<String,Object>();
         System.out.println(oldarrange);
         int num=oldPeopleService.addSui(oldarrange);
-/*        if(num>0){
-            map.put("success","添加成功");
-        }else{
-            map.put("error","添加失败");
-        }*/
         return num;
     }
 
@@ -196,7 +191,8 @@ public class OldpeoController {
     }
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public Object  edit(Oldpeo oldpeo) {
+    public Object  edit( int oldpeoId,Oldpeo oldpeo) {
+        oldpeo.setOldpeoId(oldpeoId);
         Map<String,Object> map=new HashMap<String,Object>();
 /*        System.out.println(oldpeo);*/
         int ret=oldPeopleService.edit(oldpeo);

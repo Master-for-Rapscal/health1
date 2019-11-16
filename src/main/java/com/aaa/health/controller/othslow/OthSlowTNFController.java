@@ -3,12 +3,14 @@ package com.aaa.health.controller.othslow;
 import com.aaa.health.entity.zzh.Healthcheck;
 import com.aaa.health.page.admin.Page;
 import com.aaa.health.service.oldpeo.OldpeoHeaService;
+import com.aaa.health.service.oldpeo.OldtcmService;
 import com.aaa.health.service.othslow.OthMECService;
 import com.aaa.health.service.othslow.OthTNFService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,13 +29,17 @@ public class OthSlowTNFController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 
-/*    @Autowired
-    public OldpeoHeaService oldpeoHeaService;*/
+    @Autowired
+    private OldtcmService oldtcmService;
     @Autowired
     private OthTNFService othTNFService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String TNF(){
+    public String TNF(Model model, HttpServletRequest request){
+        int areaId2= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        Map<String, Object> queryMap = new HashMap<String, Object>();
+        queryMap.put("areaId",areaId2);
+        model.addAttribute("doctor",oldtcmService.queryDoctor2(queryMap));
         return "othslowTNF/list";
     }
 
