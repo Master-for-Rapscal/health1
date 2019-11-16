@@ -3,8 +3,10 @@ package com.aaa.health.controller.tangniaon;
 import com.aaa.health.entity.tangniaon.Tang;
 import com.aaa.health.entity.tangniaon.TangNiaon;
 import com.aaa.health.page.admin.Page;
+import com.aaa.health.service.admin.AreaService;
 import com.aaa.health.service.tangniaon.TangService;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +26,8 @@ import java.util.Map;
 public class TangController {
     @Resource
     private TangService tangService;
-
+    @Autowired
+    private AreaService areaService;
     @InitBinder
     protected  void  init(WebDataBinder binder){
         SimpleDateFormat dataFormate=new SimpleDateFormat("yyyy-MM-dd");
@@ -32,21 +35,25 @@ public class TangController {
     }
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public String goTang( HttpServletRequest request){
+    public String goTang(Model model, HttpServletRequest request){
         request.getSession().setAttribute("ltf",tangService.queryDoctor());
-        //System.out.println(tangService.queryDoctor());
+        Long areaId=Long.parseLong((String)request.getSession().getAttribute("areaId"));
+        if (areaId==410000) areaId= new Long((long)0);
+        model.addAttribute("area",areaService.findChildernList(areaId));
         return "tangniaon/list";
     }
 
     @RequestMapping(value = "list", method = RequestMethod.POST)
     @ResponseBody
     public Object queryAll(Page page,
+                           @RequestParam(name = "recordUnit", required = false, defaultValue = "0")Integer recordUnit,
                            @RequestParam(name = "userbian", required = false, defaultValue = "0") Integer userbian,
                            @RequestParam(name = "userMing", required = false, defaultValue = "") String userMing,
                            @RequestParam(name = "usersex", required = false, defaultValue = "0") String usersex,
                            @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
                            @RequestParam(name = "userphone", required = false, defaultValue = "") String userphone,
-                           @RequestParam(name = "userIdcard", required = false, defaultValue = "") String userIdcard){
+                           @RequestParam(name = "userIdcard", required = false, defaultValue = "") String userIdcard,
+                           HttpServletRequest request){
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("offset", page.getOffset());
@@ -57,6 +64,22 @@ public class TangController {
         queryMap.put("recordAdress",userAdress);
         queryMap.put("userMyphone",userphone);
         queryMap.put("userIdnumber",userIdcard);
+
+        int areaId= Integer.parseInt((String) request.getSession().getAttribute("areaId"));
+        if(recordUnit == 0){//没传值
+            if(areaId == 410000){
+                areaId =0 ;
+            }//最高权限
+        }else {//如果传值了  就把穿的地区传入mapper
+            if(recordUnit==410000){
+                areaId =0 ;
+            }else {
+                areaId = recordUnit;
+            }
+        }
+//        System.out.println("-------------"+areaId);
+        queryMap.put("recordUnit",areaId);
+
         ret.put("rows", tangService.queryAll(queryMap));// 页面加载数据使用
         ret.put("total", tangService.queryTotal(queryMap));// 分页使用
         return  ret;

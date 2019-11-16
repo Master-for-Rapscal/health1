@@ -85,4 +85,8 @@ where userId = #{userId}
         SELECT * from userinfo where  userId=#{id}
 
     </select>
+
+    <select id="queryIDnumberTotal" parameterType="String" resultType="Integer">
+          SELECT COUNT(*) FROM userinfo WHERE userIdnumber=#{userIdnumber}
+    </select>
 </mapper>

@@ -124,7 +124,7 @@ public class UserinfoController {
             return ret;
         }
         ret.put("type", "success");
-        ret.put("msg", "用户添加失败！");
+        ret.put("msg", "用户添加成功！");
         return ret;
     }
 

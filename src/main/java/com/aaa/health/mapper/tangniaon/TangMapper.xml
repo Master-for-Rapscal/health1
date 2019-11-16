@@ -3,7 +3,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.tangniaon.TangMapper">
     <select id="queryAll" parameterType="Map" resultType="Map">
-        SELECT * from dmsmcard dm join userinfo u on dm.recordId=u.userId where 1=1
+        SELECT * from dmsmcard dm join userinfo u on dm.recordId=u.userId where
+        <if test="recordUnit == 0">
+            1=1
+        </if>
+        <if test="recordUnit != 0">
+            u.recordUnit=#{recordUnit}
+        </if>
+
         <if test="userId != null and userId != 0">
              and u.userId LIKE '%${userId}%'
         </if>
@@ -28,7 +35,31 @@
     </select>
 
     <select id="queryTotal" resultType="int"  parameterType="Map">
-        SELECT count(*) from dmsmcard dm join userinfo u on dm.recordId=u.userId
+        SELECT count(*) from dmsmcard dm join userinfo u on dm.recordId=u.userId where
+        <if test="recordUnit == 0">
+            1=1
+        </if>
+        <if test="recordUnit != 0">
+            u.recordUnit=#{recordUnit}
+        </if>
+        <if test="userId != null and userId != 0">
+            and u.userId LIKE '%${userId}%'
+        </if>
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
+        </if>
+        <if test="usersex != null and usersex != 0">
+            AND u.usersex = ${usersex}
+        </if>
+        <if test="userMyphone != null and userMyphone != ''">
+            AND u.userMyphone LIKE '%${userMyphone}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND recordAdress LIKE '%${recordAdress}%'
+        </if>
+        <if test="userIdnumber != null and userIdnumber != ''">
+            AND userIdnumber LIKE '%${userIdnumber}%'
+        </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
