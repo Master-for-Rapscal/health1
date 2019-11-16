@@ -118,4 +118,9 @@ public class HyPerServiceImpl implements HyPerService {
     public Integer updateZhuan(Map map) {
         return hyPerMapper.updateZhuan(map);
     }
+
+    @Override
+    public Map<Object, Object> queryAreaById(Integer areaId) {
+        return hyPerMapper.queryAreaById(areaId);
+    }
 }

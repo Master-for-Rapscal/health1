@@ -4,6 +4,7 @@ import com.aaa.health.entity.hyper.HyPer;
 import com.aaa.health.entity.hyper.HyPerTend;
 import com.aaa.health.entity.tangniaon.Tang;
 import com.aaa.health.page.admin.Page;
+import com.aaa.health.service.admin.AreaService;
 import com.aaa.health.service.hyper.HyPerService;
 import com.aaa.health.service.tangniaon.TangService;
 import org.apache.commons.lang.StringUtils;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +32,8 @@ public class HyPerController {
     private HyPerService hyPerService;
     @Autowired
     private TangService tangService;
-
+    @Autowired
+    private AreaService areaService;
     @InitBinder
     protected  void  init(WebDataBinder binder){
         SimpleDateFormat dataFormate=new SimpleDateFormat("yyyy-MM-dd");
@@ -38,9 +41,11 @@ public class HyPerController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String goHy(HttpServletRequest request){
+    public String goHy(Model model, HttpServletRequest request){
         request.getSession().setAttribute("ltf",tangService.queryDoctor());
-        request.getSession().setAttribute("area",hyPerService.queryArea());
+        Long areaId=Long.parseLong((String)request.getSession().getAttribute("areaId"));
+        if (areaId==410000) areaId= new Long((long)0);
+        model.addAttribute("area",areaService.findChildernList(areaId));
         return "hyper/list";
     }
 
@@ -49,26 +54,38 @@ public class HyPerController {
     public Object queryHy(Page page,
                           @RequestParam(name = "gui", required = false, defaultValue = "") Integer gui,
                           @RequestParam(name = "recordUnit", required = false, defaultValue = "0")Integer recordUnit,
+                          @RequestParam(name = "userbian", required = false, defaultValue = "0") Integer userbian,
+                          @RequestParam(name = "userMing", required = false, defaultValue = "") String userMing,
+                          @RequestParam(name = "usersex", required = false, defaultValue = "0") String usersex,
+                          @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
+                          @RequestParam(name = "userphone", required = false, defaultValue = "") String userphone,
+                          @RequestParam(name = "userIdcard", required = false, defaultValue = "") String userIdcard,
                           HttpServletRequest request){
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         queryMap.put("hypertensionOutcome",gui);
-
+        queryMap.put("userId",userbian);
+        queryMap.put("recordName",userMing);
+        queryMap.put("usersex",usersex);
+        queryMap.put("recordAdress",userAdress);
+        queryMap.put("userMyphone",userphone);
+        queryMap.put("userIdnumber",userIdcard);
         int areaId= Integer.parseInt((String) request.getSession().getAttribute("areaId"));
-
         if(recordUnit == 0){//没传值
-
             if(areaId == 410000){
                 areaId =0 ;
             }//最高权限
+        }else {//如果传值了  就把穿的地区传入mapper
+            if(recordUnit==410000){
+                areaId =0 ;
+            }else {
+                areaId = recordUnit;
+            }
         }
-        System.out.println("-------------"+areaId);
+//        System.out.println("-------------"+areaId);
         queryMap.put("recordUnit",areaId);
-
-
-
         ret.put("rows", hyPerService.queryHyAll(queryMap));// 页面加载数据使用
         ret.put("total", hyPerService.queryHyTotal(queryMap));// 分页使用
         //System.out.println("高血压"+ret);

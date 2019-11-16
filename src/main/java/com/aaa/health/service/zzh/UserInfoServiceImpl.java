@@ -46,4 +46,9 @@ public class UserInfoServiceImpl implements UserinfoService {
     public Userinfo findById(Long id) {
         return userinfoMapper.findById(id);
     }
+
+    @Override
+    public Integer queryIDnumberTotal(String userIdnumber) {
+        return userinfoMapper.queryIDnumberTotal(userIdnumber);
+    }
 }

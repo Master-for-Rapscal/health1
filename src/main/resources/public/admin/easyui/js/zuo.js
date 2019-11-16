@@ -28,11 +28,28 @@ function checkPhone(phone) {
 // 验证身份证
 //出生日期码校验
 function checkUserDate(val) {
+
+    var num=1;
+    $.ajax({
+        type : "post",
+        url : "out/queryIDnumberTotal",
+        data : "userIdnumber="+val,
+        dataType : "text",
+        success : function (data) {
+            console.log("查询身份证的条数"+data);
+            num=data;
+        }
+    });
+
     // alert(val);
     var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
     if(!reg.test(val))
     {
         $.messager.alert('信息提示','身份证输入不合法！','info');
+        return;
+    }
+    if(num != 0){
+        $.messager.alert('信息提示','该身份证号已经被绑定！','info');
         return;
     }
     var val = val.substring(6, 14);

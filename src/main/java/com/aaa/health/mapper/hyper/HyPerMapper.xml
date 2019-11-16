@@ -5,12 +5,30 @@
     <select id="queryHyAll" parameterType="Map" resultType="Map">
         SELECT * from hypertension dm join userinfo u on dm.recordId=u.userId
         where
-
         <if test="recordUnit == 0">
              1=1
         </if>
         <if test="recordUnit != 0">
            u.recordUnit=#{recordUnit}
+        </if>
+
+        <if test="userId != null and userId != 0">
+            and u.userId LIKE '%${userId}%'
+        </if>
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
+        </if>
+        <if test="usersex != null and usersex != 0">
+            AND u.usersex = ${usersex}
+        </if>
+        <if test="userMyphone != null and userMyphone != ''">
+            AND u.userMyphone LIKE '%${userMyphone}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND recordAdress LIKE '%${recordAdress}%'
+        </if>
+        <if test="userIdnumber != null and userIdnumber != ''">
+            AND userIdnumber LIKE '%${userIdnumber}%'
         </if>
 
         <choose>
@@ -28,6 +46,42 @@
     
     <select id="queryHyTotal" parameterType="Map" resultType="Integer">
         SELECT count(*) from hypertension dm join userinfo u on dm.recordId=u.userId
+        where
+
+        <if test="recordUnit == 0">
+            1=1
+        </if>
+        <if test="recordUnit != 0">
+            u.recordUnit=#{recordUnit}
+        </if>
+
+        <if test="userId != null and userId != 0">
+            and u.userId LIKE '%${userId}%'
+        </if>
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
+        </if>
+        <if test="usersex != null and usersex != 0">
+            AND u.usersex = ${usersex}
+        </if>
+        <if test="userMyphone != null and userMyphone != ''">
+            AND u.userMyphone LIKE '%${userMyphone}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND recordAdress LIKE '%${recordAdress}%'
+        </if>
+        <if test="userIdnumber != null and userIdnumber != ''">
+            AND userIdnumber LIKE '%${userIdnumber}%'
+        </if>
+
+        <choose>
+            <when test=" hypertensionOutcome == 2">
+                AND dm.hypertensionOutcome is not null
+            </when>
+            <otherwise>
+                AND dm.hypertensionOutcome is null
+            </otherwise>
+        </choose>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
@@ -82,6 +136,10 @@ VALUE(#{recordId},#{hypertensionSource},#{hypertensionSmokingnum},#{hypertension
     
     <select id="queryArea" resultType="Map">
         SELECT * from area
+    </select>
+
+    <select id="queryAreaById" resultType="Map">
+        SELECT * from area WHERE areaId=#{areaId}
     </select>
 
     <select id="queryHyById" resultType="com.aaa.health.entity.hyper.HyPer" parameterType="Integer">

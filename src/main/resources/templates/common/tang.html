@@ -219,7 +219,7 @@
                 <td>建档医生:</td>
                 <td><select name="dmsmcardDoctor" id="dmsmcardDoctor" style="width:100%;">
                     <a th:each="ltf : ${session.ltf}">
-                        <option th:value="${ltf.id}">[[${ltf.lastname}]]</span></option>
+                        <option th:value="${ltf.id}"><span>[[${ltf.lastname}]]</span></option>
 
                     </a>
                 </select>

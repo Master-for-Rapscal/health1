@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.hostpit.HostMapper">
+
+    <select id="queryArea" resultType="Map">
+           select areaId,areaName from area
+    </select>
+
+    <!-- 添加用户 -->
+    <insert id="addUserInfo" parameterType="Userinfo">
+        INSERT into userinfo(recordName,recordUnit,recordAdress,recordPostalcode,recordPlaceadress,recordCreateuserid,recordResponuserid,recordData,recordMedical,recordResident,
+        recordBookbuilding,recordCategory,recordInputtingcard,recordPicurl,recordFamily,userPapernumber,userNumber,userSex,userBirthday,userIdnumber,userWorkunit,
+        userMyphone,userPemanent,userNamtion,userBloodtype,userRh,userCulture,userCareer,userGam,userPayway,userAllergy,userExpose,userIllness,userSurgery,userTrauma,
+        userBlood,userFather,userNather,userBirthdy,userSon,userHeredity,userDisability,userKitchen,userFuel,userWater,userWc,userLinestock,userState,userDe ) VALUES(#{recordName},#{recordUnit},#{recordAdress},#{recordPostalcode},#{recordPlaceadress},#{recordCreateuserid},#{recordResponuserid},#{recordData},#{recordMedical},#{recordResident},#{
+recordBookbuilding},#{recordCategory},#{recordInputtingcard},#{recordPicurl},#{recordFamily},#{userPapernumber},#{userNumber},#{userSex},#{userBirthday},#{userIdnumber},#{userWorkunit},#{
+userMyphone},#{userPemanent},#{userNamtion},#{userBloodtype},#{userRh},#{userCulture},#{userCareer},#{userGam},#{userPayway},#{userAllergy},#{userExpose},#{userIllness},#{userSurgery},#{userTrauma},#{
+userBlood},#{userFather},#{userNather},#{userBirthdy},#{userSon},#{userHeredity},#{userDisability},#{userKitchen},#{userFuel},#{userWater},#{userWc},#{userLinestock},#{userState},#{userDe})
+
+        -- call pAdduserinfo()
+    </insert>
+    
+    <select id="queryCheck" resultType="Healthcheck" parameterType="Map">
+        SELECT hc.* from userinfo u join healthcheck hc on u.userId=hc.userinfoid
+        where u.recordName=#{recordName} and u.userIdnumber=#{userIdnumber}
+    </select>
+</mapper>
