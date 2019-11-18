@@ -19,6 +19,9 @@
         <if test="userIdnumber != null">
             and userIdnumber like '%${userIdnumber}%'
         </if>
+        <if test="userMyphone != null">
+            and userMyphone like '%${userMyphone}%'
+        </if>
         <if test="userSex != -1">
             and userSex = #{userSex}
         </if>
@@ -30,26 +33,24 @@
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
         select count(*) from userinfo where 1 = 1
-        <if test="userId != null">
-            and userId like '%${userId}%'
+        <if test="recordUnit != -1">
+            and recordUnit = #{recordUnit}
         </if>
         <if test="recordPlaceadress != null">
             and recordPlaceadress like '%${recordPlaceadress}%'
         </if>
-        <if test="recordUnit != null">
-            and recordUnit like '%${recordUnit}%'
-        </if>
+
         <if test="recordName != null">
             and recordName like '%${recordName}%'
         </if>
         <if test="userIdnumber != null">
             and userIdnumber like '%${userIdnumber}%'
         </if>
+        <if test="userMyphone != null">
+            and userMyphone like '%${userMyphone}%'
+        </if>
         <if test="userSex != -1">
             and userSex = #{userSex}
-        </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
         </if>
     </select>
     <!-- 删除用户 -->

@@ -72,6 +72,7 @@ public class UserinfoController {
         @RequestParam(name = "userId", required = false)  Long userId,
         @RequestParam(name = "recordName", required = false, defaultValue = "")  String recordName,
         @RequestParam(name = "userIdnumber", required = false, defaultValue = "")  String userIdnumber,
+        @RequestParam(name = "userMyphone", required = false, defaultValue = "")  String userMyphone,
         @RequestParam(name = "recordUnit", required = false, defaultValue = "-1")  int recordUnit,
         @RequestParam(name = "recordPlaceadress", required = false, defaultValue = "")  String recordPlaceadress,
         @RequestParam(name = "userSex", required = false, defaultValue = "-1")  Integer userSex
@@ -84,6 +85,7 @@ public class UserinfoController {
         queryMap.put("userId",userId);
         queryMap.put("recordName",recordName);
         queryMap.put("userIdnumber",userIdnumber);
+        queryMap.put("userMyphone",userMyphone);
         int areaid = Integer.parseInt((String)request.getSession().getAttribute("areaId"));
 
 
@@ -100,6 +102,7 @@ public class UserinfoController {
         ret.put("rows", userinfoService.findList(queryMap));
         //System.out.println(userinfoService.findList(queryMap));
         ret.put("total", userinfoService.getTotal(queryMap));
+        System.out.println(ret);
         return ret;
     }
     /**

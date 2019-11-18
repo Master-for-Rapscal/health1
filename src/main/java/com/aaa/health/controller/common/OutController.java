@@ -44,6 +44,7 @@ public class OutController {
                                        @RequestParam(name = "userId", required = false)  Long userId,
                                        @RequestParam(name = "recordName", required = false, defaultValue = "")  String recordName,
                                        @RequestParam(name = "userIdnumber", required = false, defaultValue = "")  String userIdnumber,
+                                       @RequestParam(name = "userMyphone", required = false, defaultValue = "")  String userMyphone,
                                        @RequestParam(name = "recordUnit", required = false, defaultValue = "-1")  int recordUnit,
                                        @RequestParam(name = "recordPlaceadress", required = false, defaultValue = "")  String recordPlaceadress,
                                        @RequestParam(name = "userSex", required = false, defaultValue = "-1")  Integer userSex
@@ -56,6 +57,7 @@ public class OutController {
         queryMap.put("userId",userId);
         queryMap.put("recordName",recordName);
         queryMap.put("userIdnumber",userIdnumber);
+        queryMap.put("userMyphone",userMyphone);
         queryMap.put("recordUnit",recordUnit);
         queryMap.put("recordPlaceadress",recordPlaceadress);
         queryMap.put("userSex",userSex);
@@ -113,7 +115,8 @@ public class OutController {
     @ResponseBody//根据用户名  身份证号查询用户体检情况
     public Object queryCheck(String username,String IDnumber){
 //        String username="王宇飞";
-//        String IDnumber="411082194612252245";
+//        String IDnumber="411082194612252245
+        System.out.println(username+"------------------------"+IDnumber);
         Map<String,Object> map=new HashMap<String,Object>();
         map.put("recordName",username);
         map.put("userIdnumber",IDnumber);
@@ -126,6 +129,17 @@ public class OutController {
     @ResponseBody
     public Object queryIdNumberTotal(String userIdnumber){
         Integer num = userinfoService.queryIDnumberTotal(userIdnumber);
-        return num;
+        if(num>0){
+            return false;
+        }
+        return true;
+    }
+
+    @CrossOrigin(value = "*")
+    @RequestMapping(value = "queryDoctorByName", method = RequestMethod.POST)
+    @ResponseBody
+    public Object queryDoctorByName(String lastname){
+        List<Map<String,Object>> list = hostService.queryDoctorByName(lastname);
+        return list.get(0);
     }
 }
