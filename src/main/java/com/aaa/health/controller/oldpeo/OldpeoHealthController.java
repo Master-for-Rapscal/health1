@@ -1,7 +1,4 @@
 package com.aaa.health.controller.oldpeo;
-
-
-
 import com.aaa.health.entity.zzh.Healthcheck;
 import com.aaa.health.page.admin.Page;
 import com.aaa.health.service.oldpeo.OldpeoHeaService;
@@ -57,7 +54,7 @@ public class OldpeoHealthController {
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         queryMap.put("userinfoId", userinfoId);
-        //   System.out.println( healthcheckService.findList(queryMap));
+           System.out.println( "ssssss"+oldpeoHeaService.findList(queryMap));
         ret.put("rows", oldpeoHeaService.findList(queryMap));
         ret.put("total", oldpeoHeaService.getTotal(queryMap));
         return ret;

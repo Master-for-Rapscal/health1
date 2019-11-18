@@ -437,9 +437,6 @@
                     data: "uid=" + gxy,
                     dataType: 'json',
                     success: function (data) {
-
-                        /*      $('#queryForm').form('load',data.datainfo);*/
-                        /*   alert(data.recordMedical);*/
                         $("input[name='recordMedical']").val(data.recordMedical);
                         $("input[name='userId']").val(data.userId);
                         $("input[name='recordName']").val(data.recordName);
@@ -447,8 +444,6 @@
                         $("input[name='userBirthday']").val(data.userBirthday);
                         $("input[name='userMyphone']").val(data.userMyphone);
                         $("input[name='recordAdress']").val(data.recordAdress);
-
-
                         var sex = "未知";
                         var hunyin = "未说明婚姻情况";
                         if (data.userSex == 1) {
@@ -466,15 +461,12 @@
                             hunyin = "离婚";
                         } else if (data.userGam == 0) {
                             hunyin = "未婚";
+                            $("input[name='userSex']").val(sex);
+                            $("input[name='userGam']").val(hunyin);
+
                         }
-/*alert(data.userGam);*/
-                        $("input[name='userSex']").val(sex);
-                        $("input[name='userGam']").val(hunyin);
-
                     }
-
-                });
-                $.ajax({
+                });         $.ajax({
                     type: "post",
                     url: "queryDoctor",
                     dataType: "json",
@@ -489,8 +481,10 @@
                     }
                 });
 
+
             }
-        });
+
+        })
     }
 
 
