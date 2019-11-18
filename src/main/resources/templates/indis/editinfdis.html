@@ -4,7 +4,7 @@
 <!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
 
 <body>
-<div th:fragment="infdis" th:height="500">
+<div th:fragment="infdis" th:height="540">
     <div class="infdis">
         <style>
             input[type="text"] {
@@ -16,51 +16,54 @@
                 margin-left: 15px;
             }
         </style>
-        <form id="infform" class="easyui-form" method="post" data-options="novalidate:true">
-            <table width="650" th:height="480" border="1" cellspacing="0" cellpadding="1">
+        <table width="740" th:height="100" border="1" style="border-bottom: 0px" cellspacing="0" cellpadding="1">
                 <caption>
                     <h3>传染病随访表</h3>
                 </caption>
-                <input type="text" name="disfopId" hidden>
-                <input type="text" name="infdisId" hidden>
+            <input type="text" name="disfopId" hidden>
+            <input type="text" name="infdisId" hidden>
                 <tr>
                     <td>姓名</td>
-                    <td><input type="text"  style="width: 150px"  name="recordName" readonly></td>
+                    <td><input type="text"  style="width: 100%;height: 100%"  name="recordName" readonly></td>
                     <td>性别</td>
                     <td>
-                        <input type="text"  style="width: 120px"  name="userSex" readonly>
+                        <input type="text"  style="width: 100%;height: 100%"  name="userSex" readonly>
                     </td>
                     <td>出生日期</td>
-                    <td><input type="text"  class="easyui-datebox" style="width: 120px"  name="userBirthday" readonly></td>
+                    <td><input type="text"  style="width: 100%;height: 100%"  name="userBirthday" readonly></td>
                 </tr>
                 <tr>
                     <td>婚姻</td>
-                    <td><input type="text"  style="width: 150px"  name="userGam" readonly></td>
+                    <td><input type="text"  style="width: 100%;height: 100%"  name="userGam" readonly></td>
                     <td>职业</td>
-                    <td><input type="text"  style="width: 120px"  name="userCareer" readonly></td>
+                    <td><input type="text"  style="width: 100%;height: 100%"  name="userCareer" readonly></td>
                     <td>联系电话</td>
-                    <td><input type="text"  style="width: 120px"  name="userMyphone" readonly></td>
+                    <td><input type="text"  style="width: 100%;height: 100%"  name="userMyphone" readonly></td>
                 </tr>
                 <tr>
                     <td>现住地址</td>
                     <td colspan="5">
-                        <textarea name="recordAdress" rows="1" cols="80"></textarea>
+                        <input name="recordAdress" style="width: 99%;height: 100%" readonly/>
                     </td>
                 </tr>
-
+        </table>
+        <form id="infform" class="easyui-form" method="post" data-options="novalidate:true">
+            <table width="740" th:height="540" border="1" cellspacing="0" cellpadding="1">
+                <input type="text" name="disfopId" hidden>
+                <input type="text" name="infdisId" hidden>
                 <tr>
                     <td>随访日期</td>
-                    <td><input type="text" class="easyui-datebox"  name="disfopTime" style="width: 150px;"/></td>
+                    <td><input type="text" editable="fasle" class="easyui-datebox" data-options="required:true, missingMessage:'请填写随访日期'" name="disfopTime" style="width: 150px;"/></td>
                     <td>随访方式</td>
                     <td>
-                        <select name="disfopMode" style="width: 120px">
+                        <select name="disfopMode" style="width: 120px" class="easyui-combobox" data-options="required:true, missingMessage:'请填写随访方式'">
                             <option value="1">门诊</option>
                             <option value="2">家庭</option>
                             <option value="3">电话</option>
                         </select></td>
                     <td>是否隔离</td>
                     <td>
-                        <select name="disfopQuarantine" style="width:120px;" >
+                        <select name="disfopQuarantine" style="width:120px;"  class="easyui-combobox" data-options="required:true, missingMessage:'请填写是否隔离'">
                             <option value="1">无</option>
                             <option value="2">有</option>
                         </select>
@@ -68,7 +71,7 @@
                 </tr>
                 <tr>
                     <td>目前症状</td>
-                    <td colspan="5">
+                    <td colspan="5" class="easyui-validatebox" data-options="required:true, missingMessage:'请填写目前症状'">
                         <input type="checkbox" name="disfopSymptom" onclick="checkItem1(this)" value="1">无
                         <input type="checkbox" name="disfopSymptom" value="2">交流困难
                         <input type="checkbox" name="disfopSymptom" value="3">猜疑
@@ -84,10 +87,10 @@
                 </tr>
                 <tr>
                     <td>首诊日期</td>
-                    <td><input type="text" class="easyui-datebox" name="firstVisit" style="width: 150px;"/></td>
+                    <td><input type="text" class="easyui-datebox" editable="fasle" data-options="required:true, missingMessage:'请填写首诊日期'" name="firstVisit" style="width: 150px;"/></td>
                     <td>发病类型</td>
                     <td>
-                        <select name="attackCate" style="width:120px;" >
+                        <select name="attackCate" style="width:120px;"  class="easyui-combobox" data-options="required:true, missingMessage:'请填写发病类型'">
                             <option value="1">甲类</option>
                             <option value="2">乙类</option>
                             <option value="3">丙类</option>
@@ -95,8 +98,7 @@
                     </td>
                     <td>处置情况</td>
                     <td>
-                        <!--class="easyui-combobox"-->
-                        <select name="disfopSituation"  style="width:120px;" >
+                        <select name="disfopSituation"  style="width:120px;"  class="easyui-combobox" data-options="required:true, missingMessage:'请填写处置情况'">
                             <option value="1">隔离</option>
                             <option value="2">转诊</option>
                             <option value="3">死亡</option>
@@ -106,40 +108,37 @@
                 <tr>
                     <td>处置备注</td>
                     <td colspan="5">
-                        <textarea name="disfopRemarks" rows="3" cols="80"></textarea>
+                        <textarea name="disfopRemarks" rows="3" cols="102" style="border: 0px;height: 100%"></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td>消毒处理情况</td>
                     <td colspan="5">
-                        <textarea name="disfopDisinfect" rows="3" cols="80"></textarea>
+                        <textarea name="disfopDisinfect" rows="3" cols="102" style="border: 0px;height: 100%"></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td>药物治疗建议</td>
                     <td colspan="5">
-                        <textarea name="disfopMedicine" rows="3" cols="80"></textarea>
+                        <textarea name="disfopMedicine" rows="3" cols="102" style="border: 0px;height: 100%"></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td>康复治疗建议</td>
                     <td colspan="5">
-                        <textarea name="disfopRecovery" rows="3" cols="80"></textarea>
+                        <textarea name="disfopRecovery" rows="3" cols="102" style="border: 0px;height: 100%"></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td>下次随访日期</td>
-                    <td><input type="text" class="easyui-datebox"  name="nextfoTime" style="width: 150px;"/></td>
+                    <td colspan="2"><input type="text" class="easyui-datebox" editable="fasle" data-options="required:true, missingMessage:'请填写下次随访日期'" name="nextfoTime" style="width: 150px;"/></td>
                     <td>随访医生</td>
-                    <td>
-                        <!--[[${session.role.name}]]-->
-                        <select name="disfopDoctor" class="easyui-combobox" panelHeight="auto" style="width:268px" >
+                    <td colspan="2">
+                        <select name="disfopDoctor" editable="fasle" class="easyui-combobox" data-options="required:true, missingMessage:'请填写随访医生'" panelHeight="auto" style="width:268px" >
                             <a th:each="doctor:${session.doctor}" >
                                 <option   th:value="${doctor.id}" ><span th:text="${doctor.lastname }"></span></option>
                             </a>
                         </select>
-                        <!--<select name="disfopDoctor" id="disfopDoctor" style="width:120px;" >-->
-                        <!--</select>-->
                     </td>
                 </tr>
             </table>

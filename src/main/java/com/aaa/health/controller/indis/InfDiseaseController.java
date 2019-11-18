@@ -30,28 +30,31 @@ private InfDiseaseService infDiseaseService;
 private OutComeService outComeService;
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model, HttpServletRequest request) {
-
         request.getSession().setAttribute("doctor",infDiseaseService.queryDoctor());
         return "indis/list";
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page,@RequestParam(name = "userId", required = false, defaultValue = "") String userId,
+    public Map<String, Object> getList(Page page,@RequestParam(name = "userId", required = false, defaultValue = "") Integer userId,
                                        @RequestParam(name = "recordName", required = false, defaultValue = "") String recordName,
-                                       @RequestParam(name = "userSex", required = false, defaultValue = "") String userSex,
-                                       @RequestParam(name = "lastname", required = false, defaultValue = "") String lastname,
+                                       @RequestParam(name = "userSex", required = false, defaultValue = "") Integer userSex,
+                                       @RequestParam(name = "infdisDoctor", required = false, defaultValue = "") Integer infdisDoctor,
                                        @RequestParam(name = "beginTime", required = false, defaultValue = "") Date beginTime,
                                        @RequestParam(name = "endTime", required = false, defaultValue = "") Date endTime,
                                        @RequestParam(name = "beginTimet", required = false, defaultValue = "") Date beginTimet,
                                        @RequestParam(name = "endTimet", required = false, defaultValue = "") Date endTimet,
-                                       @RequestParam(name = "outcomeWhether", required = false, defaultValue = "") Date outcomeWhether) {
+                                       @RequestParam(name = "outcomeWhether", required = false, defaultValue = "") Date outcomeWhether,
+                                       HttpServletRequest request) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
+        int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        System.out.println("登录的值是"+areaId);
+        queryMap.put("areaId",areaId);
         queryMap.put("userId",userId);
         queryMap.put("recordName",recordName);
         queryMap.put("userSex",userSex);
-        queryMap.put("lastname",lastname);
+        queryMap.put("infdisDoctor",infdisDoctor);
         queryMap.put("beginTime",beginTime);
         queryMap.put("endTime",endTime);
         queryMap.put("beginTimet",beginTimet);

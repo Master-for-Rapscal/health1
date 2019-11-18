@@ -10,11 +10,9 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,9 +30,22 @@ public class WomanDiseaseController {
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page) {
+    public Map<String, Object> getList(Page page,@RequestParam(name = "userId", required = false, defaultValue = "") Integer userId,
+                                       @RequestParam(name = "recordName", required = false, defaultValue = "") String recordName,
+                                       @RequestParam(name = "userIdnumber", required = false, defaultValue = "") String userIdnumber,
+                                       @RequestParam(name = "beginTime", required = false, defaultValue = "") Date beginTime,
+                                       @RequestParam(name = "endTime", required = false, defaultValue = "") Date endTime,
+                                       HttpServletRequest request) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
+        int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        System.out.println("登录的值是"+areaId);
+        queryMap.put("areaId",areaId);
+        queryMap.put("userId",userId);
+        queryMap.put("recordName",recordName);
+        queryMap.put("userIdnumber",userIdnumber);
+        queryMap.put("beginTime",beginTime);
+        queryMap.put("endTime",endTime);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", womanDiseaseService.findList(queryMap));// 页面加载数据使用
@@ -98,6 +109,7 @@ public class WomanDiseaseController {
     @ResponseBody
     public Map<String, String> edit(WomanDisease womanDisease) {
         Map<String, String> ret = new HashMap<String, String>();
+        System.out.println(ret);
         if (womanDiseaseService.update(womanDisease) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "信息修改失败，请联系管理员！");

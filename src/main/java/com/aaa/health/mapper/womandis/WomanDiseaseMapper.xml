@@ -3,18 +3,38 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.womandis.WomanDiseaseMapper">
+   <!-- <delete id="delete" parameterType="String">
+        delete from userinfo where userId in(${value})
+    </delete>-->
+<!--    <update id="">
+update userinfo set
+    </update>-->
+
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.womandis.WomanDisease">
-        select u.userId,u.recordName,u.userIdnumber,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(u.userBirthday))/365) userAge,u.recordAdress,u.userMyphone,u.recordData from userinfo u
+        select u.userId,u.recordName,u.userIdnumber,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(u.userBirthday))/365) userAge,
+        u.recordAdress,u.userMyphone,u.recordData,u.recordUnit,a.areaId from userinfo u join area a on u.recordUnit=a.areaId
         where 1=1
         and u.userSex=2
-        <if test="username != null">
-            and username like '%${username}%'
+        <if test="areaId == 410000">
+            and 1=1
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="areaId != 410000">
+            and a.areaId=#{areaId}
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
+        <if test="userId != null">
+            and u.userId like '%${userId}%'
+        </if>
+        <if test="recordName != null">
+            and u.recordName like '%${recordName}%'
+        </if>
+        <if test="userIdnumber != null">
+            and u.userIdnumber like '%${userIdnumber}%'
+        </if>
+        <if test="beginTime != null">
+            and u.recordData  >= #{beginTime}
+        </if>
+        <if test="endTime != null">
+            and   #{endTime} >= u.recordData
         </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
@@ -40,25 +60,47 @@ woinVagina},#{woinVaremarks},#{woinSecretion},#{woinSeremarks},#{woinCervical},#
 woinReview},#{woinReviewTime},#{ubodySize},#{ubodyPosition},#{ubodyHardness},#{ubodyActivity},#{ubodySurface},#{ubodyTenderness},#{
 ubodyLeft},#{ubodyLeremarks},#{ubodyRight},#{ubodyRiremarks},#{gbodyLeft},#{gbodyRight},#{tumorLeft},#{tumorRight},#{
 woinRemarks},#{woinGlandular},#{woinGlandularTime},#{wodisHandlestate},#{wodisClotime},#{wodisCloreason},#{
-wodisOpinion},#{wodisProposal},#{wodisReview},#{wodisRevtime},#{wodisLoginregtime})
+wodisOpinion},#{wodisProposal},#{wodisReview},#{wodisRevtime},CURDATE())
     </insert>
-
-    <delete id="delete" parameterType="String">
-        delete from womanDisease where wodisId in(${value})
-    </delete>
+    <update id="update" parameterType="com.aaa.health.entity.womandis.WomanDisease">
+update womanDisease set wodisbh=#{wodisbh},wodisMenage=#{wodisMenage},wodisMencycle=#{wodisMencycle},wodisMentime=#{wodisMentime},wodisMenamount=#{wodisMenamount},wodisMenapain=#{wodisMenapain},
+wodisAge=#{wodisAge},wodisBlood=#{wodisBlood},mateAge=#{mateAge},mateDystocia=#{mateDystocia},mateTerm=#{mateTerm},mateGravidity=#{mateGravidity},mateOutgravidity=#{mateOutgravidity},matePredelivery=#{matePredelivery},
+mateAbortion=#{mateAbortion},matePeoabort=#{matePeoabort},mateIndlabor=#{mateIndlabor},mateStbirth=#{mateStbirth},mateStbir=#{mateStbir},mateBirthdie=#{mateBirthdie},mateBirthdefect=#{mateBirthdefect},wodisNowmethod=#{wodisNowmethod},
+wodisBegintime=#{wodisBegintime},wodisSideeffect=#{wodisSideeffect},pastIllness=#{pastIllness},familyTumor=#{familyTumor},woinVulva=#{woinVulva},woinVuremarks=#{woinVuremarks},
+woinVagina=#{woinVagina},woinVaremarks=#{woinVaremarks},woinSecretion=#{woinSecretion},woinSeremarks=#{woinSeremarks},woinCervical=#{woinCervical},woinCeremarks=#{woinCeremarks},
+woinReview=#{woinReview},woinReviewTime=#{woinReviewTime},ubodySize=#{ubodySize},ubodyPosition=#{ubodyPosition},ubodyHardness=#{ubodyHardness},ubodyActivity=#{ubodyActivity},ubodySurface=#{ubodySurface},ubodyTenderness=#{ubodyTenderness},
+ubodyLeft=#{ubodyLeft},ubodyLeremarks=#{ubodyLeremarks},ubodyRight=#{ubodyRight},ubodyRiremarks=#{ubodyRiremarks},gbodyLeft=#{gbodyLeft},gbodyRight=#{gbodyRight},tumorLeft=#{tumorLeft},tumorRight=#{tumorRight},
+woinRemarks=#{woinRemarks},woinGlandular=#{woinGlandular},woinGlandularTime=#{woinGlandularTime},wodisHandlestate=#{wodisHandlestate},wodisClotime=#{wodisClotime},wodisCloreason=#{wodisCloreason},
+wodisOpinion=#{wodisOpinion},wodisProposal=#{wodisProposal},wodisReview=#{wodisReview},wodisRevtime=#{wodisRevtime},wodisLoginregtime=#{wodisLoginregtime}
+where wodisId=#{wodisId}
+    </update>
 
 
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*) from womanDisease where 1 = 1
-        <if test="username != null">
-            and username like '%${username}%'
+        select count(*) from userinfo u join area a on u.recordUnit=a.areaId
+        where 1=1
+        and u.userSex=2
+        <if test="areaId == 410000">
+            and 1=1
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="areaId != 410000">
+            and a.areaId=#{areaId}
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
+        <if test="userId != null">
+            and u.userId like '%${userId}%'
+        </if>
+        <if test="recordName != null">
+            and u.recordName like '%${recordName}%'
+        </if>
+        <if test="userIdnumber != null">
+            and u.userIdnumber like '%${userIdnumber}%'
+        </if>
+        <if test="beginTime != null">
+            and u.recordData  >= #{beginTime}
+        </if>
+        <if test="endTime != null">
+            and   #{endTime} >= u.recordData
         </if>
     </select>
     <select id="findById" parameterType="Integer" resultType="Map">

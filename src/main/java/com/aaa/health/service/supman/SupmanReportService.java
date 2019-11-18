@@ -12,6 +12,7 @@ public interface SupmanReportService {
     List<SupmanReport> findList(Map<String, Object> queryMap);
     int getTotal(Map<String, Object> queryMap);
     int add(SupmanReport supmanReport);
+    Map<String,Object> findById(Integer reportId);
     int update(SupmanReport supmanReport);
     int delete(String ids);
 }

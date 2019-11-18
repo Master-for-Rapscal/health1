@@ -7,17 +7,50 @@
         delete from antenatalFollowup where anfoId in(${value})
     </delete>
 
-
-    <!-- 分页获取用户列表 -->
-    <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.anfoll.AnteFollow">
-        select anfoId,anfoGestational,anfoParity,anfoName,fillformTime,anfoState from antenatalFollowup
-        where 1 = 1
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
+    <select id="findAnfoll" parameterType="Map" resultType="com.aaa.health.entity.anfoll.AnteFollow">
+        select * from antenatalFollowup a join userinfo u on a.userId=u.userId where u.userId=#{userId}
+        /*and a.anfoState=0
+        and u.userSex=2
+        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=18
+        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )&lt;50*/
     </select>
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*) from antenatalFollowup where 1 = 1
+        select count(*) from antenatalFollowup where userId=#{userId}
     </select>
+    <select id="findUser" parameterType="Integer" resultType="Map">
+select userId,recordName,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(userBirthday))/365) userAge from userinfo where userId=#{userId}
+ </select>
+    <insert id="add" parameterType="com.aaa.health.entity.anfoll.AnteFollow">
+insert into antenatalFollowup(userId,fillformTime,anWeek,anfoName,anfoAge,anfoPhone,anfoGestational,anfoParity,
+anfoVagina,anfoCesection,anfoLastmenage,anfoPretime,anfoPast,anfoFamily,anfoPersonal,womanOperation,anteAbortion,
+antePeoabort,anteStbirth,anteStbir,anteBirthdie,anteBirthdefect,anfoHeight,anfoWeight,anfoConstitution,aBloodpreq,
+aBloodpreh,anfoHeart,anfoLungs,aninVulva,aninVagina,aninCervical,aninBody,anclosure,anHemoglobin,anWhitecell,
+anPlatelet,anCellother,anUrprotein,anUrsugar,anKetone,anBlood,anUrother,anABO,anRH,anbloodSugar,anEnzymeo,anEnzymet,
+anAlbumin,anTotalbil,anConbil,anSerum,anUrean,anSecretion,anClean,anAntigen,anAntibody,anAntigenE,anAntibodyE,
+anAntibodycenter,anExperiment,anHIV,anB,anOther,totalAssess,healthGuidance,anWhether,anReason,anOrgan,anfoFotime,
+anfoDoctor,anfoState,anfoStatetime,anfoStateReason)
+    values(#{userId},#{fillformTime},#{anWeek},#{anfoName},#{anfoAge},#{anfoPhone},#{anfoGestational},#{anfoParity},#{
+anfoVagina},#{anfoCesection},#{anfoLastmenage},#{anfoPretime},#{anfoPast},#{anfoFamily},#{anfoPersonal},#{womanOperation},#{anteAbortion},#{
+antePeoabort},#{anteStbirth},#{anteStbir},#{anteBirthdie},#{anteBirthdefect},#{anfoHeight},#{anfoWeight},#{anfoConstitution},#{aBloodpreq},#{
+aBloodpreh},#{anfoHeart},#{anfoLungs},#{aninVulva},#{aninVagina},#{aninCervical},#{aninBody},#{anclosure},#{anHemoglobin},#{anWhitecell},#{
+anPlatelet},#{anCellother},#{anUrprotein},#{anUrsugar},#{anKetone},#{anBlood},#{anUrother},#{anABO},#{anRH},#{anbloodSugar},#{anEnzymeo},#{anEnzymet},#{
+anAlbumin},#{anTotalbil},#{anConbil},#{anSerum},#{anUrean},#{anSecretion},#{anClean},#{anAntigen},#{anAntibody},#{anAntigenE},#{anAntibodyE},#{
+anAntibodycenter},#{anExperiment},#{anHIV},#{anB},#{anOther},#{totalAssess},#{healthGuidance},#{anWhether},#{anReason},#{anOrgan},#{anfoFotime},#{
+anfoDoctor},0,#{anfoStatetime},#{anfoStateReason})
+    </insert>
+    <select id="findById" parameterType="Integer" resultType="Map">
+select a.*,u.recordName,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(u.userBirthday))/365) userAge from antenatalFollowup a join userinfo u on a.userId=u.userId where anfoId=#{anfoId}
+</select>
+    <update id="update" parameterType="com.aaa.health.entity.anfoll.AnteFollow">
+        update antenatalFollowup set fillformTime=#{fillformTime},anWeek=#{anWeek},anfoName=#{anfoName},anfoAge=#{anfoAge},anfoPhone=#{anfoPhone},anfoGestational=#{anfoGestational},anfoParity=#{anfoParity},
+anfoVagina=#{anfoVagina},anfoCesection=#{anfoCesection},anfoLastmenage=#{anfoLastmenage},anfoPretime=#{anfoPretime},anfoPast=#{anfoPast},anfoFamily=#{anfoFamily},anfoPersonal=#{anfoPersonal},womanOperation=#{womanOperation},anteAbortion=#{anteAbortion},
+antePeoabort=#{antePeoabort},anteStbirth=#{anteStbirth},anteStbir=#{anteStbir},anteBirthdie=#{anteBirthdie},anteBirthdefect=#{anteBirthdefect},anfoHeight=#{anfoHeight},anfoWeight=#{anfoWeight},anfoConstitution=#{anfoConstitution},aBloodpreq=#{aBloodpreq},
+aBloodpreh=#{aBloodpreh},anfoHeart=#{anfoHeart},anfoLungs=#{anfoLungs},aninVulva=#{aninVulva},aninVagina=#{aninVagina},aninCervical=#{aninCervical},aninBody=#{aninBody},anclosure=#{anclosure},anHemoglobin=#{anHemoglobin},anWhitecell=#{anWhitecell},
+anPlatelet=#{anPlatelet},anCellother=#{anCellother},anUrprotein=#{anUrprotein},anUrsugar=#{anUrsugar},anKetone=#{anKetone},anBlood=#{anBlood},anUrother=#{anUrother},anABO=#{anABO},anRH=#{anRH},anbloodSugar=#{anbloodSugar},anEnzymeo=#{anEnzymeo},anEnzymet=#{anEnzymet},
+anAlbumin=#{anAlbumin},anTotalbil=#{anTotalbil},anConbil=#{anConbil},anSerum=#{anSerum},anUrean=#{anUrean},anSecretion=#{anSecretion},anClean=#{anClean},anAntigen=#{anAntigen},anAntibody=#{anAntibody},anAntigenE=#{anAntigenE},anAntibodyE=#{anAntibodyE},
+anAntibodycenter=#{anAntibodycenter},anExperiment=#{anExperiment},anHIV=#{anHIV},anB=#{anB},anOther=#{anOther},totalAssess=#{totalAssess},healthGuidance=#{healthGuidance},anWhether=#{anWhether},anReason=#{anReason},anOrgan=#{anOrgan},anfoFotime=#{anfoFotime},
+anfoDoctor=#{anfoDoctor},anfoState=#{anfoState},anfoStatetime=#{anfoStatetime},anfoStateReason=#{anfoStateReason}
+where anfoId=#{anfoId}
+    </update>
 
 </mapper>

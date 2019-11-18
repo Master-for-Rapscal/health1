@@ -4,62 +4,98 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.pultub.PulTubfoMapper">
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.pultub.PulTubfo">
-        select p.pultubfoId,p.userId,u.recordName,u.userSex,u.userBirthday,u.recordAdress,u.userMyphone,y.userPrivyPhone,p.puljkTime,p.pulState,s.lastname from pultubfo p left join userinfo u on p.userId=u.userId left join userPrivy y on u.userId=y.userId left join user s on p.pultubfofoDoctor=s.id
+        select p.pultubfoId,p.userId,u.recordName,u.userSex,u.userBirthday,u.recordAdress,u.userMyphone,u.recordUnit,
+        y.userPrivyPhone,p.puljkTime,p.pulState,s.lastname from pultubfo p left join userinfo u on p.userId=u.userId
+        left join userPrivy y on u.userId=y.userId left join user s on p.pultubfofoDoctor=s.id
+        join area a on u.recordUnit=a.areaId
         where 1 = 1
-        <if test="username != null">
-            and username like '%${username}%'
+        <if test="recordUnit == 410000">
+            and 1=1
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="recordUnit !=null and recordUnit != 410000">
+            and u.recordUnit=#{recordUnit}
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
-        </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
-    </select>
+    <if test="userId != null">
+        and p.userId like '%${userId}%'
+    </if>
+    <if test="recordName != null">
+        and u.recordName like '%${recordName}%'
+    </if>
+    <if test="userSex != null">
+        and u.userSex=#{userSex}
+    </if>
+    <if test="lastname != null">
+        and s.lastname=#{lastname}
+    </if>
+    <if test="beginTime != null">
+        and p.puljkTime  >= #{beginTime}
+    </if>
+    <if test="endTime != null">
+        and   #{endTime} >= p.puljkTime
+    </if>
+    <if test="offset != null and pageSize != null">
+        limit #{offset},#{pageSize}
+    </if>
+</select>
 
-    <insert id="add" parameterType="com.aaa.health.entity.pultub.Puserinfo">
-    insert into pultubfo(userId,pultubfoTime,pultubfoMode,pultubfoType,spuBacteria,druResistance,symptomSign,
+<insert id="add" parameterType="com.aaa.health.entity.pultub.Puserinfo">
+insert into pultubfo(userId,pultubfoTime,pultubfoMode,pultubfoType,spuBacteria,druResistance,symptomSign,
 symptomOther,cheRegimen,drugUsage,drugDosage,supervisorStaff,separateRoom,aerationSituation,pultubfoSmokcount,
 pultubfoSmokday,pultubfoRumbi,pultubfoRumday,pultubfoDrugaddress,pultubfoDrugtime,pultubfoWriter,pultubfoRelease,
 pultubfoTreat,pultubfoHarm,pultubfoReaction,pultubfoFurcon,pultubfoTmedicine,pultubfoBecareful,pultubfoInspect,
 puljkTime,pulState,nextfoTime,pultubfofoDoctor)
-    values(#{userId},#{pultubfoTime},#{pultubfoMode},#{pultubfoType},#{spuBacteria},#{druResistance},#{symptomSign},#{
-symptomOther},#{cheRegimen},#{drugUsage},#{drugDosage},#{supervisorStaff},#{separateRoom},#{aerationSituation},#{pultubfoSmokcount},#{
-pultubfoSmokday},#{pultubfoRumbi},#{pultubfoRumday},#{pultubfoDrugaddress},#{pultubfoDrugtime},#{pultubfoWriter},#{pultubfoRelease},#{
-pultubfoTreat},#{pultubfoHarm},#{pultubfoReaction},#{pultubfoFurcon},#{pultubfoTmedicine},#{pultubfoBecareful},#{pultubfoInspect},#{
-puljkTime},#{pulState},#{nextfoTime},#{pultubfofoDoctor})
-    </insert>
-    <update id="edit" parameterType="com.aaa.health.entity.pultub.Puserinfo">
-   update pultubfo set pultubfoTime=#{pultubfoTime},pultubfoMode=#{pultubfoMode},pultubfoType=#{pultubfoType},
-   spuBacteria=#{spuBacteria},druResistance=#{druResistance},symptomSign=#{symptomSign},symptomOther=#{symptomOther},
-   cheRegimen=#{cheRegimen},drugUsage=#{drugUsage},drugDosage=#{drugDosage},supervisorStaff=#{supervisorStaff},
-   separateRoom=#{separateRoom},aerationSituation=#{aerationSituation},pultubfoSmokcount=#{pultubfoSmokcount},
+values(#{userId},#{pultubfoTime},#{pultubfoMode},#{pultubfoType},#{spuBacteria},#{druResistance},#{symptomSign},
+#{symptomOther},#{cheRegimen},#{drugUsage},#{drugDosage},#{supervisorStaff},#{separateRoom},#{aerationSituation},
+#{pultubfoSmokcount},#{pultubfoSmokday},#{pultubfoRumbi},#{pultubfoRumday},#{pultubfoDrugaddress},#{pultubfoDrugtime},
+#{pultubfoWriter},#{pultubfoRelease},#{pultubfoTreat},#{pultubfoHarm},#{pultubfoReaction},#{pultubfoFurcon},#{pultubfoTmedicine},
+#{pultubfoBecareful},#{pultubfoInspect},#{puljkTime},#{pulState},#{nextfoTime},#{pultubfofoDoctor})
+</insert>
+<update id="edit" parameterType="com.aaa.health.entity.pultub.Puserinfo">
+update pultubfo set pultubfoTime=#{pultubfoTime},pultubfoMode=#{pultubfoMode},pultubfoType=#{pultubfoType},
+spuBacteria=#{spuBacteria},druResistance=#{druResistance},symptomSign=#{symptomSign},symptomOther=#{symptomOther},
+cheRegimen=#{cheRegimen},drugUsage=#{drugUsage},drugDosage=#{drugDosage},supervisorStaff=#{supervisorStaff},
+separateRoom=#{separateRoom},aerationSituation=#{aerationSituation},pultubfoSmokcount=#{pultubfoSmokcount},
 pultubfoSmokday=#{pultubfoSmokday},pultubfoRumbi=#{pultubfoRumbi},pultubfoRumday=#{pultubfoRumday},pultubfoDrugaddress=#{pultubfoDrugaddress},
 pultubfoDrugtime=#{pultubfoDrugtime},pultubfoWriter=#{pultubfoWriter},pultubfoRelease=#{pultubfoRelease},
 pultubfoTreat=#{pultubfoTreat},pultubfoHarm=#{pultubfoHarm},pultubfoReaction=#{pultubfoReaction},
 pultubfoFurcon=#{pultubfoFurcon},pultubfoTmedicine=#{pultubfoTmedicine},pultubfoBecareful=#{pultubfoBecareful},
 pultubfoInspect=#{pultubfoInspect},puljkTime=#{puljkTime},pulState=#{pulState},nextfoTime=#{nextfoTime},pultubfofoDoctor=#{pultubfofoDoctor}
-    where pultubfoId=#{pultubfoId}
-    </update>
-    <delete id="delete" parameterType="String">
-        delete from pultubfo where pultubfoId in(${value})
-    </delete>
+where pultubfoId=#{pultubfoId}
+</update>
+<delete id="delete" parameterType="String">
+    delete from pultubfo where pultubfoId in(${value})
+</delete>
 
 
-    <!-- 获取符合结果的总记录数 -->
+<!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*) from pultubfo where 1 = 1
-        <if test="username != null">
-            and username like '%${username}%'
+        select count(*) from pultubfo p left join userinfo u on p.userId=u.userId
+        left join userPrivy y on u.userId=y.userId left join user s on p.pultubfofoDoctor=s.id
+        join area a on u.recordUnit=a.areaId
+        where 1 = 1
+        <if test="recordUnit == 410000">
+            and 1=1
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="recordUnit !=null and recordUnit != 410000">
+            and u.recordUnit=#{recordUnit}
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
+        <if test="userId != null">
+            and p.userId like '%${userId}%'
+        </if>
+        <if test="recordName != null">
+            and u.recordName like '%${recordName}%'
+        </if>
+        <if test="userSex != null">
+            and u.userSex=#{userSex}
+        </if>
+        <if test="lastname != null">
+            and s.lastname=#{lastname}
+        </if>
+        <if test="beginTime != null">
+            and p.puljkTime  >= #{beginTime}
+        </if>
+        <if test="endTime != null">
+            and   #{endTime} >= p.puljkTime
         </if>
     </select>
     <select id="findById" parameterType="Integer" resultType="Map">

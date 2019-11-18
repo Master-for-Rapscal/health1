@@ -29,6 +29,11 @@ public class SupmanPatrolServiceImpl implements SupmanPatrolService{
     }
 
     @Override
+    public Map<String, Object> findById(Integer patrolId) {
+        return supmanPatrolMapper.findById(patrolId);
+    }
+
+    @Override
     public int update(SupmanPatrol supmanPatrol) {
         return supmanPatrolMapper.update(supmanPatrol);
     }

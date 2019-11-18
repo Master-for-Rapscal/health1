@@ -11,11 +11,18 @@
             <div th:replace="common/menus :: menus"  > </div>
         </div>
         <div class="wu-toolbar-search">
-            <label> 巡查人:</label><input name="patrolName"/>
-            <label> 巡查时间:</label><input type="text" class="easyui-datebox" editable="fasle" name="beginTime"/>至
-            <input type="text" class="easyui-datebox"  name="endTime"/>
-           <!-- <label> 录入人:</label><input name="userAdress"/>
-            <label> 联系电话:</label><input name="userMyphone"/>-->
+            <label> 巡查人:</label>&nbsp;
+            <input name="patrolName"/>&nbsp;&nbsp;
+            <label> 巡查地区:</label>&nbsp;
+            <select th:name="areaId" class="easyui-combobox" panelHeight="auto" style="width:150px" data-options="editable:false">
+
+                <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
+            </select>&nbsp;&nbsp;
+            <label> 巡查时间:</label>&nbsp;
+            <input type="text" class="easyui-datebox" editable="fasle" name="beginTime" style="width: 150px"/>
+            &nbsp;&nbsp;至&nbsp;
+            <input type="text" class="easyui-datebox" editable="fasle" name="endTime" style="width: 150px"/>
+            &nbsp;&nbsp;
             <a href="#" id="suppat-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
 
         </div>
@@ -28,178 +35,22 @@
 </div>
 <!-- Begin of easyui-dialog -->
 
-<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:750px;height:640px; overflow:auto;">
-
-    <form id="add-form" method="post">
-        <h1 style="text-align: center">卫生计生监督协管巡查登记表</h1>
-        <table border="1" style="margin-left: 50px;width: 600px">
-            <tr>
-                <td width="60" data-options="required:true,min:1,precision:0, missingMessage:'请填写'" >机构名称</td>
-                <td>
-                    <select th:name="areaId" class="easyui-combobox" panelHeight="auto" style="width:150px">
-
-                        <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
-                    </select>
-                </td>
-                <td valign="middle">
-                    年度
-                </td>
-                <td valign="middle">
-                    <select name="patrolYear" class="easyui-combobox" panelHeight="auto" style="width:150px">
-                        <option value="0">2019</option>
-                        <option value="1">2018</option>
-                        <option value="0">2017</option>
-                        <option value="1">2016</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td width="60">巡查地点与内容</td>
-                <td colspan="3">
-                    <textarea name="patrolContent" rows="8" cols="60"></textarea></td>
-            </tr>
-            <tr>
-                <td width="60">发现的主要问题</td>
-                <td colspan="3">
-                    <textarea name="patrolProblem" rows="8" cols="60" style="border: 0px"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td width="60">巡查日期</td>
-                <td>
-                    <input type="text" class="easyui-datebox" editable="fasle" name="patrolTime"  />
-                </td>
-                <td width="60">巡查人</td>
-                <td><input type="text"  name="patrolName"  class="wu-text " style="width: 150px"/></td>
-            </tr>
-            <tr>
-                <td width="60">备注</td>
-                <td colspan="3">
-                    <textarea name="patrolRemarks" rows="8" cols="60"></textarea>
-                </td>
-            </tr>
-        </table>
-    </form>
-</div>
-<!-- 修改窗口 -->
-
-<div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:700px; padding:10px;">
-    <form id="edit-form" method="post">
-        <input type="hidden" name="patrolId" id="edit-patrolId">
-        <h1 style="text-align: center">卫生计生监督协管巡查登记表</h1>
-        <table border="1" style="margin-left: 50px;width: 600px">
-            <tr>
-                <td width="60" data-options="required:true,min:1,precision:0, missingMessage:'请填写'" >机构名称</td>
-                <td>
-                    <select th:name="areaId" id="edit-areaId" class="easyui-combobox" panelHeight="auto" style="width:150px">
-
-                        <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
-                    </select>
-                </td>
-                <td valign="middle">
-                    年度
-                </td>
-                <td valign="middle">
-                    <select name="patrolYear" id="edit-patrolYear" class="easyui-combobox" panelHeight="auto" style="width:150px">
-                        <option value="0">2019</option>
-                        <option value="1">2018</option>
-                        <option value="2">2017</option>
-                        <option value="3">2016</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td width="60">巡查地点与内容</td>
-                <td colspan="3">
-                    <textarea name="patrolContent" rows="8" cols="90" id="edit-patrolContent"></textarea></td>
-            </tr>
-            <tr>
-                <td width="60">发现的主要问题</td>
-                <td colspan="3">
-                    <textarea name="patrolProblem" rows="8" cols="90" id="edit-patrolProblem"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td width="60">巡查日期</td>
-                <td>
-                    <input type="text" class="easyui-datebox" editable="fasle" name="patrolTime" id="edit-patrolTime" />
-                </td>
-                <td width="60">巡查人</td>
-                <td><input type="text"  name="patrolName" id="edit-patrolName" class="wu-text " style="width: 150px"/></td>
-            </tr>
-            <tr>
-                <td width="60">备注</td>
-                <td colspan="3">
-                    <textarea name="patrolRemarks" rows="8" cols="90" id="edit-patrolRemarks"></textarea>
-                </td>
-            </tr>
-        </table>
-    </form>
-
+<!-- 添加/修改 -->
+<div id="addsupp" class="easyui-dialog" style="width: 730px;height: 620px; margin-left: 20px;padding:10px;">
+    <div th:replace="suppat/addsuppat :: suppat"></div>
 </div>
 
-
-
-
-
-
-
-
-<div id="process-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-upload',title:'正在上传图片'" style="width:450px; padding:10px;">
-    <div id="p" class="easyui-progressbar" style="width:400px;" data-options="text:'正在上传中...'"></div>
-</div>
-<input type="file" id="photo-file" style="display:none;" onchange="upload()">
 <!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
 <div th:replace="common/footer :: myfooter"  ></div>
 
 
 <!-- End of easyui-dialog -->
 <script type="text/javascript" th:inline="none">
-    //上传图片
-    function start(){
-        var value = $('#p').progressbar('getValue');
-        if (value < 100){
-            value += Math.floor(Math.random() * 10);
-            $('#p').progressbar('setValue', value);
-        }else{
-            $('#p').progressbar('setValue',0)
-        }
-    };
-    function upload(){
-        if($("#photo-file").val() == '')return;
-        var formData = new FormData();
-        formData.append('photo',document.getElementById('photo-file').files[0]);
-        $("#process-dialog").dialog('open');
-        var interval = setInterval(start,200);
-        $.ajax({
-            url:'upload_photo',
-            type:'post',
-            data:formData,
-            contentType:false,
-            processData:false,
-            success:function(data){
-                clearInterval(interval);
-                $("#process-dialog").dialog('close');
-                if(data.type == 'success'){
-                    $("#preview-photo").attr('src',data.filepath);
-                    $("#add-photo").val(data.filepath);
-                    $("#edit-preview-photo").attr('src',data.filepath);
-                    $("#edit-photo").val(data.filepath);
-                }else{
-                    $.messager.alert("消息提醒",data.msg,"warning");
-                }
-            },
-            error:function(data){
-                clearInterval(interval);
-                $("#process-dialog").dialog('close');
-                $.messager.alert("消息提醒","上传失败!","warning");
-            }
-        });
-    }
-
-    function uploadPhoto(){
-        $("#photo-file").click();
-
+    $(function () {
+        $("#addsupp").dialog('close');
+    });
+    function  goBack() {
+        $("#addsupp").dialog('close');
     }
 
 
@@ -207,12 +58,12 @@
      *  添加记录
      */
     function add(){
-        var validate = $("#edit-form").form("validate");
+        var validate = $("#suppatform").form("validate");
         if(!validate){
             $.messager.alert("消息提醒","请检查你输入的数据!","warning");
             return;
         }
-        var data = $("#edit-form").serialize();
+        var data = $("#suppatform").serialize();
         $.ajax({
             url:'add',
             dataType:'json',
@@ -221,9 +72,9 @@
             success:function(data){
                 if(data.type == 'success'){
                     $.messager.alert('信息提示','添加成功！','info');
-                    $('#edit-dialog').dialog('close');
+                    $('#addsupp').dialog('close');
                     $('#data-datagrid').datagrid('reload');
-                    $('#edit-dialog').dialog('reload');
+                    $('#addsupp').dialog('reload');
                 }else{
                     $.messager.alert('信息提示',data.msg,'warning');
                 }
@@ -235,12 +86,12 @@
      * Name 修改记录
      */
     function update(){
-        var validate = $("#edit-form").form("validate");
+        var validate = $("#suppatform").form("validate");
         if(!validate){
             $.messager.alert("消息提醒","请检查你输入的数据!","warning");
             return;
         }
-        var data = $("#edit-form").serialize();
+        var data = $("#suppatform").serialize();
         $.ajax({
             url:'update',
             dataType:'json',
@@ -249,8 +100,9 @@
             success:function(data){
                 if(data.type == 'success'){
                     $.messager.alert('信息提示','修改成功！','info');
-                    $('#edit-dialog').dialog('close');
+                    $('#addsupp').dialog('close');
                     $('#data-datagrid').datagrid('reload');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 }else{
                     $.messager.alert('信息提示',data.msg,'warning');
                 }
@@ -297,8 +149,7 @@
      * Name 打开添加窗口
      */
     function openAdd(){
-        //$('#add-form').form('clear');
-        $('#edit-dialog').dialog({
+        $('#addsupp').dialog({
             closed: false,
             modal:true,
             title: "新增",
@@ -310,11 +161,11 @@
                 text: '取消',
                 iconCls: 'icon-cancel',
                 handler: function () {
-                    $('#edit-dialog').dialog('close');
+                    $('#addsupp').dialog('close');
                 }
             }],
             onBeforeOpen:function(){
-                //$("#add-form input").val('');
+
             }
         });
     }
@@ -323,7 +174,6 @@
      * 打开修改窗口
      */
     function openEdit(){
-        //$('#edit-form').form('clear');
         var item = $('#data-datagrid').datagrid('getSelections');
         if(item == null || item.length == 0){
             $.messager.alert('信息提示','请选择要修改的数据！','info');
@@ -334,7 +184,8 @@
             return;
         }
         item = item[0];
-        $('#edit-dialog').dialog({
+        var patId=item.patrolId;
+        $('#addsupp').dialog({
             closed: false,
             modal:true,
             title: "修改",
@@ -346,18 +197,20 @@
                 text: '取消',
                 iconCls: 'icon-cancel',
                 handler: function () {
-                    $('#edit-dialog').dialog('close');
+                    $('#addsupp').dialog('close');
                 }
             }],
             onBeforeOpen:function(){
-                $("#edit-patrolId").val(item.patrolId);
-                $("#edit-areaId").combobox('setValue',item.areaId);
-                $("#edit-patrolYear").combobox('setValue',item.patrolYear);
-                $("#edit-patrolContent").val(item.patrolContent);
-                $("#edit-patrolProblem").val(item.patrolProblem);
-                $("#edit-patrolTime").combobox('setValue',item.patrolTime);
-                $("#edit-patrolName").val(item.patrolName);
-                $("#edit-patrolRemarks").val(item.patrolRemarks);
+                $.ajax({
+                    url: '../suppat/findById?patrolId=' + patId,
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#suppatform").form('load', data.patrol);
+                    }
+
+                });
+
             }
         });
     }
@@ -393,7 +246,7 @@
     $('#data-datagrid').datagrid({
         url:'list',
         rownumbers:true,
-        singleSelect:false,
+        singleSelect:true,
         pageSize:20,
         pagination:true,
         multiSort:true,
@@ -407,7 +260,6 @@
             openEdit(row.patrolId);
         },
         columns:[[
-            { field:'chk',checkbox:true},
             { field:'patrolId',hidden:"true"},
             { field:'patrolContent',title:'巡查地点与内容',width:100,sortable:true},
             { field:'patrolProblem',title:'发现的主要问题',width:100,sortable:true},
@@ -437,6 +289,7 @@
             $("#data-datagrid").datagrid({
                 queryParams: {
                     patrolName: $("input[name=patrolName]").val(),
+                    areaId: $("input[name=areaId]").val(),
                     beginTime: $("input[name=beginTime]").val(),
                     endTime: $("input[name=endTime]").val(),
                 }

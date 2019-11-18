@@ -12,6 +12,7 @@ public interface SupmanPatrolMapper {
     List<SupmanPatrol> findList(Map<String, Object> queryMap);
     int getTotal(Map<String, Object> queryMap);
     int add(SupmanPatrol supmanPatrol);
+    Map<String,Object> findById(Integer patrolId);
     int update(SupmanPatrol supmanPatrol);
     int delete(String ids);
 }

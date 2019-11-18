@@ -4,17 +4,28 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.anfoll.AnteFollowMapper">
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.anfoll.AnteFollow">
-        select userId,recordName,userBirthday,recordAdress,userMyphone,recordData from userinfo
+        select u.userId,u.recordName,u.userBirthday,u.recordAdress,u.userMyphone,u.recordData,u.recordUnit,a.areaName from userinfo u left join area a on u.recordUnit=a.areaId
         where 1=1
-        and userSex=2
-        <if test="username != null">
-            and username like '%${username}%'
+        and u.userSex=2
+        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(userBirthday))/365 )>=18
+        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(userBirthday))/365 )&lt; 50
+        <if test="recordUnit == 410000">
+            and 1=1
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="recordUnit != null and recordUnit !=410000">
+            and u.recordUnit=#{recordUnit}
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
+        <if test="userId != null">
+            and u.userId like '%${userId}%'
+        </if>
+        <if test="recordName != null">
+            and u.recordName like '%${recordName}%'
+        </if>
+        <if test="beginTime != null">
+            and u.userBirthday  >= #{beginTime}
+        </if>
+        <if test="endTime != null">
+            and   #{endTime} >= u.userBirthday
         </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
@@ -28,15 +39,28 @@
 
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*) from userinfo where 1 = 1
-        <if test="username != null">
-            and username like '%${username}%'
+        select count(*) from userinfo u left join area a on u.recordUnit=a.areaId
+        where 1=1
+        and u.userSex=2
+        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(userBirthday))/365 )>=18
+        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(userBirthday))/365 )&lt; 50
+        <if test="recordUnit == 410000">
+            and 1=1
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="recordUnit != null and recordUnit !=410000">
+            and u.recordUnit=#{recordUnit}
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
+        <if test="userId != null">
+            and u.userId like '%${userId}%'
+        </if>
+        <if test="recordName != null">
+            and u.recordName like '%${recordName}%'
+        </if>
+        <if test="beginTime != null">
+            and u.userBirthday  >= #{beginTime}
+        </if>
+        <if test="endTime != null">
+            and   #{endTime} >= u.userBirthday
         </if>
     </select>
 </mapper>

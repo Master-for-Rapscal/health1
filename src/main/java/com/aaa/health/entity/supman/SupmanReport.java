@@ -7,9 +7,17 @@ import java.util.Date;
 
 @Mapper
 public class SupmanReport {
-    private Integer reportId,addressId,addressId2,reportCategory,reportState;
+    private Integer reportId,addressId,areaId,addressId2,reportCategory,reportState;
     private Date reportFindtime,reportTime;
     private String reportContent,reportName,reportColumn;
+
+    public Integer getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(Integer areaId) {
+        this.areaId = areaId;
+    }
 
     public Integer getReportId() {
         return reportId;
@@ -96,6 +104,7 @@ public class SupmanReport {
         return "SupmanReport{" +
                 "reportId=" + reportId +
                 ", addressId=" + addressId +
+                ", areaId=" + areaId +
                 ", addressId2=" + addressId2 +
                 ", reportCategory=" + reportCategory +
                 ", reportState=" + reportState +

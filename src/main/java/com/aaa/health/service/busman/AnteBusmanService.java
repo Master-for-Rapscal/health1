@@ -10,4 +10,6 @@ public interface AnteBusmanService {
     List<AnteFollow> findList(Map<String, Object> queryMap);
     int getTotal(Map<String, Object> queryMap);
     int update(AnteFollow anteFollow);
+    Map<String,Object> findById(Integer anfoId);
+    int add(AnteFollow anteFollow);
 }

@@ -4,10 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.supman.SupmanReportMapper">
  <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.supman.SupmanReport">
-    select s.reportId,s.addressId,s.addressId2,a.areaName,a.areaName,s.reportFindtime,s.reportCategory,s.reportContent,s.reportTime,s.reportName from supmanreport s join area a on s.addressId=a.areaId
+    select s.reportId,s.addressId,s.addressId2,a.areaName,a.areaName,s.reportFindtime,s.reportCategory,s.reportContent,s.reportTime,s.reportName from supmanreport s left join area a on s.addressId=a.areaId
     where 1=1
      <if test="reportCategory != null">
-         and reportCategory like '%${reportCategory}%'
+         and reportCategory=#{reportCategory}
+     </if>
+     <if test="addressId == 410000">
+         and 1=1
+     </if>
+     <if test="addressId != null and addressId !=410000">
+         and addressId=#{addressId}
      </if>
      <if test="reportName != null">
          and reportName like '%${reportName}%'
@@ -28,7 +34,9 @@
    insert into supmanreport(addressId,addressId2,reportFindtime,reportCategory,reportContent,reportTime,reportName)
     values(#{addressId},#{addressId2},#{reportFindtime},#{reportCategory},#{reportContent},#{reportTime},#{reportName})
     </insert>
-
+    <select id="findById" parameterType="Integer" resultType="Map">
+        select * from supmanreport where reportId=#{reportId}
+    </select>
   <update id="update" parameterType="com.aaa.health.entity.supman.SupmanReport">
 update supmanreport set addressId=#{addressId},addressId2=#{addressId2},reportFindtime=#{reportFindtime},reportCategory=#{reportCategory},reportContent=#{reportContent},reportTime=#{reportTime},reportName=#{reportName}
     where reportId=#{reportId}
@@ -44,7 +52,13 @@ update supmanreport set addressId=#{addressId},addressId2=#{addressId2},reportFi
     select count(*) from supmanreport
       where 1=1
       <if test="reportCategory != null">
-          and reportCategory like '%${reportCategory}%'
+          and reportCategory=#{reportCategory}
+      </if>
+      <if test="addressId == 410000">
+          and 1=1
+      </if>
+      <if test="addressId != null and addressId !=410000">
+          and addressId=#{addressId}
       </if>
       <if test="reportName != null">
           and reportName like '%${reportName}%'

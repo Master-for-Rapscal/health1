@@ -6,6 +6,12 @@
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.emerg.EmerGencies">
     select * from emergencies e
         where 1=1
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and e.areaId=#{areaId}
+        </if>
         <if test="emgPeople != null">
             and e.emgPeople like '%${emgPeople}%'
         </if>
@@ -56,21 +62,28 @@ firstPatient=#{firstPatient},lastPatient=#{lastPatient},mainSymptoms=#{mainSympt
 
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*) from emergencies where 1 = 1
+        select count(*) from emergencies e
+        where 1=1
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and e.areaId=#{areaId}
+        </if>
         <if test="emgPeople != null">
-            and emgPeople like '%${emgPeople}%'
+            and e.emgPeople like '%${emgPeople}%'
         </if>
         <if test="beginTime != null">
-            and emgTimes  >= #{beginTime}
+            and e.emgTimes  >= #{beginTime}
         </if>
         <if test="endTime != null">
-            and   #{endTime} >= emgTimes
+            and   #{endTime} >= e.emgTimes
         </if>
         <if test="beginTimet != null">
-            and emgReportTime  >= #{beginTimet}
+            and e.emgReportTime  >= #{beginTimet}
         </if>
         <if test="endTimet != null">
-            and   #{endTimet} >= emgReportTime
+            and   #{endTimet} >= e.emgReportTime
         </if>
     </select>
     <select id="findArea" resultType="com.aaa.health.entity.area.Area">

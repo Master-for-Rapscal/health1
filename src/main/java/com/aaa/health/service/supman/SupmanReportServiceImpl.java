@@ -1,6 +1,5 @@
 package com.aaa.health.service.supman;
 
-import com.aaa.health.entity.area.Area;
 import com.aaa.health.entity.supman.SupmanReport;
 import com.aaa.health.mapper.supman.SupmanReportMapper;
 import org.springframework.stereotype.Service;
@@ -26,6 +25,11 @@ private SupmanReportMapper supmanReportMapper;
     @Override
     public int add(SupmanReport supmanReport) {
         return supmanReportMapper.add(supmanReport);
+    }
+
+    @Override
+    public Map<String, Object> findById(Integer reportId) {
+        return supmanReportMapper.findById(reportId);
     }
 
 

@@ -1,7 +1,7 @@
-package com.aaa.health.controller.pultub;
+package com.aaa.health.controller.indis;
 
 import com.aaa.health.page.admin.Page;
-import com.aaa.health.service.pultub.PuserinfoService;
+import com.aaa.health.service.indis.IuserinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -15,13 +15,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/puserinfo")
-public class PuserinfoController {
+@RequestMapping("/iuserinfo")
+public class IuserinfoController {
     @Autowired
-    private PuserinfoService puserinfoService;
+    private IuserinfoService iuserinfoService;
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page,@RequestParam(name = "userId", required = false, defaultValue = "") Integer userId,
+    public Map<String, Object> getList(Page page, @RequestParam(name = "userId", required = false, defaultValue = "") Integer userId,
                                        @RequestParam(name = "recordName", required = false, defaultValue = "") String recordName,
                                        @RequestParam(name = "beginTime", required = false, defaultValue = "") Date beginTime,
                                        @RequestParam(name = "endTime", required = false, defaultValue = "") Date endTime,
@@ -37,15 +37,15 @@ public class PuserinfoController {
         queryMap.put("endTime",endTime);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
-        ret.put("rows", puserinfoService.findList(queryMap));// 页面加载数据使用
-        ret.put("total", puserinfoService.getTotal(queryMap));// 分页使用
+        ret.put("rows", iuserinfoService.findList(queryMap));// 页面加载数据使用
+        ret.put("total", iuserinfoService.getTotal(queryMap));// 分页使用
         return ret;
     }
     //根据用户ID来查询
     @RequestMapping( "/queryUserById")
     @ResponseBody
     public Object queryById(Integer userId){
-        return puserinfoService.queryUserById(userId);
+        return iuserinfoService.queryUserById(userId);
     }
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -53,3 +53,4 @@ public class PuserinfoController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 }
+

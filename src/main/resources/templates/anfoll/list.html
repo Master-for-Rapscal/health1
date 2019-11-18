@@ -11,25 +11,25 @@
             <div th:replace="common/menus :: menus"  > </div>
         </div>
         <div class="wu-toolbar-search">
-            <label>报告人:</label><input id="search-name" class="wu-text" style="width:100px">
-            <label>报告时间:</label>
-
-            <label>录入人:</label>
-            <select id="search-sex" class="easyui-combobox" panelHeight="auto" style="width:120px">
-                <option value="-1">全部</option>
-                <option value="0">未知</option>
-                <option value="1">男</option>
-                <option value="2">女</option>
-            </select>
-            <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+            <label> 健康档案号:</label>&nbsp;
+            <input name="userId"/>&nbsp;&nbsp;
+            <label> 姓名:</label>&nbsp;
+            <input name="recordName"/>&nbsp;&nbsp;
+            <label> 所属地区:</label>&nbsp;
+            <select th:name="recordUnit" class="easyui-combobox" panelHeight="auto" style="width:150px" data-options="editable:false">
+                <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
+            </select>&nbsp;&nbsp;
+            <label> 出生日期:</label>&nbsp;
+            <input type="text" class="easyui-datebox" editable="fasle" name="beginTime" style="width: 150px"/>
+            &nbsp;&nbsp;至&nbsp;
+            <input type="text" class="easyui-datebox" editable="fasle" name="endTime" style="width: 150px"/>
+            &nbsp;&nbsp;
+            <a href="#" id="anfoll-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
         </div>
     </div>
 
-
-
     <!-- End of toolbar -->
     <table id="data-datagrid" class="easyui-datagrid" toolbar="#wu-toolbar"></table>
-    <table id="data-datagridtwo" class="easyui-datagrid" toolbar="#wu-toolbar"></table>
 </div>
 <!-- Begin of easyui-dialog -->
 
@@ -130,19 +130,24 @@
 
 
 
+<!--健康档案-->
+<!--<div id="userinfo-dialog" class="easyui-dialog" data-options="closed:true" style="width:800px;height: 700px">
+    &lt;!&ndash;按条件查询&ndash;&gt;
+    <label> 健康档案号:</label><input name="userId" id="userId" class="easyui-numberbox" maxlength="9" data-options="validType:'length[0,9]'"  style="width: 120px"/>
+    <label> 姓名:</label><input name="recordName" id="recordName" style="width: 100px"/>
+    <label> 出生日期:</label><input type="text" class="easyui-datebox" editable="fasle" name="beginTime" id="beginTime" style="width: 100px"/>至
+    <input type="text" class="easyui-datebox"  name="endTime" id="endTime" style="width: 100px"/>
+    <a href="#" id="userinfo-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
 
-
-
-
-<div id="process-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-upload',title:'正在上传图片'" style="width:450px; padding:10px;">
-    <div id="p" class="easyui-progressbar" style="width:400px;" data-options="text:'正在上传中...'"></div>
+    <table id="userAll" class="easyui-datagrid" style="width: 750px;height: 600px" ></table>
+</div>-->
+<!--孕卡信息-->
+<div id="anfoll-dialog" class="easyui-dialog" data-options="closed:true" style="width:720px">
+    <table id="dataAll" class="easyui-datagrid" style="width: 700px; height: 550px;" ></table>
 </div>
-<input type="file" id="photo-file" style="display:none;" onchange="upload()">
-<div class="wu-toolbar-button" id="Anfoll" STYLE="width: 1000px;height: 500px">
-
-    <table id="data-datagrid1" class="easyui-datagrid" toolbar="#wu-toolbar" hidden="hidden">
-
-    </table>
+<!-- 添加/修改孕卡信息 -->
+<div id="editanf" class="easyui-dialog" style="width: 850px;height: 890px; padding:10px;">
+    <div th:replace="anfoll/editanfo :: anfo"></div>
 </div>
 <!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
 <div th:replace="common/footer :: myfooter"  ></div>
@@ -150,58 +155,30 @@
 
 <!-- End of easyui-dialog -->
 <script type="text/javascript" th:inline="none">
-    //上传图片
-    function start(){
-        var value = $('#p').progressbar('getValue');
-        if (value < 100){
-            value += Math.floor(Math.random() * 10);
-            $('#p').progressbar('setValue', value);
-        }else{
-            $('#p').progressbar('setValue',0)
-        }
-    };
-    function upload(){
-        if($("#photo-file").val() == '')return;
-        var formData = new FormData();
-        formData.append('photo',document.getElementById('photo-file').files[0]);
-        $("#process-dialog").dialog('open');
-        var interval = setInterval(start,200);
-        $.ajax({
-            url:'upload_photo',
-            type:'post',
-            data:formData,
-            contentType:false,
-            processData:false,
-            success:function(data){
-                clearInterval(interval);
-                $("#process-dialog").dialog('close');
-                if(data.type == 'success'){
-                    $("#preview-photo").attr('src',data.filepath);
-                    $("#add-photo").val(data.filepath);
-                    $("#edit-preview-photo").attr('src',data.filepath);
-                    $("#edit-photo").val(data.filepath);
-                }else{
-                    $.messager.alert("消息提醒",data.msg,"warning");
-                }
-            },
-            error:function(data){
-                clearInterval(interval);
-                $("#process-dialog").dialog('close');
-                $.messager.alert("消息提醒","上传失败!","warning");
-            }
-        });
+    $(function () {
+        $("#disfoll-dialog").dialog('close');
+    });
+    function  goBack() {
+        $("#disfoll-dialog").dialog('close');
     }
-
-    function uploadPhoto(){
-        $("#photo-file").click();
-
+    $(function () {
+        $("#editanf").dialog('close');
+    });
+    function  goBack() {
+        $("#editanf").dialog('close');
+    }
+    $(function () {
+        $("#user-dialog").dialog('close');
+    });
+    function  goBack() {
+        $("#user-dialog").dialog('close');
     }
 
 
     /**
-     *  添加记录
+     *  添加孕产妇
      */
-    function add(){
+    /*function adduserinfo(){
         var validate = $("#add-form").form("validate");
         if(!validate){
             $.messager.alert("消息提醒","请检查你输入的数据!","warning");
@@ -209,7 +186,7 @@
         }
         var data = $("#add-form").serialize();
         $.ajax({
-            url:'add',
+            url:'../add',
             dataType:'json',
             type:'post',
             data:data,
@@ -223,7 +200,7 @@
                 }
             }
         });
-    }
+    }*/
 
     /**
      * Name 修改记录
@@ -253,7 +230,7 @@
     }
 
     /**
-     * 删除记录
+     * 删除
      */
     function remove(){
         $.messager.confirm('信息提示','确定要删除该记录？', function(result){
@@ -284,13 +261,230 @@
             }
         });
     }
+
+
     /**
-     * 删除记录
+     * 打开健康档案
      */
-    function removeOn(){
+    /*function openAdd(){
+        $('#userinfo-dialog').dialog({
+            closed: false,
+            modal:true,
+            title: "健康档案选取",
+            buttons: [{
+                text: '确定',
+                iconCls: 'icon-ok',
+                handler:addindis
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#userinfo-dialog').dialog('close');
+                }
+            }],
+            onBeforeOpen:function(){
+                $("#userAll").datagrid({
+                    url: '../puserinfo/list',
+                    fitColumns: true,
+                    striped: true,
+                    singleSelect: true,
+                    pagination: true,
+                    rownumbers: true,
+                    pageSize: 20,
+                    multiSort: true,
+                    onDblClickRow: function (index, row) {
+                        adduserinfo(row.userId);
+                    },
+                    columns:[[
+                        { field:'userId',title:'健康档案号',width:100,align:'center'},
+                        { field:'recordName',title:'姓名',width:100},
+                        { field:'userBirthday',title:'出生日期',width:100,formatter:function(value,row,index){
+                                return format(value);}},
+                        { field:'recordAdress',title:'现住地址',width:100},
+                        { field:'userMyphone',title:'联系电话',width:100}
+                    ]],
+                    onLoadSuccess:function(data) {
+                        $('.authority-edit').linkbutton({text: '编辑权限', plain: true, iconCls: 'icon-edit'});
+                    }
+                });
+            }
+        });
+    }*/
+
+    /*
+      * 添加孕卡信息
+      * */
+    function addante() {
+        var validate = $("#anfoform").form("validate");
+        if (!validate) {
+            $.messager.alert("消息提醒", "请检查你输入的数据!", "warning");
+            return;
+        }
+        var data = $("#anfoform").serialize();
+        var ante = $('#data-datagrid').datagrid('getSelections');
+        ante = ante[0];
+        let userId=ante.userId;
+        $.ajax({
+            url: '../anfollfind/add',
+            dataType: 'json',
+            type: 'post',
+            data: 'userId='+userId+"&"+data,
+            success: function (data) {
+                if (data.type == 'success') {
+                    $.messager.alert('信息提示', '添加成功！', 'info');
+                    $('#editanf').dialog('close');
+                    $('#dataAll').datagrid('reload');
+                    $('#data-datagrid').datagrid('reload');
+                    $("#dataAll").datagrid('getSelections').length = 0;
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                } else {
+                    $.messager.alert('信息提示', data.msg, 'warning');
+                }
+            }
+        });
+    }
+
+    /*
+   * 打开添加孕卡信息
+   * */
+    function addanfoll(){
+        var item = $('#data-datagrid').datagrid('getSelections');
+        item = item[0];
+        let userId=item.userId;
+        //$('#anfoll-dialog').dialog('close');
+        $("#editanf").dialog({
+            title : "新增",
+            buttons: [{
+                text: '确定',
+                iconCls: 'icon-ok',
+                handler: addante
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#editanf').dialog('close');
+                }
+            }],
+            model : true,
+            onBeforeOpen: function(){
+                toanfoll(userId);
+            }
+
+        });
+    }
+    function toanfoll(userId) {
+        //$('#anfoll-dialog').dialog('close');
+        $("#editanf").dialog({
+            title: "新增",
+            model: true,
+            onBeforeOpen: function () {
+                $.ajax({
+                    url:'../anfollfind/findUser?userId=' + userId,
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#anfoform").form("load", data.findusers);
+                    }
+
+                });
+            }
+        });
+    }
+
+    /**
+     * 修改孕卡信息
+     */
+    function update(){
+        var validate = $("#anfoform").form("validate");
+        if(!validate){
+            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
+            return;
+        }
+        var data = $("#anfoform").serialize();
+        $.ajax({
+            url:'../anfollfind/update',
+            dataType:'json',
+            type:'post',
+            data:data,
+            success:function(data){
+                if(data.type == 'success'){
+                    $.messager.alert('信息提示','修改成功！','info');
+                    $('#editanf').dialog('close');
+                    $('#data-datagrid').datagrid('reload');
+                    $("#dataAll").datagrid('getSelections').length = 0;
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                }else{
+                    $.messager.alert('信息提示',data.msg,'warning');
+                }
+            }
+        });
+    }
+    /**
+     * 打开修改孕卡信息页面
+     */
+
+    function editanfoll(anfoId) {
+        //$('#disfoll-dialog').dialog('close');
+        $('#editanf').dialog({
+            closed: false,
+            modal: true,
+            title: "修改",
+            buttons: [{
+                text: '确定',
+                iconCls: 'icon-ok',
+                handler: update
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#editanf').dialog('close');
+                }
+            }],
+            onBeforeOpen: function () {
+                $.ajax({
+                    url: '../anfollfind/findById?anfoId=' + anfoId,
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        //$("#disfopId").val(data.InfDisease[0].disfopId);
+                        //$("#disfopId").val(data.InfDisease[0].disfopId);
+                        $("#anfoform").form('load', data.antefolls);
+                        //$("input[name='disfopId']").val(data.InfDisease[0].disfopId);
+                        /*$("#recordName").val(data.InfDisease[0].recordName);
+                        $("#userSex").val(data.InfDisease[0].userSex);
+                        $("#userBirthday").datebox('setValue',data.InfDisease[0].userBirthday);
+                        $("#userGam").val(data.InfDisease[0].userGam);
+                        $("#userCareer").val(data.InfDisease[0].userCareer);
+                        $("#userMyphone").val(data.InfDisease[0].userMyphone);
+                        $("#recordAdress").val(data.InfDisease[0].recordAdress);
+                        $("#disfopTime ").datebox('setValue',data.InfDisease[0].disfopTime);
+                        $("#disfopMode").combobox('setValue',data.InfDisease[0].disfopMode);
+                        $("#disfopQuarantine ").combobox('setValue',data.InfDisease[0].disfopQuarantine);
+                        $("input[name='disfopSymptom']").val(data.InfDisease[0].disfopSymptom);
+                        $("#firstVisit").datebox('setValue',data.InfDisease[0].firstVisit);
+                        $("#attackCate ").combobox('setValue',data.InfDisease[0].attackCate);
+                        $("#disfopSituation").combobox('setValue',data.InfDisease[0].disfopSituation);
+                        $("#disfopRemarks ").val(data.InfDisease[0].disfopRemarks);
+                        $("#disfopDisinfect").val(data.InfDisease[0].disfopDisinfect);
+                        $("#disfopMedicine ").val(data.InfDisease[0].disfopMedicine);
+                        $("#disfopRecovery").val(data.InfDisease[0].disfopRecovery);
+                        $("#nextfoTime ").datebox('setValue',data.InfDisease[0].nextfoTime);
+                        $("#disfopDoctor").combobox('setValue',data.InfDisease[0].disfopDoctor);*/
+                    }
+
+                });
+
+            }
+        })
+    }
+
+    /**
+     * 删除孕卡信息
+     */
+    function removeanfoll(){
         $.messager.confirm('信息提示','确定要删除该记录？', function(result){
             if(result){
-                var item = $('#data-datagridtwo').datagrid('getSelections');
+                var item = $('#dataAll').datagrid('getSelections');
                 if(item == null || item.length == 0){
                     $.messager.alert('信息提示','请选择要删除的数据！','info');
                     return;
@@ -307,7 +501,7 @@
                     success:function(data){
                         if(data.type == 'success'){
                             $.messager.alert('信息提示','删除成功！','info');
-                            $('#data-datagridtwo').datagrid('reload');
+                            $('#dataAll').datagrid('reload');
                         }else{
                             $.messager.alert('信息提示',data.msg,'warning');
                         }
@@ -318,75 +512,73 @@
     }
 
     /**
-     * Name 打开添加窗口
+     * 打开孕卡信息
      */
-    function openAdd(){
-        //$('#add-form').form('clear');
-        $('#add-dialog').dialog({
+    function openAnfoll(userId){
+        $("#anfoll-dialog").dialog({
             closed: false,
             modal:true,
-            title: "添加用户信息",
+            title: "孕卡信息",
             buttons: [{
-                text: '确定',
-                iconCls: 'icon-ok',
-                handler: add
-            }, {
-                text: '取消',
+                text: '关闭',
                 iconCls: 'icon-cancel',
                 handler: function () {
-                    $('#add-dialog').dialog('close');
+                    $('#anfoll-dialog').dialog('close');
+                    $("#dataAll").datagrid('getSelections').length = 0;
                 }
             }],
             onBeforeOpen:function(){
-                //$("#add-form input").val('');
+                $("#dataAll").datagrid({
+                    url: '../anfollfind/list?userId=' + userId,
+                    fitColumns: true,
+                    striped: true,
+                    singleSelect: true,
+                    pagination: true,
+                    rownumbers: true,
+                    pageSize: 20,
+                    multiSort: true,
+                    onDblClickRow: function (index, row) {
+                        editanfoll(row.anfoId);
+                    },
+                    toolbar: [{
+                        text: '新增',
+                        iconCls: 'icon-add',
+                        handler: addanfoll
+                    }, '-', {
+                        text: '删除',
+                        iconCls: 'icon-cancel',
+                        handler: removeanfoll
+                    }, '-', {
+                        text: ' <label class="ziti">**双击修改孕卡信息**</label>',
+                    }],
+                    columns:[[
+                        { field:'anfoId',hidden:true,formatter:function (value) {
+                           return anfoId=value;
+                            }},
+                        { field:'anfoGestational',title:'孕次',width:100,sortable:true},
+                        { field:'anfoParity',title:'产次',width:100,sortable:true},
+                        { field:'anfoName',title:'丈夫姓名',width:100,sortable:true},
+                        { field:'fillformTime',title:'建册时间',width:100,sortable:true,formatter:function(value,row,index){
+                                return format(value);}},
+                        { field:'anfoState',title:'结案状态',width:100,sortable:true,formatter(value,row,index){
+                                switch(value){
+                                    case 0:{
+                                        return '未结案';
+                                    }
+                                    case 1:{
+                                        return '已结案';
+                                    }
+                                }
+                                return value;
+                            }}
+                    ]],
+                    onLoadSuccess:function(data) {
+                        $('.authority-edit').linkbutton({text: '编辑权限', plain: true, iconCls: 'icon-edit'});
+                    }
+                });
             }
         });
     }
-
-    /**
-     * 打开修改窗口
-     */
-    function openEdit(){
-        //$('#edit-form').form('clear');
-        var item = $('#data-datagrid').datagrid('getSelections');
-        if(item == null || item.length == 0){
-            $.messager.alert('信息提示','请选择要修改的数据！','info');
-            return;
-        }
-        if(item.length > 1){
-            $.messager.alert('信息提示','请选择一条数据进行修改！','info');
-            return;
-        }
-        item = item[0];
-        $('#edit-dialog').dialog({
-            closed: false,
-            modal:true,
-            title: "修改用户信息",
-            buttons: [{
-                text: '确定',
-                iconCls: 'icon-ok',
-                handler: edit
-            }, {
-                text: '取消',
-                iconCls: 'icon-cancel',
-                handler: function () {
-                    $('#edit-dialog').dialog('close');
-                }
-            }],
-            onBeforeOpen:function(){
-                $("#edit-id").val(item.id);
-                $("#edit-preview-photo").attr('src',item.photo);
-                $("#edit-photo").val(item.photo);
-                $("#edit-username").val(item.username);
-                $("#edit-roleId").combobox('setValue',item.roleId);
-                $("#edit-sex").combobox('setValue',item.sex);
-                $("#edit-age").val(item.age);
-                $("#edit-address").val(item.address);
-            }
-        });
-    }
-
-
     //搜索按钮监听
     $("#search-btn").click(function(){
         var roleId = $("#search-role").combobox('getValue');
@@ -417,7 +609,7 @@
     $('#data-datagrid').datagrid({
         url:'list',
         rownumbers:true,
-        singleSelect:false,
+        singleSelect:true,
         pageSize:20,
         pagination:true,
         multiSort:true,
@@ -425,15 +617,13 @@
         idField:'id',
         treeField:'name',
         fit:true,
-        onDblClickRow:function(){
-            $("#Anfoll").dialog(function(){
-
-            })
+        onDblClickRow: function (index, row) {
+            openAnfoll(row.userId);
         },
         columns:[[
-            { field:'chk',checkbox:true},
-            //{ field:'userId',title:'编号',width:100,align:'center'},
-            { field:'userId',title:'健康档案号',width:100,sortable:true},
+            { field:'userId',title:'健康档案号',width:100,sortable:true,formatter:function (value) {
+                    
+                return userId=value;}},
             { field:'recordName',title:'姓名',width:100,sortable:true},
             { field:'userBirthday',title:'出生日期',width:100,sortable:true,formatter:function(value,row,index){
                     return format(value);}},
@@ -446,40 +636,47 @@
             $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
         }
     });
-    $('#data-datagrid1').datagrid({
-        url:'../anfollfind/list',
-        rownumbers:true,
-        singleSelect:false,
-        pageSize:20,
-        pagination:true,
-        multiSort:true,
-        fitColumns:true,
-        idField:'id',
-        treeField:'name',
-        fit:true,
-        columns:[[
-            { field:'anfoId',checkbox:true},
-            { field:'anfoGestational',title:'孕次',width:100,sortable:true},
-            { field:'anfoParity',title:'产次',width:100,sortable:true},
-            { field:'anfoName',title:'丈夫姓名',width:100,sortable:true},
-            { field:'fillformTime',title:'建册时间',width:100,sortable:true,formatter:function(value,row,index){
-                    return format(value);}},
-            { field:'anfoState',title:'结案状态',width:100,sortable:true,formatter(value,row,index){
-                    switch(value){
-                        case 0:{
-                            return '否';
-                        }
-                        case 1:{
-                            return '是';
-                        }
-                    }
-                    return value;
-                }}
-        ]],
-        onLoadSuccess:function(data){
-            $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
-        }
+
+    $(function () {
+        $("#anfoll-Search").click(function () {
+            $("#data-datagrid").datagrid({
+                queryParams: {
+                    userId: $("input[name=userId]").val(),
+                    recordName: $("input[name=recordName]").val(),
+                    recordUnit: $("input[name=recordUnit]").val(),
+                    beginTime: $("input[name=beginTime]").val(),
+                    endTime: $("input[name=endTime]").val(),
+                }
+
+            });
+            var beginTime=$("input[name=beginTime]").val();
+            var endTime=$("input[name=endTime]").val();
+            if (beginTime>endTime){
+                $.messager.alert('提示',"开始日期不能大于结束日期");
+            }
+
+        });
     });
+   /* $(function () {
+        $("#userinfo-Search").click(function () {
+            $("#userAll").datagrid({
+                queryParams: {
+                    userId: $("#userId").val(),
+                    recordName: $("#recordName").val(),
+                    beginTime: $("#beginTime").val(),
+                    endTime: $("#endTime").val()
+                }
+
+            });
+            var beginTime=$("#beginTime").val();
+            var endTime=$("#endTime").val();
+            if (beginTime>endTime){
+                $.messager.alert('提示',"开始日期不能大于结束日期");
+            }
+
+        });
+    });*/
+
 </script>
 
 

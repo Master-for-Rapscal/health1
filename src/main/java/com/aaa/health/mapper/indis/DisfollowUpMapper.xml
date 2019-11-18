@@ -10,7 +10,9 @@
     <insert id="add" parameterType="com.aaa.health.entity.indis.DisfollowUp">
  insert into disfollowUp(infdisId,disfopTime,disfopMode,disfopQuarantine,disfopSymptom,firstVisit,
 attackCate,disfopSituation,disfopRemarks,disfopDisinfect,disfopMedicine,disfopRecovery,nextfoTime,disfopDoctor)
-    values(#{infdisId},#{disfopTime},#{disfopMode},#{disfopQuarantine},#{disfopSymptom},#{firstVisit},#{attackCate},#{disfopSituation},#{disfopRemarks},#{disfopDisinfect},#{disfopMedicine},#{disfopRecovery},#{nextfoTime},#{disfopDoctor})
+    values(#{infdisId},#{disfopTime},#{disfopMode},#{disfopQuarantine},#{disfopSymptom},#{firstVisit},
+    #{attackCate},#{disfopSituation},#{disfopRemarks},#{disfopDisinfect},#{disfopMedicine},#{disfopRecovery},
+    #{nextfoTime},#{disfopDoctor})
     </insert>
     <select id="findById" parameterType="Integer" resultType="com.aaa.health.entity.indis.DisfollowUp">
 select d.*,s.lastname,u.userId,u.recordName,u.userSex,u.userBirthday,u.userGam,u.userCareer,u.userMyphone,u.recordAdress
