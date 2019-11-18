@@ -4,6 +4,7 @@ import com.aaa.health.entity.area.Area;
 import com.aaa.health.page.admin.Page;
 import com.aaa.health.service.anfoll.AnteFollowService;
 import com.aaa.health.service.emerg.EmerGenciesService;
+import com.aaa.health.service.indis.InfDiseaseService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,10 +26,13 @@ public class AnteFollowController {
     private AnteFollowService anteFollowService;
     @Autowired
     private EmerGenciesService emerGenciesService;
+    @Autowired
+    private InfDiseaseService infDiseaseService;
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
+    public String list(Model model, HttpServletRequest request) {
         List<Area> list=emerGenciesService.findArea();
         model.addAttribute("list",list);
+        request.getSession().setAttribute("doctor",infDiseaseService.queryDoctor());
         return "anfoll/list";
     }
 

@@ -32,8 +32,6 @@ public class findController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getList(Page page,Integer userId) {
-        System.out.println(userId);
-        System.out.println(findService.findAnfoll(userId));
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("offset", page.getOffset());

@@ -6,6 +6,7 @@ import com.aaa.health.entity.indis.InfDisease;
 import com.aaa.health.page.admin.Page;
 import com.aaa.health.service.busman.AnteBusmanService;
 import com.aaa.health.service.emerg.EmerGenciesService;
+import com.aaa.health.service.indis.InfDiseaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -27,11 +28,13 @@ public class AnteBusmanController {
     private AnteBusmanService anteBusmanService;
     @Autowired
     private EmerGenciesService emerGenciesService;
-
+    @Autowired
+    private InfDiseaseService infDiseaseService;
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
+    public String list(Model model, HttpServletRequest request) {
         List<Area> list=emerGenciesService.findArea();
         model.addAttribute("list",list);
+        request.getSession().setAttribute("doctor",infDiseaseService.queryDoctor());
         return "busman/list";
     }
 

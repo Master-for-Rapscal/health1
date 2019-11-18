@@ -36,6 +36,12 @@ public class FindUserController {
         ret.put("total", findUserService.getTotal(queryMap));// 分页使用
         return ret;
     }
+    //根据用户ID来查询
+    @RequestMapping( "/findUserId")
+    @ResponseBody
+    public Object findUserId(Integer userId){
+        return findUserService.findUserId(userId);
+    }
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
