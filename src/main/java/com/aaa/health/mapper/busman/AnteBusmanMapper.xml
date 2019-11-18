@@ -4,41 +4,84 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.busman.AnteBusmanMapper">
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.anfoll.AnteFollow">
-        select a.anfoId,a.userId,u.recordName,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(u.userBirthday))/365) userAge,a.anfoPretime,a.anfoLastmenage,c.chbirTime,a.anfoGestational,
-        a.anfoParity,a.anfoName,u.recordAdress,u.userMyphone,u.recordData,a.anfoState,a.anfoStatetime,a.anfoStateReason
-        from antenatalFollowup a join userinfo u on a.userId=u.userId join childbirth c on a.chbirId=c.chbirId
+        select a.anfoId,a.userId,u.recordName,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(u.userBirthday))/365) userAge,u.recordUnit,a.anfoPretime,a.anfoLastmenage,a.anfoGestational,
+        a.anfoParity,a.anfoName,u.recordAdress,u.userMyphone,u.recordData,a.anfoState,a.anfoStatetime,a.anfoStateReason,e.areaName
+        from userinfo u join antenatalFollowup a on u.userId=a.userId left join area e on u.recordUnit=e.areaId
         where 1=1
         and u.userSex=2
-        <if test="username != null">
-            and username like '%${username}%'
+        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=18
+        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )&lt; 50
+        <if test="recordUnit == 410000">
+            and 1=1
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="recordUnit != null and recordUnit !=410000">
+            and recordUnit=#{recordUnit}
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
+        <if test="userId != null">
+            and a.userId like '%${userId}%'
+        </if>
+        <if test="recordName != null">
+            and u.recordName like '%${recordName}%'
+        </if>
+        <if test="beginTime != null">
+            and a.anfoLastmenage  >= #{beginTime}
+        </if>
+        <if test="endTime != null">
+            and   #{endTime} >= a.anfoLastmenage
         </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
     </select>
-
+    <select id="findById" parameterType="Integer" resultType="Map">
+        select * from antenatalFollowup where anfoId=#{anfoId}
+    </select>
     <update id="update" parameterType="com.aaa.health.entity.anfoll.AnteFollow">
 update antenatalFollowup set anfoState=#{anfoState},anfoStatetime=#{anfoStatetime},anfoStateReason=#{anfoStateReason},
 anfoColumn=#{anfoColumn} where anfoId=#{anfoId}
 </update>
-
+    <insert id="add" parameterType="com.aaa.health.entity.anfoll.AnteFollow">
+insert into antenatalFollowup(userId,fillformTime,anWeek,anfoName,anfoAge,anfoPhone,anfoGestational,anfoParity,
+anfoVagina,anfoCesection,anfoLastmenage,anfoPretime,anfoPast,anfoFamily,anfoPersonal,womanOperation,anteAbortion,
+antePeoabort,anteStbirth,anteStbir,anteBirthdie,anteBirthdefect,anfoHeight,anfoWeight,anfoConstitution,aBloodpreq,
+aBloodpreh,anfoHeart,anfoLungs,aninVulva,aninVagina,aninCervical,aninBody,anclosure,anHemoglobin,anWhitecell,
+anPlatelet,anCellother,anUrprotein,anUrsugar,anKetone,anBlood,anUrother,anABO,anRH,anbloodSugar,anEnzymeo,anEnzymet,
+anAlbumin,anTotalbil,anConbil,anSerum,anUrean,anSecretion,anClean,anAntigen,anAntibody,anAntigenE,anAntibodyE,
+anAntibodycenter,anExperiment,anHIV,anB,anOther,totalAssess,healthGuidance,anWhether,anReason,anOrgan,anfoFotime,
+anfoDoctor,anfoState,anfoStatetime,anfoStateReason)
+    values(#{userId},#{fillformTime},#{anWeek},#{anfoName},#{anfoAge},#{anfoPhone},#{anfoGestational},#{anfoParity},#{
+anfoVagina},#{anfoCesection},#{anfoLastmenage},#{anfoPretime},#{anfoPast},#{anfoFamily},#{anfoPersonal},#{womanOperation},#{anteAbortion},#{
+antePeoabort},#{anteStbirth},#{anteStbir},#{anteBirthdie},#{anteBirthdefect},#{anfoHeight},#{anfoWeight},#{anfoConstitution},#{aBloodpreq},#{
+aBloodpreh},#{anfoHeart},#{anfoLungs},#{aninVulva},#{aninVagina},#{aninCervical},#{aninBody},#{anclosure},#{anHemoglobin},#{anWhitecell},#{
+anPlatelet},#{anCellother},#{anUrprotein},#{anUrsugar},#{anKetone},#{anBlood},#{anUrother},#{anABO},#{anRH},#{anbloodSugar},#{anEnzymeo},#{anEnzymet},#{
+anAlbumin},#{anTotalbil},#{anConbil},#{anSerum},#{anUrean},#{anSecretion},#{anClean},#{anAntigen},#{anAntibody},#{anAntigenE},#{anAntibodyE},#{
+anAntibodycenter},#{anExperiment},#{anHIV},#{anB},#{anOther},#{totalAssess},#{healthGuidance},#{anWhether},#{anReason},#{anOrgan},#{anfoFotime},#{
+anfoDoctor},0,#{anfoStatetime},#{anfoStateReason})
+    </insert>
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*) from antenatalFollowup a join userinfo u on a.userId=u.userId join childbirth c on a.chbirId=c.chbirId where 1 = 1
-        <if test="username != null">
-            and username like '%${username}%'
+        select count(*) from antenatalFollowup a join userinfo u on a.userId=u.userId join area e on u.recordUnit=e.areaId
+        where 1=1
+        and u.userSex=2
+        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=18
+        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )&lt; 50
+        <if test="recordUnit == 410000">
+            and 1=1
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="recordUnit != null and recordUnit !=410000">
+            and u.recordUnit=#{recordUnit}
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
+        <if test="userId != null">
+            and a.userId like '%${userId}%'
+        </if>
+        <if test="recordName != null">
+            and u.recordName like '%${recordName}%'
+        </if>
+        <if test="beginTime != null">
+            and a.anfoLastmenage  >= #{beginTime}
+        </if>
+        <if test="endTime != null">
+            and   #{endTime} >= a.anfoLastmenage
         </if>
     </select>
 </mapper>

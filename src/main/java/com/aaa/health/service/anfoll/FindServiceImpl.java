@@ -8,21 +8,43 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 @Service
-public class FindServiceImpl implements FindService{
+public class FindServiceImpl implements FindService {
     @Resource
     private FindMapper findMapper;
+
     @Override
-    public int delete(String anfoId) {
-        return findMapper.delete(anfoId);
+    public int delete(String ids) {
+        return findMapper.delete(ids);
     }
 
     @Override
-    public List<AnteFollow> findList(Map<String, Object> queryMap) {
-        return findMapper.findList(queryMap);
+    public Map<String, Object> findUser(Integer userId) {
+        return findMapper.findUser(userId);
+    }
+
+
+    @Override
+    public List<AnteFollow> findAnfoll(Integer userId) {
+        return findMapper.findAnfoll(userId);
     }
 
     @Override
-    public int getTotal(Map<String, Object> queryMap) {
-        return findMapper.getTotal(queryMap);
+    public int add(AnteFollow anteFollow) {
+        return findMapper.add(anteFollow);
+    }
+
+    @Override
+    public Map<String, Object> findById(Integer anfoId) {
+        return findMapper.findById(anfoId);
+    }
+
+    @Override
+    public int update(AnteFollow anteFollow) {
+        return findMapper.update(anteFollow);
+    }
+
+    @Override
+    public int getTotal(Integer userId) {
+        return findMapper.getTotal(userId);
     }
 }

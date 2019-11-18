@@ -4,7 +4,7 @@
 <!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
 
 <body>
-<div th:fragment="foser" th:height="500">
+<div th:fragment="foser" th:height="800">
     <div class="foser">
         <style>
             input[type="text"] {
@@ -17,31 +17,31 @@
             }
         </style>
         <form id="foserform" class="easyui-form" method="post" data-options="novalidate:true" style="margin-left: 10px">
-            <table width="700px" style="height: 700px" border="1" cellspacing="0" cellpadding="1">
+            <table width="720px" style="height: 800px" border="1" cellspacing="0" cellpadding="1">
                 <caption>
-                    <h3>肺结核患者随访服务记录表</h3>
+                    <h1>肺结核患者随访服务记录表</h1>
                 </caption>
 
                 <input type="text" name="foserId" hidden>
                 <input type="text" name="pultubfoId" hidden>
                 <tr>
                     <td width="80px">姓名</td>
-                    <td width="180px"><input type="text"  style="width: 180px"  name="recordName" readonly width="60px"></td>
-                    <td width="80px">编号</td>
+                    <td><input type="text"  style="width: 100%;height: 100%"  name="recordName" readonly></td>
+                    <td>编号</td>
                     <td>
-                        <input type="text"  style="width: 180px"  name="userId" readonly>
+                        <input type="text"  style="width: 100%;height: 100%"  name="userId" readonly>
                     </td>
 
                 </tr>
                 <tr>
                     <td>随访日期</td>
-                    <td><input type="text"  class="easyui-datebox" style="width: 180px"  name="foserTime"></td>
+                    <td><input type="text"  class="easyui-datebox" style="width: 180px" editable="fasle" data-options="required:true, missingMessage:'请填写随访时间'" name="foserTime"></td>
                     <td>治疗月序</td>
-                    <td>第<input type="text"  style="width: 100px"  name="foserMonthsequence" size="5">月</td>
+                    <td>第<input type="text"  style="width: 100px;height: 100%"  name="foserMonthsequence" size="5" class="easyui-validatebox" data-options="required:true, missingMessage:'请填写治疗月序'">月</td>
                 </tr>
                 <tr>
                     <td>督导人员</td>
-                    <td>
+                    <td data-options="required:true, missingMessage:'请填写督导人员'">
                         <input type="radio" name="foserSupervisorStaff" value="1">医生
                         <input type="radio" name="foserSupervisorStaff" value="2">家属
                         <input type="radio" name="foserSupervisorStaff" value="3">自服药
@@ -49,7 +49,7 @@
                     </td>
                     <td>随访方式</td>
                     <td>
-                        <select name="foserMode" style="width: 120px">
+                        <select name="foserMode" class="easyui-combobox" style="width: 150px" data-options="required:true, missingMessage:'请填写随访方式'">
                             <option value="1">门诊</option>
                             <option value="2">家庭</option>
                             <option value="3">电话</option>
@@ -66,7 +66,7 @@
                         <input type="checkbox" name="foserSypend" value="5">胸痛消瘦
                         <input type="checkbox" name="foserSypend" value="6">恶心纳差
                         <input type="checkbox" name="foserSypend" value="7">头痛失眠
-                        <input type="checkbox" name="foserSypend" value="8">视物模糊<br/>
+                        <input type="checkbox" name="foserSypend" value="8">视物模糊
                         <input type="checkbox" name="foserSypend" value="9">皮肤瘙痒、皮疹
                         <input type="checkbox" name="foserSypend" value="10">耳鸣、听力下降
                     </td>
@@ -74,25 +74,25 @@
                 <tr>
                     <td>其他</td>
                     <td colspan="2">
-                        <textarea name="foserOther" rows="1" cols="20"></textarea>
+                        <input type="text" name="foserOther" style="width: 100%;height: 100%"/>
                     </td>
                 </tr>
 
                 <tr>
                     <td>生活方式评估</td>
                     <td colspan="3">
-                        吸&nbsp;烟<input type="text" name="foserSmokpay"  size="5"/>
-                        /<input type="text" name="foserSmokday" size="5"/>支/天
+                        吸&nbsp;烟<input type="text" style="height: 50%" name="foserSmokpay"  size="10"/>
+                        /<input type="text" style="height: 50%" name="foserSmokday" size="10"/>支/天
                         <br/>
-                        饮&nbsp;酒<input type="text" style="border: 1" name="foserDrinkbi" size="5"/>
-                        /<input type="text" name="foserDrinkday" size="5"/>支/天
+                        饮&nbsp;酒<input type="text" style="height: 50%" name="foserDrinkbi" size="10"/>
+                        /<input type="text" style="height: 50%" name="foserDrinkday" size="10"/>支/天
                     </td>
                 </tr>
                 <tr>
                     <td rowspan="4">用药</td>
                     <td>化疗方案</td>
                     <td colspan="2">
-                        <input type="text" name="foserRegimen"/>
+                        <input type="text" name="foserRegimen" style="width: 100%;height: 100%"/>
                     </td>
                 </tr>
                 <tr>
@@ -114,7 +114,7 @@
                 <tr>
                     <td>漏服药次数</td>
                     <td colspan="2">
-                        <input type="text" name="foserDosagenum"/>次
+                        <input type="text" name="foserDosagenum" style="width: 100px;height: 100%"/>次
                     </td>
                 </tr>
                 <tr>
@@ -135,34 +135,33 @@
                     <td rowspan="3">转诊</td>
                     <td>科别</td>
                     <td colspan="2">
-                        <input type="text" name="foserCategory"/>
+                        <input type="text" name="foserCategory" style="width: 100%;height: 100%"/>
                     </td>
                 </tr>
                 <tr>
                     <td>原因</td>
                     <td colspan="2">
-                        <input type="text" name="foserCause"/>
+                        <input type="text" name="foserCause" style="width: 100%;height: 100%"/>
                     </td>
                 </tr>
                 <tr>
                     <td>两周内随访，随访结果</td>
                     <td colspan="2">
-                        <input type="text" name="foserTwoweek"/>
+                        <input type="text" name="foserTwoweek" style="width: 100%;height: 100%"/>
                     </td>
                 </tr>
                 <tr>
                     <td>处理意见</td>
                     <td colspan="3">
-                        <textarea name="foserHandleOpinion" rows="2" cols="80"></textarea>
+                        <textarea name="foserHandleOpinion" rows="2" cols="99" style="height: 100%;border: 0px"></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td>下次随访时间</td>
-                    <td><input type="text" class="easyui-datebox"  name="foserNexttime" style="width: 180px;"/></td>
+                    <td><input type="text" class="easyui-datebox" editable="fasle" data-options="required:true, missingMessage:'请填写下次随访时间'" name="foserNexttime" style="width: 180px;"/></td>
                     <td>随访医生签名</td>
                     <td>
-                        <!--[[${session.role.name}]]-->
-                        <select name="foserAssessDoctor" class="easyui-combobox" panelHeight="auto" style="width:100px" >
+                        <select name="foserAssessDoctor" class="easyui-combobox" panelHeight="auto" style="width:150px" editable="fasle" data-options="required:true, missingMessage:'请填写随访医生签名'">
                             <a th:each="doctor:${session.doctor}" >
                                 <option   th:value="${doctor.id}" ><span th:text="${doctor.lastname }"></span></option>
                             </a>
@@ -179,18 +178,18 @@
                 <tr>
                     <td>停止治疗原因</td>
                     <td colspan="2">
-                        <input type="text" name="stoptreatReason" style="width: 150px;"/>
+                        <input type="text" name="stoptreatReason" style="width: 100%;height: 100%"/>
                     </td>
                 </tr>
                 <tr>
                     <td rowspan="2">全程管理情况</td>
-                    <td>应访视患者<input type="text" name="foserNum"  size="5"/>次，<br/>
-                        实际访视患者<input type="text" name="foserActualNum"  size="5"/>次</td>
-                    <td colspan="2">患者在疗程中，应服药<input type="text" name="foserTmednum" size="5"/>次，实际服药<input type="text" name="foserActualTmednum" id="foserActualTmednum" size="5"/>次</td>
+                    <td>应访视患者<input type="text" name="foserNum"  size="5" height="100%"/>次，<br/>
+                        实际访视患者<input type="text" name="foserActualNum"  size="5" height="100%"/>次</td>
+                    <td colspan="2">患者在疗程中，应服药<input type="text" name="foserTmednum" size="5" height="100%"/>次，实际服药<input type="text" name="foserActualTmednum" id="foserActualTmednum" size="5" height="100%"/>次</td>
                 </tr>
                 <tr>
                     <td>评估医生签名</td>
-                    <td><select name="foserDoctor" class="easyui-combobox" panelHeight="auto" style="width:180px" >
+                    <td><select name="foserDoctor" class="easyui-combobox" panelHeight="auto" style="width:180px" editable="fasle" data-options="required:true, missingMessage:'请填写评估医生签名'">
                         <a th:each="doctor:${session.doctor}" >
                             <option   th:value="${doctor.id}" ><span th:text="${doctor.lastname }"></span></option>
                         </a>

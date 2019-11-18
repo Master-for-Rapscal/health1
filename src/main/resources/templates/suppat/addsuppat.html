@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
+
+<body>
+<div th:fragment="suppat" th:height="500">
+    <div class="suppat">
+        <style>
+            input[type="text"] {
+                border: 0px;
+                width: 50px;
+            }
+
+            input[type="checkbox"] {
+                margin-left: 15px;
+            }
+        </style>
+        <form id="suppatform" class="easyui-form" method="post" data-options="novalidate:true">
+            <table width="650" th:height="480" border="1" cellspacing="0" cellpadding="1">
+                <caption>
+                    <h1>卫生计生监督协管巡查登记表</h1>
+                </caption>
+                <input name="patrolId" hidden="hidden"/>
+                    <tr>
+                        <td width="60">机构名称</td>
+                        <td>
+                            <select th:name="areaId" class="easyui-combobox" editable="fasle" data-options="required:true,min:1,precision:0, missingMessage:'请填写机构'" panelHeight="auto" style="width:200px">
+                                <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
+                            </select>
+                        </td>
+                        <td valign="middle">
+                            年度
+                        </td>
+                        <td valign="middle">
+                            <select name="patrolYear" class="easyui-combobox" editable="fasle" data-options="required:true,min:1,precision:0, missingMessage:'请填写年度'" panelHeight="auto" style="width:200px">
+                                <option value="0">2019</option>
+                                <option value="1">2018</option>
+                                <option value="2">2017</option>
+                                <option value="3">2016</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="60">巡查地点与内容</td>
+                        <td colspan="3">
+                            <textarea name="patrolContent" rows="9" cols="87" class="easyui-validatebox" editable="fasle" data-options="required:true,min:1,precision:0, missingMessage:'巡查地点与内容'" style="border: 0px"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td width="60">发现的主要问题</td>
+                        <td colspan="3">
+                            <textarea name="patrolProblem" rows="9" cols="87" class="easyui-validatebox" editable="fasle" data-options="required:true,min:1,precision:0, missingMessage:'发现的主要问题'" style="border: 0px"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="60">巡查日期</td>
+                        <td>
+                            <input type="text" class="easyui-datebox" editable="fasle" data-options="required:true,min:1,precision:0, missingMessage:'请填写巡查日期'" name="patrolTime" style="width: 200px" />
+                        </td>
+                        <td width="60">巡查人</td>
+                        <td><input type="text"  name="patrolName" class="easyui-validatebox" editable="fasle" data-options="required:true,min:1,precision:0, missingMessage:'请填写巡查人'" style="width: 98%"/></td>
+                    </tr>
+                    <tr>
+                        <td width="60">备注</td>
+                        <td colspan="3">
+                            <textarea name="patrolRemarks" rows="9" cols="87" style="border: 0px"></textarea>
+                        </td>
+                    </tr>
+                </table>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

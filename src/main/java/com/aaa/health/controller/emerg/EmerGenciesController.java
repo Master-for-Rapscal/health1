@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -35,9 +36,13 @@ public class EmerGenciesController {
                                        @RequestParam(name = "beginTime", required = false, defaultValue = "") Date beginTime,
                                        @RequestParam(name = "endTime", required = false, defaultValue = "") Date endTime,
                                        @RequestParam(name = "beginTimet", required = false, defaultValue = "") Date beginTimet,
-                                       @RequestParam(name = "endTimet", required = false, defaultValue = "") Date endTimet) {
+                                       @RequestParam(name = "endTimet", required = false, defaultValue = "") Date endTimet,
+                                       HttpServletRequest request) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
+        int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        System.out.println("登录的值是"+areaId);
+        queryMap.put("areaId",areaId);
         queryMap.put("emgPeople",emgPeople);
         queryMap.put("beginTime",beginTime);
         queryMap.put("endTime",endTime);

@@ -4,15 +4,27 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.pultub.PuserinfoMapper">
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.pultub.Puserinfo">
-        select *,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(userBirthday))/365) userAge from userinfo where 1 = 1
-        <if test="username != null">
-            and username like '%${username}%'
+        select u.*,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(u.userBirthday))/365) userAge from userinfo u
+        join area a on u.recordUnit=a.areaId
+        where 1 = 1
+        and u.userId not in (select userId from pultubfo)
+        <if test="areaId == 410000">
+            and 1=1
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="areaId != 410000">
+            and a.areaId=#{areaId}
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
+        <if test="userId != null and userId !=''">
+            and u.userId like '%${userId}%'
+        </if>
+        <if test="recordName != null and recordName !=''">
+            and u.recordName like '%${recordName}%'
+        </if>
+        <if test="beginTime != null">
+            and u.userBirthday  >= #{beginTime}
+        </if>
+        <if test="endTime != null">
+            and   #{endTime} >= u.userBirthday
         </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
@@ -23,31 +35,26 @@
     </select>
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*) from userinfo where 1 = 1
-        <if test="username != null">
-            and username like '%${username}%'
+        select count(*) from userinfo u join area a on u.recordUnit=a.areaId
+        where 1 = 1
+        and u.userId not in (select userId from pultubfo)
+        <if test="areaId == 410000">
+            and 1=1
         </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
+        <if test="areaId != 410000">
+            and a.areaId=#{areaId}
         </if>
-        <if test="sex != null">
-            and sex = #{sex}
+        <if test="userId != null and userId !=''">
+            and u.userId like '%${userId}%'
+        </if>
+        <if test="recordName != null and recordName !=''">
+            and u.recordName like '%${recordName}%'
+        </if>
+        <if test="beginTime != null">
+            and u.userBirthday  >= #{beginTime}
+        </if>
+        <if test="endTime != null">
+            and   #{endTime} >= u.userBirthday
         </if>
     </select>
-    <!--<select id="findUser" parameterType="Map" resultType="com.aaa.health.entity.pultub.Puserinfo">
-        select *,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(userBirthday))/365) userAge from userinfo where 1 = 1
-        and userSex=2
-        <if test="username != null">
-            and username like '%${username}%'
-        </if>
-        <if test="roleId != null">
-            and roleId = #{roleId}
-        </if>
-        <if test="sex != null">
-            and sex = #{sex}
-        </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
-    </select>-->
 </mapper>

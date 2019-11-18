@@ -1,6 +1,5 @@
 package com.aaa.health.controller.suppat;
 
-import com.aaa.health.entity.admin.SysUser;
 import com.aaa.health.entity.area.Area;
 import com.aaa.health.entity.suppat.SupmanPatrol;
 import com.aaa.health.page.admin.Page;
@@ -37,13 +36,13 @@ public class SupmanPatrolController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getList(Page page, @RequestParam(name = "patrolName", required = false, defaultValue = "") String patrolName,
+                                       @RequestParam(name = "areaId", required = false, defaultValue = "") Integer areaId,
                                        @RequestParam(name = "beginTime", required = false, defaultValue = "") Date beginTime,
                                        @RequestParam(name = "endTime", required = false, defaultValue = "") Date endTime){
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-        System.out.println("------------"+queryMap);
-        System.out.println( "------------"+supmanPatrolService.findList(queryMap));
         queryMap.put("patrolName",patrolName);
+        queryMap.put("areaId",areaId);
         queryMap.put("beginTime",beginTime);
         queryMap.put("endTime",endTime);
         queryMap.put("offset", page.getOffset());
@@ -91,6 +90,15 @@ public class SupmanPatrolController {
         ret.put("msg", "添加失败！");
         return ret;
     }
+
+
+    @RequestMapping(value = "/findById", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> findById(Integer patrolId) {
+        Map<String, Object> pat = new HashMap<String, Object>();
+        pat.put("patrol", supmanPatrolService.findById(patrolId));// 页面加载数据使用
+        return pat;
+    }
     /**
      * 修改信息
      *
@@ -101,8 +109,6 @@ public class SupmanPatrolController {
     @ResponseBody
     public Map<String, String> update(SupmanPatrol supmanPatrol) {
         Map<String, String> ret = new HashMap<String, String>();
-        int b=supmanPatrolService.update(supmanPatrol);
-        System.out.println(b+"sss");
         if (supmanPatrolService.update(supmanPatrol) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "信息修改失败，请联系管理员！");

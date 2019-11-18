@@ -11,18 +11,25 @@
             <div th:replace="common/menus :: menus"  > </div>
         </div>
         <div class="wu-toolbar-search">
-            <label> 信息类别:</label>
+            <label> 报告人:</label>&nbsp;
+            <input name="reportName"/>&nbsp;&nbsp;
+            <label> 报告地区:</label>&nbsp;
+            <select th:name="addressId" class="easyui-combobox" panelHeight="auto" style="width:150px" data-options="editable:false">
+
+                <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
+            </select>&nbsp;&nbsp;
+            <label> 信息类别:</label>&nbsp;
             <select name="reportCategory" class="easyui-combobox" panelHeight="auto">
                 <option value="1">食品安全</option>
                 <option value="2">饮用水卫生</option>
                 <option value="3">职业病危害</option>
                 <option value="4">学校卫生</option>
                 <option value="5">非法行医（采供血）</option>
-            </select>
-            <label> 报告人:</label><input name="reportName"/>
-            <label> 报告时间:</label><input type="text" class="easyui-datebox" name="beginTime"/>至
-            <input type="text" class="easyui-datebox" name="endTime"/>
-
+            </select>&nbsp;&nbsp;
+            <label> 报告时间:</label>&nbsp;
+            <input type="text" class="easyui-datebox" name="beginTime" style="width: 150px"/>
+            &nbsp;&nbsp;至&nbsp;
+            <input type="text" class="easyui-datebox" name="endTime" style="width: 150px"/>&nbsp;&nbsp;
             <a href="#" id="supman-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
         </div>
     </div>
@@ -34,193 +41,33 @@
 </div>
 <!-- Begin of easyui-dialog -->
 
-<div id="add-dialog" class="easyui-dialog" data-options="closed:true," style="width:750px;height:640px; overflow:auto;">
-    <h1 style="text-align: center;margin-top:40px ">卫生计生监督协管信息报告登记表</h1>
-    <form id="add-form" method="post" style="margin-top: 50px">
-
-        <table border="1"  style="margin-left: 50px;width: 600px;height:400px " cellspacing="0" cellpadding="1">
-            <tr>
-                <td width="60" align="right" data-options="required:true,min:1,precision:0, missingMessage:'请填写'" >所属机构</td>
-                <td>
-                    <select th:name="addressId" class="easyui-combobox" panelHeight="auto" style="width:150px">
-
-                        <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
-                    </select>
-                </td>
-                <td valign="middle">
-                    所属单位
-                </td>
-                <td valign="middle">
-                    <select th:name="addressId2" class="easyui-combobox" panelHeight="auto" style="width:150px">
-
-                        <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">发现时间:</td>
-                <td><input type="text" class="easyui-datebox" editable="fasle" name="reportFindtime"  style="width:110px"/></td>
-                <td width="60" align="right">信息类别:</td>
-                <td>
-                    <select name="reportCategory" class="easyui-combobox" panelHeight="auto" style="width:120px">
-                        <option value="1">食品安全</option>
-                        <option value="2">饮用水卫生</option>
-                        <option value="3">职业病危害</option>
-                        <option value="4">学校卫生</option>
-                        <option value="5">非法行医（采供血）</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">信息内容:</td>
-                <td colspan="3">
-                    <textarea name="reportContent" rows="14" cols="90"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">报告时间:</td>
-                <td><input type="text" class="easyui-datebox" editable="fasle" name="reportTime"  /></td>
-                <td width="60" align="right">报告人:</td>
-                <td>
-                    <input type="text" name="reportName"  class="wu-text " style="width: 97%;height: 100%"/>
-                </td>
-            </tr>
-        </table>
-    </form>
+<!-- 添加/修改 -->
+<div id="addsup" class="easyui-dialog" style="width: 730px;height: 620px; margin-left: 20px;padding:10px;">
+    <div th:replace="supre/addsupre :: supre"></div>
 </div>
-<!-- 修改窗口 -->
-
-<div id="edit-dialog" class="easyui-dialog" data-options="closed:true" style="width:750px;height:640px; overflow:auto;padding:10px;">
-        <input type="hidden" name="reportId" id="edit-reportId">
-        <h1 style="text-align: center;margin-top:40px">卫生计生监督协管信息报告登记表</h1>
-    <form id="edit-form" method="post" style="margin-top: 50px">
-        <table border="1" style="margin-left: 50px;width: 600px;height: 400px" cellspacing="0" cellpadding="1">
-            <tr>
-                <td width="60" align="right" data-options="required:true,min:1,precision:0, missingMessage:'所属机构不能为空'" >所属机构</td>
-                <td>
-                    <select th:name="addressId" class="easyui-combobox" id="edit-addressId" panelHeight="auto" style="width:97%">
-
-                        <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
-                    </select>
-                </td>
-                <td valign="middle">
-                    所属单位
-                </td>
-                <td valign="middle">
-                    <select th:name="addressId2" class="easyui-combobox" id="edit-addressId2" panelHeight="auto" style="width:150px">
-
-                        <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">发现时间:</td>
-                <td><input type="text" class="easyui-datebox" editable="fasle" name="reportFindtime"  id="edit-reportFindtime"  style="width:110px"/></td>
-                <td width="60" align="right">信息类别:</td>
-                <td>
-                    <select name="reportCategory" id="edit-reportCategory"  class="easyui-combobox" panelHeight="auto" style="width:120px">
-                        <option value="1">食品安全</option>
-                        <option value="2">饮用水卫生</option>
-                        <option value="3">职业病危害</option>
-                        <option value="4">学校卫生</option>
-                        <option value="5">非法行医（采供血）</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">信息内容:</td>
-                <td colspan="3">
-                    <textarea name="reportContent" id="edit-reportContent"  rows="14" cols="80"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">报告时间:</td>
-                <td><input type="text" class="easyui-datebox" editable="fasle" name="reportTime" style="width: 97%;height: 100%"  id="edit-reportTime" /></td>
-                <td width="60" align="right">报告人:</td>
-                <td>
-                    <input type="text" name="reportName"  id="edit-reportName"  class="wu-text " style="width: 97%;height: 100%"/>
-                </td>
-            </tr>
-        </table>
-    </form>
-
-</div>
-
-
-
-
-
-
-
-
-<div id="process-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-upload',title:'正在上传图片'" style="width:450px; padding:10px;">
-    <div id="p" class="easyui-progressbar" style="width:400px;" data-options="text:'正在上传中...'"></div>
-</div>
-<input type="file" id="photo-file" style="display:none;" onchange="upload()">
 <!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
 <div th:replace="common/footer :: myfooter"  ></div>
 
 
 <!-- End of easyui-dialog -->
 <script type="text/javascript" th:inline="none">
-    //上传图片
-    function start(){
-        var value = $('#p').progressbar('getValue');
-        if (value < 100){
-            value += Math.floor(Math.random() * 10);
-            $('#p').progressbar('setValue', value);
-        }else{
-            $('#p').progressbar('setValue',0)
-        }
+    $(function () {
+        $("#addsup").dialog('close');
+    });
+    function  goBack() {
+        $("#addsup").dialog('close');
     }
-    function upload(){
-        if($("#photo-file").val() == '')return;
-        var formData = new FormData();
-        formData.append('photo',document.getElementById('photo-file').files[0]);
-        $("#process-dialog").dialog('open');
-        var interval = setInterval(start,200);
-        $.ajax({
-            url:'upload_photo',
-            type:'post',
-            data:formData,
-            contentType:false,
-            processData:false,
-            success:function(data){
-                clearInterval(interval);
-                $("#process-dialog").dialog('close');
-                if(data.type == 'success'){
-                    $("#preview-photo").attr('src',data.filepath);
-                    $("#add-photo").val(data.filepath);
-                    $("#edit-preview-photo").attr('src',data.filepath);
-                    $("#edit-photo").val(data.filepath);
-                }else{
-                    $.messager.alert("消息提醒",data.msg,"warning");
-                }
-            },
-            error:function(data){
-                clearInterval(interval);
-                $("#process-dialog").dialog('close');
-                $.messager.alert("消息提醒","上传失败!","warning");
-            }
-        });
-    }
-
-    function uploadPhoto(){
-        $("#photo-file").click();
-
-    }
-
 
     /**
      *  添加记录
      */
     function add(){
-        var validate = $("#add-form").form("validate");
+        var validate = $("#supreform").form("validate");
         if(!validate){
             $.messager.alert("消息提醒","请检查你输入的数据!","warning");
             return;
         }
-        var data = $("#add-form").serialize();
+        var data = $("#supreform").serialize();
         $.ajax({
             url:'add',
             dataType:'json',
@@ -229,9 +76,9 @@
             success:function(data){
                 if(data.type == 'success'){
                     $.messager.alert('信息提示','添加成功！','info');
-                    $('#add-dialog').dialog('close');
+                    $('#addsup').dialog('close');
                     $('#data-datagrid').datagrid('reload');
-                    $('#add-form').form('clear');
+                    $('#supreform').form('clear');
                 }else{
                     $.messager.alert('信息提示',data.msg,'warning');
                 }
@@ -243,12 +90,12 @@
      * Name 修改记录
      */
     function update(){
-        var validate = $("#edit-form").form("validate");
+        var validate = $("#supreform").form("validate");
         if(!validate){
             $.messager.alert("消息提醒","请检查你输入的数据!","warning");
             return;
         }
-        var data = $("#edit-form").serialize();
+        var data = $("#supreform").serialize();
         $.ajax({
             url:'update',
             dataType:'json',
@@ -257,8 +104,9 @@
             success:function(data){
                 if(data.type == 'success'){
                     $.messager.alert('信息提示','修改成功！','info');
-                    $('#edit-dialog').dialog('close');
+                    $('#addsup').dialog('close');
                     $('#data-datagrid').datagrid('reload');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 }else{
                     $.messager.alert('信息提示',data.msg,'warning');
                 }
@@ -305,8 +153,8 @@
      * Name 打开添加窗口
      */
     function openAdd(){
-        //$('#add-form').form('clear');
-        $('#add-dialog').dialog({
+        //$('#supreform').form('clear');
+        $('#addsup').dialog({
             closed: false,
             modal:true,
             title: "新增",
@@ -318,11 +166,11 @@
                 text: '取消',
                 iconCls: 'icon-cancel',
                 handler: function () {
-                    $('#add-dialog').dialog('close');
+                    $('#addsup').dialog('close');
                 }
             }],
             onBeforeOpen:function(){
-                //$("#add-form input").val('');
+                //$("#supreform input").val('');
             }
         });
     }
@@ -342,7 +190,8 @@
             return;
         }
         item = item[0];
-        $('#edit-dialog').dialog({
+        var repoId=item.reportId;
+        $('#addsup').dialog({
             closed: false,
             modal:true,
             title: "修改信息",
@@ -354,18 +203,19 @@
                 text: '取消',
                 iconCls: 'icon-cancel',
                 handler: function () {
-                    $('#edit-dialog').dialog('close');
+                    $('#addsup').dialog('close');
                 }
             }],
             onBeforeOpen:function(){
-                $("#edit-reportId").val(item.reportId);
-                $("#edit-addressId").combobox('setValue',item.addressId);
-                $("#edit-addressId2").combobox('setValue',item.addressId2);
-                $("#edit-reportFindtime").datebox('setValue',item.reportFindtime);
-                $("#edit-reportCategory").combobox('setValue',item.reportCategory);
-                $("#edit-reportContent").val(item.reportContent);
-                $("#edit-reportTime").datebox('setValue',item.reportTime);
-                $("#edit-reportName").val(item.reportName);
+                $.ajax({
+                    url: '../supre/findById?reportId=' + repoId,
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#supreform").form('load', data.report);
+                    }
+
+                });
             }
         });
     }
@@ -416,7 +266,6 @@
             openEdit(row.reportId);
         },
         columns:[[
-            { field:'chk',checkbox:true},
             { field:'reportId',hidden:"true"},
             { field:'reportFindtime',title:'发现时间',width:100,sortable:true,formatter:function(value,row,index){
                     return format(value);}},
@@ -465,8 +314,9 @@
         $("#supman-Search").click(function () {
             $("#data-datagrid").datagrid({
                 queryParams: {
-                    reportCategory: $("input[name=reportCategory]").val(),
                     reportName: $("input[name=reportName]").val(),
+                    addressId: $("input[name=addressId]").val(),
+                    reportCategory: $("input[name=reportCategory]").val(),
                     beginTime: $("input[name=beginTime]").val(),
                     endTime: $("input[name=endTime]").val()
                 }

@@ -11,17 +11,30 @@
             <div th:replace="common/menus :: menus"  > </div>
         </div>
         <div class="wu-toolbar-search">
-            <label>报告人:</label><input id="search-name" class="wu-text" style="width:100px">
-            <label>报告时间:</label>
-
-            <label>录入人:</label>
-            <select id="search-sex" class="easyui-combobox" panelHeight="auto" style="width:120px">
-                <option value="-1">全部</option>
-                <option value="0">未知</option>
+            <label> 健康卡号:</label>&nbsp;
+            <input name="userId" class="easyui-numberbox" maxlength="9" data-options="validType:'length[0,9]'"  style="width: 120px"/>&nbsp;&nbsp;
+            <label> 姓名:</label>&nbsp;
+            <input name="recordName" style="width: 100px"/>&nbsp;&nbsp;
+            <label> 性别:</label>&nbsp;
+            <select name="userSex" class="easyui-combobox" panelHeight="auto" style="width:50px">
                 <option value="1">男</option>
                 <option value="2">女</option>
-            </select>
-            <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+                <option value="3">未知</option>
+            </select>&nbsp;&nbsp;
+            <label> 所属地区:</label>&nbsp;
+            <select th:name="recordUnit" class="easyui-combobox" panelHeight="auto" style="width:150px" data-options="editable:false">
+                <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
+            </select>&nbsp;&nbsp;
+            <label> 责任医生:</label>&nbsp;
+            <select name="pultubfofoDoctor" class="easyui-combobox" panelHeight="auto">
+                <a th:each="doctor:${session.doctor}" >
+                    <option   th:value="${doctor.id}" ><span th:text="${doctor.lastname }"></span></option>
+                </a>
+            </select>&nbsp;&nbsp;
+            <label> 建卡日期:</label>&nbsp;
+            <input type="text" class="easyui-datebox"  name="beginTime" style="width: 100px"/>至
+            <input type="text" class="easyui-datebox"  name="endTime" style="width: 100px"/>
+            <a href="#" id="pultub-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
         </div>
     </div>
 
@@ -31,96 +44,28 @@
     <table id="data-datagrid" class="easyui-datagrid" toolbar="#wu-toolbar"></table>
 </div>
 <!-- Begin of easyui-dialog -->
-
-<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:420px; padding:10px;">
-    <form id="add-form" method="post">
-
-    </form>
-</div>
 <!-- 添加/修改肺结核随访记录 -->
-<div id="editfoser" class="easyui-dialog" style="width: 780px;height: 620px; padding:10px;">
+<div id="editfoser" class="easyui-dialog" style="width: 800px;height: 900px; padding:10px;">
     <div th:replace="pultub/foservpul :: foser"></div>
 </div>
-<div id="foservpul-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:600px;">
-    <table id="dataAll" class="easyui-datagrid" style="width: 580px; height: 400px;" ></table>
+<div id="foservpul-dialog" class="easyui-dialog" data-options="closed:true" style="width:700px;height: 600px">
+    <table id="dataAll" class="easyui-datagrid" style="width: 680px; height: 520px;" ></table>
 </div>
-<!-- 添加肺结核患者第一次入户随访记录 -->
-<div id="addpul" class="easyui-dialog" style="width: 730px;height: 620px; margin-left: 20px;padding:10px;">
+<!-- 添加/修改肺结核患者第一次入户随访记录 -->
+<div id="addpul" class="easyui-dialog" style="width: 730px;height: 900px; margin-left: 20px;padding:10px;">
     <div th:replace="pultub/addpultubfo :: pultubfo"></div>
 </div>
 <!--健康档案-->
-<div id="userinfo-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:700px;height: 580px">
+<div id="userinfo-dialog" class="easyui-dialog" data-options="closed:true" style="width:800px;height: 700px">
     <!--按条件查询-->
-    <label> 健康档案号:</label><input name="userId" class="easyui-numberbox" maxlength="9" data-options="validType:'length[0,9]'"  style="width: 120px"/>
-    <label> 姓名:</label><input name="recordName" style="width: 100px"/>
-    <label> 出生日期:</label><input type="text" class="easyui-datebox" editable="fasle" name="beginTime" style="width: 100px"/>至
-    <input type="text" class="easyui-datebox"  name="endTime" style="width: 100px"/>
+    <label> 健康档案号:</label><input name="userId" class="userId" maxlength="9" data-options="validType:'length[0,9]'"  style="width: 120px"/>
+    <label> 姓名:</label><input name="recordName" class="recordName" style="width: 100px"/>
+    <label> 出生日期:</label><input type="text" class="easyui-datebox beginTime" editable="fasle" name="beginTime" style="width: 100px"/>至
+    <input type="text" class="easyui-datebox endTime"  name="endTime" style="width: 100px"/>
     <a href="#" id="userinfo-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
-    <table id="userAll" class="easyui-datagrid" style="width: 650px;height: 500px" ></table>
-</div>
-<!-- 修改窗口 -->
-<div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:450px; padding:10px;">
-    <form id="edit-form" method="post">
-        <input type="hidden" name="id" id="edit-id">
-        <table>
-            <tr>
-                <td width="60" align="right">头像预览:</td>
-                <td valign="middle">
-                    <img id="edit-preview-photo" style="float:left;" src="/admin/easyui/images/user_photo.jpg" width="100px">
-                    <a style="float:left;margin-top:40px;" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-upload" onclick="uploadPhoto()" plain="true">上传图片</a>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">头像:</td>
-                <td><input type="text" id="edit-photo" name="photo" value="/BaseProjectSSM/resources/admin/easyui/images/user_photo.jpg" readonly="readonly" class="wu-text " /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">用户名:</td>
-                <td><input type="text" id="edit-username" name="username" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写用户名'" /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">所属角色:</td>
-
-            </tr>
-            <tr>
-                <td width="60" align="right">性别:</td>
-                <td>
-                    <select id="edit-sex" name="sex" class="easyui-combobox" panelHeight="auto" style="width:268px">
-                        <option value="0">未知</option>
-                        <option value="1">男</option>
-                        <option value="2">女</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">年龄:</td>
-                <td><input type="text" id="edit-age" name="age" value="1" class="wu-text easyui-numberbox easyui-validatebox" data-options="required:true,min:1,precision:0, missingMessage:'请填写年龄'" /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">地址:</td>
-                <td><input type="text" id="edit-address" name="address" class="wu-text easyui-validatebox" /></td>
-            </tr>
-        </table>
-    </form>
+    <table id="userAll" class="easyui-datagrid" style="width: 750px;height: 600px" ></table>
 </div>
 
-
-
-
-
-
-
-
-<div id="process-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-upload',title:'正在上传图片'" style="width:450px; padding:10px;">
-    <div id="p" class="easyui-progressbar" style="width:400px;" data-options="text:'正在上传中...'"></div>
-</div>
-<input type="file" id="photo-file" style="display:none;" onchange="upload()">
-<!--<div class="wu-toolbar-button" id="FO" STYLE="width: 1000px;height: 500px">
-
-    <table id="data-datagrid1" class="easyui-datagrid" toolbar="#wu-toolbar" hidden="hidden">
-
-    </table>
-</div>-->
 <!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
 <div th:replace="common/footer :: myfooter"  ></div>
 
@@ -139,83 +84,8 @@
     function    offeditfoser()   {
         $("#editfoser").dialog('close');
     }
-    //上传图片
-    function start(){
-        var value = $('#p').progressbar('getValue');
-        if (value < 100){
-            value += Math.floor(Math.random() * 10);
-            $('#p').progressbar('setValue', value);
-        }else{
-            $('#p').progressbar('setValue',0)
-        }
-    };
-    function upload(){
-        if($("#photo-file").val() == '')return;
-        var formData = new FormData();
-        formData.append('photo',document.getElementById('photo-file').files[0]);
-        $("#process-dialog").dialog('open');
-        var interval = setInterval(start,200);
-        $.ajax({
-            url:'upload_photo',
-            type:'post',
-            data:formData,
-            contentType:false,
-            processData:false,
-            success:function(data){
-                clearInterval(interval);
-                $("#process-dialog").dialog('close');
-                if(data.type == 'success'){
-                    $("#preview-photo").attr('src',data.filepath);
-                    $("#add-photo").val(data.filepath);
-                    $("#edit-preview-photo").attr('src',data.filepath);
-                    $("#edit-photo").val(data.filepath);
-                }else{
-                    $.messager.alert("消息提醒",data.msg,"warning");
-                }
-            },
-            error:function(data){
-                clearInterval(interval);
-                $("#process-dialog").dialog('close');
-                $.messager.alert("消息提醒","上传失败!","warning");
-            }
-        });
-    }
-
-    function uploadPhoto(){
-        $("#photo-file").click();
-
-    }
-
-
     /**
-     *  添加记录
-     */
-   /* function add(){
-        var validate = $("#add-form").form("validate");
-        if(!validate){
-            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
-            return;
-        }
-        var data = $("#add-form").serialize();
-        $.ajax({
-            url:'add',
-            dataType:'json',
-            type:'post',
-            data:data,
-            success:function(data){
-                if(data.type == 'success'){
-                    $.messager.alert('信息提示','添加成功！','info');
-                    $('#add-dialog').dialog('close');
-                    $('#data-datagrid').datagrid('reload');
-                }else{
-                    $.messager.alert('信息提示',data.msg,'warning');
-                }
-            }
-        });
-    }*/
-
-    /**
-     * 删除记录
+     * 删除肺结核第一次入户随访记录
      */
     function remove(){
         $.messager.confirm('信息提示','确定要删除该记录？', function(result){
@@ -247,7 +117,9 @@
         });
     }
 
-
+/*
+* 执行添加肺结核第一次入户随访记录
+* */
     function add() {
         var validate = $("#pulform").form("validate");
         if(!validate){
@@ -255,10 +127,10 @@
             return;
         }
         var data = $("#pulform").serialize();
-        //var userId= $("#userId").val();
+        //var userId= data.userId;
         $.ajax({
             url:'add',
-            //data : "userId="+userId+"&"+datapul,
+            //data : "userId="+userId+"&"+data,
             dataType:'json',
             type:'post',
             data:data,
@@ -274,7 +146,7 @@
         });
     }
     /**
-     *  添加记录
+     *  添加肺结核第一次入户随访记录
      */
     function addpultub(userId){
         $('#userinfo-dialog').dialog('close');
@@ -297,6 +169,9 @@
             }
         });
     }
+    /*
+    *赋值
+    * */
     function touserinfo(userId){
         $("#userId").val(userId);
         $('#userinfo-dialog').dialog('close');
@@ -614,7 +489,7 @@
     function removefoser(){
         $.messager.confirm('信息提示','确定要删除该记录？', function(result){
             if(result){
-                var item = $('#foservpul-dialog').datagrid('getSelections');
+                var item = $('#dataAll').datagrid('getSelections');
                 if(item == null || item.length == 0){
                     $.messager.alert('信息提示','请选择要删除的数据！','info');
                     return;
@@ -631,7 +506,7 @@
                     success:function(data){
                         if(data.type == 'success'){
                             $.messager.alert('信息提示','删除成功！','info');
-                            $('#foservpul-dialog').datagrid('reload');
+                            $('#dataAll').datagrid('reload');
                         }else{
                             $.messager.alert('信息提示',data.msg,'warning');
                         }
@@ -650,19 +525,7 @@
             closed: false,
             modal:true,
             title: "肺结核患者随访记录表",
-            buttons: [ {
-                text: '增加',
-                iconCls: 'icon-ok',
-                handler: openAddfoser
-            },{
-                text: '修改',
-                iconCls: 'icon-ok',
-                handler: openUpdatefoser
-            },{
-                text: '删除',
-                iconCls: 'icon-ok',
-                handler: removefoser
-            },{
+            buttons: [{
                 text: '关闭',
                 iconCls: 'icon-cancel',
                 handler: function () {
@@ -683,9 +546,19 @@
                     onDblClickRow: function (index, row) {
                         openUpdatefoser(row.foserId);
                     },
+                    toolbar: [{
+                        text: '新增',
+                        iconCls: 'icon-add',
+                        handler: openAddfoser
+                    }, '-', {
+                        text: '删除',
+                        iconCls: 'icon-cancel',
+                        handler: removefoser
+                    }, '-', {
+                        text: ' <label class="ziti">**双击修改随访记录**</label>',
+                    }],
                     columns:[[
-                        { field:'chk',checkbox:true},
-                        {field: 'foserId', title: '序号', width: 100},
+                        {field: 'foserId',hidden:true},
                         { field:'foserTime',title:'随访日期',width:100,formatter:function(value,row,index){
                                 return format(value);}},
                         { field:'foserNexttime',title:'下次随访时间',width:100,formatter:function(value,row,index){
@@ -778,14 +651,19 @@
             $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
         }
     });
+
     $(function () {
-        $("#userinfo-Search").click(function () {
-            $("#userAll").datagrid({
+        $("#pultub-Search").click(function () {
+            $("#data-datagrid").datagrid({
                 queryParams: {
                     userId: $("input[name=userId]").val(),
                     recordName: $("input[name=recordName]").val(),
+                    userSex: $("input[name=userSex]").val(),
+                    recordUnit: $("input[name=recordUnit]").val(),
+                    pultubfofoDoctor: $("input[name=pultubfofoDoctor]").val(),
                     beginTime: $("input[name=beginTime]").val(),
                     endTime: $("input[name=endTime]").val()
+
                 }
 
             });
@@ -798,5 +676,25 @@
         });
     });
 
+
+
+    $(function () {
+        $("#userinfo-Search").click(function () {
+            $("#userAll").datagrid({
+                queryParams: {
+                    userId: $(".userId").val(),
+                    recordName: $(".recordName").val(),
+                    beginTime: $(".beginTime").val(),
+                    endTime: $(".endTime").val()
+                }
+            });
+            var beginTime=$(".beginTime").val();
+            var endTime=$(".endTime").val();
+            if (beginTime>endTime){
+                $("#userinfo-dialog").messager.alert('提示',"开始日期不能大于结束日期");
+            }
+
+        });
+    });
 
 </script>

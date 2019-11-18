@@ -11,17 +11,21 @@
             <div th:replace="common/menus :: menus"  > </div>
         </div>
         <div class="wu-toolbar-search">
-            <label>报告人:</label><input id="search-name" class="wu-text" style="width:100px">
-            <label>报告时间:</label>
+            <label> 健康档案号:</label>&nbsp;
+            <input name="userId"/>&nbsp;&nbsp;
+            <label> 姓名:</label>&nbsp;
+            <input name="recordName"/>&nbsp;&nbsp;
+            <label> 所属地区:</label>&nbsp;
+            <select th:name="recordUnit" class="easyui-combobox" panelHeight="auto" style="width:150px" data-options="editable:false">
+                <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
+            </select>&nbsp;&nbsp;
+            <label> 末次月经:</label>&nbsp;
+            <input type="text" class="easyui-datebox" editable="fasle" name="beginTime" style="width: 150px"/>
+            &nbsp;&nbsp;至&nbsp;
+            <input type="text" class="easyui-datebox" editable="fasle" name="endTime" style="width: 150px"/>
+            &nbsp;&nbsp;
+            <a href="#" id="suppat-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
 
-            <label>录入人:</label>
-            <select id="search-sex" class="easyui-combobox" panelHeight="auto" style="width:120px">
-                <option value="-1">全部</option>
-                <option value="0">未知</option>
-                <option value="1">男</option>
-                <option value="2">女</option>
-            </select>
-            <a href="#" id="search-btn" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
         </div>
     </div>
 
@@ -33,7 +37,7 @@
 <!-- Begin of easyui-dialog -->
 
 <div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:750px;height:640px; overflow:auto;">
-    <form id="add-form" method="post">
+   <!-- <form id="add-form" method="post">
         <h1 style="text-align: center">突发公共卫生事件相关信息报告卡</h1>
         <div style="margin-left: 450px">
             <input type="radio" name="emgPrireport" value="1" checked="true" />初步报告
@@ -248,7 +252,7 @@
                         <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="4">皮肤粘膜症状
                         <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="5">神经症状
                         <input type="checkbox"  class="mainSymptoms" onclick="checkItem(this)"  value="6">其它<input type="text"/>
-                        <!--<input class="easyui-textbox"  id="mainSymptomsid" name="mainSymptoms"></input>-->
+                        &lt;!&ndash;<input class="easyui-textbox"  id="mainSymptomsid" name="mainSymptoms"></input>&ndash;&gt;
                     </div>
                 </td>
             </tr>
@@ -267,134 +271,510 @@
 
 
         </table>
-    </form>
+    </form>-->
 </div>
 <!-- 修改窗口 -->
 
-<div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:350px;height:300px; overflow:auto;">
+<div id="edit-dialog" class="easyui-dialog" data-options="closed:true" style="width:450px;height:350px; overflow:auto;">
     <form id="edit-form" method="post">
         <input type="hidden" name="anfoId" id="edit-anfoId">
 
-        <table style="height: 200px">
+        <table style="width:350px;height: 260px;margin-left: 50px">
              <tr>
                  <td width="70" align="right">是否结案</td>
                  <td valign="middle">
-                 <input type="radio" name="anfoState" value="1"/>是
-                 <input type="radio" name="anfoState" value="0" onclick="rad()"/>否
+                 <input type="radio" name="anfoState" value="1" onclick="on()"/>是
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 <input type="radio" name="anfoState" value="0" onclick="off()"/>否
                  </td>
              </tr>
             <tr>
-                <td width="70" align="right" border="1">结案日期:</td>
-                <td><input type="date"  id="edit-anfoStatetime" name="anfoStatetime" class="wu-text " /></td>
+                <td width="70" align="right">结案日期:</td>
+                <td><input type="text" class="easyui-datebox" id="anfoStatetime" name="anfoStatetime" style="width: 200px"/></td>
             </tr>
             <tr>
-                <td width="70" align="right" id="anfostate">结案原因:</td>
-                <td><input type="text" id="edit-anfoStateReason" name="anfoStateReason" class="wu-text"/></td>
+                <td width="70" align="right">结案原因:</td>
+                <td>
+                    <select name="anfoStateReason" id="anfoStateReason" style="width: 200px">
+                        <option value="1">流产</option>
+                        <option value="2">引产</option>
+                        <option value="3">死胎</option>
+                        <option value="4">正常结案</option>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td width="70" align="right">备注:</td>
                 <td>
-                    <textarea id="edit-anfoColumn" name="anfoColumn" rows="4" cols="35"/></textarea>
+                    <textarea id="edit-anfoColumn" name="anfoColumn" rows="4" cols="40"/></textarea>
                 </td>
             </tr>
         </table>
     </form>
 </div>
+<script>
+    function on() {//是
+        $("#anfoStatetime.easyui-datebox").datebox({disabled: false});
+        $("#anfoStateReason").removeAttr("disabled");
+    }
 
+    function off() {//否
+        $("#anfoStatetime.easyui-datebox").datebox({disabled: true});
+        $("#anfoStatetime").datebox('clear');
+        $("#anfoStateReason").attr({disabled: 'true'});
+    }
 
+    $('#anfoStatetime').datebox({
+        required: true
+    });
+</script>
 
-
-
-
-
+<!-- 孕产妇建卡 -->
+<div id="addantebus" class="easyui-dialog" style="width: 850px;height: 890px; padding:10px;">
+    <form id="busmanform" method="post">
+    <div th:replace="busman/addbusman :: antebus"></div>
+    </form>
+</div>
 <!--健康档案-->
-<div id="userinfo-dialog" class="easyui-dialog" data-options="closed:true" style="width:700px;height: 580px">
+<div id="userinfo-dialog" class="easyui-dialog" data-options="closed:true" style="width:800px;height: 700px">
     <!--按条件查询-->
-    <label> 健康档案号:</label><input name="userId" class="easyui-numberbox" maxlength="9" data-options="validType:'length[0,9]'"  style="width: 120px"/>
-    <label> 姓名:</label><input name="recordName" style="width: 100px"/>
-    <label> 出生日期:</label><input type="text" class="easyui-datebox" editable="fasle" name="beginTime" style="width: 100px"/>至
-    <input type="text" class="easyui-datebox"  name="endTime" style="width: 100px"/>
+    <label> 健康档案号:</label><input name="userId" id="userId" class="easyui-numberbox" maxlength="9" data-options="validType:'length[0,9]'"  style="width: 120px"/>
+    <label> 姓名:</label><input name="recordName" id="recordName" style="width: 100px"/>
+    <label> 出生日期:</label><input type="text" class="easyui-datebox" editable="fasle" name="beginTime" id="beginTime" style="width: 100px"/>至
+    <input type="text" class="easyui-datebox"  name="endTime" id="endTime" style="width: 100px"/>
     <a href="#" id="userinfo-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
 
-    <table id="userAll" class="easyui-datagrid" style="width: 650px;height: 500px" ></table>
+    <table id="userAll" class="easyui-datagrid" style="width: 750px;height: 600px" ></table>
 </div>
-<div id="process-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-upload',title:'正在上传图片'" style="width:450px; padding:10px;">
-    <div id="p" class="easyui-progressbar" style="width:400px;" data-options="text:'正在上传中...'"></div>
+<div id="highriskFactor">
+   <!-- <table id="datahigh" class="easyui-datagrid" style="width: 750px;height: 600px" ></table>-->
 </div>
-<input type="file" id="photo-file" style="display:none;" onchange="upload()">
 <!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
 <div th:replace="common/footer :: myfooter"  ></div>
 
 
 <!-- End of easyui-dialog -->
 <script type="text/javascript" th:inline="none">
-    //上传图片
-    function start(){
-        var value = $('#p').progressbar('getValue');
-        if (value < 100){
-            value += Math.floor(Math.random() * 10);
-            $('#p').progressbar('setValue', value);
-        }else{
-            $('#p').progressbar('setValue',0)
-        }
-    };
-    function upload(){
-        if($("#photo-file").val() == '')return;
-        var formData = new FormData();
-        formData.append('photo',document.getElementById('photo-file').files[0]);
-        $("#process-dialog").dialog('open');
-        var interval = setInterval(start,200);
-        $.ajax({
-            url:'upload_photo',
-            type:'post',
-            data:formData,
-            contentType:false,
-            processData:false,
-            success:function(data){
-                clearInterval(interval);
-                $("#process-dialog").dialog('close');
-                if(data.type == 'success'){
-                    $("#preview-photo").attr('src',data.filepath);
-                    $("#add-photo").val(data.filepath);
-                    $("#edit-preview-photo").attr('src',data.filepath);
-                    $("#edit-photo").val(data.filepath);
-                }else{
-                    $.messager.alert("消息提醒",data.msg,"warning");
-                }
-            },
-            error:function(data){
-                clearInterval(interval);
-                $("#process-dialog").dialog('close');
-                $.messager.alert("消息提醒","上传失败!","warning");
+$(function () {
+    $("#addantebus").dialog('close');
+});
+function  goBack() {
+    $("#addantebus").dialog('close');
+}
+
+/*
+* 高危因素组合树
+* */
+$("#cc").click(function () {
+    $("#highriskFactor").dialog({
+        title : "数据选择窗口",
+        buttons: [{
+            text: '确定',
+            iconCls: 'icon-ok',
+            handler: add
+        }, {
+            text: '取消',
+            iconCls: 'icon-cancel',
+            handler: function () {
+                $('#highriskFactor').dialog('close');
             }
-        });
-    }
+        }],
+        onBeforeOpen: function(){
+            $('#cc').combotree({
+                url:'loadData',
+                multiple: true,
+                editable:true,
+                cascadeCheck: true,
+                loadData:[{
+                   id: 1,
+                   text: '基本情况',
+                   children: [{
+                       id: 11,
+                       text: '精神疾病',
+                       children:[{
+                           id:14,
+                           text:'aa'
+                       }]
+                   },{
+                       id: 6,
+                       text: '智力障碍'
+                   },{
+                       id: 7,
+                       text: '体态异常'
+                   },{
+                       id: 8,
+                       text: '遗传病史'
+                   },{
+                       id: 9,
+                       text: '其他基本因素'
+                   },{
+                       id: 10,
+                       text: '外界因素'
+                   },{
+                       id: 11,
+                       text: '社会因素'
+                   },
+                   ]
+               },
+                   {
+                       id: 2,
+                       text: '环境及社会因素',
+                       children: [{
+                           id: 12,
+                           text: '被动或主动吸烟≥20支/日，滥用药物，酗酒 5分'
+                       },{
+                           id: 13,
+                           text: '孕早期接触禁忌食物，放射线或可疑致畸物 5分'
+                       },{
+                           id: 14,
+                           text: '临产前无产前检查、家庭经济困难、家庭暴力 5分'
+                       }]
+                   },
+                   {
+                       id: 3,
+                       text: '妊娠并发症',
+                       children: [{
+                           id: 15,
+                           text: '母儿血型不合'
+                       },{
+                           id: 16,
+                           text: '胎位不正'
+                       },{
+                           id: 17,
+                           text: '产前出血'
+                       },{
+                           id: 18,
+                           text: '胎动及胎心监护'
+                       },{
+                           id: 19,
+                           text: '妊娠期高血压疾病'
+                       },{
+                           id: 20,
+                           text: '羊水量异常'
+                       },{
+                           id: 21,
+                           text: 'ICP'
+                       },{
+                           id: 22,
+                           text: '胎膜早破'
+                       }]
+                   },
+                   {
+                       id: 4,
+                       text: '妊娠合并症',
+                       children: [{
+                           id: 23,
+                           text: '心血管病'
+                       },{
+                           id: 24,
+                           text: '呼吸道疾病'
+                       },{
+                           id: 25,
+                           text: '内分泌病'
+                       },{
+                           id: 26,
+                           text: '心脏病'
+                       },{
+                           id: 27,
+                           text: '肝病'
+                       },{
+                           id: 28,
+                           text: '糖尿病'
+                       },{
+                           id: 29,
+                           text: '肾病'
+                       }]
+                   },
+                   {
+                       id: 5,
+                       text: '不良孕产史',
+                       children: [{
+                           id: 30,
+                           text: '流产≥2次，宫外孕史 5分'
+                       },{
+                           id: 31,
+                           text: '三次自然流产史、围产儿死亡史、早产史、阴道难产史 10分'
+                       },{
+                           id: 32,
+                           text: 'ABO或RH溶血症 20分'
+                       }]
+                   }
+               ]
+                //onlyLeafCheck: true
+            });
+        }
+    });
+   /* $('#cc').combotree({
+        url:'loadData',
+        multiple: true,
+        editable:true,
+        cascadeCheck: true
+        //onlyLeafCheck: true
+    });*/
+   /* $('#cc').combotree('loadData', [{
+        id: 1,
+        text: '基本情况',
+        children: [{
+            id: 11,
+            text: '精神疾病',
+            children:[{
+                id:14,
+                text:'aa'
+            }]
+        },{
+            id: 6,
+            text: '智力障碍'
+        },{
+            id: 7,
+            text: '体态异常'
+        },{
+            id: 8,
+            text: '遗传病史'
+        },{
+            id: 9,
+            text: '其他基本因素'
+        },{
+            id: 10,
+            text: '外界因素'
+        },{
+            id: 11,
+            text: '社会因素'
+        },
+        ]
+    },
+        {
+            id: 2,
+            text: '环境及社会因素',
+            children: [{
+                id: 12,
+                text: '被动或主动吸烟≥20支/日，滥用药物，酗酒 5分'
+            },{
+                id: 13,
+                text: '孕早期接触禁忌食物，放射线或可疑致畸物 5分'
+            },{
+                id: 14,
+                text: '临产前无产前检查、家庭经济困难、家庭暴力 5分'
+            }]
+        },
+        {
+            id: 3,
+            text: '妊娠并发症',
+            children: [{
+                id: 15,
+                text: '母儿血型不合'
+            },{
+                id: 16,
+                text: '胎位不正'
+            },{
+                id: 17,
+                text: '产前出血'
+            },{
+                id: 18,
+                text: '胎动及胎心监护'
+            },{
+                id: 19,
+                text: '妊娠期高血压疾病'
+            },{
+                id: 20,
+                text: '羊水量异常'
+            },{
+                id: 21,
+                text: 'ICP'
+            },{
+                id: 22,
+                text: '胎膜早破'
+            }]
+        },
+        {
+            id: 4,
+            text: '妊娠合并症',
+            children: [{
+                id: 23,
+                text: '心血管病'
+            },{
+                id: 24,
+                text: '呼吸道疾病'
+            },{
+                id: 25,
+                text: '内分泌病'
+            },{
+                id: 26,
+                text: '心脏病'
+            },{
+                id: 27,
+                text: '肝病'
+            },{
+                id: 28,
+                text: '糖尿病'
+            },{
+                id: 29,
+                text: '肾病'
+            }]
+        },
+        {
+            id: 5,
+            text: '不良孕产史',
+            children: [{
+                id: 30,
+                text: '流产≥2次，宫外孕史 5分'
+            },{
+                id: 31,
+                text: '三次自然流产史、围产儿死亡史、早产史、阴道难产史 10分'
+            },{
+                id: 32,
+                text: 'ABO或RH溶血症 20分'
+            }]
+        }
+    ]);*/
+});
+/*function highriskFactor(){
 
-    function uploadPhoto(){
-        $("#photo-file").click();
+}*/
+/*$(function () {
+    $('#cc').combotree({
+        url:'loadData',
+        multiple: true,
+        editable:true,
+        cascadeCheck: true
+        //onlyLeafCheck: true
+    });
 
-    }
-
-
+});*/
+/*$(function () {
+    $('#cc').combotree('loadData', [{
+        id: 1,
+        text: '基本情况',
+        children: [{
+            id: 11,
+            text: '精神疾病',
+            children:[{
+                id:14,
+                text:'aa'
+            }]
+        },{
+            id: 6,
+            text: '智力障碍'
+        },{
+                id: 7,
+                text: '体态异常'
+            },{
+                id: 8,
+                text: '遗传病史'
+            },{
+            id: 9,
+            text: '其他基本因素'
+        },{
+            id: 10,
+            text: '外界因素'
+        },{
+            id: 11,
+            text: '社会因素'
+        },
+        ]
+    },
+        {
+            id: 2,
+            text: '环境及社会因素',
+            children: [{
+                id: 12,
+                text: '被动或主动吸烟≥20支/日，滥用药物，酗酒 5分'
+            },{
+                id: 13,
+                text: '孕早期接触禁忌食物，放射线或可疑致畸物 5分'
+            },{
+                id: 14,
+                text: '临产前无产前检查、家庭经济困难、家庭暴力 5分'
+            }]
+        },
+        {
+            id: 3,
+            text: '妊娠并发症',
+            children: [{
+                id: 15,
+                text: '母儿血型不合'
+            },{
+                id: 16,
+                text: '胎位不正'
+            },{
+                id: 17,
+                text: '产前出血'
+            },{
+                id: 18,
+                text: '胎动及胎心监护'
+            },{
+                id: 19,
+                text: '妊娠期高血压疾病'
+            },{
+                id: 20,
+                text: '羊水量异常'
+            },{
+                id: 21,
+                text: 'ICP'
+            },{
+                id: 22,
+                text: '胎膜早破'
+            }]
+        },
+        {
+            id: 4,
+            text: '妊娠合并症',
+            children: [{
+                id: 23,
+                text: '心血管病'
+            },{
+                id: 24,
+                text: '呼吸道疾病'
+            },{
+                id: 25,
+                text: '内分泌病'
+            },{
+                id: 26,
+                text: '心脏病'
+            },{
+                id: 27,
+                text: '肝病'
+            },{
+                id: 28,
+                text: '糖尿病'
+            },{
+                id: 29,
+                text: '肾病'
+            }]
+        },
+        {
+            id: 5,
+            text: '不良孕产史',
+            children: [{
+                id: 30,
+                text: '流产≥2次，宫外孕史 5分'
+            },{
+                id: 31,
+                text: '三次自然流产史、围产儿死亡史、早产史、阴道难产史 10分'
+            },{
+                id: 32,
+                text: 'ABO或RH溶血症 20分'
+            }]
+        }
+    ]);});*/
     /**
      *  添加记录
      */
     function add(){
-        var validate = $("#add-form").form("validate");
+        var validate = $("#busmanform").form("validate");
         if(!validate){
             $.messager.alert("消息提醒","请检查你输入的数据!","warning");
             return;
         }
-        var data = $("#add-form").serialize();
+        var data = $("#busmanform").serialize();
         $.ajax({
-            url:'add',
+            url:'../antebusman/add',
             dataType:'json',
             type:'post',
             data:data,
             success:function(data){
                 if(data.type == 'success'){
                     $.messager.alert('信息提示','添加成功！','info');
-                    $('#add-dialog').dialog('close');
+                    $('#addantebus').dialog('close');
                     $('#data-datagrid').datagrid('reload');
                 }else{
                     $.messager.alert('信息提示',data.msg,'warning');
@@ -404,7 +784,7 @@
     }
 
     /**
-     * Name 修改记录
+     * 修改孕产妇结案
      */
     function update(){
         var validate = $("#edit-form").form("validate");
@@ -464,50 +844,68 @@
         });
     }
 
-    /**
-     *  添加传染病报告卡
-     */
-   /* function addindis(userId){
-        $('#userinfo-dialog').dialog('close');
-        $("#addinfd").dialog({
-            title : "新增",
-            buttons: [{
-                text: '确定',
-                iconCls: 'icon-ok',
-                handler: add
-            }, {
-                text: '取消',
-                iconCls: 'icon-cancel',
-                handler: function () {
-                    $('#addinfd').dialog('close');
-                }
-            }],
-            model : true,
-            onBeforeOpen: function(){
-                touserinfo(userId);
+/**
+ *  添加孕产妇建卡
+ */
+function addbusman(userId){
+    $('#userinfo-dialog').dialog('close');
+    $("#addantebus").dialog({
+        title : "新增",
+        buttons: [{
+            text: '确定',
+            iconCls: 'icon-ok',
+            handler: add
+        }, {
+            text: '取消',
+            iconCls: 'icon-cancel',
+            handler: function () {
+                $('#addantebus').dialog('close');
             }
-        });
-    }
-    function touserinfo(userId) {
-        $("#userId").val(userId);
-        $('#userinfo-dialog').dialog('close');
-        $("#addinfd").dialog({
-            title: "新增",
-            model: true,
-            onBeforeOpen: function () {
-                $.ajax({
-                    url: '../puserinfo/queryUserById',
-                    type: 'post',
-                    data: "userId=" + userId,
-                    dataType: 'json',
-                    success: function (data) {
-                        $("#infdisform").form("load",data);
-                    }
+        }],
+        model : true,
+        onBeforeOpen: function(){
+            touinfo(userId);
+        }
+    });
+}
+function touinfo(userId) {
+    $("#userId").val(userId);
+    $('#userinfo-dialog').dialog('close');
+    $("#addantebus").dialog({
+        title: "新增",
+        model: true,
+        onBeforeOpen: function () {
+            $.ajax({
+                url: '../puserinfo/queryUserById',
+                type: 'post',
+                data: "userId=" + userId,
+                dataType: 'json',
+                success: function (data) {
+                    $("#uinfoform").form("load",data);
 
-                });
-            }
-        });
-    }*/
+                    // $("input[name='userId']").val(data.userId);
+                    // $("input[name='recordName']").val(data.recordName);
+                    // $("input[name='userIdnumber']").val(data.userIdnumber);
+                    // $("input[name='userBirthday']").datebox(data.userBirthday);
+                    // //$("input[name='userAge']").datebox(data.userAge);
+                    // $("input[name='userWorkunit']").val(data.userWorkunit);
+                    // $("input[name='recordAdress']").val(data.recordAdress);
+                    // var sex = "未知";
+                    // if (data.userSex == 1) {
+                    //     sex = "男";
+                    // } else if (data.userSex == 2) {
+                    //     sex = "女";
+                    // } else {
+                    //     sex = "未知";
+                    // }
+                    // $("input[name='userSex']").val(sex);
+                    // alert(sex);
+                }
+
+            });
+        }
+    });
+}
 
     /**
      *  打开健康档案窗口
@@ -520,7 +918,7 @@
             buttons: [{
                 text: '确定',
                 iconCls: 'icon-ok',
-                //handler:addindis
+                handler:addbusman
             }, {
                 text: '取消',
                 iconCls: 'icon-cancel',
@@ -530,7 +928,7 @@
             }],
             onBeforeOpen:function(){
                 $("#userAll").datagrid({
-                    url: '../puserinfo/list',
+                    url: '../finduser/list',
                     fitColumns: true,
                     striped: true,
                     singleSelect: true,
@@ -538,11 +936,13 @@
                     rownumbers: true,
                     pageSize: 20,
                     multiSort: true,
-                    /*onDblClickRow: function (index, row) {
+                    onDblClickRow: function (index, row) {
                         addbusman(row.userId);
-                    },*/
+                    },
                     columns:[[
-                        { field:'userId',title:'健康档案号',width:100,align:'center'},
+                        { field:'userId',title:'健康档案号',width:100,align:'center'/*,formatter(value){
+                            return userId=value;
+                            }*/},
                         { field:'recordName',title:'姓名',width:100},
                         { field:'userBirthday',title:'出生日期',width:100,formatter:function(value,row,index){
                                 return format(value);}},
@@ -559,7 +959,7 @@
 
 
     /**
-     * 打开修改窗口
+     * 打开修改孕产妇结案窗口
      */
     function openEdit(){
         var item = $('#data-datagrid').datagrid('getSelections');
@@ -572,6 +972,7 @@
             return;
         }
         item = item[0];
+        var anfoId=item.anfoId;
         $('#edit-dialog').dialog({
             closed: false,
             modal:true,
@@ -588,56 +989,18 @@
                 }
             }],
             onBeforeOpen:function(){
-                $("#edit-anfoId").val(item.anfoId);
-                $('input[name="anfoState"]:checked').val(item.anfoState);
-                $("#edit-anfoStatetime").val(item.anfoStatetime);
-                $("#edit-anfoStateReason").val(item.anfoStateReason);
-                $("#edit-anfoColumn").val(item.anfoColumn);
+                $.ajax({
+                    url: '../antebusman/findById?anfoId=' + anfoId,
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#edit-form").form('load', data.ante);
+                    }
+
+                });
             }
         });
     }
-    $("input[name='anfoState']").each(function(index) {
-        if ($("input[name='anfoState']").get(index).value == 0) {
-            $("input[name='anfoState']").get(index).checked = true;
-        }
-    });
-
-    /*$("input[name='anfoState']").each(function(index) {
-        if ($("input[name='anfoState']").get(index).value == 0) {
-            $("#anfostate").css({color:"#9a9a9a"});
-            $("#edit-anfoStatetime").prop("readonly",true);
-            $("#edit-anfoStateReason").prop("readonly",true);
-            $('#edit-anfoStatetime input[readonly]').val('');
-            $('#edit-anfoStateReason input[readonly]').val('');
-        }else{
-          /!*  $('#edit-anfoStatetime input[readonly]').remove();
-            $('#edit-anfoStateReason input[readonly]').remove();*!/
-            $("#anfostate").css({color:"#000"});
-            $("#edit-anfoStatetime").prop("readonly",false);
-            $("#edit-anfoStateReason").prop("readonly",false);
-            /!*$('#edit-anfoStatetime input[readonly]').val('');
-            $('#edit-anfoStateReason input[readonly]').val('');*!/
-        }
-    });*/
-
-    $('input[name="anfoState"]').change(function () {
-        if ($('input[name="anfoState"]:checked').val() === '0') {
-           $("#anfostate").css({color:"#9a9a9a"});
-            $("#edit-anfoStatetime").prop("readonly",true);
-            $("#edit-anfoStateReason").prop("readonly",true);
-            $('#edit-anfoStatetime input[readonly]').val('');
-            $('#edit-anfoStateReason input[readonly]').val('');
-        }else{
-            $('#edit-anfoStatetime input[readonly]').remove();
-            $('#edit-anfoStateReason input[readonly]').remove();
-            $("#anfostate").css({color:"#000"});
-            $("#edit-anfoStatetime").prop("readonly",false);
-            $("#edit-anfoStateReason").prop("readonly",false);
-            /*$('#edit-anfoStatetime input[readonly]').val('');
-            $('#edit-anfoStateReason input[readonly]').val('');*/
-        }
-
-    });
 
     //搜索按钮监听
     $("#search-btn").click(function(){
@@ -669,7 +1032,7 @@
     $('#data-datagrid').datagrid({
         url:'list',
         rownumbers:true,
-        singleSelect:false,
+        singleSelect:true,
         pageSize:20,
         pagination:true,
         multiSort:true,
@@ -685,8 +1048,6 @@
             { field:'anfoPretime',title:'预产期',width:100,sortable:true,formatter:function(value,row,index){
                     return format(value);}},
             { field:'anfoLastmenage',title:'末次月经',width:100,sortable:true,formatter:function(value,row,index){
-                    return format(value);}},
-            { field:'chbirTime',title:'分娩日期',width:100,sortable:true,formatter:function(value,row,index){
                     return format(value);}},
             { field:'anfoGestational',title:'孕次',width:40,sortable:true},
             { field:'anfoParity',title:'产次',width:40,sortable:true},
@@ -718,16 +1079,43 @@
             $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
         }
     });
-    /*function checkDb(data,dmsmName) {// 复选框分割选中
-        var array=[];
-        var Famihis=[];
-        var Dm=data[0][dmsmName];
-        array.push(Dm.substring(0,Dm.length-1));
-        Famihis=$("input[name="+[dmsmName]+"");
-        $(Famihis).each(function () {
-            for(var j=0;j<array.length;j++) {
-                $(this).attr("checked",$(this).val()==array[j]);
+    $(function () {
+        $("#suppat-Search").click(function () {
+            $("#data-datagrid").datagrid({
+                queryParams: {
+                    userId: $("input[name=userId]").val(),
+                    recordName: $("input[name=recordName]").val(),
+                    recordUnit: $("input[name=recordUnit]").val(),
+                    beginTime: $("input[name=beginTime]").val(),
+                    endTime: $("input[name=endTime]").val(),
+                }
+
+            });
+            var beginTime=$("input[name=beginTime]").val();
+            var endTime=$("input[name=endTime]").val();
+            if (beginTime>endTime){
+                $.messager.alert('提示',"开始日期不能大于结束日期");
             }
-        })
-    }*/
+
+        });
+    });
+    $(function () {
+        $("#userinfo-Search").click(function () {
+            $("#userAll").datagrid({
+                queryParams: {
+                    userId: $("#userId").val(),
+                    recordName: $("#recordName").val(),
+                    beginTime: $("#beginTime").val(),
+                    endTime: $("#endTime").val()
+                }
+
+            });
+            var beginTime=$("#beginTime").val();
+            var endTime=$("#endTime").val();
+            if (beginTime>endTime){
+                $.messager.alert('提示',"开始日期不能大于结束日期");
+            }
+
+        });
+    });
 </script>

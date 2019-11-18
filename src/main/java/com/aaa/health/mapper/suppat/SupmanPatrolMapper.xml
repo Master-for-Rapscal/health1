@@ -4,11 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.suppat.SupmanPatrolMapper">
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.suppat.SupmanPatrol">
-select p.patrolId,p.areaId,a.areaName,p.patrolYear,p.patrolContent,p.patrolProblem,p.patrolTime,p.patrolName,p.patrolRemarks,p.patrolState,p.patrolColumn from supmanPatrol p join area a on p.areaId=a.areaId
+select p.patrolId,p.areaId,a.areaName,p.patrolYear,p.patrolContent,p.patrolProblem,p.patrolTime,
+        p.patrolName,p.patrolRemarks,p.patrolState,p.patrolColumn from supmanPatrol p left join area a on p.areaId=a.areaId
 where 1=1
-
         <if test="patrolName != null">
-            and patrolName like '%${patrolName}%'
+            and p.patrolName like '%${patrolName}%'
+        </if>
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != null and areaId !=410000">
+            and p.areaId=#{areaId}
         </if>
         <if test="beginTime != null">
             and p.patrolTime  >= #{beginTime}
@@ -28,6 +34,9 @@ where 1=1
     insert into supmanPatrol(areaId,patrolYear,patrolContent,patrolProblem,patrolTime,patrolName,patrolRemarks)
     values(#{areaId},#{patrolYear},#{patrolContent},#{patrolProblem},#{patrolTime},#{patrolName},#{patrolRemarks})
 </insert>
+    <select id="findById" parameterType="Integer" resultType="Map">
+        select * from supmanPatrol where patrolId=#{patrolId}
+    </select>
 
     <update id="update" parameterType="com.aaa.health.entity.suppat.SupmanPatrol">
 update supmanPatrol set areaId=#{areaId},patrolYear=#{patrolYear},patrolContent=#{patrolContent},patrolProblem=#{patrolProblem},patrolTime=#{patrolTime},patrolName=#{patrolName},patrolRemarks=#{patrolRemarks} where patrolId=#{patrolId}
@@ -45,6 +54,12 @@ update supmanPatrol set areaId=#{areaId},patrolYear=#{patrolYear},patrolContent=
 
         <if test="patrolName != null">
             and patrolName like '%${patrolName}%'
+        </if>
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != null and areaId !=410000">
+            and areaId=#{areaId}
         </if>
         <if test="beginTime != null">
             and patrolTime  >= #{beginTime}

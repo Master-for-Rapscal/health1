@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
+
+<body>
+<div th:fragment="supre" th:height="500">
+    <div class="supre">
+        <style>
+            input[type="text"] {
+                border: 0px;
+                width: 50px;
+            }
+
+            input[type="checkbox"] {
+                margin-left: 15px;
+            }
+        </style>
+        <form id="supreform" class="easyui-form" method="post" data-options="novalidate:true">
+            <table width="650" th:height="480" border="1" cellspacing="0" cellpadding="1">
+                <caption>
+                    <h1>卫生计生监督协管信息报告登记表</h1>
+                </caption>
+                <input name="reportId" hidden="hidden"/>
+                <tr>
+                    <td width="60" align="right">所属机构</td>
+                    <td>
+                        <select th:name="addressId" class="easyui-combobox" editable="fasle"  data-options="required:true,min:1,precision:0, missingMessage:'请填写所属机构'"  panelHeight="auto" style="width:200px">
+
+                            <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
+                        </select>
+                    </td>
+                    <td valign="middle">
+                        所属单位
+                    </td>
+                    <td valign="middle">
+                        <select th:name="addressId2" class="easyui-combobox" editable="fasle" panelHeight="auto" style="width:200px">
+                            <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="60" align="right">发现时间:</td>
+                    <td><input type="text" class="easyui-datebox" editable="fasle" name="reportFindtime"  style="width:200px"/></td>
+                    <td width="60" align="right">信息类别:</td>
+                    <td>
+                        <select name="reportCategory" class="easyui-combobox" editable="fasle" panelHeight="auto" style="width:200px">
+                            <option value="1">食品安全</option>
+                            <option value="2">饮用水卫生</option>
+                            <option value="3">职业病危害</option>
+                            <option value="4">学校卫生</option>
+                            <option value="5">非法行医（采供血）</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="60" align="right">信息内容:</td>
+                    <td colspan="3">
+                        <textarea name="reportContent" rows="25" cols="87" style="border: 0px"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="60" align="right">报告时间:</td>
+                    <td><input type="text" class="easyui-datebox" editable="fasle" name="reportTime" style="width: 200px" /></td>
+                    <td width="60" align="right">报告人:</td>
+                    <td>
+                        <input type="text" name="reportName"  class="wu-text" style="width: 97%;height: 100%"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

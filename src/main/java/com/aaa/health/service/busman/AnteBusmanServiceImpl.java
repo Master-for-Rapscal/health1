@@ -26,4 +26,14 @@ public class AnteBusmanServiceImpl implements AnteBusmanService {
         return anteBusmanMapper.update(anteFollow);
     }
 
+    @Override
+    public Map<String, Object> findById(Integer anfoId) {
+        return anteBusmanMapper.findById(anfoId);
+    }
+
+    @Override
+    public int add(AnteFollow anteFollow) {
+        return anteBusmanMapper.add(anteFollow);
+    }
+
 }

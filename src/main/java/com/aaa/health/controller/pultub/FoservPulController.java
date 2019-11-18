@@ -43,7 +43,6 @@ public class FoservPulController {
     @RequestMapping(value = "/findUserId", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> findUserId(Integer pultubfoId) {
-        System.out.println(pultubfoId);
         Map<String, Object> pul = new HashMap<String, Object>();
         pul.put("finduser", foservPulService.findUserId(pultubfoId));// 页面加载数据使用
         System.out.println(foservPulService.findUserId(pultubfoId));
@@ -53,8 +52,6 @@ public class FoservPulController {
     @ResponseBody
     public Map<String, String> add(Integer pultubfoId,FoservPul foservPul) {
         foservPul.getPultubfoId();
-        //pultubfoId 是固定值13？
-        System.out.println(pultubfoId);
         Map<String, String> ret = new HashMap<String, String>();
         if (foservPul == null) {
             ret.put("type", "error");
@@ -102,8 +99,6 @@ public class FoservPulController {
     @ResponseBody
     public Map<String, String> update(FoservPul foservPul) {
         Map<String, String> ret = new HashMap<String, String>();
-        int b=foservPulService.update(foservPul);
-        System.out.println(b+"sss");
         if (foservPulService.update(foservPul) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "信息修改失败，请联系管理员！");

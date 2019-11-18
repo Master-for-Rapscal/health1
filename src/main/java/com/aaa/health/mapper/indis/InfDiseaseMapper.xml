@@ -4,9 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.indis.InfDiseaseMapper">
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.indis.InfDisease">
-        select i.infdisId,i.userId,u.recordName,u.userSex,u.userMyphone,i.infdisPhone,i.infdisIllness,i.infdisMdytime,i.infdisTime,i.infdisDigtime,i.outcomeWhether,s.lastname from infdisease i join userinfo u on i.userId=u.userId join user s on i.infdisDoctor=s.id
+        select i.infdisId,i.userId,u.recordName,u.userSex,u.userMyphone,u.recordUnit,i.infdisPhone,i.infdisIllness,
+        i.infdisMdytime,i.infdisTime,i.infdisDigtime,i.outcomeWhether,s.lastname,i.infdisDoctor,a.areaId from infdisease i
+        join userinfo u on i.userId=u.userId join user s on i.infdisDoctor=s.id join area a on u.recordUnit=a.areaId
         where 1 = 1
-       <!-- <if test="userId != null">
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and a.areaId=#{areaId}
+        </if>
+        <if test="userId != null">
             and i.userId like '%${userId}%'
         </if>
         <if test="recordName != null">
@@ -15,8 +23,8 @@
         <if test="userSex != null">
             and u.userSex=#{userSex}
         </if>
-        <if test="lastname != null">
-            and s.lastname=#{lastname}
+        <if test="infdisDoctor != null">
+            and i.infdisDoctor=#{infdisDoctor}
         </if>
         <if test="beginTime != null">
             and i.infdisTime  >= #{beginTime}
@@ -35,7 +43,7 @@
         </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
-        </if>-->
+        </if>
     </select>
 
     <insert id="add" parameterType="com.aaa.health.entity.indis.InfDisease">
@@ -43,10 +51,11 @@
 infdisPhone,infdisPatis,infdisChbjob,infdisCateone,infdisCatetwo,infdisMdytime,infdisDigtime,
 infdisDietime,infdisOutcome,outcomeWhether,outcomeReason,outcomeOtherreason,outcomeRemarks,diseaseNail,diseaseB,diseaseC,diseaseOther,infdisIllness,infdisCard,infdisReport,infdisTel,infdisDoctor,infdisTime,
 infdisHandle)
-    values(#{userId},#{infdisCardnum},#{infdisCardtype},#{infdisParentname},#{
-infdisPhone},#{infdisPatis},#{infdisChbjob},#{infdisCateone},#{infdisCatetwo},#{infdisMdytime},#{infdisDigtime},#{
-infdisDietime},#{infdisOutcome},1,#{outcomeReason},#{outcomeOtherreason},#{outcomeRemarks},#{diseaseNail},#{diseaseB},#{diseaseC},#{diseaseOther},#{infdisIllness},#{infdisCard},#{infdisReport},#{infdisTel},#{infdisDoctor},#{infdisTime},#{
-infdisHandle})
+    values(#{userId},#{infdisCardnum},#{infdisCardtype},#{infdisParentname},#{infdisPhone},
+    #{infdisPatis},#{infdisChbjob},#{infdisCateone},#{infdisCatetwo},#{infdisMdytime},
+    #{infdisDigtime},#{infdisDietime},#{infdisOutcome},1,#{outcomeReason},#{outcomeOtherreason},
+    #{outcomeRemarks},#{diseaseNail},#{diseaseB},#{diseaseC},#{diseaseOther},#{infdisIllness},
+    #{infdisCard},#{infdisReport},#{infdisTel},#{infdisDoctor},#{infdisTime},#{infdisHandle})
     </insert>
     <update id="edit" parameterType="com.aaa.health.entity.indis.InfDisease">
         update infdisease set infdisCardnum=#{infdisCardnum},infdisCardtype=#{infdisCardtype},
@@ -68,8 +77,15 @@ infdisTime=#{infdisTime},infdisHandle=#{infdisHandle}
 
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*) from infdisease i join userinfo u on i.userId=u.userId join user s on i.infdisDoctor=s.id
+        select count(*) from infdisease i
+        join userinfo u on i.userId=u.userId join user s on i.infdisDoctor=s.id join area a on u.recordUnit=a.areaId
         where 1 = 1
+        <if test="areaId == 410000">
+            and 1=1
+        </if>
+        <if test="areaId != 410000">
+            and a.areaId=#{areaId}
+        </if>
         <if test="userId != null">
             and i.userId like '%${userId}%'
         </if>
@@ -79,8 +95,8 @@ infdisTime=#{infdisTime},infdisHandle=#{infdisHandle}
         <if test="userSex != null">
             and u.userSex=#{userSex}
         </if>
-        <if test="lastname != null">
-            and s.lastname=#{lastname}
+        <if test="infdisDoctor != null">
+            and i.infdisDoctor=#{infdisDoctor}
         </if>
         <if test="beginTime != null">
             and i.infdisTime  >= #{beginTime}

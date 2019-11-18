@@ -1,37 +1,50 @@
 package com.aaa.health.controller.anfoll;
 
+import com.aaa.health.entity.area.Area;
 import com.aaa.health.page.admin.Page;
 import com.aaa.health.service.anfoll.AnteFollowService;
+import com.aaa.health.service.emerg.EmerGenciesService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 @Controller
 @RequestMapping("/anfoll")
 public class AnteFollowController {
     @Autowired
     private AnteFollowService anteFollowService;
+    @Autowired
+    private EmerGenciesService emerGenciesService;
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
-        Map<String, Object> queryMap = new HashMap<String, Object>();
-        System.out.println("---------------------------------------------"+queryMap);
-        /*model.addAttribute("roleList", oldPeopleService.findList(queryMap));*/
+        List<Area> list=emerGenciesService.findArea();
+        model.addAttribute("list",list);
         return "anfoll/list";
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page) {
+    public Map<String, Object> getList(Page page,@RequestParam(name = "userId", required = false, defaultValue = "") Integer userId,
+                                       @RequestParam(name = "recordName", required = false, defaultValue = "") String recordName,
+                                       @RequestParam(name = "recordUnit", required = false, defaultValue = "") Integer recordUnit,
+                                       @RequestParam(name = "beginTime", required = false, defaultValue = "") Date beginTime,
+                                       @RequestParam(name = "endTime", required = false, defaultValue = "") Date endTime) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-        System.out.println("---------------------------------------------"+queryMap);
-        System.out.println( "-------------------------------------------------"+anteFollowService.findList(queryMap));
+        queryMap.put("userId",userId);
+        queryMap.put("recordName",recordName);
+        queryMap.put("recordUnit",recordUnit);
+        queryMap.put("beginTime",beginTime);
+        queryMap.put("endTime",endTime);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", anteFollowService.findList(queryMap));// 页面加载数据使用
@@ -58,6 +71,11 @@ public class AnteFollowController {
         ret.put("type", "success");
         ret.put("msg", "删除成功！");
         return ret;
+    }
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 }
 

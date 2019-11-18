@@ -37,12 +37,14 @@ public class SupmanReportController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getList(Page page,@RequestParam(name = "reportCategory", required = false, defaultValue = "") Integer reportCategory,
+                                       @RequestParam(name = "addressId", required = false, defaultValue = "") Integer addressId,
                                        @RequestParam(name = "reportName", required = false, defaultValue = "") String reportName,
                                        @RequestParam(name = "beginTime", required = false, defaultValue = "") Date beginTime,
                                        @RequestParam(name = "endTime", required = false, defaultValue = "") Date endTime) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("reportCategory",reportCategory);
+        queryMap.put("addressId",addressId);
         queryMap.put("reportName",reportName);
         queryMap.put("beginTime",beginTime);
         queryMap.put("endTime",endTime);
@@ -92,6 +94,16 @@ public class SupmanReportController {
         ret.put("msg", "添加失败！");
         return ret;
     }
+
+
+
+    @RequestMapping(value = "/findById", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> findById(Integer reportId) {
+        Map<String, Object> re = new HashMap<String, Object>();
+        re.put("report", supmanReportService.findById(reportId));// 页面加载数据使用
+        return re;
+    }
     /**
      * 修改信息
      *
@@ -103,8 +115,6 @@ public class SupmanReportController {
     @ResponseBody
     public Map<String, String> update(SupmanReport supmanReport) {
         Map<String, String> ret = new HashMap<String, String>();
-        int b=supmanReportService.update(supmanReport);
-        System.out.println(b+"sss");
         if (supmanReportService.update(supmanReport) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "信息修改失败，请联系管理员！");
