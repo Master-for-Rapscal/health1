@@ -83,8 +83,6 @@ public class PulTubfoController {
     @RequestMapping(value = "/findById", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> findById(Integer pultubfoId) {
-        System.out.println(pultubfoId);
-        System.out.println(pulTubfoService.findById(pultubfoId));
         Map<String, Object> pul = new HashMap<String, Object>();
         pul.put("pultu", pulTubfoService.findById(pultubfoId));// 页面加载数据使用
         return pul;

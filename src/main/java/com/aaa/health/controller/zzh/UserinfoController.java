@@ -47,12 +47,8 @@ public class UserinfoController {
     public String list(Model model, HttpServletRequest request) {
 
         Long areaId=Long.parseLong((String)request.getSession().getAttribute("areaId"));
-        System.out.println("userInfo接受区域id："+areaId);
-        System.out.println("userInfo接受区域id："+request.getSession().getAttribute("areaId"));
-        System.out.println("userInfo查询到的区域："+areaService.findChildernList(areaId));
         if (areaId==410000) areaId= new Long((long)0);
         model.addAttribute("area",areaService.findChildernList(areaId));
-
         int areaId2= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("areaId",areaId2);
@@ -76,17 +72,12 @@ public class UserinfoController {
         @RequestParam(name = "recordPlaceadress", required = false, defaultValue = "")  String recordPlaceadress,
         @RequestParam(name = "userSex", required = false, defaultValue = "-1")  Integer userSex
                                        ) {
-//       System.out.println("编号"+userId+"-姓名"+recordName+"-身份证"+userIdnumber+"-所属单位"+recordUnit+"-常住地址"+recordPlaceadress+"-性别"+userSex+"-");
-
-
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("userId",userId);
         queryMap.put("recordName",recordName);
         queryMap.put("userIdnumber",userIdnumber);
         int areaid = Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-
-
         if (recordUnit==-1){//代表不是待条件查询/首次登录
             if (areaid==410000){areaid=-1; }
             queryMap.put("recordUnit",areaid);
@@ -98,7 +89,6 @@ public class UserinfoController {
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", userinfoService.findList(queryMap));
-        //System.out.println(userinfoService.findList(queryMap));
         ret.put("total", userinfoService.getTotal(queryMap));
         return ret;
     }
@@ -117,7 +107,6 @@ public class UserinfoController {
             ret.put("msg", "后台获取用户信息失败！");
             return ret;
         }
-//        System.out.println(userinfo);
         if (userinfoService.add(userinfo) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "添加用户信息失败，请联系管理员！");

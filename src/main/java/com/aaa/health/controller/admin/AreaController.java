@@ -39,7 +39,7 @@ public class AreaController {
     public String list(Model model,
                        @RequestParam(name = "_mid", required = false, defaultValue = "") String _mid) {
         model.addAttribute("topList", areaService.findTopList());
-        //System.out.println(areaService.findTopList());
+
         return "area/list";
     }
 
@@ -63,7 +63,7 @@ public class AreaController {
         queryMap.put("areaName", areaName);
         List<Area> findList = areaService.findList(queryMap);
         ret.put("rows", findList);
-        System.out.println(findList);
+
         ret.put("total", areaService.getTotal(queryMap));
 
         return ret;
@@ -85,7 +85,7 @@ public class AreaController {
             ret.put("msg", "后台未收到菜单信息，请联系管理员添加！");
             return ret;
         }
-        System.out.println("添加— 获取的信息"+area);
+
         if (area.getParentId() == null) {
            area.setParentId(01);
         }
@@ -144,9 +144,7 @@ public class AreaController {
     public Map<String, String> delete(
             @RequestParam(name = "id", required = true) Long id
     ) {
-        System.out.println(
-           "areaid删除;"+     id
-        );
+
         Map<String, String> ret = new HashMap<String, String>();
         if (id == null) {
             ret.put("type", "error");
@@ -159,7 +157,7 @@ public class AreaController {
             ret.put("msg", "删除菜单信息失败！");
             return ret;
         }
-        System.out.println(areaService.delete(id) );
+
         ret.put("type", "success");
         ret.put("msg", "删除菜单信息成功！");
         return ret;

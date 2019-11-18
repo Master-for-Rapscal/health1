@@ -30,9 +30,9 @@ public class MetalCheckController {
      * 获取用户信息列表
      *
      * @param page
-     * @param username
-     * @param roleId
-     * @param sex
+     * @param
+     * @param
+     * @param
      * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
@@ -40,13 +40,10 @@ public class MetalCheckController {
     public Map<String, Object> getList(Page page) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", metalService.findList(queryMap));
         ret.put("total", metalService.getTotal(queryMap));
-
-        System.out.println(metalService.findList(queryMap));
         return ret;
     }
 

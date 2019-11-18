@@ -62,7 +62,6 @@ public class Caahep2Controller {
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", caahepService.findList(queryMap));
-        //System.out.println(userinfoService.findList(queryMap));
         ret.put("total", caahepService.getTotal(queryMap));
         return ret;
     }
@@ -75,9 +74,6 @@ public class Caahep2Controller {
         queryMap.put("caahepId", caahepId);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
-
-//        System.out.println("list2"+caahepId);
-//        System.out.println("list2"+actrecordService.findList(queryMap));
         ret.put("rows", actrecordService.findList(queryMap));
         ret.put("total", actrecordService.getTotal(queryMap));
         return ret;
@@ -97,7 +93,6 @@ public class Caahep2Controller {
             ret.put("msg", "后台获取活动计划失败！");
             return ret;
         }
-        System.out.println("添加接受参数"+actrecord);
         if (actrecordService.add(actrecord) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "添加活动计划失败，请联系管理员！");

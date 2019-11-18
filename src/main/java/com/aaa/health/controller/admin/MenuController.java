@@ -50,7 +50,7 @@ public class MenuController {
     public String list(Model model,
                        @RequestParam(name = "_mid", required = false, defaultValue = "") String _mid) {
         model.addAttribute("topList", menuService.findTopList());
-        System.out.println(globalVariable.getSysuserName());
+
         return "menu/list";
     }
 
@@ -74,7 +74,7 @@ public class MenuController {
         queryMap.put("name", name);
         List<Menu> findList = menuService.findList(queryMap);
         ret.put("rows", findList);
-//        System.out.println(findList);
+
         ret.put("total", menuService.getTotal(queryMap));
 
         return ret;
@@ -104,8 +104,7 @@ public class MenuController {
                 icons.add("icon-" + f.getName().substring(0, f.getName().indexOf(".")).replace("_", "-"));
             }
         }
-        System.out.println( "系统方法listFiles！"+listFiles);
-        System.out.println( "系统方法icons！"+icons);
+
         ret.put("type", "success");
         ret.put("content", icons);
         return ret;

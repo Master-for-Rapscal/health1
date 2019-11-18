@@ -84,11 +84,9 @@ public class HyPerController {
                 areaId = recordUnit;
             }
         }
-//        System.out.println("-------------"+areaId);
         queryMap.put("recordUnit",areaId);
         ret.put("rows", hyPerService.queryHyAll(queryMap));// 页面加载数据使用
         ret.put("total", hyPerService.queryHyTotal(queryMap));// 分页使用
-        //System.out.println("高血压"+ret);
         return ret;
     }
 
@@ -132,8 +130,6 @@ public class HyPerController {
         queryMap.put("recordName",userName);
         queryMap.put("recordAdress",userAdress);
         queryMap.put("userMyphone",userPhone);
-        //----------where recordUnit=#{recordUnit}↓名
-       // queryMap.put("MApper条件查询里的#{recordUnit}",session.getAttribute("登录人所在地区ID"));
         ret.put("rows", hyPerService.queryNotUser(queryMap));// 页面加载数据使用
         ret.put("total", hyPerService.queryNoUserTotal(queryMap));// 分页使用
         return ret;
@@ -152,7 +148,6 @@ public class HyPerController {
             map.put("msg","error");
             map.put("info","添加失败,联系管理员");
         }
-       // System.out.println(map);
         return map;
     }
 
@@ -160,8 +155,6 @@ public class HyPerController {
     @ResponseBody
     public Object queryHyById(Integer userId){
         List<HyPer> list = hyPerService.queryHyById(userId);
-       // Map<String,Object> map=new HashMap<String,Object>();
-      //  map.put("hyper",hyPer);
         System.out.println("asdasdasdas"+list);
         return  list;
     }
@@ -202,7 +195,6 @@ public class HyPerController {
         Date date= new Date();
         SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd");
         String d=sim.format(date);
-        //System.out.println("获取当前时间"+d);
         tang.setRecordId(rid);//用户ID
         tang.setHypertenState(2);//高血压是2 糖尿病是1
         tang.setHypertenDe(d);
@@ -222,8 +214,6 @@ public class HyPerController {
         map.put("recordRecipeContent",recordRecipeContent);
         map.put("recordRecipePian",recordRecipePian);
         int num=hyPerService.insertHyperYao(map);
-//            Map<String,Object> ret = new HashMap<String,Object>();
-//            if(num>1){}
         return num;
     }
 
@@ -281,7 +271,6 @@ public class HyPerController {
         map.put("uid",uid);
         map.put("zhuancause",zhuancause);
         map.put("zhuandate",zhuandate);
-       // System.out.println("aaaaaaaa"+map);
         int num=hyPerService.updateZhuan(map);
         return num;
     }

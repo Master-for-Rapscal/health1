@@ -56,7 +56,6 @@ public class UserListController {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-        System.out.println("登录的值是"+areaId);
         queryMap.put("areaId",areaId);
         queryMap.put("recordName",recordName2);
         queryMap.put("recordAdress",recordAdress1);
@@ -101,11 +100,7 @@ public class UserListController {
 @RequestMapping(value = "/findByid",method = RequestMethod.POST)
 @ResponseBody
 public Object selectById(long followRecordsid){
-    System.out.println("ByID:::::::"+userListService.findBymentalMessage(followRecordsid));
-
-
     List list=userListService.findBymentalMessage(followRecordsid);
-
     return list;
 }
 

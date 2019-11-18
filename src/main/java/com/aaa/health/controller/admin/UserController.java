@@ -77,7 +77,6 @@ public class UserController {
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("roleList", roleService.findList(queryMap));
-       // System.out.println(roleService.findList(queryMap));
         ret.put("rows", userService.findList(queryMap));
         ret.put("total", userService.getTotal(queryMap));
         return ret;
@@ -148,11 +147,7 @@ public class UserController {
             ret.put("msg", "后台获取用户名失败！");
             return ret;
         }
-//		if(StringUtils.isEmpty(user.getPassword())){
-//			ret.put("type", "error");
-//			ret.put("msg", "该函数不能修改密码！");
-//			return ret;
-//		}
+
         if (user.getRoleId() == null) {
             ret.put("type", "error");
             ret.put("msg", "后台获取用户角色失败！");

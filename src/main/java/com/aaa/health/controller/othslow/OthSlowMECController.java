@@ -32,8 +32,7 @@ public class OthSlowMECController {
     private OldtcmService oldtcmService;
     @Autowired
     private OthMECService othMECService;
-/*    @Autowired
-    public OthMECService oldpeoHeaService;*/
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String zili(Model model, HttpServletRequest request){
 
@@ -57,9 +56,6 @@ public class OthSlowMECController {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-  /*      System.out.println("登录的用户值是"+areaId);*/
- /*       queryMap.put("areaId",areaId);*/
-   /*     model.addAttribute("doctor",oldtcmService.queryDoctor2(queryMap));*/
         queryMap.put("areaId",areaId);
         queryMap.put("userId",bianhao);
         queryMap.put("recordName",ming);
@@ -70,20 +66,17 @@ public class OthSlowMECController {
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", othMECService.findList(queryMap));// 页面加载数据使用
         ret.put("total", othMECService.getTotal(queryMap));// 分页使用
-        System.out.println(ret);
         return ret;
     }
 
     @RequestMapping(value = "/list2", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getList2(Page page,int userinfoId) {
-
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         queryMap.put("userinfoId", userinfoId);
-        //   System.out.println( healthcheckService.findList(queryMap));
         ret.put("rows", othMECService.findList2(queryMap));
         ret.put("total", othMECService.getTotal2(queryMap));
         return ret;
@@ -99,7 +92,6 @@ public class OthSlowMECController {
             ret.put("msg", "后台获取用户信息失败！");
             return ret;
         }
-//        System.out.println(healthcheck);
         if (othMECService.add(healthcheck) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "添加用户信息失败，请联系管理员！");
@@ -147,9 +139,6 @@ public class OthSlowMECController {
             ret.put("msg", "后台获取用户信息失败！");
             return ret;
         }
-
-//        System.out.println(id);
-//        System.out.println(healthcheckService.findById(id));
         Healthcheck data1=othMECService.findById(id);
         ret.put("datainfo",data1);
         ret.put("type", "success");

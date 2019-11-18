@@ -20,8 +20,6 @@ public class AnteFollowController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         Map<String, Object> queryMap = new HashMap<String, Object>();
-        System.out.println("---------------------------------------------"+queryMap);
-        /*model.addAttribute("roleList", oldPeopleService.findList(queryMap));*/
         return "anfoll/list";
     }
 
@@ -30,8 +28,6 @@ public class AnteFollowController {
     public Map<String, Object> getList(Page page) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-        System.out.println("---------------------------------------------"+queryMap);
-        System.out.println( "-------------------------------------------------"+anteFollowService.findList(queryMap));
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", anteFollowService.findList(queryMap));// 页面加载数据使用

@@ -53,7 +53,6 @@ public class CaahepController {
     public Map<String, Object> getList(Page page,
         @RequestParam(name = "caahepTopic", required = false, defaultValue = "")  String caahepTopic,
         @RequestParam(name = "caahepHealtype", required = false, defaultValue = "")  String caahepHealtype) {
-//        System.out.println(caahepTopic+"-"+caahepHealtype);
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("caahepTopic", caahepTopic);
@@ -61,7 +60,6 @@ public class CaahepController {
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", caahepService.findList(queryMap));
-        //System.out.println(userinfoService.findList(queryMap));
         ret.put("total", caahepService.getTotal(queryMap));
         return ret;
     }
@@ -81,7 +79,6 @@ public class CaahepController {
             ret.put("msg", "后台获取活动计划失败！");
             return ret;
         }
-//        System.out.println(caahep);
         if (caahepService.add(caahep) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "添加活动计划失败，请联系管理员！");
@@ -105,7 +102,6 @@ public class CaahepController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> delete(String ids) {
-//        System.out.println("后台接收数据："+ids);
         Map<String, String> ret = new HashMap<String, String>();
         if (StringUtils.isEmpty(ids)) {
             ret.put("type", "error");
@@ -134,8 +130,6 @@ public class CaahepController {
             ret.put("msg", "后台获取健康计划id失败！");
             return ret;
         }
-
-//        System.out.println(caahepService.findById(id));
         Caahep data1=caahepService.findById(id);
         ret.put("datainfo",data1);
         ret.put("type", "success");
@@ -155,7 +149,6 @@ public class CaahepController {
             ret.put("msg", "后台获取健康计划id失败！");
             return ret;
         }
-//        System.out.println("后台接收修改id："+caahep);
         if (caahepService.edit(caahep) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "健康计划修改失败，请联系管理员！");

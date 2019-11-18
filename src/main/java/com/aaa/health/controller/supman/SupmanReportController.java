@@ -104,7 +104,6 @@ public class SupmanReportController {
     public Map<String, String> update(SupmanReport supmanReport) {
         Map<String, String> ret = new HashMap<String, String>();
         int b=supmanReportService.update(supmanReport);
-        System.out.println(b+"sss");
         if (supmanReportService.update(supmanReport) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "信息修改失败，请联系管理员！");

@@ -39,7 +39,6 @@ public class WomanDiseaseController {
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", womanDiseaseService.findList(queryMap));// 页面加载数据使用
         ret.put("total", womanDiseaseService.getTotal(queryMap));// 分页使用
-        System.out.println(ret);
         return ret;
     }
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -66,7 +65,6 @@ public class WomanDiseaseController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> add(Integer userId,WomanDisease womanDisease) {
-        System.out.println(userId);
         womanDisease.getUserId();
         Map<String, String> ret = new HashMap<String, String>();
         if (womanDisease == null) {
@@ -86,8 +84,6 @@ public class WomanDiseaseController {
     @RequestMapping(value = "/findById", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> findById(Integer wodisId) {
-        System.out.println(wodisId);
-        System.out.println(womanDiseaseService.findById(wodisId));
         Map<String, Object> woman = new HashMap<String, Object>();
         woman.put("womand", womanDiseaseService.findById(wodisId));// 页面加载数据使用
         return woman;

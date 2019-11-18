@@ -49,7 +49,6 @@ public class DisfollowUpController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> delete(String ids) {
-        System.out.println(ids);
         Map<String, String> ret = new HashMap<String, String>();
         if (StringUtils.isEmpty(ids)) {
             ret.put("type", "error");
@@ -71,10 +70,8 @@ public class DisfollowUpController {
     @RequestMapping(value = "/findUserId", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> findUserId(Integer infdisId) {
-        System.out.println(infdisId);
         Map<String, Object> fd = new HashMap<String, Object>();
         fd.put("finduser", disfollowUpService.findUserId(infdisId));// 页面加载数据使用
-        System.out.println(disfollowUpService.findUserId(infdisId));
         return fd;
     }
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -101,7 +98,6 @@ public class DisfollowUpController {
     public Map<String, Object> findById(Integer disfopId) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-        System.out.println("后台数据"+disfollowUpService.findById(disfopId));
         ret.put("InfDisease", disfollowUpService.findById(disfopId));// 页面加载数据使用
         return ret;
     }

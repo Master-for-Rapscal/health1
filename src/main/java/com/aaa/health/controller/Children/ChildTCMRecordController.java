@@ -48,15 +48,12 @@ public class ChildTCMRecordController {
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", childTCMService.findList(queryMap));
-        System.out.println(queryMap);
-        System.out.println(childTCMService.findList(queryMap));
         List<ChildTCM> list=childTCMService.findList(queryMap);
         for (int i=0;i<list.size();i++){
             list.get(i).setCishu(childTCMService.queryCount(list.get(i).getChmedmrenum()));
         }
         ret.put("rows", list);
         ret.put("total", childTCMService.getTotal(queryMap));
-        System.out.println("--------------------------测试医生服务记录数据------------------------"+ret);
         return ret;
     }
 

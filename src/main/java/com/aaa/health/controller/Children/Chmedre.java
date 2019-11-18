@@ -39,9 +39,9 @@ public class Chmedre {
      * 获取用户信息列表
      *
      * @param page
-     * @param username
-     * @param roleId
-     * @param sex
+     * @param
+     * @param
+     * @param
      * @return
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
@@ -49,13 +49,10 @@ public class Chmedre {
     public Map<String, Object> getList(Page page ) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", chmedreService.findList(queryMap));
         ret.put("total", chmedreService.getTotal(queryMap));
-
-        System.out.println(chmedreService.findList(queryMap));
         return ret;
     }
 

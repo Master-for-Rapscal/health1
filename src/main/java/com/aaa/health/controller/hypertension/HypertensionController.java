@@ -28,13 +28,10 @@ public class HypertensionController {
     public Object queryHy(Page page){
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", hypertensionService.queryAll(queryMap));
         ret.put("total", hypertensionService.queryTotal(queryMap));
-
-        System.out.println(ret);
         return ret;
     }
 
@@ -65,17 +62,12 @@ public class HypertensionController {
     @RequestMapping( "/userList")
     @ResponseBody
     public Object queryAllUser(Page page){
-
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
-        System.out.println("aaaa"+page.getOffset());
-        System.out.println("bbb"+page.getRows());
-        System.out.println("---------------"+ hypertensionService.queryUserTotal(queryMap));
         ret.put("rows", hypertensionService.queryAllUser(queryMap));// 页面加载数据使用
         ret.put("total", hypertensionService.queryUserTotal(queryMap));// 分页使用
-        System.out.println(ret);
         return ret;
     }
 }

@@ -36,8 +36,6 @@ public class RecordController {
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
-        System.out.println(userId);
-        System.out.println(recordService.findList(userId));
         List<Record> list=recordService.findList(userId);
         ret.put("rows", list);
         ret.put("total", recordService.getTotal(queryMap));

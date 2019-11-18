@@ -33,7 +33,6 @@ public class AnteBusmanController {
     public Map<String, Object> getList(Page page) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-        System.out.println(anteBusmanService.findList(queryMap));
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", anteBusmanService.findList(queryMap));// 页面加载数据使用

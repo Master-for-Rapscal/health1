@@ -49,7 +49,6 @@ public class ChildCardController {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-        System.out.println("登录的值是"+areaId);
         queryMap.put("areaId",areaId);
         queryMap.put("recordInputtingcard",recordInputtingcard);
         queryMap.put("recordName",recordName1);

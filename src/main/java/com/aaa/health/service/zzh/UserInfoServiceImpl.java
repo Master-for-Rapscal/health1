@@ -15,10 +15,10 @@ public class UserInfoServiceImpl implements UserinfoService {
     private UserinfoMapper userinfoMapper;
     @Override
     public List<Userinfo> findList(Map<String, Object> queryMap) {
-        System.out.println(queryMap);
+
         List<Userinfo>  adb=   userinfoMapper.findList(queryMap);
 
-        System.out.println(adb);
+
         return adb;
     }
 

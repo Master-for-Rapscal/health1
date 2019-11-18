@@ -51,7 +51,6 @@ public class ChildTCMController {
     public Map<String, Object> getList(Page page ) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         List<ChildTCM> list=childTCMService.findList(queryMap);

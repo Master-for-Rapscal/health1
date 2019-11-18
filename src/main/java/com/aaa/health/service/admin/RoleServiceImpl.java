@@ -53,7 +53,7 @@ public class RoleServiceImpl implements RoleService {
 	public Role find(Long id) {
 		// TODO Auto-generated method stub
 		Role  a = roleMapper.find(id);
-		System.out.println(a);
+
 		return a;
 	}
 

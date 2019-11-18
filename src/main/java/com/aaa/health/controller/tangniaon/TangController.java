@@ -77,7 +77,7 @@ public class TangController {
                 areaId = recordUnit;
             }
         }
-//        System.out.println("-------------"+areaId);
+
         queryMap.put("recordUnit",areaId);
 
         ret.put("rows", tangService.queryAll(queryMap));// 页面加载数据使用
@@ -98,7 +98,6 @@ public class TangController {
         if (ids.contains(",")) {
             ids = ids.substring(0, ids.length() - 1);
         }
-        System.out.println("------"+ids);
         if (tangService.deleteById(ids) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "删除失败，请联系管理员处理");
@@ -118,10 +117,6 @@ public class TangController {
                                @RequestParam(name = "userName", required = false, defaultValue = "") String userName,
                                @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
                                @RequestParam(name = "username", required = false, defaultValue = "") String userPhone){
-        System.out.println(userbianhao);
-        System.out.println(userName);
-        System.out.println(userAdress);
-        System.out.println(userPhone);
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("offset", page.getOffset());
@@ -142,11 +137,7 @@ public class TangController {
         return tangService.queryUserById(uid);
     }
 
-//    @RequestMapping("/queryDoctor")
-//    @ResponseBody
-//    public Object queryDoctor(){
-//        return tangService.queryDoctor();
-//    }
+
 
     @RequestMapping("/insertDmsm")
     @ResponseBody
@@ -167,8 +158,6 @@ public class TangController {
     @RequestMapping("queryDmsmById")
     @ResponseBody
     public Object queryDmsmById(Integer uid){
-        System.out.println(uid);
-        System.out.println("-----------------"+tangService.queryDmsmById(uid));
         return tangService.queryDmsmById(uid);
     }
 
@@ -176,7 +165,6 @@ public class TangController {
     @ResponseBody
     public Object updateByUserId(Integer uid, TangNiaon tangNiaon){
         tangNiaon.setRecordId(uid);
-        System.out.println("糖尿病修改的查询"+tangNiaon);
         Map<String,Object> map=new HashMap<String,Object>();
         int num=tangService.updateByUserId(tangNiaon);
         if(num>0){
@@ -202,7 +190,6 @@ int sid=0;
        Date date= new Date();
        SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd");
        String d=sim.format(date);
-        System.out.println("获取当前时间"+d);
        tang.setRecordId(rid);//用户ID
         tang.setHypertenState(1);//糖尿病是1
         tang.setHypertenDe(d);
@@ -222,8 +209,6 @@ int sid=0;
         map.put("recordRecipeContent",recordRecipeContent);
         map.put("recordRecipePian",recordRecipePian);
         int num=tangService.insertHyperYao(map);
-//            Map<String,Object> ret = new HashMap<String,Object>();
-//            if(num>1){}
         return num;
     }
 
@@ -260,8 +245,6 @@ int sid=0;
     @ResponseBody
     public Object updateSuiFangById(Integer hid,Tang tang){
         tang.setHypertenId(hid);
-        //System.out.println(hid);
-       // System.out.println("备注"+tang.getHypertenRemark());
         int num=tangService.updateSuiFangById(tang);
         tangService.deleteYaoById(hid);
         return num;

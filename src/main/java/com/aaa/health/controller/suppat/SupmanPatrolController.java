@@ -41,8 +41,6 @@ public class SupmanPatrolController {
                                        @RequestParam(name = "endTime", required = false, defaultValue = "") Date endTime){
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-        System.out.println("------------"+queryMap);
-        System.out.println( "------------"+supmanPatrolService.findList(queryMap));
         queryMap.put("patrolName",patrolName);
         queryMap.put("beginTime",beginTime);
         queryMap.put("endTime",endTime);
@@ -102,7 +100,6 @@ public class SupmanPatrolController {
     public Map<String, String> update(SupmanPatrol supmanPatrol) {
         Map<String, String> ret = new HashMap<String, String>();
         int b=supmanPatrolService.update(supmanPatrol);
-        System.out.println(b+"sss");
         if (supmanPatrolService.update(supmanPatrol) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "信息修改失败，请联系管理员！");

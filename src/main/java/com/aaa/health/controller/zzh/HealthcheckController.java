@@ -69,7 +69,6 @@ public class HealthcheckController {
                                        @RequestParam(name = "recordPlaceadress", required = false, defaultValue = "")  String recordPlaceadress,
                                        @RequestParam(name = "userSex", required = false, defaultValue = "-1")  Integer userSex
     ) {
-//       System.out.println("编号"+userId+"-姓名"+recordName+"-身份证"+userIdnumber+"-所属单位"+recordUnit+"-常住地址"+recordPlaceadress+"-性别"+userSex+"-");
 
 
         Map<String, Object> ret = new HashMap<String, Object>();
@@ -106,7 +105,6 @@ public class HealthcheckController {
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         queryMap.put("userinfoId", userinfoId);
-     //   System.out.println( healthcheckService.findList(queryMap));
         ret.put("rows", healthcheckService.findList(queryMap));
         ret.put("total", healthcheckService.getTotal(queryMap));
         return ret;
@@ -122,7 +120,6 @@ public class HealthcheckController {
             ret.put("msg", "后台获取用户信息失败！");
             return ret;
         }
-//        System.out.println(healthcheck);
         if (healthcheckService.add(healthcheck) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "添加用户信息失败，请联系管理员！");
@@ -170,9 +167,6 @@ public class HealthcheckController {
             ret.put("msg", "后台获取用户信息失败！");
             return ret;
         }
-
-//        System.out.println(id);
-//        System.out.println(healthcheckService.findById(id));
         Healthcheck data1=healthcheckService.findById(id);
         ret.put("datainfo",data1);
         ret.put("type", "success");

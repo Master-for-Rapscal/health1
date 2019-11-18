@@ -37,18 +37,11 @@ public class findController {
     public Map<String, Object> getList(Page page ) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         List<AnteFollow> list=findService.findList(queryMap);
-       /* for (int i=0;i<list.size();i++){
-            list.get(i).setCishu(recordService.queryCount(list.get(i).getUserId()));
-
-        }*/
         ret.put("rows", list);
         ret.put("total", findService.getTotal(queryMap));
-
-        System.out.println("=================================="+ret);
         return ret;
     }
 

@@ -68,7 +68,7 @@ public class SystemController {
     public String index1() {
 
         return "/index";
-//
+
     }
 
     /**
@@ -78,11 +78,10 @@ public class SystemController {
      */
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Model model, HttpServletRequest request) {
-       // CookiesUnit.delCookies("areaId");
-        //(String) request.getSession().getAttribute("username");
+
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-      //  System.out.println("security获取用户信息" + user.getUsername());
-//        System.out.println("security获取用户信息" + user);
+
+
         SysUser findByUsername = userService.findByUsername(user.getUsername());
         Role role = roleService.find(findByUsername.getRoleId());
         List<Authority> authorityList = authorityService.findListByRoleId(role.getId());//���ݽ�ɫ��ȡȨ���б�
@@ -96,9 +95,7 @@ public class SystemController {
         int areaId =findByUsername.getAreaId();
         List<Menu> userMenus = menuService.findListByIds(menuIds);
 
-        // 别错
 
-        /*     queryMap.put("areaId",areaId);*/
 
         Object doctor = oldtcmService.queryDoctor();
         request.getSession().setAttribute("admin", findByUsername);
@@ -107,15 +104,15 @@ public class SystemController {
         request.getSession().setAttribute("areaId", areaId+"");
         request.getSession().setAttribute("area",  areaService.findChildernList(findByUsername.getAreaId().longValue()));
 
-//        System.out.println( areaService.findChildernList(findByUsername.getAreaId().longValue()));
+
 
         request.getSession().setAttribute("userMenus", userMenus);
 
-//     System.out.println("用户所拥有的权限"+userMenus);
+
         model.addAttribute("topMenuList", MenuUtil.getAllTopMenu(userMenus));
         model.addAttribute("secondMenuList", MenuUtil.getAllSecondMenu(userMenus));
-        System.out.println("进入登录");
-        return "system/index";//WEB-INF/views/+system/index+.jsp = WEB-INF/views/system/index.jsp
+
+        return "system/index";
     }
 
     /**

@@ -30,12 +30,10 @@ public class OldpeoCardController {
     public Map<String, Object> getList(Page page) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", oldpeoCardService.findList(queryMap));// 页面加载数据使用
         ret.put("total", oldpeoCardService.getTotal(queryMap));// 分页使用
-        System.out.println(ret);
         return ret;
     }
 

@@ -61,7 +61,6 @@ private OutComeService outComeService;
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", infDiseaseService.findList(queryMap));// 页面加载数据使用
         ret.put("total", infDiseaseService.getTotal(queryMap));// 分页使用
-        System.out.println(ret);
         return ret;
     }
 

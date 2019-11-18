@@ -34,7 +34,6 @@ public class OthSlowController {
     public Map<String, Object> getList(Page page,
                                        @RequestParam(name = "bianhao", required = false, defaultValue = "0") Integer bianhao,
                                        @RequestParam(name = "ming", required = false, defaultValue = "") String ming,
-                /*                       @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,*/
                                        @RequestParam(name = "sjh", required = false, defaultValue = "") String sjh,
                                        @RequestParam(name = "othslowOutfor", required = false, defaultValue = "") String othslowOutfor,
                                        HttpServletRequest request) {
@@ -43,7 +42,6 @@ public class OthSlowController {
         queryMap.put("userId",bianhao);
         queryMap.put("recordName",ming);
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-        System.out.println("登录的用户值是"+areaId);
         queryMap.put("areaId",areaId);
         queryMap.put("userMyphone",sjh);
         queryMap.put("othslowOutfor",othslowOutfor);
@@ -51,7 +49,6 @@ public class OthSlowController {
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", othSlowService.findList(queryMap));// 页面加载数据使用
         ret.put("total", othSlowService.getTotal(queryMap));// 分页使用
-/*        System.out.println(ret);*/
         return ret;
     }
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -81,7 +78,6 @@ public class OthSlowController {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-        System.out.println("登录的用户值是"+areaId);
         queryMap.put("areaId",areaId);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
@@ -95,7 +91,6 @@ public class OthSlowController {
     @RequestMapping( "/queryById")
     @ResponseBody
     public Object queryById(Integer uid){
-/*        System.out.println(othSlowService.queryUserById(uid));*/
         return othSlowService.queryUserById(uid);
     }
 
@@ -113,13 +108,7 @@ public class OthSlowController {
     public Object add(Integer uid, Othslow othslow){
         othslow.setRecordId(uid);
         Map<String,Object> map=new HashMap<String,Object>();
-        System.out.println(othslow);
         int num=othSlowService.add(othslow);
-/*        if(num>0){
-            map.put("success","添加成功");
-        }else{
-            map.put("error","添加失败");
-        }*/
         return num;
     }
 
@@ -128,7 +117,6 @@ public class OthSlowController {
     public Object queryDoctor(HttpServletRequest request){
         Map<String,Object> queryMap=new HashMap<String,Object>();
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-        System.out.println("登录的用户值是"+areaId);
         queryMap.put("areaId",areaId);
         return othSlowService.queryDoctor(queryMap);
     }
@@ -150,7 +138,6 @@ public class OthSlowController {
     public Object  edit(int othslowId,Othslow othslow) {
         Map<String,Object> map=new HashMap<String,Object>();
         othslow.setOthslowId(othslowId);
-                System.out.println(othslow);
         int ret=othSlowService.edit(othslow);
         return ret;
     }
@@ -159,7 +146,6 @@ public class OthSlowController {
     @ResponseBody
     public Object  upState(Othslow othslow) {
         Map<String,Object> map=new HashMap<String,Object>();
-/*                System.out.println(othslow);*/
         int ret=othSlowService.upState(othslow);
         return ret;
     }

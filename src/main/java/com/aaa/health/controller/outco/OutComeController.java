@@ -21,8 +21,6 @@ public class OutComeController {
 @RequestMapping(value = "/list", method = RequestMethod.GET)
 public String list(Model model) {
     Map<String, Object> queryMap = new HashMap<String, Object>();
-    System.out.println("---------------------------------------------"+queryMap);
-    /*model.addAttribute("roleList", oldPeopleService.findList(queryMap));*/
     return "outco/list";
 }
 
@@ -31,8 +29,6 @@ public String list(Model model) {
     public Map<String, Object> getList(Page page) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
-        System.out.println("---------------------------------------------"+queryMap);
-        System.out.println( "---------------------------------"+outComeService.findList(queryMap));
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", outComeService.findList(queryMap));// 页面加载数据使用

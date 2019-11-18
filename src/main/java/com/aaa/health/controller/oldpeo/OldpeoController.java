@@ -48,7 +48,6 @@ public class OldpeoController {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
        int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-        System.out.println("登录的值是"+areaId);
         queryMap.put("areaId",areaId);
         queryMap.put("userId",bianhao);
         queryMap.put("recordName",ming);
@@ -112,7 +111,6 @@ public class OldpeoController {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-        System.out.println("登录的用户值是"+areaId);
         queryMap.put("areaId",areaId);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
@@ -124,7 +122,6 @@ public class OldpeoController {
     @RequestMapping( "/queryById")
     @ResponseBody
     public Object queryById(Integer uid){
-/*        System.out.println(oldPeopleService.queryUserById(uid));*/
         return oldPeopleService.queryUserById(uid);
     }
 
@@ -132,13 +129,11 @@ public class OldpeoController {
     @RequestMapping( "/queryArrange")
     @ResponseBody
     public Object queryArrange(Integer oldpeoId){
-  /*      System.out.println(oldPeopleService.queryArrange(oldpeoId));*/
         return oldPeopleService.queryArrange(oldpeoId);
     }
     @RequestMapping( "/queryAll")
     @ResponseBody
     public Object queryAll(Map map){
-  /*      System.out.println(oldPeopleService.queryAll(map));*/
         return oldPeopleService.queryAll(map);
     }
     //根据用户ID来查询
@@ -148,11 +143,6 @@ public class OldpeoController {
         oldpeo.setRecordId(uid);
         Map<String,Object> map=new HashMap<String,Object>();
         int num=oldPeopleService.add(oldpeo);
-/*        if(num>0){
-            map.put("success","添加成功");
-        }else{
-            map.put("error","添加失败");
-        }*/
         return num;
     }
     @RequestMapping("/queryDoctor")
@@ -160,9 +150,7 @@ public class OldpeoController {
     public Object queryDoctor(HttpServletRequest request){
         Map<String, Object> queryMap = new HashMap<String, Object>();
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-        System.out.println("登录的用户值是"+areaId);
         queryMap.put("areaId",areaId);
-
         return oldPeopleService.queryDoctor(queryMap);
     }
 
@@ -171,7 +159,6 @@ public class OldpeoController {
     public Object addSuif(Integer oldpeoId, Oldarrange oldarrange){
         oldarrange.setOldpeoId(oldpeoId);
         Map<String,Object> map=new HashMap<String,Object>();
-        System.out.println(oldarrange);
         int num=oldPeopleService.addSui(oldarrange);
         return num;
     }
@@ -179,7 +166,6 @@ public class OldpeoController {
     @RequestMapping( "/queryArr")
     @ResponseBody
     public Object queryArr(int oldarrangeId){
-        /*        System.out.println(oldtcmService.queryId(oldtcmId));*/
         return oldPeopleService.queryArr(oldarrangeId);
     }
 
@@ -187,7 +173,6 @@ public class OldpeoController {
     @RequestMapping( "/queryId")
     @ResponseBody
     public Object queryId( ){
-        System.out.println(oldPeopleService.queryId());
         return oldPeopleService.queryId();
     }
     @RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -195,7 +180,6 @@ public class OldpeoController {
     public Object  edit( int oldpeoId,Oldpeo oldpeo) {
         oldpeo.setOldpeoId(oldpeoId);
         Map<String,Object> map=new HashMap<String,Object>();
-/*        System.out.println(oldpeo);*/
         int ret=oldPeopleService.edit(oldpeo);
         return ret;
     }
@@ -205,7 +189,6 @@ public class OldpeoController {
     public Object  updateArr(int oldarrangeId,Oldarrange oldarrange) {
         oldarrange.setOldarrangeId(oldarrangeId);
         Map<String,Object> map=new HashMap<String,Object>();
-   /*             System.out.println("aa"+oldarrange);*/
         int ret=oldPeopleService.updateArr(oldarrange);
         return ret;
     }

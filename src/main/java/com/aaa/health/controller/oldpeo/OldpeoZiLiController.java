@@ -40,7 +40,6 @@ public class OldpeoZiLiController {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-        System.out.println("登录的用户值是"+areaId);
         queryMap.put("areaId",areaId);
         queryMap.put("userId",userId);
         queryMap.put("recordName",userName);
@@ -63,17 +62,14 @@ public class OldpeoZiLiController {
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", oldSelfService.queryAllUser(queryMap));// 页面加载数据使用
         ret.put("total", oldSelfService.queryUserTotal(queryMap));// 分页使用
-/*        System.out.println(oldSelfService.queryAllUser(queryMap));*/
         return ret;
     }
     //根据用户ID来查询
     @RequestMapping( "/queryById")
     @ResponseBody
     public Object queryById( Integer uid){
-        System.out.println(uid);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("uid",uid);
-
         return oldSelfService.queryUserById(uid);
     }
 
@@ -84,16 +80,6 @@ public class OldpeoZiLiController {
 
         Map<String,Object> map=new HashMap<String,Object>();
         int num=oldSelfService.add(oldself);
-/*        if (oldself == null) {
-            map.put("type", "error");
-            map.put("msg", "信息添加不全，请仔细审查您添加的数据！");
-            return map;
-        }*/
-/*        if(num>0){
-            map.put("success","添加成功");
-        }else{
-            map.put("error","添加失败");
-        }*/
         return num;
     }
     @RequestMapping(value = "/del", method = RequestMethod.POST)
@@ -120,27 +106,13 @@ public class OldpeoZiLiController {
     @RequestMapping( "/queryId")
     @ResponseBody
     public Object queryId(int oldselfId){
-  /*      System.out.println(oldSelfService.queryId(oldselfId));*/
         return oldSelfService.queryId(oldselfId);
     }
     @RequestMapping(value = "/updateold", method = RequestMethod.POST)
     @ResponseBody
     public Object  edit(Oldself oldself) {
-  /*      oldself.setOldpeoId(oldselfId);*/
         Map<String,Object> map=new HashMap<String,Object>();
-/*        System.out.println(oldself);*/
         int ret=oldSelfService.edit(oldself);
-
-/*        if (oldself == null) {
-            map.put("type", "error");
-            map.put("msg", "信息添加不全，请仔细审查您添加的数据！");
-            return map;
-        }*/
-    /*    if(ret>0){
-            map.put("success","修改成功");
-        }else{
-            map.put("error","修改失败");
-        }*/
         return ret;
     }
 
