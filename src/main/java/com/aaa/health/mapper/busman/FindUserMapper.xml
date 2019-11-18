@@ -4,7 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.busman.FindUserMapper">
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.pultub.Puserinfo">
-        select *,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(userBirthday))/365) userAge from userinfo where 1 = 1
+        select *,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(userBirthday))/365) userAge from userinfo
+        where 1 = 1
+        and userId not in (select userId from antenatalFollowup)
         and userSex=2
         and floor((TO_DAYS(SYSDATE()) - TO_DAYS(userBirthday))/365 )>=18
         and floor((TO_DAYS(SYSDATE()) - TO_DAYS(userBirthday))/365 )&lt; 50
@@ -27,6 +29,7 @@
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
         select count(*) from userinfo where 1 = 1
+        and userId not in (select userId from antenatalFollowup)
         and userSex=2
         and floor((TO_DAYS(SYSDATE()) - TO_DAYS(userBirthday))/365 )>=18
         and floor((TO_DAYS(SYSDATE()) - TO_DAYS(userBirthday))/365 )&lt; 50
@@ -43,8 +46,8 @@
             and   #{endTime} >= userBirthday
         </if>
     </select>
-
-    <select id="findUserById" parameterType="Map" resultType="com.aaa.health.entity.pultub.Puserinfo">
+<!--查询表中未添加过的健康档案-->
+   <!-- <select id="findUserById" parameterType="Map" resultType="com.aaa.health.entity.pultub.Puserinfo">
         select u.*,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(u.userBirthday))/365) userAge from userinfo u
         join area a on u.recordUnit=a.areaId
         where 1 = 1
@@ -71,7 +74,7 @@
             limit #{offset},#{pageSize}
         </if>
     </select>
-    <!-- 获取符合结果的总记录数 -->
+    &lt;!&ndash; 获取符合结果的总记录数 &ndash;&gt;
     <select id="getUserById" parameterType="Map" resultType="Integer">
         select count(*) from userinfo u
         join area a on u.recordUnit=a.areaId
@@ -95,6 +98,9 @@
         <if test="endTime != null">
             and   #{endTime} >= u.userBirthday
         </if>
+    </select>-->
+    <!--根据健康档案号查询用户信息-->
+    <select id="findUserId" parameterType="Integer" resultType="Map">
+        select * from userinfo where userId=#{userId}
     </select>
-
 </mapper>

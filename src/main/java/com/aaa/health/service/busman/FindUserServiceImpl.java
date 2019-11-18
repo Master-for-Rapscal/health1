@@ -20,4 +20,9 @@ public class FindUserServiceImpl implements FindUserService{
     public int getTotal(Map<String, Object> queryMap) {
         return findUserMapper.getTotal(queryMap);
     }
+
+    @Override
+    public Map<String, Object> findUserId(Integer userId) {
+        return findUserMapper.findUserId(userId);
+    }
 }

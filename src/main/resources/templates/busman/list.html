@@ -335,6 +335,10 @@
     <div th:replace="busman/addbusman :: antebus"></div>
     </form>
 </div>
+<!-- 修改第1次产前随访服务记录 -->
+<div id="editanf" class="easyui-dialog" style="width: 850px;height: 890px; padding:10px;">
+    <div th:replace="anfoll/editanfo :: anfo"></div>
+</div>
 <!--健康档案-->
 <div id="userinfo-dialog" class="easyui-dialog" data-options="closed:true" style="width:800px;height: 700px">
     <!--按条件查询-->
@@ -360,6 +364,12 @@ $(function () {
 });
 function  goBack() {
     $("#addantebus").dialog('close');
+}
+$(function () {
+    $("#editanf").dialog('close');
+});
+function  goBack() {
+    $("#editanf").dialog('close');
 }
 
 /*
@@ -876,30 +886,13 @@ function touinfo(userId) {
         model: true,
         onBeforeOpen: function () {
             $.ajax({
-                url: '../puserinfo/queryUserById',
+                url: '../finduser/findUserId',
                 type: 'post',
                 data: "userId=" + userId,
                 dataType: 'json',
                 success: function (data) {
-                    $("#uinfoform").form("load",data);
-
-                    // $("input[name='userId']").val(data.userId);
-                    // $("input[name='recordName']").val(data.recordName);
-                    // $("input[name='userIdnumber']").val(data.userIdnumber);
-                    // $("input[name='userBirthday']").datebox(data.userBirthday);
-                    // //$("input[name='userAge']").datebox(data.userAge);
-                    // $("input[name='userWorkunit']").val(data.userWorkunit);
-                    // $("input[name='recordAdress']").val(data.recordAdress);
-                    // var sex = "未知";
-                    // if (data.userSex == 1) {
-                    //     sex = "男";
-                    // } else if (data.userSex == 2) {
-                    //     sex = "女";
-                    // } else {
-                    //     sex = "未知";
-                    // }
-                    // $("input[name='userSex']").val(sex);
-                    // alert(sex);
+                    $("input[name='recordName']").val(data.recordName);
+                    $("input[name='userId']").val(data.userId);
                 }
 
             });
@@ -1002,6 +995,68 @@ function touinfo(userId) {
         });
     }
 
+/**
+ * 修改第一次产前随访服务记录
+ */
+function updatebusman(){
+    var validate = $("#anfoform").form("validate");
+    if(!validate){
+        $.messager.alert("消息提醒","请检查你输入的数据!","warning");
+        return;
+    }
+    var data = $("#anfoform").serialize();
+    $.ajax({
+        url:'../anfollfind/update',
+        dataType:'json',
+        type:'post',
+        data:data,
+        success:function(data){
+            if(data.type == 'success'){
+                $.messager.alert('信息提示','修改成功！','info');
+                $('#editanf').dialog('close');
+                $('#data-datagrid').datagrid('reload');
+                $("#dataAll").datagrid('getSelections').length = 0;
+                $("#data-datagrid").datagrid('getSelections').length = 0;
+            }else{
+                $.messager.alert('信息提示',data.msg,'warning');
+            }
+        }
+    });
+}
+/*
+* 打开修改第一次产前随访服务记录页面
+* */
+function openbusman(anfoId) {
+    $('#editanf').dialog({
+        closed: false,
+        modal: true,
+        title: "修改",
+        buttons: [{
+            text: '确定',
+            iconCls: 'icon-ok',
+            handler: updatebusman
+        }, {
+            text: '取消',
+            iconCls: 'icon-cancel',
+            handler: function () {
+                $('#editanf').dialog('close');
+            }
+        }],
+        onBeforeOpen: function () {
+            $.ajax({
+                url: '../anfollfind/findById?anfoId=' + anfoId,
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    $("#anfoform").form('load', data.antefolls);
+                }
+
+            });
+
+        }
+    })
+}
+
     //搜索按钮监听
     $("#search-btn").click(function(){
         var roleId = $("#search-role").combobox('getValue');
@@ -1040,6 +1095,9 @@ function touinfo(userId) {
         idField:'id',
         treeField:'name',
         fit:true,
+        onDblClickRow: function (index, row) {
+            openbusman(row.anfoId);
+        },
         columns:[[
             { field:'anfoId',title:'序号',width:40,sortable:true},
             { field:'userId',title:'健康档案号',width:80,sortable:true},

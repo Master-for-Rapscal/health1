@@ -9,4 +9,6 @@ import java.util.Map;
 public interface FindUserService {
     List<Puserinfo> findList(Map<String, Object> queryMap);
     int getTotal(Map<String, Object> queryMap);
+    //根据用户ID来查询用户
+    Map<String,Object> findUserId(Integer userId);
 }
