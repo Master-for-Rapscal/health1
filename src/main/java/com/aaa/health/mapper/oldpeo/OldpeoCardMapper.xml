@@ -4,7 +4,14 @@
 <mapper namespace="com.aaa.health.mapper.oldpeo.OldpeoCardMapper">
 
     <select id="findList" parameterType="Map" resultType="map">
-        SELECT  a.areaName 地区,  COUNT(*) 老年人总数,
+        SELECT
+        <if test="recordUnit == 410000">
+            '河南' 地区
+        </if>
+        <if test="recordUnit != 410000">
+            a.areaName 地区
+        </if>
+      ,  COUNT(*) 老年人总数,
         (select COUNT(*) from  oldpeo o  JOIN healthcheck ch on o.recordId=ch.userinfoId) 老年人体检总次数 ,
         (SELECT COUNT(*)
         from oldpeo o JOIN healthcheck ch on o.recordId=ch.userinfoId where
@@ -59,7 +66,12 @@
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
         select count(*) from(
-        SELECT  a.areaName  地区,  COUNT(*) 老年人总数,
+        SELECT   <if test="recordUnit == 410000">
+        '河南' 地区
+    </if>
+        <if test="recordUnit != 410000">
+            a.areaName 地区
+        </if>,  COUNT(*) 老年人总数,
         (select COUNT(*) from  oldpeo o  JOIN healthcheck ch on o.recordId=ch.userinfoId) 老年人体检总次数 ,
         (SELECT COUNT(*)
         from oldpeo o JOIN healthcheck ch on o.recordId=ch.userinfoId where
