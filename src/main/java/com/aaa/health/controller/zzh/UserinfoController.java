@@ -64,7 +64,7 @@ public class UserinfoController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> getList(Page page, HttpServletRequest request,
+    public Map<String, Object> getList(Page page,HttpServletRequest request,
         @RequestParam(name = "userId", required = false)  Long userId,
         @RequestParam(name = "recordName", required = false, defaultValue = "")  String recordName,
         @RequestParam(name = "userIdnumber", required = false, defaultValue = "")  String userIdnumber,

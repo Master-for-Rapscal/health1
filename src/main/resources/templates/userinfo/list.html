@@ -61,13 +61,7 @@
     <form id="add-form" method="post">
 
         <div th:replace="common/userInfo :: UserTable"  > </div>
-<div id="AAA">
-        <a href="#",iconCls=""  onclick="add()"  class="easyui-linkbutton"  plain='true'>保存</a>
-        <!--<a href="#",iconCls="" ,onclick="add()" ,class="easyui-linkbutton " plain='true'>新增体检</a>
-        <a href="#",iconCls="" ,onclick="add()" ,class="easyui-linkbutton " plain='true'>关联家庭档案</a>-->
-        <a href="#" iconCls="" onclick="closeWin()"  class="easyui-linkbutton " plain='true'>关闭</a>
-        <!--<a href="#",iconCls="" ,onclick="add()" ,class="easyui-linkbutton " plain='true'>打印</a>-->
-</div>
+
 
     </form>
 </div>
@@ -218,9 +212,7 @@
     * 打开修改窗口
     */
    function openEdit(){
-       //$('#edit-form').form('clear');
-       $("#AAA").html(" <a href='#',iconCls=''  onclick='edit()'  class='easyui-linkbutton'  plain='true'>保存</a>" +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
-           "<a href='#',iconCls=''  onclick='closeWin()'  class='easyui-linkbutton'  plain='true'>关闭</a>");
+
 
        var item = $('#data-datagrid').datagrid('getSelections');
        if(item == null || item.length == 0){
