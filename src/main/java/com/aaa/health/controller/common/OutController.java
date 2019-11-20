@@ -198,7 +198,7 @@ public class OutController {
             @RequestParam(name = "date", required = false, defaultValue = "")  Date date){
 //        String username="王宇飞";
 //        String IDnumber="411082194612252245
-        System.out.println("------------------------"+id);
+//        System.out.println("------------------------"+id);
         Map<String,Object> map=new HashMap<String,Object>();
         map.put("userId",id);
         map.put("healthcheckDate",date);

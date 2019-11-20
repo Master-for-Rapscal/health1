@@ -27,7 +27,7 @@ public class HostServiceImpl implements HostService {
     @Override
     public List<Healthcheck> queryCheck(Map<String, Object> map) {
         List<Healthcheck>list =  hostMapper.queryCheck(map);
-        System.out.println(list);
+//        System.out.println(list);
         return list;
     }
 
