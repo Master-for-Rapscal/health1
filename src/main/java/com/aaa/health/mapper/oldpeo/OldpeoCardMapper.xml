@@ -41,8 +41,9 @@
             and u.recordUnit=#{areaId}
         </if>
         ) ds) 中医药服务次数
-        from userinfo u Join area a on a.areaId=u.recordUnit where 1=1
-        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
+        from userinfo u Join area a on a.areaId=u.recordUnit
+        Join oldpeo op on op.recordId=u.userId
+        where 1=1
         <if test="areaId == 410000">
             and 1=1
         </if>
@@ -102,8 +103,9 @@
             and u.recordUnit=#{areaId}
         </if>
         ) ds) 中医药服务次数
-        from userinfo u Join area a on a.areaId=u.recordUnit where
-        floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
+        from userinfo u Join area a on a.areaId=u.recordUnit
+            Join oldpeo op on op.recordId=u.userId
+        where 1=1
         <if test="areaId == 410000">
             and 1=1
         </if>
