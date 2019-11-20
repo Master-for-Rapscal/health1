@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--引入抬头页面-->
+<div th:replace="common/header :: header"  ></div>
+
+<div class="easyui-layout" data-options="fit:true">
+    <!-- Begin of toolbar -->
+    <div id="wu-toolbar">
+        <div class="wu-toolbar-button">
+            <!--引入菜单页面-->
+            <div th:replace="common/menus :: menus"  > </div>
+        </div>
+
+
+
+    </div>
+    <!-- End of toolbar 数据table表格 -->
+    <table id="data-datagrid" class="easyui-datagrid" toolbar="#wu-toolbar"></table>
+
+</div>
+
+
+<input type="file" id="photo-file" style="display:none;" onchange="upload()">
+<!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
+<div th:replace="common/footer :: myfooter"  ></div>
+
+
+<!-- End of easyui-dialog -->
+<script type="text/javascript" th:inline="none">
+
+    /**
+     * 载入数据
+     */
+    $('#data-datagrid').datagrid({
+        url:'list',
+        rownumbers:true,
+        singleSelect:false,
+        pageSize:20,
+        pagination:true,
+        multiSort:true,
+        fitColumns:true,
+        idField:'id',
+        treeField:'name',
+        fit:true,
+        columns:[[
+               { field:'aName',title:'建卡地区',width:100},
+                { field:'anum',title:'该地区人数',width:100},
+                { field:'adnumn',title:'建卡人数',width:100}
+    ]],
+        onLoadSuccess:function(data){
+            $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
+
+        }
+    });
+
+
+
+
+</script>

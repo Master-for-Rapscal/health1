@@ -2,78 +2,64 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.aaa.health.mapper.Children.ChildInfoMapper">
-    <delete id="delete" parameterType="String">
-        delete from addnewborn where addnewbornId in(${value})
-    </delete>
+<mapper namespace="com.aaa.health.mapper.Children.ChildrenCount">
 
 
     <!-- 分页获取用户列表 -->
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.Children.ChildInfo">
-
-
+        select
         <if test="areaId == 410000">
-            and 1=1
+            '河南' aName
         </if>
         <if test="areaId != 410000">
-            and areaId=#{areaId}
+            area.areaName aName
         </if>
+       ,count(userId) anum,(select count(userId)   from userinfo
+        join  addnewborn  on userinfo.userId=addnewborn.recordId where 1=1 <if test="recordUnit == 410000">
+        and 1=1
+    </if>
+        <if test="recordUnit != 410000">
+            and recordUnit=#{recordUnit}
+        </if>) adnumn
+        from userinfo join area on userinfo.recordUnit=area.areaId
+        where (date_format(CURDATE(),'%Y')-DATE_FORMAT(userinfo.userBirthday,'%Y')) BETWEEN 0 and 6
 
-        <if test="recordInputtingcard != null and recordInputtingcard != 0">
-            and recordInputtingcard LIKE '%${recordInputtingcard}%'
-        </if>
-        <if test="recordName != null and recordName != ''">
-            AND recordName LIKE '%${recordName}%'
-        </if>
-        <if test="userMyphone != null and userMyphone != ''">
-            AND userMyphone LIKE '%${userMyphone}%'
-        </if>
-        <if test="recordAdress != null and recordAdress != ''">
-            AND recordAdress LIKE '%${recordAdress}%'
-        </if>
-        <if test="userIdnumber != null and userIdnumber != ''">
-            AND userIdnumber LIKE '%${userIdnumber}%'
-        </if>
+    <if test="areaId == 410000">
+        and 1=1
+    </if>
+    <if test="areaId != 410000">
+        and areaId=#{areaId}
+    </if>
 
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
-    </select>
+
+    <if test="offset != null and pageSize != null">
+        limit #{offset},#{pageSize}
+    </if>
+</select>
 
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        select count(*) from userinfo join addnewborn on
-        userinfo.recordInputtingcard=addnewborn.addnewbornCardnum
-        join area on userinfo.recordUnit=area.areaId
+        select count(*) from (select area.areaName 地区,count(userId) anum,(select count(userId) from userinfo
+        join addnewborn on userinfo.userId=addnewborn.recordId where 1=1<if test="recordUnit == 410000">
+        and 1=1
+    </if>
+        <if test="recordUnit != 410000">
+            and recordUnit=#{recordUnit}
+        </if>) adnumn
+        from userinfo join area on userinfo.recordUnit=area.areaId
         where (date_format(CURDATE(),'%Y')-DATE_FORMAT(userinfo.userBirthday,'%Y')) BETWEEN 0 and 6
+
         <if test="areaId == 410000">
             and 1=1
         </if>
         <if test="areaId != 410000">
             and areaId=#{areaId}
         </if>
-
-        <if test="recordInputtingcard != null and recordInputtingcard != 0">
-            and recordInputtingcard LIKE '%${userId}%'
-        </if>
-        <if test="recordName != null and recordName != ''">
-            AND recordName LIKE '%${recordName}%'
-        </if>
-        <if test="userMyphone != null and userMyphone != ''">
-            AND userMyphone LIKE '%${userMyphone}%'
-        </if>
-        <if test="recordAdress != null and recordAdress != ''">
-            AND recordAdress LIKE '%${recordAdress}%'
-        </if>
-        <if test="userIdnumber != null and userIdnumber != ''">
-            AND userIdnumber LIKE '%${userIdnumber}%'
-        </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
+        ) Children
     </select>
 
 
-    <select id="queryCount" parameterType="Integer" resultType="Integer">
-        select COUNT(*) from insrecord where recordId=#{rid}
-    </select>
+
 </mapper>

@@ -6,37 +6,29 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class ChildInfo {
-    public int userId,userSex,recordBookbuilding,recordCategory,
-            recordFamily,recordUnit,recordDoctor,userBloodtype,userRh
-            ,userCulture,userCareer,userGam,userPemanent,userNamtion,userKitchen
-        ,userFuel,userWater,userWc,userLinestock
-            ,recordResident,
-          recordState,cishu,
-    addnewbornId,addnewbornLaborstyle,addnewbornTyrenum,addnewbornProducenum
-    ,addnewbornTyrenumber,addnewbornHeight,addnewbornApgarone,
-            addnewbornApgarfive,addnewbornApgarten,addnewbornSuckmin
-,addnewbornKnum,addnewbornKscale,addnewbornSurvival,addnewbornPku
-,addnewbornCh,addnewbornHearing,addnewbornBcgvacc,addnewbornHepatitisvacc
-    ,addnewbornState,recordId;
+    public int userId, userSex, recordBookbuilding, recordCategory,
+            recordFamily, recordUnit, recordDoctor, userBloodtype, userRh, userCulture, userCareer, userGam, userPemanent, userNamtion, userKitchen, userFuel, userWater, userWc, userLinestock, recordResident,
+            recordState, cishu,
+            addnewbornId, addnewbornLaborstyle, addnewbornTyrenum, addnewbornProducenum, addnewbornTyrenumber, addnewbornHeight, addnewbornApgarone,
+            addnewbornApgarfive, addnewbornApgarten,
+            addnewbornSuckmin, addnewbornKnum, addnewbornKscale,
+            addnewbornSurvival, addnewbornPku, addnewbornCh,
+            addnewbornHearing, addnewbornBcgvacc,
+            addnewbornHepatitisvacc, addnewbornState, recordId,
+            anum, adnumn;
 
     public BigDecimal addnewbornWeight;
 
-    public String recordInputtingcard,recordName,recordPostalcode,recordPlaceadress
-            ,userDisability,recordMedical,recordPicurl,userMyphone,
-            userWorkunit,userPayway,userAllergy,userExpose,userIllness,userHeredity,
-            userPapernumber,userNumber,userIdnumber,
-            recordAdress,userDe
- ,addnewbornCardnum,addnewbornLaborweek,addnewbornLaborarea,
-            addnewbornDeathcauses,addnewbornBirthdefect,
-            addnewbornNeonatalcom,addnewbornOtersacc,
-            addnewbornWeakson,addnewbornWeakcase,addnewbornGuidance
-           ,addnewbornMidwiferyhosp,addnewbornMidwiferymain
-           ,addnewbornMidwiferyport,addnewbornDe
-            ;
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
-    public Date userBirthday,recordData
-,addnewbornConstructiondate,addnewbornLabordate,addnewbornDischargeddate
-            ;
+    public String recordInputtingcard, recordName, recordPostalcode, recordPlaceadress, userDisability, recordMedical, recordPicurl, userMyphone,
+            userWorkunit, userPayway, userAllergy, userExpose, userIllness, userHeredity,
+            userPapernumber, userNumber, userIdnumber,
+            recordAdress, userDe, addnewbornCardnum, addnewbornLaborweek, addnewbornLaborarea,
+            addnewbornDeathcauses, addnewbornBirthdefect,
+            addnewbornNeonatalcom, addnewbornOtersacc,
+            addnewbornWeakson, addnewbornWeakcase, addnewbornGuidance, addnewbornMidwiferyhosp,
+            addnewbornMidwiferymain, addnewbornMidwiferyport, addnewbornDe,aName;
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    public Date userBirthday, recordData, addnewbornConstructiondate, addnewbornLabordate, addnewbornDischargeddate;
 
     public int getUserId() {
         return userId;
@@ -374,6 +366,22 @@ public class ChildInfo {
         this.recordId = recordId;
     }
 
+    public int getAnum() {
+        return anum;
+    }
+
+    public void setAnum(int anum) {
+        this.anum = anum;
+    }
+
+    public int getAdnumn() {
+        return adnumn;
+    }
+
+    public void setAdnumn(int adnumn) {
+        this.adnumn = adnumn;
+    }
+
     public BigDecimal getAddnewbornWeight() {
         return addnewbornWeight;
     }
@@ -646,6 +654,14 @@ public class ChildInfo {
         this.addnewbornDe = addnewbornDe;
     }
 
+    public String getaName() {
+        return aName;
+    }
+
+    public void setaName(String aName) {
+        this.aName = aName;
+    }
+
     public Date getUserBirthday() {
         return userBirthday;
     }
@@ -731,6 +747,8 @@ public class ChildInfo {
                 ", addnewbornHepatitisvacc=" + addnewbornHepatitisvacc +
                 ", addnewbornState=" + addnewbornState +
                 ", recordId=" + recordId +
+                ", anum=" + anum +
+                ", adnumn=" + adnumn +
                 ", addnewbornWeight=" + addnewbornWeight +
                 ", recordInputtingcard='" + recordInputtingcard + '\'' +
                 ", recordName='" + recordName + '\'' +
@@ -765,6 +783,7 @@ public class ChildInfo {
                 ", addnewbornMidwiferymain='" + addnewbornMidwiferymain + '\'' +
                 ", addnewbornMidwiferyport='" + addnewbornMidwiferyport + '\'' +
                 ", addnewbornDe='" + addnewbornDe + '\'' +
+                ", aName='" + aName + '\'' +
                 ", userBirthday=" + userBirthday +
                 ", recordData=" + recordData +
                 ", addnewbornConstructiondate=" + addnewbornConstructiondate +
