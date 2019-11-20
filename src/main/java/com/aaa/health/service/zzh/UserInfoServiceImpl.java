@@ -17,7 +17,7 @@ public class UserInfoServiceImpl implements UserinfoService {
     public List<Userinfo> findList(Map<String, Object> queryMap) {
         List<Userinfo>  adb=   userinfoMapper.findList(queryMap);
 
-        System.out.println(adb);
+//        System.out.println(adb);
         return adb;
     }
 

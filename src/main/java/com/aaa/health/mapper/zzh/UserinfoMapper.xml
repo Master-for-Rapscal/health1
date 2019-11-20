@@ -6,8 +6,14 @@
     <!-- 分页获取用户列表 -->
     <select id="findList" parameterType="Map" resultType="Userinfo">
         SELECT * from userinfo where 1 = 1
+        <if test="userId != -1">
+            and userId = #{userId}
+        </if>
         <if test="recordUnit != -1">
             and recordUnit = #{recordUnit}
+        </if>
+        <if test="userSex != -1">
+        and userSex = #{userSex}
         </if>
         <if test="recordPlaceadress != null">
             and recordPlaceadress like '%${recordPlaceadress}%'
@@ -22,9 +28,7 @@
         <if test="userMyphone != null">
             and userMyphone like '%${userMyphone}%'
         </if>
-        <if test="userSex != -1">
-            and userSex = #{userSex}
-        </if>
+
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>

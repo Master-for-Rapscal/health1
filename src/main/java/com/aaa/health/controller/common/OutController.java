@@ -104,13 +104,15 @@ public class OutController {
                                         @RequestParam(name = "userSex", required = false, defaultValue = "-1")  Integer userSex
     ) {
 //       System.out.println("编号"+userId+"-姓名"+recordName+"-身份证"+userIdnumber+"-所属单位"+recordUnit+"-常住地址"+recordPlaceadress+"-性别"+userSex+"-");
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa"+userId);
+//        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa"+userId);
 
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("userId",userId);
+        queryMap.put("userSex",-1);
+        queryMap.put("recordUnit",-1);
         List<Userinfo> u = userinfoService.findList(queryMap);
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa"+u.size());
+//        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa"+u[0]);
         //糖尿病
         queryMap.put("recordUnit",-1);
         int tangniao  =  tangService.queryTotal(queryMap);
@@ -143,6 +145,7 @@ public class OutController {
         queryMap.put("areaId",410000);
         int funv = anteBusmanService.getTotal(queryMap);
 
+        ret.put("rows", u);
         ret.put("tangniao", tangniao);
         ret.put("gaoxue", gaoxue);
         ret.put("zhongliu", zhongliu);
