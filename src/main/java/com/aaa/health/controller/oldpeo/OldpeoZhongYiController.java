@@ -42,7 +42,6 @@ public class OldpeoZhongYiController {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-        System.out.println("登录的用户值是"+areaId);
         queryMap.put("areaId",areaId);
         queryMap.put("userId",userId);
         queryMap.put("recordName",userName);
@@ -62,21 +61,18 @@ public class OldpeoZhongYiController {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-        System.out.println("登录的用户值是"+areaId);
         queryMap.put("areaId",areaId);
         queryMap.put("oldpeoId",oldpeoId);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", oldtcmService.queryAllUser(queryMap));// 页面加载数据使用
         ret.put("total", oldtcmService.queryUserTotal(queryMap));// 分页使用
-/*        System.out.println(oldtcmService.queryAllUser(queryMap));*/
         return ret;
     }
 
     @RequestMapping( "/queryById")
     @ResponseBody
     public Object queryById( Integer uid){
-        System.out.println(uid);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("uid",uid);
 
@@ -115,7 +111,6 @@ public class OldpeoZhongYiController {
     @RequestMapping( "/queryId")
     @ResponseBody
     public Object queryId(int oldtcmId){
-/*        System.out.println(oldtcmService.queryId(oldtcmId));*/
         return oldtcmService.queryId(oldtcmId);
     }
 
@@ -124,7 +119,7 @@ public class OldpeoZhongYiController {
     @ResponseBody
     public Object  edit(Oldtcm oldtcm) {
         Map<String,Object> map=new HashMap<String,Object>();
-/*        System.out.println(oldtcm);*/
+
         int ret=oldtcmService.edit(oldtcm);
         return ret;
     }

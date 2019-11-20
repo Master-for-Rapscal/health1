@@ -129,7 +129,6 @@ public class UserinfoController {
         }
         ret.put("type", "success");
         ret.put("msg", "用户添加成功！");
-        System.out.println("aaaaaaaaaaaaaa"+userinfo);
         return ret;
     }
 

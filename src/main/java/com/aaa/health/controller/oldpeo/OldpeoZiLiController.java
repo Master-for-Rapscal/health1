@@ -62,14 +62,12 @@ public class OldpeoZiLiController {
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", oldSelfService.queryAllUser(queryMap));// 页面加载数据使用
         ret.put("total", oldSelfService.queryUserTotal(queryMap));// 分页使用
-/*        System.out.println(oldSelfService.queryAllUser(queryMap));*/
         return ret;
     }
     //根据用户ID来查询
     @RequestMapping( "/queryById")
     @ResponseBody
     public Object queryById( Integer uid){
-        System.out.println(uid);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("uid",uid);
 
@@ -119,27 +117,16 @@ public class OldpeoZiLiController {
     @RequestMapping( "/queryId")
     @ResponseBody
     public Object queryId(int oldselfId){
-  /*      System.out.println(oldSelfService.queryId(oldselfId));*/
         return oldSelfService.queryId(oldselfId);
     }
     @RequestMapping(value = "/updateold", method = RequestMethod.POST)
     @ResponseBody
     public Object  edit(Oldself oldself) {
-  /*      oldself.setOldpeoId(oldselfId);*/
+
         Map<String,Object> map=new HashMap<String,Object>();
-/*        System.out.println(oldself);*/
+
         int ret=oldSelfService.edit(oldself);
 
-/*        if (oldself == null) {
-            map.put("type", "error");
-            map.put("msg", "信息添加不全，请仔细审查您添加的数据！");
-            return map;
-        }*/
-    /*    if(ret>0){
-            map.put("success","修改成功");
-        }else{
-            map.put("error","修改失败");
-        }*/
         return ret;
     }
 
