@@ -92,8 +92,9 @@
     </delete>
     
     <select id="queryNotUser" parameterType="Map" resultType="Map">
- SELECT u.userId,u.recordName,u.userBirthday,u.recordAdress,u.userMyphone from userinfo u
+ SELECT u.userId,u.recordName,u.userBirthday,u.recordAdress,u.userMyphone,u.recordUnit from userinfo u
         where u.userId not in (SELECT recordId from hypertension WHERE hypertensionOutcome is null)
+        and u.recordUnit=#{recordUnit}
         <if test="userId != null and userId != 0">
             and userId LIKE '%${userId}%'
         </if>
@@ -107,16 +108,29 @@
             AND userMyphone LIKE '%${userMyphone}%'
         </if>
         <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
+        limit #{offset},#{pageSize}
+    </if>
     </select>
 
     <select id="queryNoUserTotal" parameterType="Map" resultType="Integer">
         SELECT count(*) from userinfo u
-        where u.userId not in (SELECT recordId from hypertension)
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
+        where u.userId not in (SELECT recordId from hypertension WHERE hypertensionOutcome is null)
+        and u.recordUnit=#{recordUnit}
+        <if test="userId != null and userId != 0">
+            and userId LIKE '%${userId}%'
         </if>
+        <if test="recordName != null and recordName != ''">
+            AND recordName LIKE '%${recordName}%'
+        </if>
+        <if test="recordAdress != null and recordAdress != ''">
+            AND recordAdress LIKE '%${recordAdress}%'
+        </if>
+        <if test="userMyphone  != null and userMyphone != ''">
+            AND userMyphone LIKE '%${userMyphone}%'
+        </if>
+        <!--<if test="offset != null and pageSize != null">-->
+            <!--limit #{offset},#{pageSize}-->
+        <!--</if>-->
     </select>
 
     <insert id="insertHy" parameterType="com.aaa.health.entity.hyper.HyPer">
@@ -301,5 +315,14 @@ WHERE recordId=#{recordId}
         UPDATE hypertension set hypertensionOutcome=#{zhuancause},
 hypertensionOutcomedate=#{zhuandate}
 WHERE recordId=#{uid}
+    </update>
+
+    <select id="queryThisUserByid" resultType="Integer" parameterType="Integer">
+        SELECT count(*) from hypertension WHERE recordId=#{uid}
+    </select>
+
+    <update id="updataThisUserByid" parameterType="Integer">
+        update hypertension set hypertensionOutcome=NULL
+        WHERE recordId=#{uid}
     </update>
 </mapper>

@@ -28,13 +28,6 @@ public interface HyPerMapper {
     List<HyPer> queryHyById(Integer userId);
     //根据用户ID来进行修改
     Integer updateByUserId(HyPer hyper);
-    /*//根据用户ID来查询随访记录
-    List<HyPerTend> querySuiById(Integer uid);
-    //查询最大ID
-    Integer querySuiMax();
-    //添加用药
-    Integer insertHyperYao(Map map);*/
-
     //根据用户ID来查询随访记录
     List<Tang> querySuiById(Integer uid);
     //添加随访记录
@@ -55,4 +48,8 @@ public interface HyPerMapper {
     Integer updateZhuan(Map map);
 
     Map<Object,Object> queryAreaById(Integer areaId);
+    //添加之前的判断
+    Integer queryThisUserByid(Integer uid);
+    //如果有  修改状态
+    Integer updataThisUserByid(Integer uid);
 }

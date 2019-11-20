@@ -126,7 +126,9 @@ public class HyPerController {
                             @RequestParam(name = "userName", required = false, defaultValue = "") String userName,
                             @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
                             @RequestParam(name = "username", required = false, defaultValue = "") String userPhone,
-                            HttpSession session){
+                            HttpServletRequest request){
+        System.out.println("aaaaaaaaa"+ page.getOffset());
+        System.out.println( "bbbbbbbb"+ page.getRows());
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("offset", page.getOffset());
@@ -135,10 +137,11 @@ public class HyPerController {
         queryMap.put("recordName",userName);
         queryMap.put("recordAdress",userAdress);
         queryMap.put("userMyphone",userPhone);
-        //----------where recordUnit=#{recordUnit}↓名
-       // queryMap.put("MApper条件查询里的#{recordUnit}",session.getAttribute("登录人所在地区ID"));
+        int areaId= Integer.parseInt((String) request.getSession().getAttribute("areaId"));
+        queryMap.put("recordUnit",areaId);
         ret.put("rows", hyPerService.queryNotUser(queryMap));// 页面加载数据使用
         ret.put("total", hyPerService.queryNoUserTotal(queryMap));// 分页使用
+        System.out.println(ret);
         return ret;
     }
 
@@ -301,6 +304,13 @@ public class HyPerController {
         map.put("recordRecipeContent",recordRecipeContent);
         map.put("recordRecipePian",recordRecipePian);
         int num=tangService.insertYao(map);
+        return num;
+    }
+
+    @RequestMapping("panduan")
+    @ResponseBody
+    public Object pandaun(Integer uid){
+       Integer num = hyPerService.panduan(uid);
         return num;
     }
 }

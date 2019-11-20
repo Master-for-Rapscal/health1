@@ -117,11 +117,8 @@ public class TangController {
                                @RequestParam(name = "userbianhao", required = false, defaultValue = "") String userbianhao,
                                @RequestParam(name = "userName", required = false, defaultValue = "") String userName,
                                @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
-                               @RequestParam(name = "username", required = false, defaultValue = "") String userPhone){
-        System.out.println(userbianhao);
-        System.out.println(userName);
-        System.out.println(userAdress);
-        System.out.println(userPhone);
+                               @RequestParam(name = "username", required = false, defaultValue = "") String userPhone,
+                               HttpServletRequest request){
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("offset", page.getOffset());
@@ -130,6 +127,8 @@ public class TangController {
         queryMap.put("recordName",userName);
         queryMap.put("recordAdress",userAdress);
         queryMap.put("userMyphone",userPhone);
+        int areaId= Integer.parseInt((String) request.getSession().getAttribute("areaId"));
+        queryMap.put("recordUnit",areaId);
         ret.put("rows", tangService.queryAllUser(queryMap));// 页面加载数据使用
         ret.put("total", tangService.queryUserTotal(queryMap));// 分页使用
         return ret;
