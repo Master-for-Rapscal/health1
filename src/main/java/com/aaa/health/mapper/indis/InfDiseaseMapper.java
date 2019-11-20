@@ -1,5 +1,6 @@
 package com.aaa.health.mapper.indis;
 
+import com.aaa.health.entity.anfoll.AnteFollow;
 import com.aaa.health.entity.indis.InfDisease;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,4 +16,6 @@ public interface InfDiseaseMapper {
     Map<String,Object> findById(Integer infdisId);
     int edit(InfDisease infDisease);
     int delete(String ids);
+    Map<String,Object> findComeId(Integer infdisId);
+    int update(InfDisease infDisease);
 }

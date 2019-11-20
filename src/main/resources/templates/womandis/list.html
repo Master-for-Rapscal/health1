@@ -14,11 +14,11 @@
         <!--条件搜索-->
         <div class="wu-toolbar-search">
             <label> 健康档案号:</label>&nbsp;
-            <input name="userId"/>&nbsp;&nbsp;
+            <input name="userId"  maxlength="11" oninput="value=value.replace(/[^\d]/g,'')"/>&nbsp;&nbsp;
             <label> 姓名:</label>&nbsp;
             <input name="recordName"/>&nbsp;&nbsp;
             <label> 身份证号:</label>&nbsp;
-            <input name="userIdnumber"/>&nbsp;&nbsp;
+            <input name="userIdnumber" maxlength="18" oninput="value=value.replace(/[^\d]/g,'')"/>&nbsp;&nbsp;
             <label> 建档日期:</label>&nbsp;
             <input type="text" class="easyui-datebox"  name="beginTime" style="width: 150px"/>
             &nbsp;&nbsp;至&nbsp;

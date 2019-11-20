@@ -137,12 +137,12 @@
             <tr>
                 <td colspan="2" rowspan="2">生活方式评估</td>
                 <td colspan="4">
-                    吸&nbsp;&nbsp;烟<input type="text" name="pultubfoSmokcount" size="8"/>/&nbsp;<input type="text" name="pultubfoSmokday" size="8"/>支/天
+                    吸&nbsp;&nbsp;烟<input type="text" name="pultubfoSmokcount" size="8" oninput="value=value.replace(/[^\d]/g,'')"/>/&nbsp;<input type="text" name="pultubfoSmokday" size="8" oninput="value=value.replace(/[^\d]/g,'')"/>支/天
                 </td>
             </tr>
             <tr>
                 <td colspan="4">
-                    饮&nbsp;&nbsp;酒<input type="text" name="pultubfoRumbi" size="8"/>/&nbsp;<input type="text" name="pultubfoRumday" size="8"/>两/天
+                    饮&nbsp;&nbsp;酒<input type="text" name="pultubfoRumbi" size="8" oninput="value=value.replace(/[^\d\.]/g,'')"/>/&nbsp;<input type="text" name="pultubfoRumday" size="8" oninput="value=value.replace(/[^\d]/g,'')"/>两/天
                 </td>
             </tr>
             <tr>
@@ -155,7 +155,7 @@
             <tr>
                 <td>取药时间：</td>
                 <td colspan="3">
-                    <input type="text" class="easyui-datebox" style="width: 150px" name="pultubfoDrugtime"/>
+                    <input type="text" editable="fasle" class="easyui-datebox" style="width: 150px" name="pultubfoDrugtime"/>
                 </td>
             </tr>
             <tr>

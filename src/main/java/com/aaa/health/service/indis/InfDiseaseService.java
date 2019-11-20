@@ -15,4 +15,6 @@ public interface InfDiseaseService {
     Map<String,Object> findById(Integer infdisId);
     int edit(InfDisease infDisease);
     int delete(String ids);
+    Map<String,Object> findComeId(Integer infdisId);
+    int update(InfDisease infDisease);
 }

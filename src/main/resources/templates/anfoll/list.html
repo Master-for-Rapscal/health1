@@ -12,7 +12,7 @@
         </div>
         <div class="wu-toolbar-search">
             <label> 健康档案号:</label>&nbsp;
-            <input name="userId"/>&nbsp;&nbsp;
+            <input name="userId" maxlength="11" oninput="value=value.replace(/[^\d]/g,'')"/>&nbsp;&nbsp;
             <label> 姓名:</label>&nbsp;
             <input name="recordName"/>&nbsp;&nbsp;
             <label> 所属地区:</label>&nbsp;
@@ -20,9 +20,9 @@
                 <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
             </select>&nbsp;&nbsp;
             <label> 出生日期:</label>&nbsp;
-            <input type="text" class="easyui-datebox" editable="fasle" name="beginTime" style="width: 150px"/>
+            <input type="text" class="easyui-datebox" name="beginTime" style="width: 150px"/>
             &nbsp;&nbsp;至&nbsp;
-            <input type="text" class="easyui-datebox" editable="fasle" name="endTime" style="width: 150px"/>
+            <input type="text" class="easyui-datebox" name="endTime" style="width: 150px"/>
             &nbsp;&nbsp;
             <a href="#" id="anfoll-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
         </div>
@@ -33,117 +33,9 @@
 </div>
 <!-- Begin of easyui-dialog -->
 
-<div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:420px; padding:10px;">
-    <form id="add-form" method="post">
-        <table>
-            <tr>
-                <td width="60" align="right">头像预览:</td>
-                <td valign="middle">
-                    <img id="preview-photo" style="float:left;" src="/admin/easyui/images/user_photo.jpg" width="100px">
-                    <a style="float:left;margin-top:40px;" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-upload" onclick="uploadPhoto()" plain="true">上传图片</a>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">头像:</td>
-                <td><input type="text" id="add-photo" name="photo" value="/admin/easyui/images/user_photo.jpg" readonly="readonly" class="wu-text " /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">用户名:</td>
-                <td><input type="text" name="username" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写用户名'" /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">密码:</td>
-                <td><input type="password" name="password" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写密码'" /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">所属角色:</td>
-
-            </tr>
-            <tr>
-                <td width="60" align="right">性别:</td>
-                <td>
-                    <select name="sex" class="easyui-combobox" panelHeight="auto" style="width:268px">
-                        <option value="0">未知</option>
-                        <option value="1">男</option>
-                        <option value="2">女</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">年龄:</td>
-                <td><input type="text" name="age" class="wu-text easyui-numberbox easyui-validatebox" data-options="required:true,min:1,precision:0, missingMessage:'请填写年龄'" /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">地址:</td>
-                <td><input type="text" name="address" class="wu-text easyui-validatebox" /></td>
-            </tr>
-        </table>
-    </form>
-</div>
-<!-- 修改窗口 -->
-
-<div id="edit-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-save'" style="width:450px; padding:10px;">
-    <form id="edit-form" method="post">
-        <input type="hidden" name="id" id="edit-id">
-        <table>
-            <tr>
-                <td width="60" align="right">头像预览:</td>
-                <td valign="middle">
-                    <img id="edit-preview-photo" style="float:left;" src="/admin/easyui/images/user_photo.jpg" width="100px">
-                    <a style="float:left;margin-top:40px;" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-upload" onclick="uploadPhoto()" plain="true">上传图片</a>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">头像:</td>
-                <td><input type="text" id="edit-photo" name="photo" value="/BaseProjectSSM/resources/admin/easyui/images/user_photo.jpg" readonly="readonly" class="wu-text " /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">用户名:</td>
-                <td><input type="text" id="edit-username" name="username" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写用户名'" /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">所属角色:</td>
-
-            </tr>
-            <tr>
-                <td width="60" align="right">性别:</td>
-                <td>
-                    <select id="edit-sex" name="sex" class="easyui-combobox" panelHeight="auto" style="width:268px">
-                        <option value="0">未知</option>
-                        <option value="1">男</option>
-                        <option value="2">女</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td width="60" align="right">年龄:</td>
-                <td><input type="text" id="edit-age" name="age" value="1" class="wu-text easyui-numberbox easyui-validatebox" data-options="required:true,min:1,precision:0, missingMessage:'请填写年龄'" /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">地址:</td>
-                <td><input type="text" id="edit-address" name="address" class="wu-text easyui-validatebox" /></td>
-            </tr>
-        </table>
-    </form>
-</div>
-
-
-
-
-<!--健康档案-->
-<!--<div id="userinfo-dialog" class="easyui-dialog" data-options="closed:true" style="width:800px;height: 700px">
-    &lt;!&ndash;按条件查询&ndash;&gt;
-    <label> 健康档案号:</label><input name="userId" id="userId" class="easyui-numberbox" maxlength="9" data-options="validType:'length[0,9]'"  style="width: 120px"/>
-    <label> 姓名:</label><input name="recordName" id="recordName" style="width: 100px"/>
-    <label> 出生日期:</label><input type="text" class="easyui-datebox" editable="fasle" name="beginTime" id="beginTime" style="width: 100px"/>至
-    <input type="text" class="easyui-datebox"  name="endTime" id="endTime" style="width: 100px"/>
-    <a href="#" id="userinfo-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
-
-    <table id="userAll" class="easyui-datagrid" style="width: 750px;height: 600px" ></table>
-</div>-->
 <!--孕卡信息-->
 <div id="anfoll-dialog" class="easyui-dialog" data-options="closed:true" style="width:720px">
-    <table id="dataAll" class="easyui-datagrid" style="width: 700px; height: 550px;" ></table>
+    <table id="anfollAll" class="easyui-datagrid" style="width: 700px; height: 550px;" ></table>
 </div>
 <!-- 添加/修改孕卡信息 -->
 <div id="editanf" class="easyui-dialog" style="width: 850px;height: 890px; padding:10px;">
@@ -174,60 +66,6 @@
         $("#user-dialog").dialog('close');
     }
 
-
-    /**
-     *  添加孕产妇
-     */
-    /*function adduserinfo(){
-        var validate = $("#add-form").form("validate");
-        if(!validate){
-            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
-            return;
-        }
-        var data = $("#add-form").serialize();
-        $.ajax({
-            url:'../add',
-            dataType:'json',
-            type:'post',
-            data:data,
-            success:function(data){
-                if(data.type == 'success'){
-                    $.messager.alert('信息提示','添加成功！','info');
-                    $('#add-dialog').dialog('close');
-                    $('#data-datagrid').datagrid('reload');
-                }else{
-                    $.messager.alert('信息提示',data.msg,'warning');
-                }
-            }
-        });
-    }*/
-
-    /**
-     * Name 修改记录
-     */
-    function edit(){
-        var validate = $("#edit-form").form("validate");
-        if(!validate){
-            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
-            return;
-        }
-        var data = $("#edit-form").serialize();
-        $.ajax({
-            url:'edit',
-            dataType:'json',
-            type:'post',
-            data:data,
-            success:function(data){
-                if(data.type == 'success'){
-                    $.messager.alert('信息提示','修改成功！','info');
-                    $('#edit-dialog').dialog('close');
-                    $('#data-datagrid').datagrid('reload');
-                }else{
-                    $.messager.alert('信息提示',data.msg,'warning');
-                }
-            }
-        });
-    }
 
     /**
      * 删除
@@ -262,55 +100,6 @@
         });
     }
 
-
-    /**
-     * 打开健康档案
-     */
-    /*function openAdd(){
-        $('#userinfo-dialog').dialog({
-            closed: false,
-            modal:true,
-            title: "健康档案选取",
-            buttons: [{
-                text: '确定',
-                iconCls: 'icon-ok',
-                handler:addindis
-            }, {
-                text: '取消',
-                iconCls: 'icon-cancel',
-                handler: function () {
-                    $('#userinfo-dialog').dialog('close');
-                }
-            }],
-            onBeforeOpen:function(){
-                $("#userAll").datagrid({
-                    url: '../puserinfo/list',
-                    fitColumns: true,
-                    striped: true,
-                    singleSelect: true,
-                    pagination: true,
-                    rownumbers: true,
-                    pageSize: 20,
-                    multiSort: true,
-                    onDblClickRow: function (index, row) {
-                        adduserinfo(row.userId);
-                    },
-                    columns:[[
-                        { field:'userId',title:'健康档案号',width:100,align:'center'},
-                        { field:'recordName',title:'姓名',width:100},
-                        { field:'userBirthday',title:'出生日期',width:100,formatter:function(value,row,index){
-                                return format(value);}},
-                        { field:'recordAdress',title:'现住地址',width:100},
-                        { field:'userMyphone',title:'联系电话',width:100}
-                    ]],
-                    onLoadSuccess:function(data) {
-                        $('.authority-edit').linkbutton({text: '编辑权限', plain: true, iconCls: 'icon-edit'});
-                    }
-                });
-            }
-        });
-    }*/
-
     /*
       * 添加孕卡信息
       * */
@@ -333,9 +122,8 @@
                 if (data.type == 'success') {
                     $.messager.alert('信息提示', '添加成功！', 'info');
                     $('#editanf').dialog('close');
-                    $('#dataAll').datagrid('reload');
+                    $('#anfollAll').datagrid('reload');
                     $('#data-datagrid').datagrid('reload');
-                    $("#dataAll").datagrid('getSelections').length = 0;
                     $("#data-datagrid").datagrid('getSelections').length = 0;
                 } else {
                     $.messager.alert('信息提示', data.msg, 'warning');
@@ -410,9 +198,8 @@
                 if(data.type == 'success'){
                     $.messager.alert('信息提示','修改成功！','info');
                     $('#editanf').dialog('close');
+                    $('#anfollAll').datagrid('reload');
                     $('#data-datagrid').datagrid('reload');
-                    //$("#dataAll").datagrid('getSelections').length = 0;
-                    //item.length=0;
                     $("#data-datagrid").datagrid('getSelections').length = 0;
                 }else{
                     $.messager.alert('信息提示',data.msg,'warning');
@@ -464,7 +251,7 @@
     function removeanfoll(){
         $.messager.confirm('信息提示','确定要删除该记录？', function(result){
             if(result){
-                var item = $('#dataAll').datagrid('getSelections');
+                var item = $('#anfollAll').datagrid('getSelections');
                 if(item == null || item.length == 0){
                     $.messager.alert('信息提示','请选择要删除的数据！','info');
                     return;
@@ -481,7 +268,7 @@
                     success:function(data){
                         if(data.type == 'success'){
                             $.messager.alert('信息提示','删除成功！','info');
-                            $('#dataAll').datagrid('reload');
+                            $('#anfollAll').datagrid('reload');
                         }else{
                             $.messager.alert('信息提示',data.msg,'warning');
                         }
@@ -504,11 +291,11 @@
                 iconCls: 'icon-cancel',
                 handler: function () {
                     $('#anfoll-dialog').dialog('close');
-                    $("#dataAll").datagrid('getSelections').length = 0;
+                    $("#anfollAll").datagrid('getSelections').length = 0;
                 }
             }],
             onBeforeOpen:function(){
-                $("#dataAll").datagrid({
+                $("#anfollAll").datagrid({
                     url: '../anfollfind/list?userId=' + userId,
                     fitColumns: true,
                     striped: true,

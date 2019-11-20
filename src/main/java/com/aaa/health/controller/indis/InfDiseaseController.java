@@ -1,13 +1,10 @@
 package com.aaa.health.controller.indis;
 
-import com.aaa.health.entity.indis.DisfollowUp;
 import com.aaa.health.entity.indis.InfDisease;
-import com.aaa.health.entity.suppat.SupmanPatrol;
 import com.aaa.health.page.admin.Page;
 import com.aaa.health.service.indis.InfDiseaseService;
 import com.aaa.health.service.outco.OutComeService;
 import org.apache.commons.lang.StringUtils;
-import org.apache.ibatis.mapping.ParameterMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -123,6 +120,38 @@ private OutComeService outComeService;
     public Map<String, String> edit(InfDisease infDisease) {
         Map<String, String> ret = new HashMap<String, String>();
         if (infDiseaseService.edit(infDisease) <= 0) {
+            ret.put("type", "error");
+            ret.put("msg", "信息修改失败，请联系管理员！");
+            return ret;
+        }
+        ret.put("type", "success");
+        ret.put("msg", "修改成功！");
+        return ret;
+    }
+
+
+
+    /*
+     * 根据id查询数据
+     * */
+    @RequestMapping(value = "/findComeId", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> findComeId(Integer infdisId) {
+        Map<String, Object> inf = new HashMap<String, Object>();
+        inf.put("outcome", infDiseaseService.findComeId(infdisId));// 页面加载数据使用
+        return inf;
+    }
+    /**
+     * 转归
+     *
+     * @param infDisease
+     * @return
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> update(InfDisease infDisease) {
+        Map<String, String> ret = new HashMap<String, String>();
+        if (infDiseaseService.update(infDisease) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "信息修改失败，请联系管理员！");
             return ret;

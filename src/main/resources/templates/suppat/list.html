@@ -19,9 +19,9 @@
                 <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
             </select>&nbsp;&nbsp;
             <label> 巡查时间:</label>&nbsp;
-            <input type="text" class="easyui-datebox" editable="fasle" name="beginTime" style="width: 150px"/>
+            <input type="text" class="easyui-datebox" name="beginTime" style="width: 150px"/>
             &nbsp;&nbsp;至&nbsp;
-            <input type="text" class="easyui-datebox" editable="fasle" name="endTime" style="width: 150px"/>
+            <input type="text" class="easyui-datebox" name="endTime" style="width: 150px"/>
             &nbsp;&nbsp;
             <a href="#" id="suppat-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
 
@@ -52,32 +52,6 @@
     function  goBack() {
         $("#addsupp").dialog('close');
     }
-
-   /* $("#endTime").datebox({
-        validator:function(date){
-            var now = new Date();
-            var d1 = new Date(now.getFullYear(),now.getMonth(),now.getDate());
-            if($('#endTime').datebox()<d1){
-             return false;
-            }else{
-                return true;
-            }
-            /!*判断date和当前时间new Date()的先后
-            如果date晚于当前时间,return false;
-            否则return true*!/
-        }
-    });*/
-    /*$("#searchBegDate").datebox({
-        onSelect : function(beginDate){
-            $('#searchEndDate').datebox().datebox('calendar').calendar({
-                validator: function(date){
-                    var now = new Date();
-                    var d1 = new Date(now.getFullYear(),now.getMonth(),now.getDate());
-                    return beginDate <= date && d1 >= date;
-                }
-            });
-        }
-    });*/
 
 
     /**

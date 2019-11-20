@@ -53,7 +53,7 @@ infdisDietime,infdisOutcome,outcomeWhether,outcomeReason,outcomeOtherreason,outc
 infdisHandle)
     values(#{userId},#{infdisCardnum},#{infdisCardtype},#{infdisParentname},#{infdisPhone},
     #{infdisPatis},#{infdisChbjob},#{infdisCateone},#{infdisCatetwo},#{infdisMdytime},
-    #{infdisDigtime},#{infdisDietime},#{infdisOutcome},1,#{outcomeReason},#{outcomeOtherreason},
+    #{infdisDigtime},#{infdisDietime},#{infdisOutcome},0,#{outcomeReason},#{outcomeOtherreason},
     #{outcomeRemarks},#{diseaseNail},#{diseaseB},#{diseaseC},#{diseaseOther},#{infdisIllness},
     #{infdisCard},#{infdisReport},#{infdisTel},#{infdisDoctor},#{infdisTime},#{infdisHandle})
     </insert>
@@ -62,8 +62,7 @@ infdisHandle)
 infdisParentname=#{infdisParentname},infdisPhone=#{infdisPhone},infdisPatis=#{infdisPatis},
 infdisChbjob=#{infdisChbjob},infdisCateone=#{infdisCateone},infdisCatetwo=#{infdisCatetwo},
 infdisMdytime=#{infdisMdytime},infdisDigtime=#{infdisDigtime},infdisDietime=#{infdisDietime},
-infdisOutcome=#{infdisOutcome},outcomeWhether=#{outcomeWhether},outcomeReason=#{outcomeReason},
-outcomeOtherreason=#{outcomeOtherreason},outcomeRemarks=#{outcomeRemarks},diseaseNail=#{diseaseNail},
+infdisOutcome=#{infdisOutcome},diseaseNail=#{diseaseNail},
 diseaseB=#{diseaseB},diseaseC=#{diseaseC},diseaseOther=#{diseaseOther},infdisIllness=#{infdisIllness},
 infdisCard=#{infdisCard},infdisReport=#{infdisReport},infdisTel=#{infdisTel},infdisDoctor=#{infdisDoctor},
 infdisTime=#{infdisTime},infdisHandle=#{infdisHandle}
@@ -120,4 +119,12 @@ infdisTime=#{infdisTime},infdisHandle=#{infdisHandle}
     <select id="findById" parameterType="Integer" resultType="Map">
 select i.*,u.recordName,u.userIdnumber,u.userSex,u.userBirthday,u.userWorkunit,u.recordAdress,s.lastname from infdisease i join userinfo u on i.userId=u.userId join user s on i.infdisDoctor=s.id where infdisId=#{infdisId}
     </select>
+    <select id="findComeId" parameterType="Integer" resultType="Map">
+        select * from infdisease where infdisId=#{infdisId}
+    </select>
+    <update id="update" parameterType="com.aaa.health.entity.indis.InfDisease">
+update infdisease set outcomeWhether=#{outcomeWhether},outcomeReason=#{outcomeReason},
+outcomeOtherreason=#{outcomeOtherreason},outcomeRemarks=#{outcomeRemarks}
+where infdisId=#{infdisId}
+    </update>
 </mapper>

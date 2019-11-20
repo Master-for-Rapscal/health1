@@ -22,18 +22,20 @@ select userId,recordName,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(userBirthday))/365) u
  </select>
     <insert id="add" parameterType="com.aaa.health.entity.anfoll.AnteFollow">
 insert into antenatalFollowup(userId,fillformTime,anWeek,anfoName,anfoAge,anfoPhone,anfoGestational,anfoParity,
-anfoVagina,anfoCesection,anfoLastmenage,anfoPretime,anfoPast,anfoFamily,anfoPersonal,womanOperation,anteAbortion,
+anfoVagina,anfoCesection,anfoLastmenage,anfoPretime,anfoPast,anfoFamily,anfoYc,anfoPersonal,womanOperation,
+anfoMenage,anfoJcycle,anfoMencycle,anfoMenamount,anfoMenamountcolor,anfoMenapain,anfoEarly,anteAbortion,
 antePeoabort,anteStbirth,anteStbir,anteBirthdie,anteBirthdefect,anfoHeight,anfoWeight,anfoConstitution,aBloodpreq,
 aBloodpreh,anfoHeart,anfoLungs,aninVulva,aninVagina,aninCervical,aninBody,anclosure,anHemoglobin,anWhitecell,
-anPlatelet,anCellother,anUrprotein,anUrsugar,anKetone,anBlood,anUrother,anABO,anRH,anbloodSugar,anEnzymeo,anEnzymet,
+anPlatelet,anCellother,anUrprotein,anUrsugar,anKetone,anBlood,anUrother,anABO,anABOzf,anRH,anbloodSugar,anEnzymeo,anEnzymet,
 anAlbumin,anTotalbil,anConbil,anSerum,anUrean,anSecretion,anClean,anAntigen,anAntibody,anAntigenE,anAntibodyE,
 anAntibodycenter,anExperiment,anHIV,anB,anOther,totalAssess,healthGuidance,anWhether,anReason,anOrgan,anfoFotime,
 anfoDoctor,anfoState,anfoStatetime,anfoStateReason)
     values(#{userId},#{fillformTime},#{anWeek},#{anfoName},#{anfoAge},#{anfoPhone},#{anfoGestational},#{anfoParity},#{
-anfoVagina},#{anfoCesection},#{anfoLastmenage},#{anfoPretime},#{anfoPast},#{anfoFamily},#{anfoPersonal},#{womanOperation},#{anteAbortion},#{
+anfoVagina},#{anfoCesection},#{anfoLastmenage},#{anfoPretime},#{anfoPast},#{anfoFamily},#{anfoYc},#{anfoPersonal},#{womanOperation},#{anfoMenage},
+#{anfoJcycle},#{anfoMencycle},#{anfoMenamount},#{anfoMenamountcolor},#{anfoMenapain},#{anfoEarly},#{anteAbortion},#{
 antePeoabort},#{anteStbirth},#{anteStbir},#{anteBirthdie},#{anteBirthdefect},#{anfoHeight},#{anfoWeight},#{anfoConstitution},#{aBloodpreq},#{
 aBloodpreh},#{anfoHeart},#{anfoLungs},#{aninVulva},#{aninVagina},#{aninCervical},#{aninBody},#{anclosure},#{anHemoglobin},#{anWhitecell},#{
-anPlatelet},#{anCellother},#{anUrprotein},#{anUrsugar},#{anKetone},#{anBlood},#{anUrother},#{anABO},#{anRH},#{anbloodSugar},#{anEnzymeo},#{anEnzymet},#{
+anPlatelet},#{anCellother},#{anUrprotein},#{anUrsugar},#{anKetone},#{anBlood},#{anUrother},#{anABO},#{anABOzf},#{anRH},#{anbloodSugar},#{anEnzymeo},#{anEnzymet},#{
 anAlbumin},#{anTotalbil},#{anConbil},#{anSerum},#{anUrean},#{anSecretion},#{anClean},#{anAntigen},#{anAntibody},#{anAntigenE},#{anAntibodyE},#{
 anAntibodycenter},#{anExperiment},#{anHIV},#{anB},#{anOther},#{totalAssess},#{healthGuidance},#{anWhether},#{anReason},#{anOrgan},#{anfoFotime},#{
 anfoDoctor},0,#{anfoStatetime},#{anfoStateReason})
@@ -42,14 +44,22 @@ anfoDoctor},0,#{anfoStatetime},#{anfoStateReason})
 select a.*,u.recordName,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(u.userBirthday))/365) userAge from antenatalFollowup a join userinfo u on a.userId=u.userId where anfoId=#{anfoId}
 </select>
     <update id="update" parameterType="com.aaa.health.entity.anfoll.AnteFollow">
-        update antenatalFollowup set fillformTime=#{fillformTime},anWeek=#{anWeek},anfoName=#{anfoName},anfoAge=#{anfoAge},anfoPhone=#{anfoPhone},anfoGestational=#{anfoGestational},anfoParity=#{anfoParity},
-anfoVagina=#{anfoVagina},anfoCesection=#{anfoCesection},anfoLastmenage=#{anfoLastmenage},anfoPretime=#{anfoPretime},anfoPast=#{anfoPast},anfoFamily=#{anfoFamily},anfoPersonal=#{anfoPersonal},womanOperation=#{womanOperation},anteAbortion=#{anteAbortion},
-antePeoabort=#{antePeoabort},anteStbirth=#{anteStbirth},anteStbir=#{anteStbir},anteBirthdie=#{anteBirthdie},anteBirthdefect=#{anteBirthdefect},anfoHeight=#{anfoHeight},anfoWeight=#{anfoWeight},anfoConstitution=#{anfoConstitution},aBloodpreq=#{aBloodpreq},
-aBloodpreh=#{aBloodpreh},anfoHeart=#{anfoHeart},anfoLungs=#{anfoLungs},aninVulva=#{aninVulva},aninVagina=#{aninVagina},aninCervical=#{aninCervical},aninBody=#{aninBody},anclosure=#{anclosure},anHemoglobin=#{anHemoglobin},anWhitecell=#{anWhitecell},
-anPlatelet=#{anPlatelet},anCellother=#{anCellother},anUrprotein=#{anUrprotein},anUrsugar=#{anUrsugar},anKetone=#{anKetone},anBlood=#{anBlood},anUrother=#{anUrother},anABO=#{anABO},anRH=#{anRH},anbloodSugar=#{anbloodSugar},anEnzymeo=#{anEnzymeo},anEnzymet=#{anEnzymet},
-anAlbumin=#{anAlbumin},anTotalbil=#{anTotalbil},anConbil=#{anConbil},anSerum=#{anSerum},anUrean=#{anUrean},anSecretion=#{anSecretion},anClean=#{anClean},anAntigen=#{anAntigen},anAntibody=#{anAntibody},anAntigenE=#{anAntigenE},anAntibodyE=#{anAntibodyE},
-anAntibodycenter=#{anAntibodycenter},anExperiment=#{anExperiment},anHIV=#{anHIV},anB=#{anB},anOther=#{anOther},totalAssess=#{totalAssess},healthGuidance=#{healthGuidance},anWhether=#{anWhether},anReason=#{anReason},anOrgan=#{anOrgan},anfoFotime=#{anfoFotime},
-anfoDoctor=#{anfoDoctor}
+        update antenatalFollowup set fillformTime=#{fillformTime},anWeek=#{anWeek},anfoName=#{anfoName},anfoAge=#{anfoAge},
+        anfoPhone=#{anfoPhone},anfoGestational=#{anfoGestational},anfoParity=#{anfoParity},anfoVagina=#{anfoVagina},anfoCesection=#{anfoCesection},
+        anfoLastmenage=#{anfoLastmenage},anfoPretime=#{anfoPretime},anfoPast=#{anfoPast},anfoFamily=#{anfoFamily},anfoYc=#{anfoYc},anfoPersonal=#{anfoPersonal},
+        womanOperation=#{womanOperation},anfoMenage=#{anfoMenage},anfoJcycle=#{anfoJcycle},anfoMencycle=#{anfoMencycle},
+        anfoMenamount=#{anfoMenamount},anfoMenamountcolor=#{anfoMenamountcolor},anfoMenapain=#{anfoMenapain},anfoEarly=#{anfoEarly},
+        anteAbortion=#{anteAbortion},antePeoabort=#{antePeoabort},anteStbirth=#{anteStbirth},
+        anteStbir=#{anteStbir},anteBirthdie=#{anteBirthdie},anteBirthdefect=#{anteBirthdefect},anfoHeight=#{anfoHeight},anfoWeight=#{anfoWeight},
+        anfoConstitution=#{anfoConstitution},aBloodpreq=#{aBloodpreq},aBloodpreh=#{aBloodpreh},anfoHeart=#{anfoHeart},anfoLungs=#{anfoLungs},
+        aninVulva=#{aninVulva},aninVagina=#{aninVagina},aninCervical=#{aninCervical},aninBody=#{aninBody},anclosure=#{anclosure},anHemoglobin=#{anHemoglobin},
+        anWhitecell=#{anWhitecell},anPlatelet=#{anPlatelet},anCellother=#{anCellother},anUrprotein=#{anUrprotein},anUrsugar=#{anUrsugar},
+        anKetone=#{anKetone},anBlood=#{anBlood},anUrother=#{anUrother},anABO=#{anABO},anRH=#{anRH},anbloodSugar=#{anbloodSugar},
+        anEnzymeo=#{anEnzymeo},anEnzymet=#{anEnzymet},anAlbumin=#{anAlbumin},anTotalbil=#{anTotalbil},anConbil=#{anConbil},anSerum=#{anSerum},
+        anUrean=#{anUrean},anSecretion=#{anSecretion},anClean=#{anClean},anAntigen=#{anAntigen},anAntibody=#{anAntibody},anAntigenE=#{anAntigenE},
+        anAntibodyE=#{anAntibodyE},anAntibodycenter=#{anAntibodycenter},anExperiment=#{anExperiment},anHIV=#{anHIV},anB=#{anB},
+        anOther=#{anOther},totalAssess=#{totalAssess},healthGuidance=#{healthGuidance},anWhether=#{anWhether},anReason=#{anReason},
+        anOrgan=#{anOrgan},anfoFotime=#{anfoFotime},anfoDoctor=#{anfoDoctor}
 where anfoId=#{anfoId}
     </update>
 

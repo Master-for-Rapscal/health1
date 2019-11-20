@@ -37,7 +37,7 @@
                     <td>随访日期</td>
                     <td><input type="text"  class="easyui-datebox" style="width: 180px" editable="fasle" data-options="required:true, missingMessage:'请填写随访时间'" name="foserTime"></td>
                     <td>治疗月序</td>
-                    <td>第<input type="text"  style="width: 100px;height: 100%"  name="foserMonthsequence" size="5" class="easyui-validatebox" data-options="required:true, missingMessage:'请填写治疗月序'">月</td>
+                    <td>第<input type="text"  style="width: 100px;height: 100%" oninput="value=value.replace(/[^\d]/g,'')"  name="foserMonthsequence" size="5" class="easyui-validatebox" data-options="required:true, missingMessage:'请填写治疗月序'">月</td>
                 </tr>
                 <tr>
                     <td>督导人员</td>
@@ -49,7 +49,7 @@
                     </td>
                     <td>随访方式</td>
                     <td>
-                        <select name="foserMode" class="easyui-combobox" style="width: 150px" data-options="required:true, missingMessage:'请填写随访方式'">
+                        <select name="foserMode" editable="fasle" class="easyui-combobox" style="width: 150px" data-options="required:true, missingMessage:'请填写随访方式'">
                             <option value="1">门诊</option>
                             <option value="2">家庭</option>
                             <option value="3">电话</option>
@@ -81,11 +81,11 @@
                 <tr>
                     <td>生活方式评估</td>
                     <td colspan="3">
-                        吸&nbsp;烟<input type="text" style="height: 50%" name="foserSmokpay"  size="10"/>
-                        /<input type="text" style="height: 50%" name="foserSmokday" size="10"/>支/天
+                        吸&nbsp;烟<input type="text" style="height: 50%" name="foserSmokpay"  size="10" oninput="value=value.replace(/[^\d]/g,'')"/>
+                        /<input type="text" style="height: 50%" name="foserSmokday" size="10" oninput="value=value.replace(/[^\d]/g,'')"/>支/天
                         <br/>
-                        饮&nbsp;酒<input type="text" style="height: 50%" name="foserDrinkbi" size="10"/>
-                        /<input type="text" style="height: 50%" name="foserDrinkday" size="10"/>支/天
+                        饮&nbsp;酒<input type="text" style="height: 50%" name="foserDrinkbi" size="10" oninput="value=value.replace(/[^\d\.]/g,'')"/>
+                        /<input type="text" style="height: 50%" name="foserDrinkday" size="10" oninput="value=value.replace(/[^\d]/g,'')"/>两/天
                     </td>
                 </tr>
                 <tr>
@@ -172,7 +172,7 @@
                     <td rowspan="2">停止治疗及原因</td>
                     <td>出现停止治疗时间</td>
                     <td colspan="2">
-                        <input type="text" class="easyui-datebox"  name="stoptreatTime"  style="width: 150px;"/>
+                        <input type="text" class="easyui-datebox" editable="fasle" name="stoptreatTime"  style="width: 150px;"/>
                     </td>
                 </tr>
                 <tr>

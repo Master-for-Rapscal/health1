@@ -11,31 +11,36 @@
             <div th:replace="common/menus :: menus"  > </div>
         </div>
         <div class="wu-toolbar-search">  <!--data-options="min:0,precision:9"-->
-            <label> 健康卡号:</label><input name="userId" class="easyui-numberbox" maxlength="9" data-options="validType:'length[0,9]'"  style="width: 120px"/>
-            <label> 姓名:</label><input name="recordName" style="width: 100px"/>
-            <label> 性别:</label>
+            <label> 健康卡号:</label>&nbsp;
+            <input name="userId" maxlength="11" oninput="value=value.replace(/[^\d\.]/g,'')"  style="width: 120px"/>&nbsp;&nbsp;
+            <label> 姓名:</label>&nbsp;
+            <input name="recordName" style="width: 100px"/>&nbsp;&nbsp;
+            <label> 性别:</label>&nbsp;
             <select name="userSex" class="easyui-combobox" panelHeight="auto" style="width:50px">
                 <option value="1">男</option>
                 <option value="2">女</option>
                 <option value="3">未知</option>
             </select>
-            <label> 责任医生:</label>
+            &nbsp;&nbsp;
+            <label> 责任医生:</label>&nbsp;
             <select name="infdisDoctor" class="easyui-combobox" panelHeight="auto">
                 <a th:each="doctor:${session.doctor}" >
                     <option   th:value="${doctor.id}" ><span th:text="${doctor.lastname }"></span></option>
                 </a>
-            </select>
-            <label> 填卡时间:</label><input type="text" class="easyui-datebox"  name="beginTime" style="width: 100px"/>至
-            <input type="text" class="easyui-datebox"  name="endTime" style="width: 100px"/>
-            <label> 诊断时间:</label><input type="text" class="easyui-datebox"  name="beginTimet" style="width: 100px"/>至
-            <input type="text" class="easyui-datebox"  name="endTimet" style="width: 100px"/>
-            <label> 转归情况:</label>
+            </select>&nbsp;&nbsp;
+            <label> 填卡时间:</label>&nbsp;
+            <input type="text" class="easyui-datebox"  name="beginTime" style="width: 100px"/>&nbsp;至&nbsp;
+            <input type="text" class="easyui-datebox"  name="endTime" style="width: 100px"/>&nbsp;&nbsp;
+            <label> 诊断时间:</label>&nbsp;
+            <input type="text" class="easyui-datebox"  name="beginTimet" style="width: 100px"/>&nbsp;至&nbsp;
+            <input type="text" class="easyui-datebox"  name="endTimet" style="width: 100px"/>&nbsp;&nbsp;
+            <label> 转归情况:</label>&nbsp;
             <select name="outcomeWhether" class="easyui-combobox" panelHeight="auto" style="width:60px">
                 <option value="1">治愈</option>
                 <option value="2">好转</option>
                 <option value="3">外出</option>
                 <option value="4">死亡</option>
-            </select>
+            </select>&nbsp;&nbsp;
             <a href="#" id="indis-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
         </div>
     </div>
@@ -55,7 +60,7 @@
 <!--健康档案-->
 <div id="userinfo-dialog" class="easyui-dialog" data-options="closed:true" style="width:800px;height: 700px">
     <!--按条件查询-->
-    <label> 健康档案号:</label><input name="userId" id="userId" class="easyui-numberbox" maxlength="9" data-options="validType:'length[0,9]'"  style="width: 120px"/>
+    <label> 健康档案号:</label><input name="userId" id="userId" maxlength="11" oninput="value=value.replace(/[^\d\.]/g,'')"  style="width: 120px"/>
     <label> 姓名:</label><input name="recordName" id="recordName" style="width: 100px"/>
 
     <a href="#" id="userinfo-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
@@ -71,58 +76,64 @@
     <div th:replace="indis/editinfdis :: infdis"></div>
 </div>
 
-<!-- 修改窗口 -->
-<div id="edit-dialog" class="easyui-dialog" data-options="closed:true" style="width:450px; padding:10px;">
-    <form id="edit-form" method="post">
-        <input type="hidden" name="id" id="edit-id">
-        <table>
+<!-- 修改传染病转归窗口 -->
+<div id="come-dialog" class="easyui-dialog" data-options="closed:true" style="width:450px;height:350px; overflow:auto;">
+    <form id="comeform" method="post">
+        <input type="hidden" name="infdisId">
+
+        <table style="width:350px;height: 260px;margin-left: 50px">
             <tr>
-                <td width="60" align="right">头像预览:</td>
+                <td width="70" align="right">是否转归</td>
                 <td valign="middle">
-                    <img id="edit-preview-photo" style="float:left;" src="/admin/easyui/images/user_photo.jpg" width="100px">
-                    <a style="float:left;margin-top:40px;" href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-upload" onclick="uploadPhoto()" plain="true">上传图片</a>
+                    <input type="radio" name="outcomeWhether" value="1" onclick="on()" checked="checked"/>是
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="outcomeWhether" value="0" onclick="off()"/>否
                 </td>
             </tr>
             <tr>
-                <td width="60" align="right">头像:</td>
-                <td><input type="text" id="edit-photo" name="photo" value="/BaseProjectSSM/resources/admin/easyui/images/user_photo.jpg" readonly="readonly" class="wu-text " /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">用户名:</td>
-                <td><input type="text" id="edit-username" name="username" class="wu-text easyui-validatebox" data-options="required:true, missingMessage:'请填写用户名'" /></td>
-            </tr>
-            <tr>
-                <td width="60" align="right">所属角色:</td>
-
-            </tr>
-            <tr>
-                <td width="60" align="right">性别:</td>
+                <td width="70" align="right">转归原因:</td>
                 <td>
-                    <select id="edit-sex" name="sex" class="easyui-combobox" panelHeight="auto" style="width:268px">
-                        <option value="0">未知</option>
-                        <option value="1">男</option>
-                        <option value="2">女</option>
+                    <select name="outcomeReason" id="outcomeReason" style="width: 200px">
+                        <option value="1">治愈</option>
+                        <option value="2">好转</option>
+                        <option value="3">外出</option>
+                        <option value="4">死亡</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <td width="60" align="right">年龄:</td>
-                <td><input type="text" id="edit-age" name="age" value="1" class="wu-text easyui-numberbox easyui-validatebox" data-options="required:true,min:1,precision:0, missingMessage:'请填写年龄'" /></td>
+                <td width="70" align="right">其他原因:</td>
+                <td>
+                    <textarea id="outcomeOtherreason" name="outcomeOtherreason" rows="2" cols="28"/></textarea>
+                </td>
             </tr>
             <tr>
-                <td width="60" align="right">地址:</td>
-                <td><input type="text" id="edit-address" name="address" class="wu-text easyui-validatebox" /></td>
+                <td width="70" align="right">备注:</td>
+                <td>
+                    <textarea id="edit-outcomeRemarks" name="outcomeRemarks" rows="4" cols="28"/></textarea>
+                </td>
             </tr>
         </table>
     </form>
 </div>
+<script>
+    function on() {//是
+        $("#outcomeReason").removeAttr("disabled");
+        $("#outcomeOtherreason").removeAttr("disabled");
+        $("#edit-outcomeRemarks").removeAttr("disabled");
+    }
 
+    function off() {//否
+        $("#outcomeReason").attr({disabled: 'true'});
+        $("#outcomeReason").attr('clear');
+        $("#outcomeOtherreason").attr({disabled: 'true'});
+        $("#edit-outcomeRemarks").attr({disabled: 'true'});
+    }
 
-
-<div id="process-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-upload',title:'正在上传图片'" style="width:450px; padding:10px;">
-    <div id="p" class="easyui-progressbar" style="width:400px;" data-options="text:'正在上传中...'"></div>
-</div>
-<input type="file" id="photo-file" style="display:none;" onchange="upload()">
+   /* $('#anfoStatetime').datebox({
+        required: true
+    });*/
+</script>
 
 <!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
 <div th:replace="common/footer :: myfooter"  ></div>
@@ -148,6 +159,80 @@
     function    Close()   {
         $("#editinf").dialog('close');
     }
+
+    /**
+     * 修改传染病人转归
+     */
+    function updatecome(){
+        var validate = $("#comeform").form("validate");
+        if(!validate){
+            $.messager.alert("消息提醒","请检查你输入的数据!","warning");
+            return;
+        }
+        var data = $("#comeform").serialize();
+
+        $.ajax({
+            url:'update',
+            dataType:'json',
+            type:'post',
+            data:data,
+            success:function(data){
+                if(data.type == 'success'){
+                    $.messager.alert('信息提示','修改成功！','info');
+                    $('#come-dialog').dialog('close');
+                    $('#data-datagrid').datagrid('reload');
+                    $('#comeform').form('clear');
+                    $('#data-datagrid').datagrid('getSelections').length = 0;
+                }else{
+                    $.messager.alert('信息提示',data.msg,'warning');
+                }
+            }
+        });
+    }
+    /**
+     * 打开修改传染病人转归窗口
+     */
+    function openCome(){
+        var item = $('#data-datagrid').datagrid('getSelections');
+        if(item == null || item.length == 0){
+            $.messager.alert('信息提示','请先选择记录！','info');
+            return;
+        }
+        if(item.length > 1){
+            $.messager.alert('信息提示','请选择一条记录进行修改！','info');
+            return;
+        }
+        item = item[0];
+        var infdisId=item.infdisId;
+        $('#come-dialog').dialog({
+            closed: false,
+            modal:true,
+            title: "档案转归",
+            buttons: [{
+                text: '确定',
+                iconCls: 'icon-ok',
+                handler: updatecome
+            }, {
+                text: '取消',
+                iconCls: 'icon-cancel',
+                handler: function () {
+                    $('#come-dialog').dialog('close');
+                }
+            }],
+            onBeforeOpen:function(){
+                $.ajax({
+                    url: '../indis/findComeId?infdisId=' + infdisId,
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#comeform").form('load', data.outcome);
+                    }
+
+                });
+            }
+        });
+    }
+
 
     function add() {
         var validate = $("#infdisform").form("validate");
@@ -288,6 +373,7 @@
                     $.messager.alert('信息提示','修改成功！','info');
                     $('#addinfd').dialog('close');
                     $('#data-datagrid').datagrid('reload');
+                    $('#data-datagrid').datagrid('getSelections').length = 0;
                 }else{
                     $.messager.alert('信息提示',data.msg,'warning');
                 }
@@ -780,19 +866,10 @@
                     return format(value);}},
             { field:'outcomeWhether',title:'转归',width:100,sortable:true,formatter(value,row,index){
                     switch(value){
-                        case 0:{
+                        case 1:{
                             return '是';
                         }
-                        case 1:{
-                            return '否';
-                        }
-                        case 2:{
-                            return '否';
-                        }
-                        case 3:{
-                            return '否';
-                        }
-                        case 4:{
+                        case 0:{
                             return '否';
                         }
                     }

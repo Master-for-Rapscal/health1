@@ -4,7 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.perbabydie.PerbabyDieMapper">
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.perbabyDie.PerbabyDie">
-        select n.newbornId,n.userId,n.newbornName,u.recordName,c.chbirTime,n.newbornSex,n.newbornWeight,n.newbornDiereason,n.newbornDietime,u.recordAdress,u.userMyphone from newborn n left join childbirth c on n.chbirId=c.chbirid join userinfo u on n.usermotherId=u.userId
+        select n.newbornId,n.userId,n.newbornName,u.recordName,c.chbirTime,n.newbornSex,n.newbornWeight,
+        n.newbornDiereason,n.newbornDietime,u.recordAdress,u.userMyphone from newborn n left join childbirth c on n.chbirId=c.chbirid join userinfo u on n.usermotherId=u.userId
         where 1=1
         <if test="username != null">
             and username like '%${username}%'
