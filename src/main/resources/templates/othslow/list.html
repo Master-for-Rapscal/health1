@@ -42,8 +42,8 @@
     <table id="othname" class="easyui-datagrid" style="width: 450px; height: 400px;"></table>
 </div>
 
-<div id="addoth" class="easyui-dialog" style="width: 740px;height: 650px; padding:10px;">
-    <div th:replace="common/othslow :: othslow"></div>
+<div id="addoth" class="easyui-dialog" style="width: 740px; padding:10px;">
+    <div th:replace="common/othslow :: othslow" style="width: 100%;margin: auto;"></div>
 </div>
 <!-- 修改窗口 -->
 <!--<div id="edit-dialog" class="easyui-dialog" style="width: 740px;height: 600px; padding:10px;">
@@ -266,7 +266,6 @@
      *  添加记录
      */
     function add(uid){
-  /*      alert(uid);*/
         $('#add-dialog').dialog('close');
         $("#addoth").dialog({
             title : "其他慢病专项卡添加",
@@ -285,13 +284,12 @@
             }],
 
             onBeforeOpen: function(){
-                /*  $('#form1').form('clear');*/
                 fuzhi(uid);
             }
         });
     }
     function fuzhi(uid){
-        $("#userId").val(uid);
+
         $('#add-dialog').dialog('close');
         $("#addoth").dialog({
             title : "其他慢病专项卡添加",
@@ -300,14 +298,14 @@
                 $.ajax({
                     url:'queryById',
                     type:'post',
-                    data:"uid="+uid,
+                    data:"usera="+uid,
                     dataType:'json',
                     success:function(data){
+                     /*   $("input[name='userId']").val(data.userId);*/
                         $("input[name='recordName']").val(data.recordName);
                         $("input[name='userBirthday']").val(data.userBirthday);
                         $("input[name='userId']").val(data.userId);
                         $("input[name='userWorKunit']").val(data.userWorKunit);
-                 /*       alert(data.userWorKunit);*/
                         $("input[name='recordAdress']").val(data.recordAdress);
                         $("input[name='userMyphone']").val(data.userMyphone);
                         $("input[name='recordPostalcode']").val(data.recordPostalcode);
@@ -331,7 +329,6 @@
                       }
 
                         $("input[name='userBloodtype']").val(blood);
-                    /*    $("#userBloodtype").val(blood);*/
                         var sex="未知";
                         if( data.userSex==1){
                             sex= "男";
@@ -346,7 +343,7 @@
                     type: "post",
                     url: "queryDis",
                     dataType: "json",
-                    success: function (date) {
+                    success: function (data) {
                         $(".othslowNameId").combobox({
                             mode: 'remote',
                             url: 'queryDis',
@@ -472,7 +469,6 @@
         var Dmsmdata=$("#othform").serialize();
 
         var addid= all;
-/*        alert(all);*/
         $.ajax({
             type : "post",
             url : "add",
