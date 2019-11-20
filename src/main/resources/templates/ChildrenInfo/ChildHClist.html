@@ -44,7 +44,7 @@
                 </td>
             <tr>
             <tr><td>身长</td><td><input type="text" data-options="required:true" suffix="cm" id="Aheight" name="insrecordHeight" style="border: none;outline: medium;width: 100%;height: 100%" class="easyui-numberbox easyui-validatebox"></td>
-            <td>评价：<!--<input type="text" id="Aha" name="insrecordHeiassess" style="border: none;outline: medium;width: 90%;height: 100%">-->
+            <td>评价：
                 <select name="insrecordHeiassess" style="appearance:none; -moz-appearance:none;-webkit-appearance:none;border: none;outline: medium;width: 90%;height: 100%">
                     <option value="上">上</option>
                     <option value="中">中</option>
@@ -111,11 +111,7 @@
             <tr><td  colspan="2">随访医生签名</td><td>
 
 
-            <!--<select name="insrecordDoctor" style="border: none;outline: medium;width: 100%;height: 100%;appearance:none; -moz-appearance:none;-webkit-appearance:none;">
-                <option value="左冬恩">左冬恩</option>
-                <option value="齐建科">齐建科</option>
-                <option value="孟民学">孟民学</option>
-            </select>-->
+
                 <select type="text"  style="border: none;outline: medium;width: 650px;appearance:none; -moz-appearance:none;-webkit-appearance:none;"  class="easyui-combobox easyui-validatebox" data-options="required:true, missingMessage:'请填写姓名'"  name="insrecordDoctor" id="healthcheckDoctor">
                 </select>
 
@@ -217,12 +213,8 @@
         <tr><td colspan="2">随访医生签名</td><td colspan="2">
 
 
-           <!-- <select name="insrecordDoctor" id="cdoc" style="border: none;outline: medium;width: 100%;height: 100%;appearance:none; -moz-appearance:none;-webkit-appearance:none;" class="easyui-numberbox">
-                <option value="左冬恩">左冬恩</option>
-                <option value="齐建科">齐建科</option>
-                <option value="孟民学">孟民学</option>
-            </select>
--->
+
+
             <select type="text"  style="border: none;outline: medium;width: 650px;appearance:none; -moz-appearance:none;-webkit-appearance:none;"  class="easyui-combobox easyui-validatebox" data-options="required:true, missingMessage:'请填写姓名'"  name="insrecordDoctor" id="healthcheckDoctor1">
             </select>
         </td></tr>
@@ -244,15 +236,7 @@
             textField: "text", //Text字段
             multiple: true,
             data:   [{ "id": 1, "text": "1夜惊" }, { "id": 2, "text": "2多汗" }, { "id": 3, "text": "3烦躁" }] ,
-            //  url: "tree_data2.json", //数据源
-            onCheck: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine1").combotree("setText", $("#ddlLine1").combobox("getText").toString().replace("全选,", ""));
-            },
-            onClick: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine1").combotree("setText", $("#ddlLine1").combobox("getText").toString().replace("全选,",""));
-            }
+
         });
     })
 
@@ -262,15 +246,7 @@
             textField: "text", //Text字段
             multiple: true,
             data: [{ "id": 1, "text": "1夜惊" }, { "id": 2, "text": "2多汗" }, { "id": 3, "text": "3烦躁" }],
-            //  url: "tree_data2.json", //数据源
-            onCheck: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine2").combotree("setText", $("#ddlLine2").combobox("getText").toString().replace("全选,", ""));
-            },
-            onClick: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine2").combotree("setText", $("#ddlLine2").combobox("getText").toString().replace("全选,",""));
-            }
+
         });
     })
 
@@ -285,15 +261,7 @@
             multiple: true,
             data:   [{ "id": 1, "text": "1对很大声音没反应" }, { "id": 2, "text": "2逗引时不发音或不会微笑" }, { "id": 3, "text": "3不注视人脸,不追视移动人或物品" }
                 ,{ "id": 4, "text": "4俯卧时不会抬头" }] ,
-            //  url: "tree_data2.json", //数据源
-            onCheck: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine3").combotree("setText", $("#ddlLine3").combobox("getText").toString().replace("全选,", ""));
-            },
-            onClick: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine3").combotree("setText", $("#ddlLine3").combobox("getText").toString().replace("全选,",""));
-            }
+
         });
     })
 
@@ -306,15 +274,7 @@
             multiple: true,
             data:    [{ "id": 1, "text": "1对很大声音没反应" }, { "id": 2, "text": "2逗引时不发音或不会微笑" }, { "id": 3, "text": "3不注视人脸,不追视移动人或物品" }
                 ,{ "id": 4, "text": "4俯卧时不会抬头" }] ,
-            //  url: "tree_data2.json", //数据源
-            onCheck: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine4").combotree("setText", $("#ddlLine4").combobox("getText").toString().replace("全选,", ""));
-            },
-            onClick: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine4").combotree("setText", $("#ddlLine4").combobox("getText").toString().replace("全选,",""));
-            }
+
         });
     })
 
@@ -327,15 +287,7 @@
             multiple: true,
             data:    [{ "id": 1, "text": "1肺炎" }, { "id": 2, "text": "2腹泻" }, { "id": 3, "text": "3外伤" }
                 ,{ "id": 4, "text": "4其他" }],
-            //  url: "tree_data2.json", //数据源
-            onCheck: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine5").combotree("setText", $("#ddlLine5").combobox("getText").toString().replace("全选,", ""));
-            },
-            onClick: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine5").combotree("setText", $("#ddlLine5").combobox("getText").toString().replace("全选,",""));
-            }
+
         });
     })
 
@@ -347,15 +299,7 @@
             multiple: true,
             data:   [{ "id": 1, "text": "1肺炎" }, { "id": 2, "text": "2腹泻" }, { "id": 3, "text": "3外伤" }
                 ,{ "id": 4, "text": "4其他" }] ,
-            //  url: "tree_data2.json", //数据源
-            onCheck: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine6").combotree("setText", $("#ddlLine6").combobox("getText").toString().replace("全选,", ""));
-            },
-            onClick: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine6").combotree("setText", $("#ddlLine6").combobox("getText").toString().replace("全选,",""));
-            }
+
         });
     })
 
@@ -368,15 +312,7 @@
             multiple: true,
             data:   [{ "id": 1, "text": "1科学喂养" }, { "id": 2, "text": "2生长发育" }, { "id": 3, "text": "3疾病预防" }
                 ,{ "id": 4, "text": "4预防伤害" }, { "id": 5, "text": "5口腔保健" }, { "id": 6, "text": "6其他_" }] ,
-            //  url: "tree_data2.json", //数据源
-            onCheck: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine7").combotree("setText", $("#ddlLine7").combobox("getText").toString().replace("全选,", ""));
-            },
-            onClick: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine7").combotree("setText", $("#ddlLine7").combobox("getText").toString().replace("全选,",""));
-            }
+
         });
     })
 
@@ -387,15 +323,7 @@
             multiple: true,
             data:  [{ "id": 1, "text": "1科学喂养" }, { "id": 2, "text": "2生长发育" }, { "id": 3, "text": "3疾病预防" }
                 ,{ "id": 4, "text": "4预防伤害" }, { "id": 5, "text": "5口腔保健" }, { "id": 6, "text": "6其他_" }] ,
-            //  url: "tree_data2.json", //数据源
-            onCheck: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine8").combotree("setText", $("#ddlLine8").combobox("getText").toString().replace("全选,", ""));
-            },
-            onClick: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine8").combotree("setText", $("#ddlLine8").combobox("getText").toString().replace("全选,",""));
-            }
+
         });
     })
 

@@ -2,6 +2,7 @@ package com.aaa.health.controller.mental;
 
 import com.aaa.health.page.admin.Page;
 import com.aaa.health.service.mental.MetalService;
+import com.aaa.health.service.oldpeo.OldPeopleService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,8 @@ import java.util.Map;
 public class MetalController {
     @Autowired
     private MetalService metalService;
-
+@Autowired
+private OldPeopleService oldPeopleService;
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         Map<String, Object> queryMap = new HashMap<String, Object>();
@@ -78,5 +80,13 @@ public class MetalController {
         ret.put("type", "success");
         ret.put("msg", "删除成功！");
         return ret;
+    }
+    @RequestMapping("/queryDoctor")
+    @ResponseBody
+    public Object queryDoctor(HttpServletRequest request){
+        Map<String, Object> queryMap = new HashMap<String, Object>();
+        int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
+        queryMap.put("areaId",areaId);
+        return oldPeopleService.queryDoctor(queryMap);
     }
 }

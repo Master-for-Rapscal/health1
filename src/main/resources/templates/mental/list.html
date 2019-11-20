@@ -243,14 +243,10 @@
             </td>
         </tr>
 
-        <tr><td colspan="2">下次随访日期</td><td><input type="text"  class="easyui-datebox" required="required" id="UNd" name="followNextdate"/></td>
+        <tr><td colspan="2">下次随访日期</td><td><input type="text"  class="easyui-datebox" required="required"  id="UNd" name="followNextdate"/></td>
             <td>随访医生签名</td><td colspan="3">
-                <!--<select name="followDoctorsign" style="border: none;outline: medium;width: 100%;height: 100%;appearance:none; -moz-appearance:none;-webkit-appearance:none;">
-                    <option value="左冬恩">左冬恩</option>
-                    <option value="齐建科">齐建科</option>
-                    <option value="孟民学">孟民学</option>
-                </select>-->
-                <select type="text"  style="border: none;outline: medium;width: 150px;appearance:none; -moz-appearance:none;-webkit-appearance:none;"  class="easyui-combobox easyui-validatebox" data-options="required:true, missingMessage:'请填写姓名'"  name="followDoctorsign" id="healthcheckDoctor">
+
+                <select type="text"  style="border: none;outline: medium;width: 350px;appearance:none; -moz-appearance:none;-webkit-appearance:none;"  class="easyui-combobox easyui-validatebox" data-options="required:true, missingMessage:'请填写姓名'"  name="followDoctorsign" id="healthcheckDoctor">
                 </select>
             </td>
         </tr>
@@ -478,12 +474,8 @@
 
     <tr><td colspan="2">下次随访日期</td><td><input type="text"  readonly="readonly" id="ANd" name="followNextdate"  style="border: none;outline: medium;width: 100%;height: 100%"/></td>
         <td colspan="2">随访医生签名</td><td colspan="2"><!--<input type="text" name="followDoctorsign" id="Adoctor"/>-->
-            <!--<select name="followDoctorsign" style="border: none;outline: medium;width: 100%;height: 100%;appearance:none; -moz-appearance:none;-webkit-appearance:none;">
-                <option value="左冬恩">左冬恩</option>
-                <option value="齐建科">齐建科</option>
-                <option value="孟民学">孟民学</option>
-            </select>-->
-            <select type="text"  style="border: none;width: 150px;outline: medium;appearance:none; -moz-appearance:none;-webkit-appearance:none;"  class="easyui-combobox easyui-validatebox" data-options="required:true, missingMessage:'请填写姓名'"  name="followDoctorsign" id="healthcheckDoctor1">
+
+            <select type="text"  style="border: none;width: 250px;outline: medium;appearance:none; -moz-appearance:none;-webkit-appearance:none;"  class="easyui-combobox easyui-validatebox" data-options="required:true, missingMessage:'请填写姓名'"  name="followDoctorsign" id="healthcheckDoctor1">
             </select>
         </td>
     </tr>
@@ -531,15 +523,7 @@
                 ,{ "id": 4, "text": "4喜怒无常" }, { "id": 5, "text": "5行为怪异" }, { "id": 6, "text": "6兴奋话多" },{ "id": 7, "text": "7伤人毁物" }
                 ,{ "id": 8, "text": "8悲观厌世" }, { "id": 9, "text": "9无故外走" },{ "id": 10, "text": "10自笑自语" }, { "id": 11, "text": "11孤僻懒散" },{ "id": 12, "text": "12其他" }
             ] ,
-            //  url: "tree_data2.json", //数据源
-            onCheck: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine1").combotree("setText", $("#ddlLine1").combobox("getText").toString().replace("全选,", ""));
-            },
-            onClick: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine1").combotree("setText", $("#ddlLine1").combobox("getText").toString().replace("全选,",""));
-            }
+
         });
     })
 
@@ -552,15 +536,7 @@
                 ,{ "id": 4, "text": "4喜怒无常" }, { "id": 5, "text": "5行为怪异" }, { "id": 6, "text": "6兴奋话多" },{ "id": 7, "text": "7伤人毁物" }
                 ,{ "id": 8, "text": "8悲观厌世" }, { "id": 9, "text": "9无故外走" },{ "id": 10, "text": "10自笑自语" }, { "id": 11, "text": "11孤僻懒散" },{ "id": 12, "text": "12其他" }
             ],
-            //  url: "tree_data2.json", //数据源
-            onCheck: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine2").combotree("setText", $("#ddlLine2").combobox("getText").toString().replace("全选,", ""));
-            },
-            onClick: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine2").combotree("setText", $("#ddlLine2").combobox("getText").toString().replace("全选,",""));
-            }
+
         });
     })
 
@@ -575,15 +551,7 @@
             multiple: true,
             data:   [{ "id": 1, "text": "1生活劳动能力" }, { "id": 2, "text": "2职业训练" }, { "id": 3, "text": "3学习能力" }
                 ,{ "id": 4, "text": "4社会交往" }] ,
-            //  url: "tree_data2.json", //数据源
-            onCheck: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine3").combotree("setText", $("#ddlLine3").combobox("getText").toString().replace("全选,", ""));
-            },
-            onClick: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine3").combotree("setText", $("#ddlLine3").combobox("getText").toString().replace("全选,",""));
-            }
+
         });
     })
 
@@ -596,15 +564,7 @@
             multiple: true,
             data:    [{ "id": 1, "text": "1生活劳动能力" }, { "id": 2, "text": "2职业训练" }, { "id": 3, "text": "3学习能力" }
                 ,{ "id": 4, "text": "4社会交往" }] ,
-            //  url: "tree_data2.json", //数据源
-            onCheck: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine4").combotree("setText", $("#ddlLine4").combobox("getText").toString().replace("全选,", ""));
-            },
-            onClick: function (node, checked) {
-                //让全选不显示
-                $("#ddlLine4").combotree("setText", $("#ddlLine4").combobox("getText").toString().replace("全选,",""));
-            }
+
         });
     })
 
@@ -723,13 +683,13 @@
                 });
                         $.ajax({
                             type: "post",
-                            url: "../OldpeoZhongYi/queryDoctor2",
+                            url: "queryDoctor",
                             dataType: "json",
                             success: function (date) {
-                                $("#healthcheckDoctor1").combobox({
+                                $("#healthcheckDoctor").combobox({
                                     mode: 'remote',
-                                    url: '../OldpeoZhongYi/queryDoctor2',
-                                    valueField: 'id',
+                                    url: 'queryDoctor',
+                                    valueField: 'lastname',
                                     textField: 'lastname',
                                     delay: 100
                                 });
@@ -886,13 +846,13 @@ function openAdd(){
                 }
                 $.ajax({
                     type: "post",
-                    url: "../OldpeoZhongYi/queryDoctor2",
+                    url: "queryDoctor",
                     dataType: "json",
                     success: function (date) {
-                        $("#healthcheckDoctor").combobox({
+                        $("#healthcheckDoctor1").combobox({
                             mode: 'remote',
-                            url: '../OldpeoZhongYi/queryDoctor2',
-                            valueField: 'id',
+                            url: 'queryDoctor',
+                            valueField: 'lastname',
                             textField: 'lastname',
                             delay: 100
                         });
