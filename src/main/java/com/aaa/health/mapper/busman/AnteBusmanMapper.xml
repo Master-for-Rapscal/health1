@@ -84,4 +84,7 @@ anfoDoctor},0,#{anfoStatetime},#{anfoStateReason})
             and   #{endTime} >= a.anfoLastmenage
         </if>
     </select>
+    <delete id="delete" parameterType="String">
+        delete from antenatalFollowup where anfoId in(${value})
+    </delete>
 </mapper>

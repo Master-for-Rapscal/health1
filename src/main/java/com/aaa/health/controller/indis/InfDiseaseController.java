@@ -49,7 +49,6 @@ private OutComeService outComeService;
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-        System.out.println("登录的值是"+areaId);
         queryMap.put("areaId",areaId);
         queryMap.put("userId",userId);
         queryMap.put("recordName",recordName);
@@ -64,7 +63,6 @@ private OutComeService outComeService;
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", infDiseaseService.findList(queryMap));// 页面加载数据使用
         ret.put("total", infDiseaseService.getTotal(queryMap));// 分页使用
-        System.out.println(ret);
         return ret;
     }
 

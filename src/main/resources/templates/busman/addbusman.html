@@ -5,114 +5,97 @@
     <div class="antebus">
 
         <div class="easyui-tabs" fit="true" style="width:1000px;margin: auto;">
-            <div title="建卡信息" style="padding:10px;">
+            <div title="建卡信息">
                 <caption>
-                    <h2> 健康体检</h2>
+                    <h2 style="text-align: center;margin-top: 40px"> 孕产妇基本信息</h2>
                 </caption>
-                <form id="uinfoform" method="post">
-                <input class="easyui-textbox" hidden name="userId"/>
-                <table width="100%" border="1" cellspacing="0" cellpadding="1">
+                医疗卡号：<input type="text" name="recordMedical" style="width: 200px"/><br/>
+                <table width="100%" th:height="200px" border="1" cellspacing="0" cellpadding="1">
                 <tr>
                     <td>姓名</td>
-                    <td><input type="text" style="width: 97%;height: 100%"  name="recordName" readonly></td>
+                    <td><input type="text" style="width: 100%;height: 95%" name="recordName" readonly></td>
                     <td>年龄</td>
-                    <td><input type="text" style="width: 97%;height: 100%"  name="userAge" readonly></td>
+                    <td><input type="text" style="width: 100%;height: 95%" name="userAge" readonly></td>
                 </tr>
                     <tr>
                         <td>身份证号</td>
-                        <td><input type="text" style="width: 97%;height: 100%"  name="recordName" readonly></td>
-                        <td>工作单位</td>
-                        <td><input type="text" style="width: 97%;height: 100%"  name="userAge" readonly></td>
+                        <td><input type="text" style="width: 100%;height: 95%"  name="userIdnumber" readonly></td>
+                        <td>出生日期</td>
+                        <td><input type="text" style="width: 100%;height: 95%"  name="userBirthday" readonly></td>
                     </tr>
                     <tr>
-                        <td>电话</td>
-                        <td><input type="text" style="width: 97%;height: 100%"  name="recordName" readonly></td>
-                        <td>工作单位邮编</td>
-                        <td><input type="text" style="width: 97%;height: 100%"  name="userAge" readonly></td>
+                        <td>本人电话</td>
+                        <td><input type="text" style="width: 100%;height: 95%"  name="userMyphone" readonly></td>
+                        <td>工作单位</td>
+                        <td><input type="text" style="width: 100%;height: 95%"  name="userWorkunit" readonly></td>
                     </tr>
                     <tr>
                         <td>丈夫姓名</td>
-                        <td><input type="text" style="width: 97%;height: 100%"  name="recordName" readonly></td>
-                        <td>工作单位</td>
-                        <td><input type="text" style="width: 97%;height: 100%"  name="userAge" readonly></td>
+                        <td><input type="text" style="width: 100%;height: 95%"  name="anfoName"></td>
+                        <td>联系电话</td>
+                        <td><input type="text" style="width: 100%;height: 95%"  name="anfoPhone"></td>
                     </tr>
                     <tr>
                         <td>家庭地址</td>
-                        <td><input type="text" style="width: 97%;height: 100%"  name="recordName" readonly></td>
+                        <td><input type="text" style="width: 100%;height: 95%"  name="recordAdress" readonly></td>
                         <td>家庭邮编</td>
-                        <td><input type="text" style="width: 97%;height: 100%"  name="userAge" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>产后修养地址</td>
-                        <td><input type="text" style="width: 97%;height: 100%"  name="recordName" readonly></td>
-                        <td>电话</td>
-                        <td><input type="text" style="width: 97%;height: 100%"  name="userAge" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>建册单位</td>
-                        <td><input type="text" style="width: 97%;height: 100%"  name="recordName" readonly></td>
-                        <td>建册时间</td>
-                        <td><input type="text" style="width: 97%;height: 100%"  name="userAge" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>孕妇学校</td>
-                        <td colspan="3"><input type="text" style="width: 97%;height: 100%"  name="recordName" readonly></td>
+                        <td><input type="text" style="width: 100%;height: 95%"  name="recordPostalcode" readonly></td>
                     </tr>
                 </table>
-                </form>
                 <caption>
-                    <h2> 一般情况</h2>
+                    <h2 style="text-align: center;margin-top: 60px"> 一般情况</h2>
                 </caption>
-                <input class="easyui-textbox" hidden name="anfoId"/>
-                <table width="100%" border="1" cellspacing="0" cellpadding="1">
+                <input type="text" hidden name="anfoId"/>
+                <table width="100%" style="margin-top: 30px" th:height="500px" border="1" cellspacing="0" cellpadding="1">
                     <tr>
                         <td>文化程度</td>
-                        <td colspan="2"><input type="text" style="width: 97%;height: 100%"  name="recordName" readonly></td>
+                        <td colspan="2"><input type="text" style="width: 100%;height: 95%"  name="userCulture" readonly></td>
                         <td>职业</td>
-                        <td colspan="2"><input type="text" style="width: 97%;height: 100%"  name="userAge" readonly></td>
+                        <td colspan="2"><input type="text" style="width: 100%;height: 95%"  name="userCareer" readonly></td>
                     </tr>
                     <tr>
                         <td>孕次</td>
-                        <td colspan="5"><input type="text" style="width: 97%;height: 100%"  name="recordName" readonly></td>
+                        <td colspan="5"><input type="text" style="width: 100%;height: 95%"  name="anfoGestational"></td>
                     </tr>
                     <tr>
                         <td>产次</td>
-                        <td colspan="5"><input type="text" style="width: 97%;height: 100%"  name="userAge" readonly></td>
+                        <td colspan="5"><input type="text" style="width: 100%;height: 95%"  name="anfoParity"></td>
                     </tr>
                     <tr>
                         <td>末次月经</td>
-                        <td colspan="5"><input type="text" style="width: 97%;height: 100%"  name="recordName" readonly></td>
+                        <td colspan="5"><input type="text" style="width: 200px;" class="easyui-datebox" data-options="required:true, missingMessage:'请填写末次月经'" editable="fasle" name="anfoLastmenage"></td>
                     </tr>
                     <tr>
                         <td>预产期</td>
-                        <td colspan="5"><input type="text" style="width: 97%;height: 100%"  name="userAge" readonly></td>
+                        <td colspan="5"><input type="text" style="width: 200px;"  class="easyui-datebox" name="anfoPretime"></td>
                     </tr>
+
                     <tr>
                         <td>家族史</td>
                         <td colspan="5">
-                            <input type="checkbox" name="anfoFamily" onclick="checkItem1(this)"  value="1">无异常
+                            <input type="checkbox"  name="anfoFamily" onclick="checkItem1(this)"  value="1">无异常
                             <input type="checkbox"  name="anfoFamily" value="2">先天性疾病
                             <input type="checkbox"  name="anfoFamily" value="3">畸形
                             <input type="checkbox"  name="anfoFamily" value="4">高血压
-                            <input type="checkbox"  name="anfoFamily" value="2">多胎
-                            <input type="checkbox"  name="anfoFamily" value="3">精神病
-                            <input type="checkbox"  name="anfoFamily" value="4">其他
+                            <input type="checkbox"  name="anfoFamily" value="5">多胎
+                            <input type="checkbox"  name="anfoFamily" value="6">精神病
+                            <input type="checkbox"  name="anfoFamily" value="7">其他
                         </td>
                     </tr>
                     <tr>
                         <td>异常孕产史</td>
                         <td colspan="5">
-                            <input type="checkbox" name="anfoFamily" onclick="checkItem1(this)"  value="1">无
-                            <input type="checkbox"  name="anfoFamily" value="2">自然流产≥2次
-                            <input type="checkbox"  name="anfoFamily" value="3">人工流产≥2次
-                            <input type="checkbox"  name="anfoFamily" value="4">葡萄胎
-                            <input type="checkbox"  name="anfoFamily" value="5">死胎死产
-                            <input type="checkbox"  name="anfoFamily" value="6">产前产后出血
-                            <input type="checkbox"  name="anfoFamily" value="7">早产
-                            <input type="checkbox"  name="anfoFamily" value="8">妊高症
-                            <input type="checkbox"  name="anfoFamily" value="9">畸形
-                            <input type="checkbox"  name="anfoFamily" value="10">剖宫产
-                            <input type="checkbox"  name="anfoFamily" value="11">其他
+                            <input type="checkbox" name="anfoYc" onclick="checkItem1(this)"  value="1">无
+                            <input type="checkbox"  name="anfoYc" value="2">自然流产≥2次
+                            <input type="checkbox"  name="anfoYc" value="3">人工流产≥2次
+                            <input type="checkbox"  name="anfoYc" value="4">葡萄胎
+                            <input type="checkbox"  name="anfoYc" value="5">死胎死产
+                            <input type="checkbox"  name="anfoYc" value="6">产前产后出血
+                            <input type="checkbox"  name="anfoYc" value="7">早产
+                            <input type="checkbox"  name="anfoYc" value="8">妊高症
+                            <input type="checkbox"  name="anfoYc" value="9">畸形
+                            <input type="checkbox"  name="anfoYc" value="10">剖宫产
+                            <input type="checkbox"  name="anfoYc" value="11">其他
                         </td>
                     </tr>
                     <tr>
@@ -133,83 +116,93 @@
                     <tr>
                         <td rowspan="2">月经史</td>
                         <td>
-                            初潮年龄<input type="text" name=""/>岁
+                            初潮年龄<input type="text" name="anfoMenage" style="width:80px;height: 90%"/>岁
                         </td>
                         <td>经期/周期</td>
                         <td>
-                            <input type="text" name=""/>/
-                            <input type="text" name=""/>天
+                            <input type="text" name="anfoJcycle" style="width:50px;height: 90%"/>/
+                            <input type="text" name="anfoMencycle" style="width:50px;height: 90%"/>天
                         </td>
                         <td>
-                            量<input type="text" name=""/>/
+                            量&nbsp;&nbsp;
+                            <select name="anfoMenamount" class="easyui-combobox" panelHeight="auto" style="width:50px" editable="fasle">
+                                <option value="1">多</option>
+                                <option value="2">中</option>
+                                <option value="3">少</option>
+                            </select>
                         </td>
                         <td>
-                            色<input type="text" name=""/>/
+                            色&nbsp;&nbsp;
+                            <select name="anfoMenamountcolor" class="easyui-combobox" panelHeight="auto" style="width:50px" editable="fasle">
+                            <option value="1">红</option>
+                            <option value="2">暗红</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>
                         <td>痛经</td>
                         <td colspan="4">
-                            <input type="radio" name="womanOperation"  value="1">无
-                            <input type="radio"  name="womanOperation" value="2">轻
-                            <input type="radio" name="womanOperation"  value="3">中
-                            <input type="radio"  name="womanOperation" value="4">重
+                            <input type="radio" name="anfoMenapain"  value="1">无
+                            <input type="radio"  name="anfoMenapain" value="2">轻
+                            <input type="radio" name="anfoMenapain"  value="3">中
+                            <input type="radio"  name="anfoMenapain" value="4">重
                         </td>
                     </tr>
                     <tr>
                         <td>孕早期情况</td>
                         <td colspan="5">
-                            <input type="checkbox" name="anfoPast" onclick="checkItem1(this)"  value="1">无异常
-                            <input type="checkbox"  name="anfoPast" value="2">阴道出血
-                            <input type="checkbox"  name="anfoPast" value="3">病毒感染
-                            <input type="checkbox"  name="anfoPast" value="4">妊娠剧吐
-                            <input type="checkbox"  name="anfoPast" value="5">接触放射线
-                            <input type="checkbox"  name="anfoPast" value="6">服用可能致畸形药物
-                            <input type="checkbox"  name="anfoPast" value="7">接触有毒有害物质
-                            <input type="checkbox"  name="anfoPast" value="8">其他
+                            <input type="checkbox" name="anfoEarly" onclick="checkItem1(this)"  value="1">无异常
+                            <input type="checkbox"  name="anfoEarly" value="2">阴道出血
+                            <input type="checkbox"  name="anfoEarly" value="3">病毒感染
+                            <input type="checkbox"  name="anfoEarly" value="4">妊娠剧吐
+                            <input type="checkbox"  name="anfoEarly" value="5">接触放射线
+                            <input type="checkbox"  name="anfoEarly" value="6">服用可能致畸形药物
+                            <input type="checkbox"  name="anfoEarly" value="7">接触有毒有害物质
+                            <input type="checkbox"  name="anfoEarly" value="8">其他
                         </td>
                     </tr>
                 </table>
             </div>
 
             <!--初检记录-->
-            <div title="初检记录" style="padding:10px;" >
-            <table border="1" style="margin-left: 10px;"  cellspacing="0" cellpadding="1">
-                <div style="margin-left: 10px">
-                    健康档案号&nbsp;&nbsp;<input type="text" style="width:150px" name="userId" readonly/>
-                    姓名&nbsp;&nbsp;<input type="text" style="width:150px" name="recordName" readonly/>
+            <div title="初检记录">
+                <div style="margin-left: 10px;margin-top: 30px">
+                    健康档案号：&nbsp;&nbsp;<input type="text" style="width:150px" name="userId" readonly/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    姓名：&nbsp;&nbsp;<input type="text" style="width:150px" name="recordName" readonly/>
                 </div>
+            <table border="1" width="100%" style="margin-top: 8px" th:height="900px" cellspacing="0" cellpadding="1">
                 <tr>
-                    <td colspan="2">填表日期</td>
+                    <td colspan="2" width="60px">填表日期</td>
                     <td colspan="5">
-                        <input type="text" class="easyui-datebox" data-options="required:true, missingMessage:'请填写'" editable="fasle" style="width: 200px"  name="fillformTime"/>
+                        <input type="text" class="easyui-datebox" data-options="required:true, missingMessage:'请填写'" editable="fasle" style="width: 190px"  name="fillformTime"/>
                     </td>
                     <td colspan="2">
                         填表孕周
                     </td>
                     <td colspan="5">
-                        <input type="text" name="anWeek" style="width: 97%;height: 100%"/>
+                        <input type="text" name="anWeek" style="width: 100%;height: 90%"/>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">身高</td>
                     <td colspan="5">
-                        <input type="text" name="anfoHeight" style="width: 100px"/>cm
+                        <input type="text" name="anfoHeight" style="width: 160px;height: 90%"/>cm
                     </td>
                     <td colspan="2">体重</td>
                     <td colspan="5">
-                        <input type="text" name="anfoWeight" style="width: 100px"/>kg
+                        <input type="text" name="anfoWeight" style="width: 160px;height: 90%"/>kg
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">体质指数</td>
                     <td colspan="5">
-                        <input type="text" name="anfoConstitution" style="width: 100px"/>Kg/㎡
+                        <input type="text" name="anfoConstitution" style="width: 150px;height: 90%"/>Kg/㎡
                     </td>
                     <td colspan="2">血压</td>
                     <td colspan="5">
-                        <input type="text" name="aBloodpreq" />/
-                        <input type="text" name="aBloodpreh" />mmHg
+                        <input type="text" name="aBloodpreq" style="width: 80px;height: 90%"/>/
+                        <input type="text" name="aBloodpreh" style="width: 70px;height: 90%"/>mmHg
                     </td>
                 </tr>
                 <tr>
@@ -272,7 +265,7 @@
                     </td>
                     <td colspan="2">丈夫血型</td>
                     <td colspan="4">
-                        <select name="anABO" class="easyui-combobox" panelHeight="auto" style="width:180%" editable="fasle">
+                        <select name="anABOzf" class="easyui-combobox" panelHeight="auto" style="width:180%" editable="fasle">
                             <option value="1">A型</option>
                             <option value="2">B型</option>
                             <option value="3">O型</option>
@@ -286,28 +279,28 @@
                     <td rowspan="2" colspan="2">血常规</td>
                     <td colspan="2">血红蛋白值</td>
                     <td colspan="3">
-                        <input type="text" name="anHemoglobin" style="width: 150px"/>g/L
+                        <input type="text" name="anHemoglobin" style="width: 140px;height: 90%"/>g/L
                     </td>
                     <td colspan="2">白细胞计数值</td>
                     <td colspan="3">
-                        <input type="text" name="anWhitecell" style="width: 120px"/>x 10^9/L
+                        <input type="text" name="anWhitecell" style="width: 140px;height: 90%"/>x 10^9/L
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">血小板计数值</td>
                     <td colspan="3">
-                        <input type="text" name="anPlatelet" style="width: 120px"/>x 10^9/L
+                        <input type="text" name="anPlatelet" style="width: 140px;height: 90%"/>x 10^9/L
                     </td>
                     <td colspan="2">其他</td>
                     <td colspan="3">
-                        <input type="text" name="anCellother" style="width: 140px"/>
+                        <input type="text" name="anCellother" style="width: 100%;height: 90%"/>
                     </td>
                 </tr>
                 <tr>
                     <td rowspan="3" colspan="2">尿常规</td>
                     <td colspan="2">尿蛋白</td>
                     <td colspan="3">
-                        <select name="anUrprotein" class="easyui-combobox" panelHeight="auto" style="width:180%" editable="fasle">
+                        <select name="anUrprotein" class="easyui-combobox" panelHeight="auto" style="width:200px" editable="fasle">
                             <option value="1">-</option>
                             <option value="2">+</option>
                             <option value="3">++</option>
@@ -317,7 +310,7 @@
                     </td>
                     <td colspan="2">尿糖</td>
                     <td colspan="3">
-                        <select name="anUrsugar" class="easyui-combobox" panelHeight="auto" style="width:180%" editable="fasle">
+                        <select name="anUrsugar" class="easyui-combobox" panelHeight="auto" style="width: 200px" editable="fasle">
                             <option value="1">-</option>
                             <option value="2">+</option>
                             <option value="3">++</option>
@@ -329,7 +322,7 @@
                 <tr>
                     <td colspan="2">尿酮体</td>
                     <td colspan="3">
-                        <select name="anKetone" class="easyui-combobox" panelHeight="auto" style="width:180%" editable="fasle">
+                        <select name="anKetone" class="easyui-combobox" panelHeight="auto" style="width:200px" editable="fasle">
                             <option value="1">-</option>
                             <option value="2">+</option>
                             <option value="3">++</option>
@@ -339,7 +332,7 @@
                     </td>
                     <td colspan="2">尿潜血</td>
                     <td colspan="3">
-                        <select name="anBlood" class="easyui-combobox" panelHeight="auto" style="width:180%" editable="fasle">
+                        <select name="anBlood" class="easyui-combobox" panelHeight="auto" style="width:200px" editable="fasle">
                             <option value="1">-</option>
                             <option value="2">+</option>
                             <option value="3">++</option>
@@ -351,51 +344,51 @@
                 <tr>
                     <td colspan="2">其他</td>
                     <td colspan="8">
-                        <input type="text" name="anUrother" style="width: 100%"/>
+                        <input type="text" name="anUrother" style="width: 100%;height: 90%"/>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">血糖</td>
                     <td colspan="10">
-                        <input type="text" name="anbloodSugar" style="width: 50%"/>mmol/L
+                        <input type="text" name="anbloodSugar" style="width: 200px;height: 90%"/>mmol/L
                     </td>
                 </tr>
                 <tr>
                     <td rowspan="2" colspan="2">肝功能</td>
                     <td colspan="2">血清谷丙转氨酶</td>
                     <td colspan="3">
-                        <input type="text" name="anEnzymeo" style="width: 85%"/>U/L
+                        <input type="text" name="anEnzymeo" style="width: 85%;height: 90%"/>U/L
                     </td>
                     <td colspan="2">血清谷草转氨酶</td>
                     <td colspan="3">
-                        <input type="text" name="anEnzymet" style="width: 85%"/>U/L
+                        <input type="text" name="anEnzymet" style="width: 85%;height: 90%"/>U/L
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">白蛋白</td>
                     <td colspan="3">
-                        <input type="text" name="anAlbumin" style="width: 85%"/>g/L
+                        <input type="text" name="anAlbumin" style="width: 85%;height: 90%"/>g/L
                     </td>
                     <td colspan="2">总胆红素</td>
                     <td colspan="3">
-                        <input type="text" name="anTotalbil" style="width: 75%"/>μmol/L
+                        <input type="text" name="anTotalbil" style="width: 75%;height: 90%"/>μmol/L
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">结合胆红素</td>
                     <td colspan="10">
-                        <input type="text" name="anConbil" style="width: 50%;height: 100%"/>μmol/L
+                        <input type="text" name="anConbil" style="width: 200px;height: 90%"/>μmol/L
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">肾功能</td>
                     <td colspan="2">血清肌酐</td>
                     <td colspan="3">
-                        <input type="text" name="anSerum" style="width: 75%"/>μmol/L
+                        <input type="text" name="anSerum" style="width: 75%;height: 90%"/>μmol/L
                     </td>
                     <td colspan="2">血尿素氮</td>
                     <td colspan="3">
-                        <input type="text" name="anUrean" style="width: 70%"/>mmol/L
+                        <input type="text" name="anUrean" style="width: 70%;height: 90%"/>mmol/L
                     </td>
                 </tr>
                 <tr>
@@ -420,27 +413,27 @@
                     <td rowspan="3" colspan="2">乙型肝炎五项</td>
                     <td colspan="2">乙型肝炎表面抗原</td>
                     <td colspan="3">
-                        <input type="text" name="anAntigen" style="width: 70%"/>μmol/L
+                        <input type="text" name="anAntigen" style="width: 70%;height: 90%"/>μmol/L
                     </td>
                     <td colspan="2">乙型肝炎表面抗体</td>
                     <td colspan="3">
-                        <input type="text" name="anAntibody" style="width: 70%"/>mmol/L
+                        <input type="text" name="anAntibody" style="width: 70%;height: 90%"/>mmol/L
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">乙型肝炎e抗原</td>
                     <td colspan="3">
-                        <input type="text" name="anAntigenE" style="width: 70%"/>μmol/L
+                        <input type="text" name="anAntigenE" style="width: 70%;height: 90%"/>μmol/L
                     </td>
                     <td colspan="2">乙型肝炎e抗体</td>
                     <td colspan="3">
-                        <input type="text" name="anAntibodyE" style="width: 70%"/>mmol/L
+                        <input type="text" name="anAntibodyE" style="width: 70%;height: 90%"/>mmol/L
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">乙型肝炎核心抗体</td>
                     <td colspan="7">
-                        <input type="text" name="anAntibodycenter" style="width: 70%"/>μmol/L
+                        <input type="text" name="anAntibodycenter" style="width: 70%;height: 90%"/>μmol/L
                     </td>
                 </tr>
                 <tr>
@@ -458,27 +451,21 @@
                     </td>
                 </tr>
                 <tr>
-                    <td rowspan="2" colspan="3">B超</td>
+                    <td colspan="3">B超</td>
                     <td colspan="9">
-                        <textarea name="anB" rows="2" cols="84" style="border: 0"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="3">其他</td>
-                    <td colspan="9">
-                        <input type="text" name="anOther" style="width: 100%"/>
+                        <textarea name="anB" rows="3" cols="88" style="border: 0"></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">高危因素</td>
                     <td colspan="12">
-                        <input id="cc" value="01" >
+                        <input id="cc" name="anhighriskFactor" style="width: 400px"/>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">评分</td>
                     <td colspan="12">
-                        <input type="text" name="" style="width: 100%;height: 100%"/>
+                        <input type="text" name="anfoScore" style="width: 100%;height: 90%"/>
                     </td>
                 </tr>
                 <tr>
@@ -507,22 +494,22 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">原因</td>
+                    <td colspan="3">原因</td>
                     <td colspan="5">
-                        <input type="text" name="anReason" style="width: 100%"/>
+                        <input type="text" name="anReason" style="width: 100%;height: 90%"/>
                     </td>
                     <td colspan="2">机构及科室</td>
-                    <td colspan="5">
-                        <input type="text" name="anOrgan" style="width: 100%"/>
+                    <td colspan="4">
+                        <input type="text" name="anOrgan" style="width: 100%;height: 90%"/>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">下次随访日期</td>
-                    <td colspan="4">
-                        <input type="text" class="easyui-datebox" name="anfoFotime" style="width: 190px"/>
+                    <td colspan="5">
+                        <input type="text" class="easyui-datebox" name="anfoFotime" style="width: 200px"/>
                     </td>
                     <td colspan="2">随访医生签名</td>
-                    <td colspan="5">
+                    <td colspan="4">
                         <select name="anfoDoctor" class="easyui-combobox" panelHeight="auto" style="width:200px" >
                             <a th:each="doctor:${session.doctor}" >
                                 <option   th:value="${doctor.id}" ><span th:text="${doctor.lastname }"></span></option>

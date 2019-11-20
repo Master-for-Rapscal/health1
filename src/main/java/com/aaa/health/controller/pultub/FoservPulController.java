@@ -45,7 +45,6 @@ public class FoservPulController {
     public Map<String, Object> findUserId(Integer pultubfoId) {
         Map<String, Object> pul = new HashMap<String, Object>();
         pul.put("finduser", foservPulService.findUserId(pultubfoId));// 页面加载数据使用
-        System.out.println(foservPulService.findUserId(pultubfoId));
         return pul;
     }
     @RequestMapping(value = "/add", method = RequestMethod.POST)

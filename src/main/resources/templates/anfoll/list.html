@@ -411,7 +411,8 @@
                     $.messager.alert('信息提示','修改成功！','info');
                     $('#editanf').dialog('close');
                     $('#data-datagrid').datagrid('reload');
-                    $("#dataAll").datagrid('getSelections').length = 0;
+                    //$("#dataAll").datagrid('getSelections').length = 0;
+                    //item.length=0;
                     $("#data-datagrid").datagrid('getSelections').length = 0;
                 }else{
                     $.messager.alert('信息提示',data.msg,'warning');
@@ -438,6 +439,8 @@
                 iconCls: 'icon-cancel',
                 handler: function () {
                     $('#editanf').dialog('close');
+                    //item.length=0;
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 }
             }],
             onBeforeOpen: function () {
@@ -446,30 +449,7 @@
                     type: 'post',
                     dataType: 'json',
                     success: function (data) {
-                        //$("#disfopId").val(data.InfDisease[0].disfopId);
-                        //$("#disfopId").val(data.InfDisease[0].disfopId);
                         $("#anfoform").form('load', data.antefolls);
-                        //$("input[name='disfopId']").val(data.InfDisease[0].disfopId);
-                        /*$("#recordName").val(data.InfDisease[0].recordName);
-                        $("#userSex").val(data.InfDisease[0].userSex);
-                        $("#userBirthday").datebox('setValue',data.InfDisease[0].userBirthday);
-                        $("#userGam").val(data.InfDisease[0].userGam);
-                        $("#userCareer").val(data.InfDisease[0].userCareer);
-                        $("#userMyphone").val(data.InfDisease[0].userMyphone);
-                        $("#recordAdress").val(data.InfDisease[0].recordAdress);
-                        $("#disfopTime ").datebox('setValue',data.InfDisease[0].disfopTime);
-                        $("#disfopMode").combobox('setValue',data.InfDisease[0].disfopMode);
-                        $("#disfopQuarantine ").combobox('setValue',data.InfDisease[0].disfopQuarantine);
-                        $("input[name='disfopSymptom']").val(data.InfDisease[0].disfopSymptom);
-                        $("#firstVisit").datebox('setValue',data.InfDisease[0].firstVisit);
-                        $("#attackCate ").combobox('setValue',data.InfDisease[0].attackCate);
-                        $("#disfopSituation").combobox('setValue',data.InfDisease[0].disfopSituation);
-                        $("#disfopRemarks ").val(data.InfDisease[0].disfopRemarks);
-                        $("#disfopDisinfect").val(data.InfDisease[0].disfopDisinfect);
-                        $("#disfopMedicine ").val(data.InfDisease[0].disfopMedicine);
-                        $("#disfopRecovery").val(data.InfDisease[0].disfopRecovery);
-                        $("#nextfoTime ").datebox('setValue',data.InfDisease[0].nextfoTime);
-                        $("#disfopDoctor").combobox('setValue',data.InfDisease[0].disfopDoctor);*/
                     }
 
                 });

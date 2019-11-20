@@ -49,7 +49,6 @@ public class DisfollowUpController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> delete(String ids) {
-        System.out.println(ids);
         Map<String, String> ret = new HashMap<String, String>();
         if (StringUtils.isEmpty(ids)) {
             ret.put("type", "error");
@@ -73,7 +72,6 @@ public class DisfollowUpController {
     public Map<String, Object> findUserId(Integer infdisId) {
         Map<String, Object> fd = new HashMap<String, Object>();
         fd.put("finduser", disfollowUpService.findUserId(infdisId));// 页面加载数据使用
-        System.out.println(disfollowUpService.findUserId(infdisId));
         return fd;
     }
     @RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -100,7 +98,6 @@ public class DisfollowUpController {
     public Map<String, Object> findById(Integer disfopId) {
         Map<String, Object> ret = new HashMap<String, Object>();
         ret.put("InfDisease", disfollowUpService.findById(disfopId));// 页面加载数据使用
-        System.out.println(ret);
         return ret;
     }
     /**
@@ -113,7 +110,6 @@ public class DisfollowUpController {
     @ResponseBody
     public Map<String, String> update(DisfollowUp disfollowUp) {
         Map<String, String> ret = new HashMap<String, String>();
-        int b=disfollowUpService.update(disfollowUp);
         if (disfollowUpService.update(disfollowUp) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "信息修改失败，请联系管理员！");

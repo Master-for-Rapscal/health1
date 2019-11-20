@@ -41,7 +41,7 @@ public class EmerGenciesController {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-        System.out.println("登录的值是"+areaId);
+        //System.out.println("登录的值是"+areaId);
         queryMap.put("areaId",areaId);
         queryMap.put("emgPeople",emgPeople);
         queryMap.put("beginTime",beginTime);
@@ -50,7 +50,6 @@ public class EmerGenciesController {
         queryMap.put("endTimet",endTimet);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
-        System.out.println(emerGenciesService.findList(queryMap));
         ret.put("rows", emerGenciesService.findList(queryMap));// 页面加载数据使用
         ret.put("total", emerGenciesService.getTotal(queryMap));// 分页使用
         return ret;
@@ -100,8 +99,6 @@ public class EmerGenciesController {
     @RequestMapping(value = "/findById", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> findById(Integer emgId) {
-        System.out.println(emgId);
-        System.out.println(emerGenciesService.findById(emgId));
         Map<String, Object> em = new HashMap<String, Object>();
         em.put("emg", emerGenciesService.findById(emgId));// 页面加载数据使用
         return em;

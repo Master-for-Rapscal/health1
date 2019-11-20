@@ -9,7 +9,7 @@
 
     <select id="findAnfoll" parameterType="Map" resultType="com.aaa.health.entity.anfoll.AnteFollow">
         select * from antenatalFollowup a join userinfo u on a.userId=u.userId where u.userId=#{userId}
-        /*and a.anfoState=0
+     /*   and a.anfoState=0
         and u.userSex=2
         and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=18
         and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )&lt;50*/
@@ -49,7 +49,7 @@ aBloodpreh=#{aBloodpreh},anfoHeart=#{anfoHeart},anfoLungs=#{anfoLungs},aninVulva
 anPlatelet=#{anPlatelet},anCellother=#{anCellother},anUrprotein=#{anUrprotein},anUrsugar=#{anUrsugar},anKetone=#{anKetone},anBlood=#{anBlood},anUrother=#{anUrother},anABO=#{anABO},anRH=#{anRH},anbloodSugar=#{anbloodSugar},anEnzymeo=#{anEnzymeo},anEnzymet=#{anEnzymet},
 anAlbumin=#{anAlbumin},anTotalbil=#{anTotalbil},anConbil=#{anConbil},anSerum=#{anSerum},anUrean=#{anUrean},anSecretion=#{anSecretion},anClean=#{anClean},anAntigen=#{anAntigen},anAntibody=#{anAntibody},anAntigenE=#{anAntigenE},anAntibodyE=#{anAntibodyE},
 anAntibodycenter=#{anAntibodycenter},anExperiment=#{anExperiment},anHIV=#{anHIV},anB=#{anB},anOther=#{anOther},totalAssess=#{totalAssess},healthGuidance=#{healthGuidance},anWhether=#{anWhether},anReason=#{anReason},anOrgan=#{anOrgan},anfoFotime=#{anfoFotime},
-anfoDoctor=#{anfoDoctor},anfoState=#{anfoState},anfoStatetime=#{anfoStatetime},anfoStateReason=#{anfoStateReason}
+anfoDoctor=#{anfoDoctor}
 where anfoId=#{anfoId}
     </update>
 

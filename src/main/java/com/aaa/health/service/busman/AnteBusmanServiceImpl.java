@@ -36,4 +36,9 @@ public class AnteBusmanServiceImpl implements AnteBusmanService {
         return anteBusmanMapper.add(anteFollow);
     }
 
+    @Override
+    public int delete(String ids) {
+        return anteBusmanMapper.delete(ids);
+    }
+
 }

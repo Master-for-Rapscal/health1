@@ -3,14 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.womandis.RecordMapper">
+    <!--删除妇女普查登记信息-->
     <delete id="delete" parameterType="String">
         delete from womanDisease where wodisId in(${value})
     </delete>
 
 
-    <!-- 分页获取用户列表 -->
+    <!-- 分页查询妇女病普查登记表记录 -->
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.womandis.Record">
-        select wodisId,wodisbh,wodisMenage,wodisMencycle,wodisLoginregtime from womanDisease where userId=#{userId}
+        select wodisId,wodisbh,wodisMenage,wodisMencycle,wodisLoginregtime from womanDisease
+        where userId=#{userId}
+
     </select>
 
     <select id="getTotal" parameterType="Map" resultType="Integer">

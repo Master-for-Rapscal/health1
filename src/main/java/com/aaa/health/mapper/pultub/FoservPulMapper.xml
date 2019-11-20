@@ -21,14 +21,14 @@ foserHandleOpinion},#{foserNexttime},#{foserDoctor},#{stoptreatTime},#{stoptreat
 foserNum},#{foserActualNum},#{foserTmednum},#{foserActualTmednum},#{foserAssessDoctor})
     </insert>
 <update id="update" parameterType="com.aaa.health.entity.pultub.FoservPul">
-update foservpul set pultubfoId=pultubfoId,foserTime=foserTime,foserMonthsequence=foserMonthsequence,
-foserSupervisorStaff=foserSupervisorStaff,foserMode=foserMode,foserSypend=foserSypend,foserOther=foserOther,
-foserSmokpay=foserSmokpay,foserSmokday=foserSmokday,foserDrinkbi=foserDrinkbi,foserDrinkday=foserDrinkday,
-foserRegimen=foserRegimen,foserUsage=foserUsage,foserDosage=foserDosage,foserDosagenum=foserDosagenum,
-foserSideeffects=foserSideeffects,foserComplication=foserComplication,foserCategory=foserCategory,
-foserCause=foserCause,foserTwoweek=foserTwoweek,foserHandleOpinion=foserHandleOpinion,foserNexttime=foserNexttime,
-foserDoctor=foserDoctor,stoptreatTime=stoptreatTime,stoptreatReason=stoptreatReason,foserNum=foserNum,
-foserActualNum=foserActualNum,foserTmednum=foserTmednum,foserActualTmednum=foserActualTmednum,foserAssessDoctor=foserAssessDoctor
+update foservpul set pultubfoId=#{pultubfoId},foserTime=#{foserTime},foserMonthsequence=#{foserMonthsequence},
+foserSupervisorStaff=#{foserSupervisorStaff},foserMode=#{foserMode},foserSypend=#{foserSypend},foserOther=#{foserOther},
+foserSmokpay=#{foserSmokpay},foserSmokday=#{foserSmokday},foserDrinkbi=#{foserDrinkbi},foserDrinkday=#{foserDrinkday},
+foserRegimen=#{foserRegimen},foserUsage=#{foserUsage},foserDosage=#{foserDosage},foserDosagenum=#{foserDosagenum},
+foserSideeffects=#{foserSideeffects},foserComplication=#{foserComplication},foserCategory=#{foserCategory},
+foserCause=#{foserCause},foserTwoweek=#{foserTwoweek},foserHandleOpinion=#{foserHandleOpinion},foserNexttime=#{foserNexttime},
+foserDoctor=#{foserDoctor},stoptreatTime=#{stoptreatTime},stoptreatReason=#{stoptreatReason},foserNum=#{foserNum},
+foserActualNum=#{foserActualNum},foserTmednum=#{foserTmednum},foserActualTmednum=#{foserActualTmednum},foserAssessDoctor=#{foserAssessDoctor}
     where foserId=#{foserId}
 </update>
     <select id="findId" parameterType="Map" resultType="com.aaa.health.entity.pultub.FoservPul">

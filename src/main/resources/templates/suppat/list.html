@@ -53,6 +53,32 @@
         $("#addsupp").dialog('close');
     }
 
+   /* $("#endTime").datebox({
+        validator:function(date){
+            var now = new Date();
+            var d1 = new Date(now.getFullYear(),now.getMonth(),now.getDate());
+            if($('#endTime').datebox()<d1){
+             return false;
+            }else{
+                return true;
+            }
+            /!*判断date和当前时间new Date()的先后
+            如果date晚于当前时间,return false;
+            否则return true*!/
+        }
+    });*/
+    /*$("#searchBegDate").datebox({
+        onSelect : function(beginDate){
+            $('#searchEndDate').datebox().datebox('calendar').calendar({
+                validator: function(date){
+                    var now = new Date();
+                    var d1 = new Date(now.getFullYear(),now.getMonth(),now.getDate());
+                    return beginDate <= date && d1 >= date;
+                }
+            });
+        }
+    });*/
+
 
     /**
      *  添加记录
