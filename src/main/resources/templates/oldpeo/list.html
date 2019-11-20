@@ -31,16 +31,16 @@
 <!-- Begin of easyui-dialog -->
 
 <div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-saqvess'"
-     style="width:600px; padding:10px;">
+     style="width:700px; padding:10px;">
     <!-- 查询个人档案-->
-    <table id="data-ins" class="easyui-datagrid" style="width: 550px; margin: auto; height: 500px;"></table>
+    <table id="data-ins" class="easyui-datagrid" style="width: 700px; margin: auto; height:600px; "></table>
 </div>
 
 
 <div id="sele" class="easyui-dialog" data-options="closed:true,iconCls:'icon-saqveqwss'"
-     style="width:600px; margin: auto;  height:450px;padding:10px;">
+     style="width:680px; margin: auto;padding:10px;">
     <!-- 查询个人随访-->
-    <table id="sele-ins" class="easyui-datagrid" style="width:600px; height:400px;"></table>
+    <table id="sele-ins" class="easyui-datagrid" style="width:680px; height:600px;"></table>
 </div>
 <!--<div id="editArr" class="easyui-dialog" style="width: 740px;height: 600px; padding:10px;">
     <div th:replace="common/oldarrange :: oldsuifang"></div>
@@ -98,7 +98,7 @@
         $("#oldcloseDate.easyui-datebox").datebox({disabled: true});
         $("#oldcloseDate").datebox('clear');
         $("#oldcloseRea").attr({disabled: 'true'});
-        /*    $("#form").form("clear");*/
+        $("#oldcloseRea").val("");
     }
 
     $('#oldcloseDate').datebox({
@@ -438,9 +438,6 @@
                     data: "uid=" + gxy,
                     dataType: 'json',
                     success: function (data) {
-
-                        /*      $('#queryForm').form('load',data.datainfo);*/
-                        /*   alert(data.recordMedical);*/
                         $("input[name='recordMedical']").val(data.recordMedical);
                         $("input[name='userId']").val(data.userId);
                         $("input[name='recordName']").val(data.recordName);
@@ -448,8 +445,6 @@
                         $("input[name='userBirthday']").val(data.userBirthday);
                         $("input[name='userMyphone']").val(data.userMyphone);
                         $("input[name='recordAdress']").val(data.recordAdress);
-
-
                         var sex = "未知";
                         var hunyin = "未说明婚姻情况";
                         if (data.userSex == 1) {
@@ -467,15 +462,12 @@
                             hunyin = "离婚";
                         } else if (data.userGam == 0) {
                             hunyin = "未婚";
+                            $("input[name='userSex']").val(sex);
+                            $("input[name='userGam']").val(hunyin);
+
                         }
-/*alert(data.userGam);*/
-                        $("input[name='userSex']").val(sex);
-                        $("input[name='userGam']").val(hunyin);
-
                     }
-
-                });
-                $.ajax({
+                });         $.ajax({
                     type: "post",
                     url: "queryDoctor",
                     dataType: "json",
@@ -490,8 +482,10 @@
                     }
                 });
 
+
             }
-        });
+
+        })
     }
 
 
@@ -640,7 +634,6 @@
         var Famihis = [];
         var Dm = data[0][dmsmName];
         alert(Dm);
-        alert("000")
         array.push(Dm.substring(0, Dm.length - 1));
         Famihis = $("input[name=" + [dmsmName] + "");
         $(Famihis).each(function () {

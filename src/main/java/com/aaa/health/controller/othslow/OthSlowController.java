@@ -98,7 +98,6 @@ public class OthSlowController {
     @RequestMapping( "/queryEdit")
     @ResponseBody
     public Object queryEdit(Integer othslowId){
-        System.out.println("aaa"+othSlowService.queryEdit(othslowId));
         return othSlowService.queryEdit(othslowId);
     }
 
@@ -144,7 +143,8 @@ public class OthSlowController {
 
     @RequestMapping(value = "/upState", method = RequestMethod.POST)
     @ResponseBody
-    public Object  upState(Othslow othslow) {
+    public Object  upState(int othslowId,Othslow othslow) {
+        othslow.setOthslowId(othslowId);
         Map<String,Object> map=new HashMap<String,Object>();
         int ret=othSlowService.upState(othslow);
         return ret;

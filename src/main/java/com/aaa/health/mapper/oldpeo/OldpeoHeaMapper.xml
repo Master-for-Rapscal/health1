@@ -5,8 +5,8 @@
 <mapper namespace="com.aaa.health.mapper.oldpeo.OldpeoHeaMapper">
 
     <select id="findList" parameterType="Map" resultType="map">
-        SELECT * from healthcheck h, userinfo u ,oldpeo o where 1=1 and o.recordId=u.userId and h.userinfoId=o.recordId
-        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
+        SELECT * from healthcheck h, userinfo u ,oldpeo o , user us where 1=1 and o.recordId=u.userId and h.userinfoId=o.recordId
+        and h.healthcheckDoctor=us.Id and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
         <if test="userinfoId != null">
         and userinfoId = #{userinfoId}
         </if>
@@ -16,8 +16,8 @@
     </select>
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
-        SELECT count(*) from healthcheck h, userinfo u ,oldpeo o where 1=1 and o.recordId=u.userId and h.userinfoId=o.recordId
-        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
+        SELECT count(* )from healthcheck h, userinfo u ,oldpeo o , user us where 1=1 and o.recordId=u.userId and h.userinfoId=o.recordId
+        and h.healthcheckDoctor=us.Id and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
         <if test="userinfoId != null">
             and userinfoId = #{userinfoId}
         </if>

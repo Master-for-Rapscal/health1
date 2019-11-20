@@ -219,6 +219,10 @@
 
     // 开始添加
     function goAdd() {
+        if($("#dmsmcardBmi").val() == null || $("#dmsmcardBmi").val() == ''){
+            $.messager.alert('信息提示','请填写身高体重','error');
+            return;
+        }
         // 验证
         var validate = $("#form1").form("validate");
         if (!validate) {
@@ -256,8 +260,6 @@
      * Name 修改记录
      */
     function edit() {
-
-
         var jddate= $("#jiandangdate").datetimebox('getValue');
 
         //alert(jddate);
@@ -265,7 +267,11 @@
             $.messager.alert('信息提示','请填写建卡日期！','info');
             return;
         }
-
+        //
+        // if($("#dmsmcardBmi").val() == null || $("#dmsmcardBmi").val() == ''){
+        //     $.messager.alert('信息提示','请填写身高体重','error');
+        //     return;
+        // }
 
         var Dmsmdata = $("#form1").serialize();
         var uid = $("#userId").val();
@@ -412,6 +418,7 @@
             return;
         }
         item = item[0].userId;
+        $("#dmsmcardBmi").val('0');
         updateDmsm(item);
     }
 
@@ -475,29 +482,6 @@
             data: "uid=" + eid,
             dataType: "json",
             success: function (data) {
-                // checkDb(data,"dmsmcardFamihis");
-                // checkDb(data,"dmsmcardCurrsymp");
-                // addZhi(data,"dmsmcardSmoking");
-                // addZhi(data,"dmsmcardConunit");
-                // addZhi(data,"dmsmcardAccidate");
-                // addZhi(data,"dmsmcardCondate");
-                // addZhi(data,"dmsmcardDrinking");
-                // addZhi(data,"dmsmcardExercise");
-                // addZhi(data,"dmsmcardExetime");
-                // addZhi(data,"dmsmcardHeight");
-                // addZhi(data,"dmsmcardWeight");
-                // addZhi(data,"dmsmcardBp1");
-                // addZhi(data,"dmsmcardBp2");
-                // addZhi(data,"dmsmcardHazards");
-                // addZhi(data,"dmsmcardFbg");
-                // addZhi(data,"dmsmcardHpg");
-                // addZhi(data,"dmsmcardRbg");
-                // addZhi(data,"dmsmcardHbalc");
-                // addZhi(data,"dmsmcardJkcard");
-                // addSelect(data,"dmsmcardDiatype");
-                // addSelect(data,"dmsmcardSources");
-                // addSelect(data,"dmsmcardAdminid");
-                // addSelect(data,"dmsmcardDoctor");
                 $("#form1").form('load', data[0]);
                 $("#insHy").dialog({
                     title : "糖尿病专项卡修改",
@@ -513,7 +497,13 @@
                         handler: goBack
                     }]
                 });
-                BmiVal();
+                if($("#Height").val() == null || $("#Height").val() == '' || $("#Weight").val() == null || $("#Weight").val() == ''){
+                    $("#dmsmcardBmi").val(0);
+                }else{
+                    BmiVal();
+                }
+
+
 
             }
 

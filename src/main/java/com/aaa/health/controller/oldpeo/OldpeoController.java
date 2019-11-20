@@ -26,7 +26,7 @@ public class OldpeoController {
     @Autowired
     private OldPeopleService oldPeopleService;
     @InitBinder
-    protected void initBinder(WebDataBinder binder) {
+    protected void initBinder(WebDataBinder binder) {   //格式化时间
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
@@ -159,6 +159,7 @@ public class OldpeoController {
     public Object addSuif(Integer oldpeoId, Oldarrange oldarrange){
         oldarrange.setOldpeoId(oldpeoId);
         Map<String,Object> map=new HashMap<String,Object>();
+
         int num=oldPeopleService.addSui(oldarrange);
         return num;
     }
@@ -172,7 +173,7 @@ public class OldpeoController {
 
     @RequestMapping( "/queryId")
     @ResponseBody
-    public Object queryId( ){
+    public Object queryId(){
         return oldPeopleService.queryId();
     }
     @RequestMapping(value = "/update", method = RequestMethod.POST)

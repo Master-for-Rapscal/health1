@@ -51,7 +51,7 @@
 </div>-->
 <div id="upState" class="easyui-dialog" data-options="closed:true,iconCls:'icon-sav12e'" style="width:300px; padding:10px; margin: auto">
     <form id="edit-form" method="post" >
-        <input type="hidden" name="othslowId" id="othslowId">
+   <!--     <input type="hidden" name="othslowId" id="othslowId">-->
         <table>
             <tr>
                 <td>是否转归：</td>
@@ -63,11 +63,6 @@
                 <td>转归日期：</td>
                 <td><input id="othslowOutdate"  class="easyui-datebox" style="width: 150px;border: 1px solid;" name="othslowOutdate" /> </td>
             </tr>
-            <script>
-                $('#othslowOutdate').datebox({
-                    required:true
-                });
-            </script>
 
             <tr>
                 <td>转归原因：</td>
@@ -97,7 +92,7 @@
         $("#othslowOutdate.easyui-datebox").datebox({ disabled: true});
         $("#othslowOutdate").datebox('clear');
         $("#othslowOutfor").attr({ disabled: 'true' });
-        /*    $("#form").form("clear");*/
+        $("#othslowOutfor").val("");
     }
 
     $('#othslowOutdate').datebox({
@@ -165,14 +160,16 @@
             url:'upState',
             dataType:'json',
             type:'post',
-            data: date,
+            data:"othslowId=" + sss + "&" + date,
             success:function(data){
                 if(data>0){
                     $.messager.alert('信息提示','修改成功！','info');
                     $('#upState').dialog('close');
                     $('#data-datagrid').datagrid('reload');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 }else{
                     $.messager.alert('信息提示',data.msg,'warning');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 }
             }
         });

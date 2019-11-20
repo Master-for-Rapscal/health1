@@ -362,20 +362,7 @@
                             {field: 'healthcheckDate', title: '体检日期', width: 100,formatter:function(value,row,index){
                                     return format(value);
                                 }},
-                            {field: 'healthcheckDoctor', title: '责任医生', width: 100, formatter: function (value, row, index) {
-                                    switch (value) {
-                                        case 4: {
-                                            return '曾子墨';
-                                        }
-                                        case 2: {
-                                            return '金峰';
-                                        }
-                                        case 3: {
-                                            return '张承天';
-                                        }
-                                    }
-                                    return value;
-                                }},
+                            {field: 'lastname', title: '责任医生', width: 100},
                         ]]});
                 }
 

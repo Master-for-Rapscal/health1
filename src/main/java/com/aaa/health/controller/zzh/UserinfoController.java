@@ -68,6 +68,7 @@ public class UserinfoController {
         @RequestParam(name = "userId", required = false)  Long userId,
         @RequestParam(name = "recordName", required = false, defaultValue = "")  String recordName,
         @RequestParam(name = "userIdnumber", required = false, defaultValue = "")  String userIdnumber,
+        @RequestParam(name = "userMyphone", required = false, defaultValue = "")  String userMyphone,
         @RequestParam(name = "recordUnit", required = false, defaultValue = "-1")  int recordUnit,
         @RequestParam(name = "recordPlaceadress", required = false, defaultValue = "")  String recordPlaceadress,
         @RequestParam(name = "userSex", required = false, defaultValue = "-1")  Integer userSex
@@ -77,6 +78,7 @@ public class UserinfoController {
         queryMap.put("userId",userId);
         queryMap.put("recordName",recordName);
         queryMap.put("userIdnumber",userIdnumber);
+        queryMap.put("userMyphone",userMyphone);
         int areaid = Integer.parseInt((String)request.getSession().getAttribute("areaId"));
         if (recordUnit==-1){//代表不是待条件查询/首次登录
             if (areaid==410000){areaid=-1; }
@@ -90,6 +92,7 @@ public class UserinfoController {
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", userinfoService.findList(queryMap));
         ret.put("total", userinfoService.getTotal(queryMap));
+        System.out.println(ret);
         return ret;
     }
     /**
@@ -101,6 +104,7 @@ public class UserinfoController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> add(Userinfo userinfo) {
+
         Map<String, String> ret = new HashMap<String, String>();
         if (userinfo == null) {
             ret.put("type", "error");

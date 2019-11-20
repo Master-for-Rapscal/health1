@@ -30,7 +30,7 @@ public class HostServiceImpl implements HostService {
     }
 
     @Override
-    public Integer addUserNPI(Map map) {
-        return hostMapper.addUserNPI(map);
+    public List<Map<String, Object>> queryDoctorByName(String lastname) {
+        return hostMapper.queryDoctorByName(lastname);
     }
 }

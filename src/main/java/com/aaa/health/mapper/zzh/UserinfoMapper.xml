@@ -19,6 +19,9 @@
         <if test="userIdnumber != null">
             and userIdnumber like '%${userIdnumber}%'
         </if>
+        <if test="userMyphone != null">
+            and userMyphone like '%${userMyphone}%'
+        </if>
         <if test="userSex != -1">
             and userSex = #{userSex}
         </if>
@@ -43,11 +46,11 @@
         <if test="userIdnumber != null">
             and userIdnumber like '%${userIdnumber}%'
         </if>
+        <if test="userMyphone != null">
+            and userMyphone like '%${userMyphone}%'
+        </if>
         <if test="userSex != -1">
             and userSex = #{userSex}
-        </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
         </if>
     </select>
     <!-- 删除用户 -->

@@ -70,6 +70,7 @@ public class OldpeoZiLiController {
     public Object queryById( Integer uid){
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("uid",uid);
+
         return oldSelfService.queryUserById(uid);
     }
 
@@ -80,6 +81,16 @@ public class OldpeoZiLiController {
 
         Map<String,Object> map=new HashMap<String,Object>();
         int num=oldSelfService.add(oldself);
+/*        if (oldself == null) {
+            map.put("type", "error");
+            map.put("msg", "信息添加不全，请仔细审查您添加的数据！");
+            return map;
+        }*/
+/*        if(num>0){
+            map.put("success","添加成功");
+        }else{
+            map.put("error","添加失败");
+        }*/
         return num;
     }
     @RequestMapping(value = "/del", method = RequestMethod.POST)
@@ -111,8 +122,11 @@ public class OldpeoZiLiController {
     @RequestMapping(value = "/updateold", method = RequestMethod.POST)
     @ResponseBody
     public Object  edit(Oldself oldself) {
+
         Map<String,Object> map=new HashMap<String,Object>();
+
         int ret=oldSelfService.edit(oldself);
+
         return ret;
     }
 

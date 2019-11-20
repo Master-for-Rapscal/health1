@@ -26,18 +26,7 @@ userBlood},#{userFather},#{userNather},#{userBirthdy},#{userSon},#{userHeredity}
         where u.recordName=#{recordName} and u.userIdnumber=#{userIdnumber}
     </select>
 
-    <insert id="addUserNPI" parameterType="Map">
-insert into userinfo(
-recordName,recordUnit,
-recordAdress,recordPostalcode,
-recordPlaceadress,recordData,
-recordResident,recordBookbuilding,
-userIdnumber,userMyphone)
-VALUES(
-#{recordName},#{recordUnit},
-#{recordAdress},#{recordPostalcode},
-#{recordPlaceadress},#{recordData},
-#{recordResident},#{recordBookbuilding},
-#{userIdnumber},#{userMyphone})
-    </insert>
+    <select id="queryDoctorByName" resultType="Map" parameterType="String">
+        select * from `user` WHERE lastname=#{lastname}
+    </select>
 </mapper>

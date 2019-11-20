@@ -1,7 +1,4 @@
 package com.aaa.health.controller.oldpeo;
-
-
-
 import com.aaa.health.entity.zzh.Healthcheck;
 import com.aaa.health.page.admin.Page;
 import com.aaa.health.service.oldpeo.OldpeoHeaService;
@@ -119,8 +116,6 @@ public class OldpeoHealthController {
             ret.put("msg", "后台获取用户信息失败！");
             return ret;
         }
-
-
         Healthcheck data1=oldpeoHeaService.findById(id);
         ret.put("datainfo",data1);
         ret.put("type", "success");

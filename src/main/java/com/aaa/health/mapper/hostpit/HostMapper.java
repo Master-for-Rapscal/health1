@@ -15,7 +15,6 @@ public interface HostMapper {
     Integer addUserInfo(Userinfo userinfo);
     //根据用户的姓名和身份证号进行查询
     List<Healthcheck> queryCheck(Map<String,Object> map);
-
-    //添加用户名字 电话 身份证号
-    Integer addUserNPI(Map map);
+    //根据医生姓名来查询医生信息
+    List<Map<String,Object>> queryDoctorByName(String lastname);
 }

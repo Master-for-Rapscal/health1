@@ -3,6 +3,7 @@ package com.aaa.health.controller.oldpeo;
 import com.aaa.health.entity.oldpeo.Oldself;
 import com.aaa.health.entity.oldpeo.Oldtcm;
 import com.aaa.health.page.admin.Page;
+import com.aaa.health.service.hostpit.HostService;
 import com.aaa.health.service.oldpeo.OldtcmService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -21,6 +23,9 @@ import java.util.Map;
 public class OldpeoZhongYiController {
     @Autowired
     private OldtcmService oldtcmService;
+    @Autowired
+    private HostService hostService;
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String zy(){
         return "oldpeozhongyi/list";
@@ -70,12 +75,14 @@ public class OldpeoZhongYiController {
     public Object queryById( Integer uid){
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("uid",uid);
+
         return oldtcmService.queryUserById(uid);
     }
 
     @RequestMapping( "/add")
     @ResponseBody
     public Object add(Integer uid, Oldtcm oldtcm){
+
         Map<String,Object> map=new HashMap<String,Object>();
         int num=oldtcmService.add(oldtcm);
         return num;
@@ -112,12 +119,16 @@ public class OldpeoZhongYiController {
     @ResponseBody
     public Object  edit(Oldtcm oldtcm) {
         Map<String,Object> map=new HashMap<String,Object>();
+
         int ret=oldtcmService.edit(oldtcm);
         return ret;
     }
     @RequestMapping("/queryDoctor")
     @ResponseBody
     public Object queryDoctor(){
+
+
+
         return oldtcmService.queryDoctor();
     }
 
