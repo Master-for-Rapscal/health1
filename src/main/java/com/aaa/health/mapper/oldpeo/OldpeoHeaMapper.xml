@@ -21,9 +21,7 @@
         <if test="userinfoId != null">
             and userinfoId = #{userinfoId}
         </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
+
     </select>
 
     <!-- 删除用户 -->

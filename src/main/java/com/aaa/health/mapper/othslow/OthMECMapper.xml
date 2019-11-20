@@ -59,9 +59,7 @@
         <if test="userIdnumber != null and userIdnumber != ''">
             AND u.userIdnumber LIKE '%${userIdnumber}%'
         </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
+
     </select>
 
 
@@ -84,9 +82,7 @@
         <if test="userinfoId != null">
             and userinfoId = #{userinfoId}
         </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
+
     </select>
     <!-- 删除用户 -->
     <delete id="delete" parameterType="com.aaa.health.entity.zzh.Healthcheck">

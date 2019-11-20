@@ -78,9 +78,7 @@ select * from othslowName
         <if test="areaId != 410000">
             and a.areaId=#{areaId}
         </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
+
     </select>
     <select id="findList" parameterType="Map" resultType="map">
         select * from othslow o,userinfo u,othslowName ot,area a
@@ -151,11 +149,6 @@ select * from othslowName
         <if test="othslowOutdate != null and othslowOutdate != ''">
             AND othslowOutdate LIKE '%${othslowOutdate}%'
         </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
-
-
 
     </select>
     <select id="queryUserById" parameterType="Integer" resultType="Map">
