@@ -5,6 +5,7 @@ import com.aaa.health.entity.hyper.HyPerTend;
 import com.aaa.health.entity.tangniaon.Tang;
 import com.aaa.health.page.admin.Page;
 import com.aaa.health.service.admin.AreaService;
+import com.aaa.health.service.hostpit.HostService;
 import com.aaa.health.service.hyper.HyPerService;
 import com.aaa.health.service.tangniaon.TangService;
 import org.apache.commons.lang.StringUtils;
@@ -34,6 +35,8 @@ public class HyPerController {
     private TangService tangService;
     @Autowired
     private AreaService areaService;
+    @Autowired
+    private HostService hostService;
     @InitBinder
     protected  void  init(WebDataBinder binder){
         SimpleDateFormat dataFormate=new SimpleDateFormat("yyyy-MM-dd");
@@ -185,8 +188,9 @@ public class HyPerController {
     }
 
 @RequestMapping("/Test")
-    public String ge(){
-        return "common/Test";
+    public String ge(Model model){
+        model.addAttribute("diqu",hostService.queryArea());
+        return "ECharts/echarts";
 }
 
     @RequestMapping("querySuiById")

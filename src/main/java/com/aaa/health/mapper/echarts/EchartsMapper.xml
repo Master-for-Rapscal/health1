@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.health.mapper.echarts.EchartsMapper">
+
+    <!--&#45;&#45; 高血压-->
+    <!--select COUNT(*) num,area.areaName from hypertension hy join userinfo u on hy.recordId=u.userId-->
+    <!--JOIN area ON area.areaId=u.recordUnit WHERE u.recordUnit=410000-->
+
+    <select id="queryGao" parameterType="Integer" resultType="Integer">
+        select COUNT(*) num from hypertension hy join userinfo u on hy.recordId=u.userId
+        JOIN area ON area.areaId=u.recordUnit WHERE u.recordUnit=#{recordUnit}
+    </select>
+
+    <select id="queryTang" parameterType="Integer" resultType="Integer">
+        <!--&#45;&#45; 糖尿病-->
+        select COUNT(*) num,area.areaName from dmsmcard hy join userinfo u on hy.recordId=u.userId
+        JOIN area ON area.areaId=u.recordUnit WHERE u.recordUnit=#{recordUnit}
+    </select>
+
+    <select id="queryMan" parameterType="Integer" resultType="Integer">
+        <!--&#45;&#45; 其他慢性病-->
+        select COUNT(*) num,area.areaName from othslow hy join userinfo u on hy.recordId=u.userId
+        JOIN area ON area.areaId=u.recordUnit WHERE u.recordUnit=#{recordUnit}
+    </select>
+
+    <select id="queryJing" parameterType="Integer" resultType="Integer">
+        <!--&#45;&#45; 精神病-->
+        select COUNT(*) num,area.areaName from followInsanityrecords  hy join userinfo u on hy.followNumber=u.userId
+        JOIN area ON area.areaId=u.recordUnit WHERE u.recordUnit=#{recordUnit}
+    </select>
+
+</mapper>

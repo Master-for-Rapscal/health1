@@ -1,10 +1,18 @@
 package com.aaa.health.controller.common;
 
 
+import com.aaa.health.entity.admin.SysUser;
 import com.aaa.health.entity.zzh.Healthcheck;
 import com.aaa.health.entity.zzh.Userinfo;
+import com.aaa.health.service.anfoll.AnteFollowService;
+import com.aaa.health.service.busman.AnteBusmanService;
 import com.aaa.health.service.hostpit.HostService;
+import com.aaa.health.service.hyper.HyPerService;
+import com.aaa.health.service.mental.MetalService;
+import com.aaa.health.service.othslow.OthMECService;
+import com.aaa.health.service.othslow.OthTNFService;
 import com.aaa.health.service.tangniaon.TangService;
+import com.aaa.health.service.womandis.WomanDiseaseService;
 import com.aaa.health.service.zzh.UserinfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -35,8 +43,20 @@ public class OutController {
     private HostService hostService;
     @Autowired
     private TangService tangService;
-
-
+    @Autowired
+    private HyPerService hyPerService;
+    @Autowired
+    private OthMECService othMECService;
+    @Autowired
+    private OthTNFService othTNFService;
+    @Autowired
+    private MetalService metalService;
+    @Autowired
+    private WomanDiseaseService womanDiseaseService;
+    @Autowired
+    private AnteBusmanService anteBusmanService;
+    @Autowired
+    private AnteFollowService anteFollowService;
     @CrossOrigin(value="*")
     @RequestMapping(value = "/findUser", method = RequestMethod.GET)
     @ResponseBody
@@ -72,13 +92,74 @@ public class OutController {
         return ret;
     }
 
+    @CrossOrigin(value="*")
+    @RequestMapping(value = "/findUser2", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getList2( HttpServletRequest request,
+                                        @RequestParam(name = "userId", required = false)  Long userId,
+                                        @RequestParam(name = "recordName", required = false, defaultValue = "")  String recordName,
+                                        @RequestParam(name = "userIdnumber", required = false, defaultValue = "")  String userIdnumber,
+                                        @RequestParam(name = "recordUnit", required = false, defaultValue = "-1")  int recordUnit,
+                                        @RequestParam(name = "recordPlaceadress", required = false, defaultValue = "")  String recordPlaceadress,
+                                        @RequestParam(name = "userSex", required = false, defaultValue = "-1")  Integer userSex
+    ) {
+//       System.out.println("编号"+userId+"-姓名"+recordName+"-身份证"+userIdnumber+"-所属单位"+recordUnit+"-常住地址"+recordPlaceadress+"-性别"+userSex+"-");
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa"+userId);
+
+        Map<String, Object> ret = new HashMap<String, Object>();
+        Map<String, Object> queryMap = new HashMap<String, Object>();
+        queryMap.put("userId",userId);
+        List<Userinfo> u = userinfoService.findList(queryMap);
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa"+u.size());
+        //糖尿病
+        queryMap.put("recordUnit",-1);
+        int tangniao  =  tangService.queryTotal(queryMap);
+        //高血压
+        queryMap.put("recordUnit",-1);
+        int gaoxue = hyPerService.queryHyTotal(queryMap);
+        //肿瘤
+        queryMap.put("areaId",410000);
+        queryMap.put("recordUnit",410000);
+        int zhongliu = othTNFService.getTotal(queryMap);
+        //慢性病
+        queryMap.put("areaId",410000);
+        queryMap.put("recordUnit",410000);
+        int manxing =  othMECService.getTotal(queryMap);
+        //重症精神病
+        queryMap.put("areaId",410000);
+        queryMap.put("recordUnit",410000);
+        int jingshen = metalService.getTotal(queryMap);
+        //妇科
+        //河南孕产妇建卡
+        queryMap.put("recordUnit",410000);
+        queryMap.put("areaId",410000);
+        int yunchan = anteFollowService.getTotal(queryMap);
+        //河南业务管理
+        queryMap.put("areaId",410000);
+        queryMap.put("recordUnit",410000);
+        int yewu = womanDiseaseService.getTotal(queryMap);
+        //妇女病
+        queryMap.put("recordUnit",410000);
+        queryMap.put("areaId",410000);
+        int funv = anteBusmanService.getTotal(queryMap);
+
+        ret.put("tangniao", tangniao);
+        ret.put("gaoxue", gaoxue);
+        ret.put("zhongliu", zhongliu);
+        ret.put("manxing", manxing);
+        ret.put("jingshen", jingshen);
+        ret.put("yunchan", yunchan);
+        ret.put("yewu", yewu);
+        ret.put("funv", funv);
+        return ret;
+    }
+
+
     @CrossOrigin(value = "*")//
     @RequestMapping(value = "/queryArea", method = RequestMethod.POST)
     @ResponseBody
     public Object queryArea(){
-      //  System.out.println("aaaaaa");
         List<Map<String,Object>> list =  hostService.queryArea();
-//        System.out.println("查询的医生表"+list);
         return list;
     }
 
@@ -124,15 +205,14 @@ public class OutController {
         int num=list.size();
         return list.get(num-1);
     }
+
+
     @CrossOrigin(value = "*")
     @RequestMapping(value = "queryIDnumberTotal", method = RequestMethod.POST)
     @ResponseBody
     public Object queryIdNumberTotal(String userIdnumber){
         Integer num = userinfoService.queryIDnumberTotal(userIdnumber);
-        if(num>0){
-            return false;
-        }
-        return true;
+        return num <= 0;
     }
 
     @CrossOrigin(value = "*")
