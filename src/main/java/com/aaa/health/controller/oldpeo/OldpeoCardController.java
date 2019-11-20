@@ -34,10 +34,6 @@ public class OldpeoCardController {
         Map<String, Object> queryMap = new HashMap<String, Object>();
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
         queryMap.put("recordUnit",areaId);
-/*     String diqu="河南";
-           if(areaId==410000){
-            queryMap.put("areaName",diqu);
-        }*/
         queryMap.put("areaId",areaId);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());

@@ -3,6 +3,7 @@ package com.aaa.health.controller.oldpeo;
 import com.aaa.health.entity.oldpeo.Oldself;
 import com.aaa.health.entity.oldpeo.Oldtcm;
 import com.aaa.health.page.admin.Page;
+import com.aaa.health.service.hostpit.HostService;
 import com.aaa.health.service.oldpeo.OldtcmService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -21,6 +23,9 @@ import java.util.Map;
 public class OldpeoZhongYiController {
     @Autowired
     private OldtcmService oldtcmService;
+    @Autowired
+    private HostService hostService;
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String zy(){
         return "oldpeozhongyi/list";
@@ -126,6 +131,9 @@ public class OldpeoZhongYiController {
     @RequestMapping("/queryDoctor")
     @ResponseBody
     public Object queryDoctor(){
+
+
+
         return oldtcmService.queryDoctor();
     }
 
@@ -135,9 +143,7 @@ public class OldpeoZhongYiController {
     public Object queryDoctor2( HttpServletRequest request){
         Map<String, Object> queryMap = new HashMap<String, Object>();
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-        System.out.println("登录的用户值是"+areaId);
         queryMap.put("areaId",areaId);
-
         return oldtcmService.queryDoctor2(queryMap);
     }
 

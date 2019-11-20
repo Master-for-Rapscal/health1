@@ -54,7 +54,6 @@ public class OldpeoHealthController {
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         queryMap.put("userinfoId", userinfoId);
-           System.out.println( "ssssss"+oldpeoHeaService.findList(queryMap));
         ret.put("rows", oldpeoHeaService.findList(queryMap));
         ret.put("total", oldpeoHeaService.getTotal(queryMap));
         return ret;
@@ -118,9 +117,6 @@ public class OldpeoHealthController {
             ret.put("msg", "后台获取用户信息失败！");
             return ret;
         }
-
-//        System.out.println(id);
-//        System.out.println(healthcheckService.findById(id));
         Healthcheck data1=oldpeoHeaService.findById(id);
         ret.put("datainfo",data1);
         ret.put("type", "success");

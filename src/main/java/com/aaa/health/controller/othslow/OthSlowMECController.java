@@ -57,9 +57,6 @@ public class OthSlowMECController {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-  /*      System.out.println("登录的用户值是"+areaId);*/
- /*       queryMap.put("areaId",areaId);*/
-   /*     model.addAttribute("doctor",oldtcmService.queryDoctor2(queryMap));*/
         queryMap.put("areaId",areaId);
         queryMap.put("userId",bianhao);
         queryMap.put("recordName",ming);

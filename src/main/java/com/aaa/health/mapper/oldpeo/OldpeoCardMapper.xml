@@ -66,7 +66,8 @@
     <!-- 获取符合结果的总记录数 -->
     <select id="getTotal" parameterType="Map" resultType="Integer">
         select count(*) from(
-        SELECT   <if test="recordUnit == 410000">
+        SELECT
+        <if test="recordUnit == 410000">
         '河南' 地区
     </if>
         <if test="recordUnit != 410000">

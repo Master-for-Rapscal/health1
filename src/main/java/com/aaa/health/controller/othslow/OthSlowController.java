@@ -157,7 +157,8 @@ public class OthSlowController {
 
     @RequestMapping(value = "/upState", method = RequestMethod.POST)
     @ResponseBody
-    public Object  upState(Othslow othslow) {
+    public Object  upState(int othslowId,Othslow othslow) {
+        othslow.setOthslowId(othslowId);
         Map<String,Object> map=new HashMap<String,Object>();
 /*                System.out.println(othslow);*/
         int ret=othSlowService.upState(othslow);

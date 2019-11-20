@@ -114,6 +114,7 @@ public class UserinfoController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> add(Userinfo userinfo) {
+
         Map<String, String> ret = new HashMap<String, String>();
         if (userinfo == null) {
             ret.put("type", "error");
@@ -128,6 +129,7 @@ public class UserinfoController {
         }
         ret.put("type", "success");
         ret.put("msg", "用户添加成功！");
+        System.out.println("aaaaaaaaaaaaaa"+userinfo);
         return ret;
     }
 
