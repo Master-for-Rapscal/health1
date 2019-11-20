@@ -26,7 +26,7 @@
         </if>
     </select>
     <!-- 删除用户 -->
-    <delete id="delete" parameterType="Healthcheck">
+    <delete id="delete" parameterType="String">
         delete from healthcheck where healthcheckId in(${value})
     </delete>
 

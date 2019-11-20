@@ -194,16 +194,17 @@ public class OutController {
     @CrossOrigin(value = "*")
     @RequestMapping(value = "/queryCheck", method = RequestMethod.POST)
     @ResponseBody//根据用户名  身份证号查询用户体检情况
-    public Object queryCheck(String username,String IDnumber){
+    public Object queryCheck( String id,
+            @RequestParam(name = "date", required = false, defaultValue = "")  Date date){
 //        String username="王宇飞";
 //        String IDnumber="411082194612252245
-        System.out.println(username+"------------------------"+IDnumber);
+        System.out.println("------------------------"+id);
         Map<String,Object> map=new HashMap<String,Object>();
-        map.put("recordName",username);
-        map.put("userIdnumber",IDnumber);
+        map.put("userId",id);
+        map.put("healthcheckDate",date);
         List<Healthcheck> list = hostService.queryCheck(map);
         int num=list.size();
-        return list.get(num-1);
+        return list;
     }
 
 

@@ -140,15 +140,17 @@
     function remove() {
         $.messager.confirm('信息提示', '确定要删除该记录？', function (result) {
             if (result) {
-                var item = $('#data-datagrid').datagrid('getSelections');
+                var item = $('#healcheckdata-datagrid').datagrid('getSelections');
+                console.log(item.length);
                 if (item == null || item.length == 0) {
                     $.messager.alert('信息提示', '请选择要删除的数据！', 'info');
                     return;
                 }
                 var ids = '';
                 for (var i = 0; i < item.length; i++) {
-                    ids += item[i].userId + ',';
+                    ids += item[i].healthcheckId + ',';
                 }
+                console.log(ids);
                 $.ajax({
                     url: 'delete',
                     dataType: 'json',
@@ -157,7 +159,7 @@
                     success: function (data) {
                         if (data.type == 'success') {
                             $.messager.alert('信息提示', '删除成功！', 'info');
-                            $('#data-datagrid').datagrid('reload');
+                            $('#healcheckdata-datagrid').datagrid('reload');
                         } else {
                             $.messager.alert('信息提示', data.msg, 'warning');
                         }
