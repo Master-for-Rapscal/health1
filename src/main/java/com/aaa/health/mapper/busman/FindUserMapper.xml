@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.health.mapper.busman.FindUserMapper">
+    <!--查询表中未添加过的健康档案-->
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.pultub.Puserinfo">
         select *,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(userBirthday))/365) userAge from userinfo
         where 1 = 1
@@ -15,12 +16,6 @@
         </if>
         <if test="recordName != null and recordName !=''">
             and recordName like '%${recordName}%'
-        </if>
-        <if test="beginTime != null">
-            and userBirthday  >= #{beginTime}
-        </if>
-        <if test="endTime != null">
-            and   #{endTime} >= userBirthday
         </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
@@ -39,68 +34,9 @@
         <if test="recordName != null and recordName !=''">
             and recordName like '%${recordName}%'
         </if>
-        <if test="beginTime != null">
-            and userBirthday  >= #{beginTime}
-        </if>
-        <if test="endTime != null">
-            and   #{endTime} >= userBirthday
-        </if>
     </select>
-<!--查询表中未添加过的健康档案-->
-   <!-- <select id="findUserById" parameterType="Map" resultType="com.aaa.health.entity.pultub.Puserinfo">
-        select u.*,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(u.userBirthday))/365) userAge from userinfo u
-        join area a on u.recordUnit=a.areaId
-        where 1 = 1
-        and u.userId not in (select userId from antenatalFollowup)
-        <if test="areaId == 410000">
-            and 1=1
-        </if>
-        <if test="areaId != 410000">
-            and a.areaId=#{areaId}
-        </if>
-        <if test="userId != null and userId !=''">
-            and u.userId like '%${userId}%'
-        </if>
-        <if test="recordName != null and recordName !=''">
-            and u.recordName like '%${recordName}%'
-        </if>
-        <if test="beginTime != null">
-            and u.userBirthday  >= #{beginTime}
-        </if>
-        <if test="endTime != null">
-            and   #{endTime} >= u.userBirthday
-        </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
-    </select>
-    &lt;!&ndash; 获取符合结果的总记录数 &ndash;&gt;
-    <select id="getUserById" parameterType="Map" resultType="Integer">
-        select count(*) from userinfo u
-        join area a on u.recordUnit=a.areaId
-        where 1 = 1
-        and u.userId not in (select userId from antenatalFollowup)
-        <if test="areaId == 410000">
-            and 1=1
-        </if>
-        <if test="areaId != 410000">
-            and a.areaId=#{areaId}
-        </if>
-        <if test="userId != null and userId !=''">
-            and u.userId like '%${userId}%'
-        </if>
-        <if test="recordName != null and recordName !=''">
-            and u.recordName like '%${recordName}%'
-        </if>
-        <if test="beginTime != null">
-            and u.userBirthday  >= #{beginTime}
-        </if>
-        <if test="endTime != null">
-            and   #{endTime} >= u.userBirthday
-        </if>
-    </select>-->
     <!--根据健康档案号查询用户信息-->
     <select id="findUserId" parameterType="Integer" resultType="Map">
-        select * from userinfo where userId=#{userId}
+        select u.*,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(u.userBirthday))/365) userAge from userinfo u where u.userId=#{userId}
     </select>
 </mapper>

@@ -21,15 +21,11 @@ public class FindUserController {
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getList(Page page,@RequestParam(name = "userId", required = false, defaultValue = "") Integer userId,
-                                       @RequestParam(name = "recordName", required = false, defaultValue = "") String recordName,
-                                       @RequestParam(name = "beginTime", required = false, defaultValue = "") Date beginTime,
-                                       @RequestParam(name = "endTime", required = false, defaultValue = "") Date endTime) {
+                                       @RequestParam(name = "recordName", required = false, defaultValue = "") String recordName) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("userId",userId);
         queryMap.put("recordName",recordName);
-        queryMap.put("beginTime",beginTime);
-        queryMap.put("endTime",endTime);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", findUserService.findList(queryMap));// 页面加载数据使用
@@ -40,6 +36,8 @@ public class FindUserController {
     @RequestMapping( "/findUserId")
     @ResponseBody
     public Object findUserId(Integer userId){
+        System.out.println(userId);
+        System.out.println(findUserService.findUserId(userId));
         return findUserService.findUserId(userId);
     }
     @InitBinder

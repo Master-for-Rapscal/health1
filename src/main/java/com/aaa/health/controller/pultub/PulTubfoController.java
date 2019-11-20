@@ -5,6 +5,7 @@ import com.aaa.health.entity.indis.InfDisease;
 import com.aaa.health.entity.pultub.PulTubfo;
 import com.aaa.health.page.admin.Page;
 import com.aaa.health.service.emerg.EmerGenciesService;
+import com.aaa.health.service.indis.InfDiseaseService;
 import com.aaa.health.service.pultub.PulTubfoService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +29,13 @@ public class PulTubfoController {
     private PulTubfoService pulTubfoService;
     @Autowired
     private EmerGenciesService emerGenciesService;
+    @Autowired
+    private InfDiseaseService infDiseaseService;
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
+    public String list(Model model, HttpServletRequest request) {
         List<Area> list=emerGenciesService.findArea();
         model.addAttribute("list",list);
+        request.getSession().setAttribute("doctor",infDiseaseService.queryDoctor());
         return "pultub/list";
     }
 
@@ -48,7 +52,6 @@ public class PulTubfoController {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-        System.out.println("登录的值是"+areaId);
         queryMap.put("areaId",areaId);
         queryMap.put("userId",userId);
         queryMap.put("recordName",recordName);
@@ -87,7 +90,6 @@ public class PulTubfoController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> add(PulTubfo pulTubfo) {
-        System.out.println(pulTubfo);
         Map<String, String> ret = new HashMap<String, String>();
         if (pulTubfo == null) {
             ret.put("type", "error");
@@ -101,7 +103,6 @@ public class PulTubfoController {
         }
         ret.put("type", "success");
         ret.put("msg", "添加失败！");
-        System.out.println(ret);
         return ret;
     }
 

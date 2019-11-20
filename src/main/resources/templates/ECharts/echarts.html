@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts-en.common.js"></script>
+    <script type="text/javascript" src="/admin/easyui/js/jquery-1.8.0.min.js"></script>
+</head>
+<body>
+<!--<a  href="" iconCls="icon-search" onclick="" class="easyui-linkbutton"   plain="true" >查询</a>-->
+
+<ul class="flex nav_menu_ul">
+    <li class="flex_item more_item">
+        <a href="#" class="menu_item more_item_a">请选择区域要查询的区域</a>
+        <div class="menu_hidden">
+            <div class="flex menu_hidden_wrapper">
+                <div class="flex_item hidden_in1">
+                    <!--<div class="areas" style="width: 800px; display: block;">-->
+                    <form id="ar">
+                        <span th:each="dq:${diqu}"><input type="checkbox" name="area" class="checkbox" th:value="${dq.areaId}" width="140px"/><label>[[${dq.areaName}]]</label></span>
+
+                    </form>
+                    <!--</div>-->
+
+                    <input type="button" onclick="getdate()" class="button" value="开始统计"/>
+                </div>
+
+            </div>
+        </div>
+    </li>
+</ul>
+
+
+
+<div id="main"  style="width: 900px;height:400px;margin: auto;margin-top: 5%"></div>
+
+
+
+
+</body>
+</html>
+<style>
+
+    #main{
+        box-shadow: 3px 6px 9px #9a9a9a;
+
+    }
+    .button{
+        position: absolute;
+        bottom: 15%;
+        left: 30%;
+        width: 40%;
+        border-radius: 10px;
+        border: 0px;
+        background: #CCCCCC;
+        color: black;
+        box-shadow: 1px 2px 3px #9a9a9a;
+    }
+    .button:hover{
+        box-shadow: 3px 6px 9px #9a9a9a;
+    }
+    .nav_menu_ul{
+        width: 100%;
+        text-align: center;
+    }
+    .menu_hidden {
+        position: absolute;
+        width: 80%;
+       padding: 2%;
+        /*background: ;*/
+        font-size: 14px;
+        /*background:*/
+        border-bottom: 3px solid #414141;
+        min-height: 320px;
+        background: #9a9a9a;
+        z-index: 9999;
+        left: 10%;
+        transition: all 0.5s ease-in-out;
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .nav_menu_ul li{
+        list-style: none;
+    }
+    .nav_menu_ul li a{
+        text-decoration: none;
+        font-size: 28px;
+    }
+
+    .checkbox{
+        /*zoom:80%;*/
+        width: 20px;
+        height: 20px;
+        /*font-size: 35px;*/
+    }
+    .nav_menu_ul li:hover .menu_hidden {/*菜单延迟出现*/
+        visibility: visible;
+        opacity: 1;
+    }
+
+</style>
+
+
+<script>
+
+    // $(function (event) {
+    //     if (event.keyCode  == 13) {
+    //         alert("1");
+    //         // getdate();
+    //     }
+    // });
+    
+    // document.onkeydown = function (e) { // 回车提交表单
+    //     // 兼容FF和IE和Opera
+    //     var theEvent = window.event || e;
+    //
+    // }
+    var myChart = echarts.init(document.getElementById('main'));
+    var ss=[];
+    $(function () {
+        var i=0;
+        $("input[name=area]").each(function() {
+            i++;
+            if(i<=6){$(this).prop("checked",true);ars();}
+        });
+        getdate();
+    });
+
+
+    // 给ss赋值
+    function ars(){
+        ss=[];
+        $("input[name=area]").each(function() {
+
+            if($(this).is(":checked")){ss.push($(this).next().html());}
+
+            if(ss.length==6){
+                $("input[name=area]").prop("disabled",true);
+                $("input[name=area]").each(function() {
+                    if($(this).prop("checked")==true){ $(this).prop("disabled",false); }
+                });
+            }else {
+                $("input[name=area]").prop("disabled",false);
+            }
+        });
+    }
+
+
+    $("input[name=area]").click(function () {   ars(); });
+
+
+
+
+function getdate() {
+if(ss.length!=6){ alert("一次性六个6个老铁！——请再选择“"+(6-ss.length)+"”个地区！")}
+
+        $.ajax({
+            type: "post",
+            url : "../echarts/queryarea",
+            data: $("#ar").serialize(),
+            dataType :"json",
+            success : function (data) {
+                var vds=[];
+                var tf=[];
+                tf.push("product");
+                for(var m=0;m<ss.length;m++){
+                    tf.push(ss[m]);
+                }
+               //vds.push(['product', '二七区', '上街区', '川汇区', '卧龙区', '惠济区', '金水区']);
+               vds.push(tf);
+                for(var i=0;i<data.length;i++){
+                    var ids=[];
+                    ids.push(data[i].bing);
+                    ids.push(data[i].one1);
+                    ids.push(data[i].one2);
+                    ids.push(data[i].one3);
+                    ids.push(data[i].one4);
+                    ids.push(data[i].one5);
+                    ids.push(data[i].one6);
+                    vds.push(ids);
+                }
+
+                // alert(data);
+                // for(var i=0;i<data.length;i++){
+                //     a.push(data[i]);
+                // }
+                // $.each(data,function (i,val) {
+                //     a.push(val);
+                // });
+                // alert(a);
+                // // for(var i=0;i<data.length;i++){
+                // //     var b=[];
+                // //     if(i == 0){
+                // //         for(var j=1;j<data[0].length;j++){
+                // //             data[i][j]="'"+data[i][j]+"'";
+                // //         }
+                // //     }
+                // //     data[i][0]="'"+data[i][0]+"'";
+                // //     b.push(data[i]);
+                // //     a.push(b);
+                // // }
+                option = {
+                    legend: {},
+                    tooltip: {
+                        trigger: 'axis',
+                        showContent: false
+                    },
+                    dataset: {
+                        source:
+
+                             // ['product', '二七区', '上街区', '川汇区', '卧龙区', '惠济区', '金水区'],
+                             // ['高血压', 41, 30, 65, 53, 83, 98],
+                             // ['糖尿病', 86, 92, 85, 83, 73, 55],
+                             // ['精神病', 24, 67, 79, 86, 65, 82],
+                             // ['其他慢性病', '55', '67', '69', '72', '53', '39'],
+                             vds
+
+                    },
+                    xAxis: {type: 'category'},
+//'value' 数值轴，适用于连续数据。
+//'category' 类目轴，适用于离散的类目数据，为该类型时必须通过 data 设置类目数据。
+//'time' 时间轴，适用于连续的时序数据，与数值轴相比时间轴带有时间的格式化，在刻度计算上也有所不同，例如会根据跨度的范围来决定使用月，星期，日还是小时范围的刻度。
+//'log' 对数轴。适用于对数数据。
+                    yAxis: {gridIndex: 0},
+                    grid: {top: '55%'},
+                    series: [
+                        {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                        {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                        {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                        {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                        {
+                            type: 'pie',
+                            id: 'pie',
+                            radius: '30%',
+                            center: ['50%', '25%'],
+                            label: {
+                                formatter: '{b}: {@2012} ({d}%)'
+                            },
+                            encode: {
+                                itemName: 'product',
+                                value: '2012',
+                                tooltip: '2012'
+                            }
+                        }
+                    ]
+                };
+
+                myChart.on('updateAxisPointer', function (event) {
+                    var xAxisInfo = event.axesInfo[0];
+                    if (xAxisInfo) {
+                        var dimension = xAxisInfo.value + 1;
+                        myChart.setOption({
+                            series: {
+                                id: 'pie',
+                                label: {
+                                    formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+                                },
+                                encode: {
+                                    value: dimension,
+                                    tooltip: dimension
+                                }
+                            }
+                        });
+                    }
+                });
+
+                myChart.setOption(option);
+            }
+        });
+    }
+
+
+
+</script>

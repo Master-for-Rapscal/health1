@@ -18,15 +18,8 @@ import java.util.Map;
 public class RecordController {
     @Autowired
     private RecordService recordService;
-
-
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list() {
-        return "womandis/list";
-    }
-
     /**
-     * 获取用户信息列表
+     * 分页查询妇女病普查登记表记录
      *
      */
     @RequestMapping(value = "/list", method = RequestMethod.POST)
@@ -43,7 +36,7 @@ public class RecordController {
     }
 
     /**
-     * 删除方法！
+     * 删除妇女普查登记信息
      *
      * @param ids
      * @return

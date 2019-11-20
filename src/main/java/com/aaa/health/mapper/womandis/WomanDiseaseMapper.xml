@@ -6,10 +6,7 @@
    <!-- <delete id="delete" parameterType="String">
         delete from userinfo where userId in(${value})
     </delete>-->
-<!--    <update id="">
-update userinfo set
-    </update>-->
-
+<!--妇女病普查管理，查询妇女个人信息-->
     <select id="findList" parameterType="Map" resultType="com.aaa.health.entity.womandis.WomanDisease">
         select u.userId,u.recordName,u.userIdnumber,FLOOR((TO_DAYS(SYSDATE())-TO_DAYS(u.userBirthday))/365) userAge,
         u.recordAdress,u.userMyphone,u.recordData,u.recordUnit,a.areaId from userinfo u join area a on u.recordUnit=a.areaId
@@ -41,7 +38,7 @@ update userinfo set
         </if>
     </select>
 
-
+    <!--添加妇女普查登记信息-->
     <insert id="add" parameterType="com.aaa.health.entity.womandis.WomanDisease">
 insert into womanDisease(userId,wodisbh,wodisMenage,wodisMencycle,wodisMentime,wodisMenamount,wodisMenapain,
 wodisAge,wodisBlood,mateAge,mateDystocia,mateTerm,mateGravidity,mateOutgravidity,matePredelivery,
@@ -62,6 +59,8 @@ ubodyLeft},#{ubodyLeremarks},#{ubodyRight},#{ubodyRiremarks},#{gbodyLeft},#{gbod
 woinRemarks},#{woinGlandular},#{woinGlandularTime},#{wodisHandlestate},#{wodisClotime},#{wodisCloreason},#{
 wodisOpinion},#{wodisProposal},#{wodisReview},#{wodisRevtime},CURDATE())
     </insert>
+
+    <!--修改妇女普查登记信息-->
     <update id="update" parameterType="com.aaa.health.entity.womandis.WomanDisease">
 update womanDisease set wodisbh=#{wodisbh},wodisMenage=#{wodisMenage},wodisMencycle=#{wodisMencycle},wodisMentime=#{wodisMentime},wodisMenamount=#{wodisMenamount},wodisMenapain=#{wodisMenapain},
 wodisAge=#{wodisAge},wodisBlood=#{wodisBlood},mateAge=#{mateAge},mateDystocia=#{mateDystocia},mateTerm=#{mateTerm},mateGravidity=#{mateGravidity},mateOutgravidity=#{mateOutgravidity},matePredelivery=#{matePredelivery},
@@ -103,6 +102,7 @@ where wodisId=#{wodisId}
             and   #{endTime} >= u.recordData
         </if>
     </select>
+    <!--根据id查询妇女普查登记信息-->
     <select id="findById" parameterType="Integer" resultType="Map">
      select * from womanDisease w join userinfo u on w.userId=u.userId where wodisId=#{wodisId}
     </select>

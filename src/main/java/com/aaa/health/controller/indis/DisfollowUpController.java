@@ -111,7 +111,6 @@ public class DisfollowUpController {
     @ResponseBody
     public Map<String, String> update(DisfollowUp disfollowUp) {
         Map<String, String> ret = new HashMap<String, String>();
-        int b=disfollowUpService.update(disfollowUp);
         if (disfollowUpService.update(disfollowUp) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "信息修改失败，请联系管理员！");

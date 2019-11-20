@@ -23,7 +23,6 @@
                     <h3>妇女病普查登记表</h3>
                 </caption>
                 <input type="text" name="userId" hidden>
-                <input type="text" name="wodisId" hidden>
                 <tr>
                     <td>姓名：</td>
                     <td colspan="2"><input type="text"  name="recordName" readonly></td>
@@ -59,6 +58,7 @@
 
 
         <form id="womanform" class="easyui-form" method="post" data-options="novalidate:true">
+            <input type="text" name="wodisId" hidden>
             编号：<input type="text" name="wodisbh"><br/>
             <table width="740" th:height="900" border="1" cellspacing="0" cellpadding="1">
                 <tr>

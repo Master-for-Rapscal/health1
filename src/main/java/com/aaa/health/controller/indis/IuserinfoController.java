@@ -23,18 +23,13 @@ public class IuserinfoController {
     @ResponseBody
     public Map<String, Object> getList(Page page, @RequestParam(name = "userId", required = false, defaultValue = "") Integer userId,
                                        @RequestParam(name = "recordName", required = false, defaultValue = "") String recordName,
-                                       @RequestParam(name = "beginTime", required = false, defaultValue = "") Date beginTime,
-                                       @RequestParam(name = "endTime", required = false, defaultValue = "") Date endTime,
                                        HttpServletRequest request) {
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         int areaId= Integer.parseInt((String)request.getSession().getAttribute("areaId"));
-        System.out.println("登录的值是"+areaId);
         queryMap.put("areaId",areaId);
         queryMap.put("userId",userId);
         queryMap.put("recordName",recordName);
-        queryMap.put("beginTime",beginTime);
-        queryMap.put("endTime",endTime);
         queryMap.put("offset", page.getOffset());
         queryMap.put("pageSize", page.getRows());
         ret.put("rows", iuserinfoService.findList(queryMap));// 页面加载数据使用

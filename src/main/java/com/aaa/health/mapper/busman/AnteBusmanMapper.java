@@ -14,4 +14,5 @@ public interface AnteBusmanMapper {
     int update(AnteFollow anteFollow);
     Map<String,Object> findById(Integer anfoId);
     int add(AnteFollow anteFollow);
+    int delete(String ids);
 }

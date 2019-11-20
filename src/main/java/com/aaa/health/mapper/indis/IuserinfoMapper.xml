@@ -20,12 +20,6 @@
         <if test="recordName != null and recordName !=''">
             and u.recordName like '%${recordName}%'
         </if>
-        <if test="beginTime != null">
-            and u.userBirthday  >= #{beginTime}
-        </if>
-        <if test="endTime != null">
-            and   #{endTime} >= u.userBirthday
-        </if>
         <if test="offset != null and pageSize != null">
             limit #{offset},#{pageSize}
         </if>
@@ -49,12 +43,6 @@
         </if>
         <if test="recordName != null and recordName !=''">
             and u.recordName like '%${recordName}%'
-        </if>
-        <if test="beginTime != null">
-            and u.userBirthday  >= #{beginTime}
-        </if>
-        <if test="endTime != null">
-            and   #{endTime} >= u.userBirthday
         </if>
     </select>
 </mapper>

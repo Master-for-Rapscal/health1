@@ -10,13 +10,14 @@ public class AnteFollow {
             anteAbortion,antePeoabort,anteStbirth,anteStbir,anteBirthdie,anteBirthdefect,aBloodpreq,
             aBloodpreh,aninVulva,aninVagina,aninCervical,aninBody,anclosure,anHemoglobin,anPlatelet,
             anUrprotein,anUrsugar,anKetone,anBlood,anABO,anRH,anClean,anAntigen,anAntibody,anAntigenE,
-            anAntibodyE,anAntibodycenter,anExperiment,anHIV,anWhether;
+            anAntibodyE,anAntibodycenter,anExperiment,anHIV,anWhether,anfoMenage,anfoJcycle,
+            anfoMencycle,anfoMenamount,anfoMenamountcolor,anfoMenapain,anABOzf;
     private Date fillformTime,anfoLastmenage,anfoPretime,anfoFotime,userBirthday,recordData,anfoStatetime,chbirTime;
     private BigDecimal anfoWeight,anfoConstitution,anWhitecell,anbloodSugar,anEnzymeo,anEnzymet,anAlbumin,
             anTotalbil,anConbil,anSerum,anUrean;
     private String healthGuidance,anfoColumn,recordName,recordAdress,userMyphone,anfoName,anfoPhone,anfoStateReason,
             anfoPast,anfoFamily,anfoPersonal,anCellother,anUrother,anSecretion,anB,anOther,anReason,
-            anOrgan;
+            anOrgan,anfoYc,anfoEarly;
 
     public Integer getAnWeek() {
         return anWeek;

@@ -6,8 +6,8 @@
 
 
     <select id="findList" parameterType="Map" resultType="map">
-        select * from othslow o,userinfo u,othslowName ot,area a where u.userId=o.recordId and u.recordUnit=a.areaId
-        and ot.othslowNameId=o.othslowNameId and ot.othslowNameState=0
+            select * from othslow o,userinfo u,othslowName ot,area a where u.userId=o.recordId and u.recordUnit=a.areaId
+            and ot.othslowNameId=o.othslowNameId and ot.othslowNameState=0
         <if test="areaId == 410000">
             and 1=1
         </if>
