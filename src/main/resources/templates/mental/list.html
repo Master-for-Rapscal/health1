@@ -817,13 +817,15 @@ function openAdd(){
                         text: '确定',
                         iconCls: 'icon-ok',
                         handler: add
-                    }, {
+                    }
+                    , {
                         text: '取消',
                         iconCls: 'icon-cancel',
                         handler: function () {
                             $('#add-dialog').dialog('close');
                         }
-                    }],
+                    }
+                    ],
                     onBeforeOpen:function(){
                         //$("#add-form input").val('');
                     }
@@ -881,13 +883,15 @@ function openAdd(){
             text: '确定',
             iconCls: 'icon-ok',
             handler: add
-        }, {
+        },
+           /* {
             text: '取消',
             iconCls: 'icon-cancel',
             handler: function () {
                 $('#add-dialog').dialog('close');
             }
-        }],
+        }*/
+        ],
         onBeforeOpen:function(){
             //$("#add-form input").val('');
         }
