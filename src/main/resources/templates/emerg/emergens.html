@@ -48,7 +48,7 @@
                         <input type="text" id="edit-emgPeople" data-options="required:true, missingMessage:'请填写报告人'"  name="emgPeople" style="width: 100%;height: 100%" /></td>
                     <td>联系电话</td>
                     <td colspan="2">
-                        <input type="text" id="edit-emgPhone"  data-options="required:true, missingMessage:'请填写联系电话'" name="emgPhone" style="width: 100%;height: 100%" />
+                        <input type="text" id="edit-emgPhone" maxlength="11" oninput="value=value.replace(/[^\d]/g,'')" data-options="required:true, missingMessage:'请填写联系电话'" name="emgPhone" style="width: 100%;height: 100%" />
                     </td>
                 </tr>
                 <tr>
@@ -90,7 +90,7 @@
                     </td>
                     <td>初步诊断时间</td>
                     <td colspan="2">
-                        <input type="text" id="edit-emgPrediaTime"  class="easyui-datebox" name="emgPrediaTime" style="width: 200px;"/>
+                        <input type="text" id="edit-emgPrediaTime" editable="fasle" class="easyui-datebox" name="emgPrediaTime" style="width: 200px;"/>
                     </td>
                 </tr>
                 <tr>
@@ -100,17 +100,17 @@
                     </td>
                     <td>订正诊断时间</td>
                     <td colspan="2">
-                        <input type="text" id="edit-emgRevdiaTime" class="easyui-datebox" name="emgRevdiaTime" style="width: 200px;"/>
+                        <input type="text" id="edit-emgRevdiaTime" editable="fasle" class="easyui-datebox" name="emgRevdiaTime" style="width: 200px;"/>
                     </td>
                 </tr>
                 <tr>
                     <td>确认分级时间</td>
                     <td colspan="2">
-                        <input type="text" id="edit-emgClassifyTime" class="easyui-datebox" name="emgClassifyTime" style="width: 200px;"/>
+                        <input type="text" id="edit-emgClassifyTime" editable="fasle" class="easyui-datebox" name="emgClassifyTime" style="width: 200px;"/>
                     </td>
                     <td>订正分级时间</td>
                     <td colspan="2">
-                        <input type="text" id="edit-emgRevclyTime" class="easyui-datebox" name="emgRevclyTime" style="width: 200px;"/>
+                        <input type="text" id="edit-emgRevclyTime" editable="fasle" class="easyui-datebox" name="emgRevclyTime" style="width: 200px;"/>
                     </td>
                 </tr>
                 <tr>
@@ -184,45 +184,45 @@
                 <tr>
                     <td>新报告病例数</td>
                     <td>
-                        <input type="text" name="emgCase" id="edit-emgCase" style="width: 100%;height: 100%"/>
+                        <input type="text" name="emgCase" oninput="value=value.replace(/[^\d]/g,'')" id="edit-emgCase" style="width: 100%;height: 100%"/>
                     </td>
                     <td>新报告死亡数</td>
                     <td>
-                        <input type="text" name="emgDie" id="edit-emgDie" style="width: 100%;height: 100%"/>
+                        <input type="text" name="emgDie" oninput="value=value.replace(/[^\d]/g,'')" id="edit-emgDie" style="width: 100%;height: 100%"/>
                     </td>
                     <td>排除病例数</td>
                     <td>
-                        <input type="text" name="emgRecase" id="edit-emgRecase" style="width: 100%;height: 100%" />
+                        <input type="text" name="emgRecase" oninput="value=value.replace(/[^\d]/g,'')" id="edit-emgRecase" style="width: 100%;height: 100%" />
                     </td>
                 </tr>
                 <tr>
                     <td>累计报告病例数</td>
                     <td colspan="2">
-                        <input type="text" name="emgCatotal" id="edit-emgCatotal" style="width: 100%;height: 100%"/>
+                        <input type="text" name="emgCatotal" oninput="value=value.replace(/[^\d]/g,'')" id="edit-emgCatotal" style="width: 100%;height: 100%"/>
                     </td>
                     <td>累计报告死亡数</td>
                     <td colspan="2">
-                        <input type="text" name="emgDietotal" id="edit-emgDietotal" style="width: 100%;height: 100%"/>
+                        <input type="text" name="emgDietotal" oninput="value=value.replace(/[^\d]/g,'')" id="edit-emgDietotal" style="width: 100%;height: 100%"/>
                     </td>
                 </tr>
                 <tr>
                     <td>事件发生时间</td>
                     <td colspan="2">
-                        <input type="text" class="easyui-datetimebox" id="edit-emgTimes" name="emgTimes" style="width: 200px;"/>
+                        <input type="text" class="easyui-datetimebox" editable="fasle" id="edit-emgTimes" name="emgTimes" style="width: 200px;"/>
                     </td>
                     <td>接到报告时间</td>
                     <td colspan="2">
-                        <input type="text" class="easyui-datetimebox" id="edit-emgReportTime" name="emgReportTime" style="width: 200px;"/>
+                        <input type="text" class="easyui-datetimebox" editable="fasle" id="edit-emgReportTime" name="emgReportTime" style="width: 200px;"/>
                     </td>
                 </tr>
                 <tr>
                     <td>首例病人发病时间</td>
                     <td colspan="2">
-                        <input type="text" class="easyui-datetimebox" id="edit-firstPatient" name="firstPatient" style="width: 200px;"/>
+                        <input type="text" class="easyui-datetimebox" editable="fasle" id="edit-firstPatient" name="firstPatient" style="width: 200px;"/>
                     </td>
                     <td>末例病人发病时间</td>
                     <td colspan="2">
-                        <input type="text" class="easyui-datetimebox" id="edit-lastPatient" name="lastPatient" style="width: 200px;"/>
+                        <input type="text" class="easyui-datetimebox" editable="fasle" id="edit-lastPatient" name="lastPatient" style="width: 200px;"/>
                     </td>
                 </tr>
                 <tr>

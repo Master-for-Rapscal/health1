@@ -12,7 +12,7 @@
         </div>
         <div class="wu-toolbar-search">
             <label> 健康卡号:</label>&nbsp;
-            <input name="userId" class="easyui-numberbox" maxlength="9" data-options="validType:'length[0,9]'"  style="width: 120px"/>&nbsp;&nbsp;
+            <input name="userId" class="easyui-numberbox" maxlength="11" oninput="value=value.replace(/[^\d]/g,'')"  style="width: 120px"/>&nbsp;&nbsp;
             <label> 姓名:</label>&nbsp;
             <input name="recordName" style="width: 100px"/>&nbsp;&nbsp;
             <label> 性别:</label>&nbsp;
@@ -58,9 +58,9 @@
 <!--健康档案-->
 <div id="userinfo-dialog" class="easyui-dialog" data-options="closed:true" style="width:800px;height: 700px">
     <!--按条件查询-->
-    <label> 健康档案号:</label><input name="userId" class="userId" maxlength="9" data-options="validType:'length[0,9]'"  style="width: 120px"/>
+    <label> 健康档案号:</label><input name="userId" class="userId" maxlength="11" oninput="value=value.replace(/[^\d]/g,'')"  style="width: 120px"/>
     <label> 姓名:</label><input name="recordName" class="recordName" style="width: 100px"/>
-    <label> 出生日期:</label><input type="text" class="easyui-datebox beginTime" editable="fasle" name="beginTime" style="width: 100px"/>至
+    <label> 出生日期:</label><input type="text" class="easyui-datebox beginTime"  name="beginTime" style="width: 100px"/>至
     <input type="text" class="easyui-datebox endTime"  name="endTime" style="width: 100px"/>
     <a href="#" id="userinfo-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
     <table id="userAll" class="easyui-datagrid" style="width: 750px;height: 600px" ></table>
@@ -629,7 +629,7 @@
             { field:'userPrivyPhone',title:'联系人电话',width:100,sortable:true},
             { field:'puljkTime',title:'建卡日期',width:100,sortable:true,formatter:function(value,row,index){
                     return format(value);}},
-            { field:'pulState',title:'管理状态',width:100,sortable:true,formatter(value,row,index){
+            /*{ field:'pulState',title:'管理状态',width:100,sortable:true,formatter(value,row,index){
                     switch(value){
                         case 0:{
                             return '左东恩';
@@ -642,7 +642,7 @@
                         }
                     }
                     return value;
-                }},
+                }},*/
             { field:'lastname',title:'责任医生',width:100,sortable:true}
         ]],
     onLoadSuccess:function(data){

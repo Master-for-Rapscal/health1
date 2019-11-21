@@ -170,7 +170,7 @@
                 }
             }],
             onBeforeOpen:function(){
-                //$("#supreform input").val('');
+
             }
         });
     }
@@ -298,18 +298,7 @@
             $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
         }
     });
-    /*function checkDb(data,dmsmName) {// 复选框分割选中
-        var array=[];
-        var Famihis=[];
-        var Dm=data[0][dmsmName];
-        array.push(Dm.substring(0,Dm.length-1));
-        Famihis=$("input[name="+[dmsmName]+"");
-        $(Famihis).each(function () {
-            for(var j=0;j<array.length;j++) {
-                $(this).attr("checked",$(this).val()==array[j]);
-            }
-        })
-    }*/
+
     $(function () {
         $("#supman-Search").click(function () {
             $("#data-datagrid").datagrid({

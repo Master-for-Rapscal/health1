@@ -10,26 +10,68 @@
         </if>
         <if test="recordUnit != 410000">
             a.areaName 地区
+        </if> ,
+        COUNT(*) 老年人总数,
+        (select count(*) from oldpeo o, healthcheck ch, area a, userinfo u
+        where o.recordId=ch.userinfoId and  o.recordId=u.userId and areaId=u.recordUnit
+        and <if test="recordUnit == 410000">
+             1=1
         </if>
-      ,  COUNT(*) 老年人总数,
-        (select COUNT(*) from  oldpeo o  JOIN healthcheck ch on o.recordId=ch.userinfoId) 老年人体检总次数 ,
-        (SELECT COUNT(*)
-        from oldpeo o JOIN healthcheck ch on o.recordId=ch.userinfoId where
-        ch.healthcheckAcpEcg != 0) 心电图体检次数,
-        (SELECT COUNT(*)
-        from oldpeo o JOIN healthcheck ch on o.recordId=ch.userinfoId where
+        <if test="recordUnit != 410000">
+            a.areaId=#{areaId}
+        </if>) 老年人体检总次数 ,
+        (select count(*) from oldpeo o, healthcheck ch, area a, userinfo u where o.recordId=ch.userinfoId
+        and  o.recordId=u.userId and areaId=u.recordUnit
+        and  <if test="recordUnit == 410000">
+         1=1
+    </if>
+        <if test="recordUnit != 410000">
+            a.areaId=#{areaId}
+        </if> and ch.healthcheckAcpEcg != 0) 心电图体检次数,
+        (select count(*) from oldpeo o, healthcheck ch, area a, userinfo u where o.recordId=ch.userinfoId
+        and  o.recordId=u.userId and areaId=u.recordUnit
+        and  <if test="recordUnit == 410000">
+         1=1
+    </if>
+        <if test="recordUnit != 410000">
+            a.areaId=#{areaId}
+        </if> and
         ch.healthcheckProblemaCered  != 0) 脑血管体检次数,
-        (SELECT COUNT(*)
-        from oldpeo o JOIN healthcheck ch on o.recordId=ch.userinfoId where
+        (select count(*) from oldpeo o, healthcheck ch, area a, userinfo u where o.recordId=ch.userinfoId
+        and  o.recordId=u.userId and areaId=u.recordUnit
+        and   <if test="recordUnit == 410000">
+         1=1
+    </if>
+        <if test="recordUnit != 410000">
+            a.areaId=#{areaId}
+        </if> and
         ch.healthcheckProblemaKidneyd   != 0) 肾脏体检次数,
-        (SELECT COUNT(*)
-        from oldpeo o JOIN healthcheck ch on o.recordId=ch.userinfoId where
+        (select count(*) from oldpeo o, healthcheck ch, area a, userinfo u where o.recordId=ch.userinfoId
+        and  o.recordId=u.userId and areaId=u.recordUnit
+        and   <if test="recordUnit == 410000">
+         1=1
+    </if>
+        <if test="recordUnit != 410000">
+            a.areaId=#{areaId}
+        </if> and
         ch.healthcheckProblemaHeartd  != 0) 心脏体检次数,
-        (SELECT COUNT(*)
-        from oldpeo o JOIN healthcheck ch on o.recordId=ch.userinfoId where
+        (select count(*) from oldpeo o, healthcheck ch, area a, userinfo u where o.recordId=ch.userinfoId
+        and  o.recordId=u.userId and areaId=u.recordUnit
+        and  <if test="recordUnit == 410000">
+         1=1
+    </if>
+        <if test="recordUnit != 410000">
+            a.areaId=#{areaId}
+        </if> and
         ch.healthcheckProblemaVarsculard != 0) 血管体检次数,
-        (SELECT COUNT(*)
-        from oldpeo o JOIN healthcheck ch on o.recordId=ch.userinfoId where
+        (select count(*) from oldpeo o, healthcheck ch, area a, userinfo u where o.recordId=ch.userinfoId
+        and  o.recordId=u.userId and areaId=u.recordUnit
+        and   <if test="recordUnit == 410000">
+         1=1
+    </if>
+        <if test="recordUnit != 410000">
+            a.areaId=#{areaId}
+        </if> and
         ch.healthcheckAcpBtypeultrasonic != 0) 腹部B超检查次数,
         (select count(*) from (select otc.* from oldtcm otc, oldpeo peo,userinfo u,area a
         where otc.oldpeoId=peo.oldpeoId and peo.recordId=u.userId
@@ -41,8 +83,9 @@
             and u.recordUnit=#{areaId}
         </if>
         ) ds) 中医药服务次数
-        from userinfo u Join area a on a.areaId=u.recordUnit where 1=1
-        and floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
+        from userinfo u Join area a on a.areaId=u.recordUnit
+        Join oldpeo op on op.recordId=u.userId
+        where 1=1
         <if test="areaId == 410000">
             and 1=1
         </if>
@@ -73,24 +116,66 @@
         <if test="recordUnit != 410000">
             a.areaName 地区
         </if>,  COUNT(*) 老年人总数,
-        (select COUNT(*) from  oldpeo o  JOIN healthcheck ch on o.recordId=ch.userinfoId) 老年人体检总次数 ,
-        (SELECT COUNT(*)
-        from oldpeo o JOIN healthcheck ch on o.recordId=ch.userinfoId where
-        ch.healthcheckAcpEcg != 0) 心电图体检次数,
-        (SELECT COUNT(*)
-        from oldpeo o JOIN healthcheck ch on o.recordId=ch.userinfoId where
+        (select count(*) from oldpeo o, healthcheck ch, area a, userinfo u
+        where o.recordId=ch.userinfoId and  o.recordId=u.userId and areaId=u.recordUnit
+        and <if test="recordUnit == 410000">
+        1=1
+    </if>
+        <if test="recordUnit != 410000">
+            a.areaId=#{areaId}
+        </if>) 老年人体检总次数 ,
+        (select count(*) from oldpeo o, healthcheck ch, area a, userinfo u where o.recordId=ch.userinfoId
+        and  o.recordId=u.userId and areaId=u.recordUnit
+        and  <if test="recordUnit == 410000">
+        1=1
+    </if>
+        <if test="recordUnit != 410000">
+            a.areaId=#{areaId}
+        </if> and ch.healthcheckAcpEcg != 0) 心电图体检次数,
+        (select count(*) from oldpeo o, healthcheck ch, area a, userinfo u where o.recordId=ch.userinfoId
+        and  o.recordId=u.userId and areaId=u.recordUnit
+        and  <if test="recordUnit == 410000">
+        1=1
+    </if>
+        <if test="recordUnit != 410000">
+            a.areaId=#{areaId}
+        </if> and
         ch.healthcheckProblemaCered  != 0) 脑血管体检次数,
-        (SELECT COUNT(*)
-        from oldpeo o JOIN healthcheck ch on o.recordId=ch.userinfoId where
+        (select count(*) from oldpeo o, healthcheck ch, area a, userinfo u where o.recordId=ch.userinfoId
+        and  o.recordId=u.userId and areaId=u.recordUnit
+        and   <if test="recordUnit == 410000">
+        1=1
+    </if>
+        <if test="recordUnit != 410000">
+            a.areaId=#{areaId}
+        </if> and
         ch.healthcheckProblemaKidneyd   != 0) 肾脏体检次数,
-        (SELECT COUNT(*)
-        from oldpeo o JOIN healthcheck ch on o.recordId=ch.userinfoId where
+        (select count(*) from oldpeo o, healthcheck ch, area a, userinfo u where o.recordId=ch.userinfoId
+        and  o.recordId=u.userId and areaId=u.recordUnit
+        and   <if test="recordUnit == 410000">
+        1=1
+    </if>
+        <if test="recordUnit != 410000">
+            a.areaId=#{areaId}
+        </if> and
         ch.healthcheckProblemaHeartd  != 0) 心脏体检次数,
-        (SELECT COUNT(*)
-        from oldpeo o JOIN healthcheck ch on o.recordId=ch.userinfoId where
+        (select count(*) from oldpeo o, healthcheck ch, area a, userinfo u where o.recordId=ch.userinfoId
+        and  o.recordId=u.userId and areaId=u.recordUnit
+        and  <if test="recordUnit == 410000">
+        1=1
+    </if>
+        <if test="recordUnit != 410000">
+            a.areaId=#{areaId}
+        </if> and
         ch.healthcheckProblemaVarsculard != 0) 血管体检次数,
-        (SELECT COUNT(*)
-        from oldpeo o JOIN healthcheck ch on o.recordId=ch.userinfoId where
+        (select count(*) from oldpeo o, healthcheck ch, area a, userinfo u where o.recordId=ch.userinfoId
+        and  o.recordId=u.userId and areaId=u.recordUnit
+        and   <if test="recordUnit == 410000">
+        1=1
+    </if>
+        <if test="recordUnit != 410000">
+            a.areaId=#{areaId}
+        </if> and
         ch.healthcheckAcpBtypeultrasonic != 0) 腹部B超检查次数,
         (select count(*) from (select otc.* from oldtcm otc, oldpeo peo,userinfo u,area a
         where otc.oldpeoId=peo.oldpeoId and peo.recordId=u.userId
@@ -102,8 +187,9 @@
             and u.recordUnit=#{areaId}
         </if>
         ) ds) 中医药服务次数
-        from userinfo u Join area a on a.areaId=u.recordUnit where
-        floor((TO_DAYS(SYSDATE()) - TO_DAYS(u.userBirthday))/365 )>=65
+        from userinfo u Join area a on a.areaId=u.recordUnit
+            Join oldpeo op on op.recordId=u.userId
+        where 1=1
         <if test="areaId == 410000">
             and 1=1
         </if>
@@ -121,9 +207,7 @@
         <if test="sex != null">
             and sex = #{sex}
         </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
+
     </select>
 
 </mapper>

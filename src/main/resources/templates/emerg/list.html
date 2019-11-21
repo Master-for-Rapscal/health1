@@ -12,9 +12,9 @@
         </div>
         <div class="wu-toolbar-search">
             <label> 报告人:</label><input name="emgPeople"/>
-            <label> 时间发生时间:</label><input type="text" class="easyui-datebox" editable="fasle" name="beginTime"/>至
+            <label> 事件发生时间:</label><input type="text" class="easyui-datebox" name="beginTime"/>至
             <input type="text" class="easyui-datebox"  name="endTime"/>
-            <label> 接到报告时间:</label><input type="text" class="easyui-datebox" editable="fasle" name="beginTimet"/>至
+            <label> 接到报告时间:</label><input type="text" class="easyui-datebox" name="beginTimet"/>至
             <input type="text" class="easyui-datebox"  name="endTimet"/>
             <a href="#" id="suppat-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
         </div>
@@ -32,17 +32,6 @@
     <div th:replace="emerg/emergens :: emerg"></div>
 </div>
 
-
-
-
-
-
-
-
-<div id="process-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-upload',title:'正在上传图片'" style="width:450px; padding:10px;">
-    <div id="p" class="easyui-progressbar" style="width:400px;" data-options="text:'正在上传中...'"></div>
-</div>
-<input type="file" id="photo-file" style="display:none;" onchange="upload()">
 <!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
 <div th:replace="common/footer :: myfooter"  ></div>
 
@@ -137,6 +126,7 @@
                         if(data.type == 'success'){
                             $.messager.alert('信息提示','删除成功！','info');
                             $('#data-datagrid').datagrid('reload');
+                            $("#data-datagrid").datagrid('getSelections').length = 0;
                         }else{
                             $.messager.alert('信息提示',data.msg,'warning');
                         }
@@ -279,18 +269,7 @@
             $('.authority-edit').linkbutton({text:'编辑权限',plain:true,iconCls:'icon-edit'});
         }
     });
-    /*function checkDb(data,dmsmName) {// 复选框分割选中
-        var array=[];
-        var Famihis=[];
-        var Dm=data[0][dmsmName];
-        array.push(Dm.substring(0,Dm.length-1));
-        Famihis=$("input[name="+[dmsmName]+"");
-        $(Famihis).each(function () {
-            for(var j=0;j<array.length;j++) {
-                $(this).attr("checked",$(this).val()==array[j]);
-            }
-        })
-    }*/
+
     $(function () {
         $("#suppat-Search").click(function () {
             $("#data-datagrid").datagrid({

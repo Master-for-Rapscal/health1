@@ -90,8 +90,8 @@ public class OthSlowController {
     //根据用户ID来查询
     @RequestMapping( "/queryById")
     @ResponseBody
-    public Object queryById(Integer uid){
-        return othSlowService.queryUserById(uid);
+    public Object queryById(Integer usera){
+        return othSlowService.queryUserById(usera);
     }
 
     //修改之前的查询ID来查询
@@ -104,8 +104,8 @@ public class OthSlowController {
  //添加
     @RequestMapping( "/add")
     @ResponseBody
-    public Object add(Integer uid, Othslow othslow){
-        othslow.setRecordId(uid);
+    public Object add(Integer addid, Othslow othslow){
+        othslow.setRecordId(addid);
         Map<String,Object> map=new HashMap<String,Object>();
         int num=othSlowService.add(othslow);
         return num;

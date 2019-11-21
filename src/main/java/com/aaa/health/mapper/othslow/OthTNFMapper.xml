@@ -60,9 +60,7 @@
         <if test="userIdnumber != null and userIdnumber != ''">
             AND u.userIdnumber LIKE '%${userIdnumber}%'
         </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
+
 
     </select>
     <select id="findList2" parameterType="Map" resultType="map">
@@ -80,13 +78,10 @@
     <select id="getTotal2" parameterType="Map" resultType="Integer">
         select count(*) from othslow o,healthcheck h,userinfo u,othslowName ot ,user us where u.userId=o.recordId and h.userinfoId=o.recordId
         and ot.othslowNameId=o.othslowNameId and ot.othslowNameState=1 and us.id=h.healthcheckDoctor
-
         <if test="userinfoId != null">
             and userinfoId = #{userinfoId}
         </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
+
     </select>
 
     <!-- 删除用户 -->

@@ -47,4 +47,14 @@ public class InfDiseaseServiceImpl implements InfDiseaseService {
     public int delete(String ids) {
         return infDiseaseMapper.delete(ids);
     }
+
+    @Override
+    public Map<String, Object> findComeId(Integer infdisId) {
+        return infDiseaseMapper.findComeId(infdisId);
+    }
+
+    @Override
+    public int update(InfDisease infDisease) {
+        return infDiseaseMapper.update(infDisease);
+    }
 }

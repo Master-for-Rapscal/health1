@@ -209,24 +209,45 @@ function goAdd() {
     if( !$("#add-form").form('validate')){
         return;
     }
-   // alert($("#dada").val());
-    var Dmsmdata=$("#add-form").serialize();
-    //alert(Dmsmdata);
     var uid= $("#userId").val();
+
     $.ajax({
-        type : "post",
-        url : "inserthy",
-        data : "uid="+uid+"&"+Dmsmdata,
-        dataType :"json",
+        type:"post",
+        url : "panduan",
+        data: "uid="+uid,
+        dataType : "json",
         success : function (data) {
-            if(data.msg == "success"){
+            alert(data);
+            if(data>0){
                 $.messager.alert('信息提示', '添加成功！', 'info');
-                  goBack();
+                goBack();
             }else{
-                $.messager.alert('信息提示', '添加失败，检查数据！', 'info');
+                var Dmsmdata=$("#add-form").serialize();
+                $.ajax({
+                    type : "post",
+                    url : "inserthy",
+                    data : "uid="+uid+"&"+Dmsmdata,
+                    dataType :"json",
+                    success : function (data) {
+                        if(data.msg == "success"){
+                            $.messager.alert('信息提示', '添加成功！', 'info');
+                            goBack();
+                        }else{
+                            $.messager.alert('信息提示', '添加失败，检查数据！', 'info');
+                        }
+                    }
+                });
             }
         }
     });
+
+
+
+
+
+
+
+
 }
 //关闭添加窗口
 function goBack() {
@@ -331,9 +352,10 @@ function goBack() {
                     striped: true,
                     singleSelect : true,
                     pagination:true,
-                    rownumbers:true,
                     pageSize:20,
+                    // rownumbers:true,
                     multiSort:true,
+                    pageNumber: 1,
                     idField:'userId',
                     onDblClickRow: function (index, row) {
                         add(row.userId);
@@ -381,6 +403,7 @@ function goBack() {
                 $("#xiu").css({display:"block"});
                 $('#add-form').form('clear');
                 fuzhi(item);
+                alert(item);
             $.ajax({
                 type : "post",
                 url : "queryHyById",
@@ -852,12 +875,17 @@ function xuangui() {
 }
 
 function zhuan() {
-    var v = $("#guiform").form("validate");
 
-    if(!v){
-        $.messager.alert('信息提示','请填写数据！','info');
+    if($("#zhuancause").val() == null || $("#zhuancause").val() == ''){
+        $.messager.alert('信息提示','请填写专转归原因！','info');
         return;
     }
+
+    if($("#zhuandate").val() == null || $("#zhuandate").val() == ''){
+        $.messager.alert('信息提示','请填写专转归日期！','info');
+        return;
+    }
+
     var item = $('#data-datagrid').datagrid('getSelections');
     item = item[0].userId;
 $.ajax({

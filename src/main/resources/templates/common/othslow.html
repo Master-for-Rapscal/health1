@@ -4,7 +4,7 @@
 <!-- th:fragment 定义需要引入的代码块，该div包含的内容即为引用的公共内容 -->
 
 <body>
-<div th:fragment="othslow" style="height:500px">
+<div th:fragment="othslow" >
     <div class="othslow">
         <style>
             input[type="text"] {
@@ -38,7 +38,7 @@
                     <td colspan="2"><input name="userId" style="width: 60%;border: none"  readonly type="text"></td>
                     <td><input value="姓名"readonly style="width: 40px;border: none" ></td>
                     <td colspan="2"><input name="recordName"style="width: 70%;border: none"  readonly  type="text"></td>
-                    <td><input value="性别" readonly style="width:40px;border: none" ></td>
+                    <td><input value="性别" readonly style="width:60px;border: none" ></td>
                     <td><input name="userSex" type="text"style="width:30px;border: none"  readonly ></td>
                     <td><input value="出生日期" readonly style="width: 80px;"></td>
                     <td colspan="2"><input name="userBirthday" style="width: 80%;border: none"  readonly type="text"></td>
@@ -46,9 +46,9 @@
                     <td colspan="2"><input name="" type="text"></td>-->
                 </tr>
                 <tr>
-                    <td>地区</td>
+                    <td><input value="地区" readonly style="width:60px;border: none" ></td>
                     <td colspan="2"><input name="userWorKunit"style="width: 80%;border: none"  readonly type="text"></td>
-                    <td>血型</td>
+                    <td><input value="血型" readonly style="width:60px;border: none" ></td>
                     <td><input name="userBloodtype" type="text" style="width: 80%;border: none"  readonly ></td>
                     <td colspan="2">现住地址</td>
                     <td colspan="6"><input name="recordAdress" readonly style="width: 90%;border: none"  type="text"></td>
@@ -59,7 +59,7 @@
                     <td>邮编</td>
                     <td colspan="2"><input name="recordPostalcode"  readonly style="width: 90%"  type="text"></td>
                     <td colspan="2">身份证号</td>
-                    <td colspan="3"><input name="userIdnumber"  readonly style="width: 140px" type="text"></td>
+                    <td colspan="3"><input name="userIdnumber"  readonly style="width: 150px" type="text"></td>
                 </tr>
 
                 <tr>
@@ -197,7 +197,8 @@
                 </tr>
                 <tr>
                     <td>责任医生<span class="xxx">*</span></td>
-                    <td colspan="5"><select  style="width: 100%" name="othslowResdoc"  class="easyui-combobox easyui-validatebox othslowResdoc"  data-options="required:true, missingMessage:'请填写姓名'" ></select></td>
+                    <td colspan="5"><select  style="width: 100%" name="othslowResdoc"  class="easyui-combobox easyui-validatebox othslowResdoc"
+                            id="othslowResdoc"            data-options="required:true, missingMessage:'请填写姓名'" ></select></td>
                     <td>建卡日期<span class="xxx">*</span></td>
                     <td colspan="5"><input type="text"style="width: 100%" class="easyui-datebox" id="othslowJkdate"  name="othslowJkdate"
         data-options="required:true, missingMessage:'请输入日期'"></td>

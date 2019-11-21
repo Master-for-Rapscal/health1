@@ -34,9 +34,7 @@ oldtcmExcori= #{oldtcmExcori},oldtcmDry= #{oldtcmDry},oldtcmLimb= #{oldtcmLimb},
 
     <select id="queryUserTotal" parameterType="Map" resultType="Integer">
         select count(* ) from oldtcm where oldpeoId=#{oldpeoId}
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
+
     </select>
 
     <select id="queryId" resultType="com.aaa.health.entity.oldpeo.Oldtcm" parameterType="int">
@@ -95,9 +93,7 @@ oldtcmExcori= #{oldtcmExcori},oldtcmDry= #{oldtcmDry},oldtcmLimb= #{oldtcmLimb},
         <if test="userIdnumber != null and userIdnumber != ''">
             AND u.userIdnumber LIKE '%${userIdnumber}%'
         </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
+
     </select>
 
     <select id="queryUserById" parameterType="Integer" resultType="Map">

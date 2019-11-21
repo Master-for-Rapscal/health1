@@ -145,9 +145,11 @@ public class HealthcheckController {
             ret.put("msg", "后台获取“用户ID”失败");
             return ret;
         }
+
         if (ids.contains(",")) {
             ids = ids.substring(0, ids.length() - 1);
         }
+        System.out.println("体检删除："+ids);
         if (healthcheckService.delete(ids) <= 0) {
             ret.put("type", "error");
             ret.put("msg", "删除用户数据失败！");

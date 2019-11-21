@@ -123,4 +123,17 @@ public class HyPerServiceImpl implements HyPerService {
     public Map<Object, Object> queryAreaById(Integer areaId) {
         return hyPerMapper.queryAreaById(areaId);
     }
+
+    @Override
+    public Integer panduan(Integer uid) {
+        Integer num=hyPerMapper.queryThisUserByid(uid);
+        if(num>0){
+            System.out.println("没有执行修改吗？");
+            hyPerMapper.updataThisUserByid(uid);
+            return  1;
+        }else{
+            return -1;
+        }
+
+    }
 }

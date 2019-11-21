@@ -44,7 +44,7 @@
                     <tr>
                         <td width="60">巡查地点与内容</td>
                         <td colspan="3">
-                            <textarea name="patrolContent" rows="9" cols="87" class="easyui-validatebox" editable="fasle" data-options="required:true,min:1,precision:0, missingMessage:'巡查地点与内容'" style="border: 0px"></textarea></td>
+                            <textarea name="patrolContent" rows="9" cols="87" onblur="checkContent(this.value)" class="easyui-validatebox" editable="fasle" data-options="required:true,min:1,precision:0, missingMessage:'巡查地点与内容'" style="border: 0px"></textarea></td>
                     </tr>
                     <tr>
                         <td width="60">发现的主要问题</td>

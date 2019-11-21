@@ -36,8 +36,6 @@ public class FindUserController {
     @RequestMapping( "/findUserId")
     @ResponseBody
     public Object findUserId(Integer userId){
-        System.out.println(userId);
-        System.out.println(findUserService.findUserId(userId));
         return findUserService.findUserId(userId);
     }
     @InitBinder

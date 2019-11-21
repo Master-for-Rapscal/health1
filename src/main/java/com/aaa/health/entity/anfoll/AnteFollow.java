@@ -19,6 +19,78 @@ public class AnteFollow {
             anfoPast,anfoFamily,anfoPersonal,anCellother,anUrother,anSecretion,anB,anOther,anReason,
             anOrgan,anfoYc,anfoEarly;
 
+    public Integer getAnfoMenage() {
+        return anfoMenage;
+    }
+
+    public void setAnfoMenage(Integer anfoMenage) {
+        this.anfoMenage = anfoMenage;
+    }
+
+    public Integer getAnfoJcycle() {
+        return anfoJcycle;
+    }
+
+    public void setAnfoJcycle(Integer anfoJcycle) {
+        this.anfoJcycle = anfoJcycle;
+    }
+
+    public Integer getAnfoMencycle() {
+        return anfoMencycle;
+    }
+
+    public void setAnfoMencycle(Integer anfoMencycle) {
+        this.anfoMencycle = anfoMencycle;
+    }
+
+    public Integer getAnfoMenamount() {
+        return anfoMenamount;
+    }
+
+    public void setAnfoMenamount(Integer anfoMenamount) {
+        this.anfoMenamount = anfoMenamount;
+    }
+
+    public Integer getAnfoMenamountcolor() {
+        return anfoMenamountcolor;
+    }
+
+    public void setAnfoMenamountcolor(Integer anfoMenamountcolor) {
+        this.anfoMenamountcolor = anfoMenamountcolor;
+    }
+
+    public Integer getAnfoMenapain() {
+        return anfoMenapain;
+    }
+
+    public void setAnfoMenapain(Integer anfoMenapain) {
+        this.anfoMenapain = anfoMenapain;
+    }
+
+    public Integer getAnABOzf() {
+        return anABOzf;
+    }
+
+    public void setAnABOzf(Integer anABOzf) {
+        this.anABOzf = anABOzf;
+    }
+
+    public String getAnfoYc() {
+        return anfoYc;
+    }
+
+    public void setAnfoYc(String anfoYc) {
+        this.anfoYc = anfoYc;
+    }
+
+    public String getAnfoEarly() {
+        return anfoEarly;
+    }
+
+    public void setAnfoEarly(String anfoEarly) {
+        this.anfoEarly = anfoEarly;
+    }
+
     public Integer getAnWeek() {
         return anWeek;
     }
@@ -786,6 +858,13 @@ public class AnteFollow {
                 ", anExperiment=" + anExperiment +
                 ", anHIV=" + anHIV +
                 ", anWhether=" + anWhether +
+                ", anfoMenage=" + anfoMenage +
+                ", anfoJcycle=" + anfoJcycle +
+                ", anfoMencycle=" + anfoMencycle +
+                ", anfoMenamount=" + anfoMenamount +
+                ", anfoMenamountcolor=" + anfoMenamountcolor +
+                ", anfoMenapain=" + anfoMenapain +
+                ", anABOzf=" + anABOzf +
                 ", fillformTime=" + fillformTime +
                 ", anfoLastmenage=" + anfoLastmenage +
                 ", anfoPretime=" + anfoPretime +
@@ -823,6 +902,8 @@ public class AnteFollow {
                 ", anOther='" + anOther + '\'' +
                 ", anReason='" + anReason + '\'' +
                 ", anOrgan='" + anOrgan + '\'' +
+                ", anfoYc='" + anfoYc + '\'' +
+                ", anfoEarly='" + anfoEarly + '\'' +
                 '}';
     }
 }

@@ -20,9 +20,11 @@
             <label>所属角色:</label>
             <select id="search-role" class="easyui-combobox" panelHeight="auto" style="width:120px">
                 <option value="-1">全部</option>
-                <a th:each="role:${roleList }" >
-                    <option   th:value="${role.id }" ><span th:text="${role.name }"></span></option>
-                </a>
+                <!--<a th:each="role:${roleList }" >-->
+                    <option th:each="role:${roleList }" th:selected="${role.id }==1"  th:value="${role.id }" >
+                        <span th:text="${role.name }"></span>
+                    </option>
+                <!--</a>-->
             </select>
             <label>性别:</label>
             <select id="search-sex" class="easyui-combobox" panelHeight="auto" style="width:120px">

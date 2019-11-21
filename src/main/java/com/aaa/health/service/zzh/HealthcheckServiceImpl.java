@@ -25,7 +25,9 @@ public class HealthcheckServiceImpl implements HealthcheckService {
 
     @Override
     public int delete(String ids) {
-        return  healthcheckMapper.delete(ids);
+ int A= healthcheckMapper.delete(ids);
+//        System.out.println(A);
+        return  A;
     }
 
     @Override

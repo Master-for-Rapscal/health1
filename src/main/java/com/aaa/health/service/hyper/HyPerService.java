@@ -51,4 +51,5 @@ public interface HyPerService {
 
     Map<Object,Object> queryAreaById(Integer areaId);
 
+    Integer panduan(Integer uid);
 }

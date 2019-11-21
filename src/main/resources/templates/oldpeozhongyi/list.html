@@ -23,15 +23,15 @@
     <table id="data-datagrid" class="easyui-datagrid" toolbar="#wu-toolbar"></table>
 </div>
 <!-- Begin of easyui-dialog -->
-<div id="tcm" class="easyui-dialog" style="width: 760px; height:760px;padding:10px;">
-    <div style="margin: auto;" th:replace="common/oldtcm :: oldtcm"></div>
+<div id="tcm" class="easyui-dialog" style="width: 760px;padding:10px;">
+    <div th:replace="common/oldtcm :: oldtcm"></div>
 </div>
 <div id="add-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-savse'" style="width:600px; margin: auto; padding:10px;">
-    <table id="dataAll" class="easyui-datagrid" style="width: 600px; height: 500px;"></table>
+    <table id="dataAll" class="easyui-datagrid"  style="width:680px; height:600px;"></table>
 </div>
 <!-- 修改窗口 -->
-<div id="edittcm" class="easyui-dialog" style="width: 760px; height:780px;padding:10px;">
-    <div style="margin: auto;"  th:replace="common/editoldtcm :: editoldtcm"></div>
+<div id="edittcm" class="easyui-dialog" style="width: 760px;padding:10px;">
+    <div  th:replace="common/editoldtcm :: editoldtcm"></div>
 </div>
 
 <div id="process-dialog" class="easyui-dialog" data-options="closed:true,iconCls:'icon-upload',title:'正在上传图片'" style="width:450px; padding:10px;">
@@ -141,7 +141,14 @@
             },{
                 text: '取消',
                 iconCls: 'icon-cancel',
-                handler: goBack
+                handler:  function () {
+                    $("#tcm").dialog('close');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#dataAll").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
+
+                }
+
             }],
             onBeforeOpen: function(){
                 $("#oldpeoId").val(gxy);
@@ -201,10 +208,12 @@
                     $('#data-datagrid').datagrid('reload');
                     $("#data-datagrid").datagrid('getSelections').length = 0;
                     $("#dataAll").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
                 } else {
                     $.messager.alert('信息提示', data.msg, 'warning');
                     $("#data-datagrid").datagrid('getSelections').length = 0;
                     $("#dataAll").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
                 }
             }
         });
@@ -231,7 +240,13 @@
             },{
                 text: '取消',
                 iconCls: 'icon-cancel',
-                handler: Close
+                handler: function () {
+                    $('#edittcm').dialog('close');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#dataAll").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
+
+                }
             }],
             onBeforeOpen: function () {
                 $("#editoldpeoId").val(gxy);
@@ -246,11 +261,12 @@
                         $("#userId2 ").val(data.userId);
                     }
 
-                });   $.ajax({
+                });
+                $.ajax({
                     type : "post",
                     url : "queryDoctor2",
                     dataType : "json",
-                    success : function (date) {
+                    success : function (da) {
                         $("#healthcheckDoctor2").combobox({
                             mode:'remote',
                             url:'queryDoctor2',
@@ -296,10 +312,12 @@
                     $('#edittcm').dialog('close');
                     $('#data-datagrid').datagrid('reload');
                     $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
                     $("#dataAll").datagrid('getSelections').length = 0;
                 }else{
                     $.messager.alert('信息提示',data.msg,'warning');
                     $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
                     $("#dataAll").datagrid('getSelections').length = 0;
                 }
             }
@@ -335,10 +353,12 @@
                             $('#data-datagrid').datagrid('reload');
                             $("#data-datagrid").datagrid('getSelections').length = 0;
                             $("#dataAll").datagrid('getSelections').length = 0;
+                            $("#add-dialog").datagrid('getSelections').length = 0;
                         }else{
                             $.messager.alert('信息提示',data.msg,'warning');
                             $("#data-datagrid").datagrid('getSelections').length = 0;
                             $("#dataAll").datagrid('getSelections').length = 0;
+                            $("#add-dialog").datagrid('getSelections').length = 0;
                         }
                     }
                 });
@@ -368,6 +388,10 @@
                 iconCls: 'icon-cancel',
                 handler: function () {
                     $('#add-dialog').dialog('close');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#dataAll").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
+
                 }
             }],
             onBeforeOpen:function(){
@@ -437,6 +461,8 @@
                 iconCls: 'icon-cancel',
                 handler: function () {
                     $('#edit-dialog').dialog('close');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
+                    $("#add-dialog").datagrid('getSelections').length = 0;
                 }
             }],
             onBeforeOpen:function(){
@@ -491,6 +517,20 @@
             { field:'recordName',title:'姓名',width:100,align:'center'},
             { field:'userId',title:'个人编号',width:100,align:'center'},
             { field:'userNumber',title:'个人健康档案号',hidden:true},
+            { field:'userSex',title:'性别',width:100,align:'center', formatter(value, row, index) {
+                switch (value) {
+                case 0: {
+                        return '未知';
+                    }
+                case 1: {
+                        return '男';
+                    }
+                case 2: {
+                        return '女';
+                    }
+                }
+                return value;
+    }},
             { field:'userIdnumber',title:'身份证号',width:100,align:'center'},
             { field:'userBirthday',title:'出生日期',width:100,align:'center'},
             { field:'recordAdress',title:'家庭地址',width:100,align:'center'},

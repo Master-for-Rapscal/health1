@@ -33,13 +33,13 @@
                         孕周
                     </td>
                     <td colspan="5">
-                        <input type="text" name="anWeek" style="width: 100%;height: 100%"/>
+                        <input type="text" name="anWeek" style="width: 100%;height: 100%" oninput="value=value.replace(/[^\d]/g,'')"/>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">孕妇年龄</td>
                     <td colspan="12">
-                        <input type="text" name="userAge" style="width: 100%"/></td>
+                        <input type="text" name="userAge" style="width: 100%" maxlength="3" oninput="value=value.replace(/[^\d]/g,'')"/></td>
                 </tr>
                 <tr>
                     <td colspan="2">丈夫姓名</td>
@@ -48,26 +48,26 @@
                     </td>
                     <td colspan="2">丈夫年龄</td>
                     <td colspan="2">
-                        <input type="text" name="anfoAge"  style="width: 100%"/>
+                        <input type="text" name="anfoAge"  style="width: 100%" maxlength="3" oninput="value=value.replace(/[^\d]/g,'')"/>
                     </td>
                     <td colspan="2">丈夫电话</td>
                     <td colspan="3">
-                        <input type="text" name="anfoPhone"  style="width: 100%"/>
+                        <input type="text" name="anfoPhone"  style="width: 100%" maxlength="11" oninput="value=value.replace(/[^\d]/g,'')"/>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">孕次</td>
                     <td colspan="3">
-                        <input type="text" name="anfoGestational"  style="width: 100%"/>
+                        <input type="text" name="anfoGestational"  style="width: 100%" oninput="value=value.replace(/[^\d]/g,'')"/>
                     </td>
                     <td>产次</td>
                     <td colspan="2">阴道分娩次数</td>
                     <td colspan="2">
-                        <input type="text" name="anfoVagina"  style="width: 100%"/>
+                        <input type="text" name="anfoVagina"  style="width: 100%" oninput="value=value.replace(/[^\d]/g,'')"/>
                     </td>
                     <td colspan="2">剖宫产次数</td>
                     <td colspan="2">
-                        <input type="text" name="anfoCesection"  style="width: 100%"/>
+                        <input type="text" name="anfoCesection"  style="width: 100%" oninput="value=value.replace(/[^\d]/g,'')"/>
                     </td>
                 </tr>
                 <tr>
@@ -77,13 +77,13 @@
                     </td>
                     <td colspan="2">预产期</td>
                     <td colspan="5">
-                        <input type="text" class="easyui-datebox" name="anfoPretime"  style="width: 200px"/>
+                        <input type="text" class="easyui-datebox" name="anfoPretime" editable="fasle" style="width: 200px"/>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">既往史</td>
                     <td colspan="12">
-                        <input type="checkbox" name="anfoPast" onclick="checkItem1(this)"  value="1">无
+                        <input type="checkbox" onclick="checkItem1(this)"  name="anfoPast" value="1">无
                         <input type="checkbox"  name="anfoPast" value="2">心脏病
                         <input type="checkbox"  name="anfoPast" value="3">肾脏疾病
                         <input type="checkbox"  name="anfoPast" value="4">肝脏疾病
@@ -93,10 +93,11 @@
                         <input type="checkbox"  name="anfoPast" value="8">其他
                     </td>
                 </tr>
+                <!--<input type="hidden"  name="anfoFamily" value="1">-->
                 <tr>
                     <td colspan="2">家族史</td>
                     <td colspan="12">
-                        <input type="checkbox" name="anfoFamily" onclick="checkItem1(this)"  value="1">无
+                        <input type="checkbox"  onclick="checkItem1(this)" name="anfoFamily" value="1">无
                         <input type="checkbox"  name="anfoFamily" value="2">遗传病疾病史
                         <input type="checkbox"  name="anfoFamily" value="3">精神疾病史
                         <input type="checkbox"  name="anfoFamily" value="4">其他
@@ -125,48 +126,48 @@
                     <td colspan="2">孕产史</td>
                     <td>自然流产</td>
                     <td>
-                        <input type="text" name="anteAbortion" style="width: 50px" />
+                        <input type="text" name="anteAbortion" style="width: 50px" oninput="value=value.replace(/[^\d]/g,'')"/>
                     </td>
                     <td>人工流产</td>
                     <td>
-                        <input type="text" name="antePeoabort" style="width: 50px" />
+                        <input type="text" name="antePeoabort" style="width: 50px" oninput="value=value.replace(/[^\d]/g,'')"/>
                     </td>
                     <td>死胎</td>
                     <td>
-                        <input type="text" name="anteStbirth" style="width: 50px" />
+                        <input type="text" name="anteStbirth" style="width: 50px" oninput="value=value.replace(/[^\d]/g,'')"/>
                     </td>
                     <td>死产</td>
                     <td>
-                        <input type="text" name="anteStbir" style="width: 50px" />
+                        <input type="text" name="anteStbir" style="width: 50px" oninput="value=value.replace(/[^\d]/g,'')"/>
                     </td>
                     <td>新生儿死亡</td>
                     <td>
-                        <input type="text" name="anteBirthdie" style="width: 50px" />
+                        <input type="text" name="anteBirthdie" style="width: 50px" oninput="value=value.replace(/[^\d]/g,'')"/>
                     </td>
                     <td>出生缺陷儿</td>
                     <td>
-                        <input type="text" name="anteBirthdefect" style="width: 50px" />
+                        <input type="text" name="anteBirthdefect" style="width: 50px" oninput="value=value.replace(/[^\d]/g,'')"/>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">身高</td>
                     <td colspan="5">
-                        <input type="text" name="anfoHeight" style="width: 100px"/>cm
+                        <input type="text" name="anfoHeight" style="width: 100px" oninput="value=value.replace(/[^\d\.]/g,'')"/>cm
                     </td>
                     <td colspan="2">体重</td>
                     <td colspan="5">
-                        <input type="text" name="anfoWeight" style="width: 100px"/>kg
+                        <input type="text" name="anfoWeight" style="width: 100px" oninput="value=value.replace(/[^\d\.]/g,'')"/>kg
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">体质指数</td>
                     <td colspan="5">
-                        <input type="text" name="anfoConstitution" style="width: 100px"/>Kg/㎡
+                        <input type="text" name="anfoConstitution" style="width: 100px" oninput="value=value.replace(/[^\d\.]/g,'')"/>Kg/㎡
                     </td>
                     <td colspan="2">血压</td>
                     <td colspan="5">
-                        <input type="text" name="aBloodpreq" />/
-                        <input type="text" name="aBloodpreh" />mmHg
+                        <input type="text" name="aBloodpreq" oninput="value=value.replace(/[^\d\.]/g,'')"/>/
+                        <input type="text" name="aBloodpreh" oninput="value=value.replace(/[^\d\.]/g,'')"/>mmHg
                     </td>
                 </tr>
                 <tr>
@@ -219,21 +220,21 @@
                     <td rowspan="2" colspan="2">血常规</td>
                     <td colspan="2">血红蛋白值</td>
                     <td colspan="3">
-                        <input type="text" name="anHemoglobin" style="width: 150px"/>g/L
+                        <input type="text" name="anHemoglobin" style="width: 150px" oninput="value=value.replace(/[^\d\.]/g,'')"/>g/L
                     </td>
                     <td colspan="2">白细胞计数值</td>
                     <td colspan="3">
-                        <input type="text" name="anWhitecell" style="width: 120px"/>x 10^9/L
+                        <input type="text" name="anWhitecell" style="width: 120px" oninput="value=value.replace(/[^\d\.]/g,'')"/>x 10^9/L
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">血小板计数值</td>
                     <td colspan="3">
-                        <input type="text" name="anPlatelet" style="width: 120px"/>x 10^9/L
+                        <input type="text" name="anPlatelet" style="width: 120px" oninput="value=value.replace(/[^\d\.]/g,'')"/>x 10^9/L
                     </td>
                     <td colspan="2">其他</td>
                     <td colspan="3">
-                        <input type="text" name="anCellother" style="width: 140px"/>
+                        <input type="text" name="anCellother" style="width: 100%"/>
                     </td>
                 </tr>
                 <tr>
@@ -312,54 +313,55 @@
                 <tr>
                     <td colspan="2">血糖</td>
                     <td colspan="10">
-                        <input type="text" name="anbloodSugar" style="width: 50%"/>mmol/L
+                        <input type="text" name="anbloodSugar" style="width: 50%" oninput="value=value.replace(/[^\d\.]/g,'')"/>mmol/L
                     </td>
                 </tr>
                 <tr>
                     <td rowspan="2" colspan="2">肝功能</td>
                     <td colspan="2">血清谷丙转氨酶</td>
                     <td colspan="3">
-                        <input type="text" name="anEnzymeo" style="width: 85%"/>U/L
+                        <input type="text" name="anEnzymeo" style="width: 85%" oninput="value=value.replace(/[^\d\.]/g,'')"/>U/L
                     </td>
                     <td colspan="2">血清谷草转氨酶</td>
                     <td colspan="3">
-                        <input type="text" name="anEnzymet" style="width: 85%"/>U/L
+                        <input type="text" name="anEnzymet" style="width: 85%" oninput="value=value.replace(/[^\d\.]/g,'')"/>U/L
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">白蛋白</td>
                     <td colspan="3">
-                        <input type="text" name="anAlbumin" style="width: 85%"/>g/L
+                        <input type="text" name="anAlbumin" style="width: 85%" oninput="value=value.replace(/[^\d\.]/g,'')"/>g/L
                     </td>
                     <td colspan="2">总胆红素</td>
                     <td colspan="3">
-                        <input type="text" name="anTotalbil" style="width: 75%"/>μmol/L
+                        <input type="text" name="anTotalbil" style="width: 75%" oninput="value=value.replace(/[^\d\.]/g,'')"/>μmol/L
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">结合胆红素</td>
                     <td colspan="10">
-                        <input type="text" name="anConbil" style="width: 50%;height: 100%"/>μmol/L
+                        <input type="text" name="anConbil" style="width: 50%;height: 100%" oninput="value=value.replace(/[^\d\.]/g,'')"/>μmol/L
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">肾功能</td>
                     <td colspan="2">血清肌酐</td>
                     <td colspan="3">
-                        <input type="text" name="anSerum" style="width: 75%"/>μmol/L
+                        <input type="text" name="anSerum" style="width: 75%" oninput="value=value.replace(/[^\d\.]/g,'')"/>μmol/L
                     </td>
                     <td colspan="2">血尿素氮</td>
                     <td colspan="3">
-                        <input type="text" name="anUrean" style="width: 70%"/>mmol/L
+                        <input type="text" name="anUrean" style="width: 70%" oninput="value=value.replace(/[^\d\.]/g,'')"/>mmol/L
                     </td>
                 </tr>
                 <tr>
                     <td rowspan="2" colspan="2">阴道分泌物</td>
                     <td colspan="10">
-                        <input type="checkbox" name="anSecretion" onclick="checkItem1(this)"  value="1">未见异常
-                        <input type="checkbox"  name="anSecretion" value="2">滴虫
-                        <input type="checkbox"  name="anSecretion" value="3">假丝酵母菌
-                        <input type="checkbox"  name="anSecretion" value="4">其他
+                        <input type="hidden" name="anSecretion"  value="1">
+                        <!--<input type="checkbox" name="anSecretion" value="1">未见异常-->
+                        <!--<input type="checkbox"  name="anSecretion" value="2">滴虫-->
+                        <!--<input type="checkbox"  name="anSecretion" value="3">假丝酵母菌-->
+                        <!--<input type="checkbox"  name="anSecretion" value="4">其他-->
                     </td>
                 </tr>
                 <tr>
@@ -434,7 +436,7 @@
                 <tr>
                     <td colspan="2">保健指导</td>
                     <td colspan="12">
-                        <input type="checkbox" name="healthGuidance"  value="1">生活方式
+                        <input type="checkbox" name="healthGuidance" onclick="checkItem1(this)" value="1">生活方式
                         <input type="checkbox"  name="healthGuidance" value="2">心理
                         <input type="checkbox"  name="healthGuidance" value="3">营养
                         <input type="checkbox"  name="healthGuidance" value="4">避免致畸因素和疾病对胚胎的不良影响
@@ -462,11 +464,11 @@
                 <tr>
                     <td colspan="3">下次随访日期</td>
                     <td colspan="4">
-                        <input type="text" class="easyui-datebox" name="anfoFotime" style="width: 190px"/>
+                        <input type="text" editable="fasle" class="easyui-datebox" name="anfoFotime" style="width: 190px"/>
                     </td>
                     <td colspan="2">随访医生签名</td>
                     <td colspan="5">
-                        <select name="anfoDoctor" class="easyui-combobox" panelHeight="auto" style="width:200px" >
+                        <select name="anfoDoctor" editable="fasle" class="easyui-combobox" panelHeight="auto" style="width:200px" >
                             <a th:each="doctor:${session.doctor}" >
                                 <option   th:value="${doctor.id}" ><span th:text="${doctor.lastname }"></span></option>
                             </a>

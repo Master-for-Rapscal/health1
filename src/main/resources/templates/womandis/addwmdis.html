@@ -65,15 +65,15 @@
                     <td rowspan="3">月经史</td>
                     <td>初潮年龄：</td>
                     <td>
-                        <input type="text" name="wodisMenage" style="width: 100px;height: 100%">岁
+                        <input type="text" name="wodisMenage" style="width: 100px;height: 100%" maxlength="3" oninput="value=value.replace(/[^\d]/g,'')">岁
                     </td>
                     <td>月经周期：</td>
                     <td>
-                        <input type="text"   name="wodisMencycle" style="width: 100px;height: 100%">天
+                        <input type="text"   name="wodisMencycle" style="width: 100px;height: 100%" oninput="value=value.replace(/[^\d]/g,'')">天
                     </td>
                     <td>持续时间：</td>
                     <td>
-                        <input type="text"  name="wodisMentime" style="width: 100px;height: 100%">天
+                        <input type="text"  name="wodisMentime" style="width: 100px;height: 100%" oninput="value=value.replace(/[^\d]/g,'')">天
                     </td>
                 </tr>
                 <tr>
@@ -92,7 +92,7 @@
                 <tr>
                     <td>绝经年龄：</td>
                     <td colspan="2">
-                        <input type="text"   name="wodisAge" style="width: 100px;height: 100%">岁
+                        <input type="text"   name="wodisAge" style="width: 100px;height: 100%" maxlength="3" oninput="value=value.replace(/[^\d]/g,'')">岁
                     </td>
                     <td>绝经后出血：</td>
                     <td colspan="2">
@@ -104,43 +104,43 @@
                     <td rowspan="3">孕产史</td>
                     <td>初产年龄：</td>
                     <td>
-                        <input type="text"  name="mateAge" style="width: 100px;height: 100%">岁
+                        <input type="text"  name="mateAge" style="width: 100px;height: 100%" maxlength="3" oninput="value=value.replace(/[^\d]/g,'')">岁
                     </td>
                     <td>难产：</td>
                     <td>
-                        <input type="text"  name="mateDystocia" style="width: 100px;height: 100%">次
+                        <input type="text"  name="mateDystocia" style="width: 100px;height: 100%" oninput="value=value.replace(/[^\d]/g,'')">次
                     </td>
                     <td>足月产：</td>
                     <td>
-                        <input type="text"  name="mateTerm" style="width: 100px;height: 100%">次
+                        <input type="text"  name="mateTerm" style="width: 100px;height: 100%" oninput="value=value.replace(/[^\d]/g,'')">次
                     </td>
                 </tr>
                 <tr>
                     <td>孕次：</td>
                     <td>
-                        <input type="text"  name="mateGravidity" style="width: 100px;height: 100%">次
+                        <input type="text"  name="mateGravidity" style="width: 100px;height: 100%" oninput="value=value.replace(/[^\d]/g,'')">次
                     </td>
                     <td>宫外孕次：</td>
                     <td>
-                        <input type="text"  name="mateOutgravidity" style="width: 100px;height: 100%">次
+                        <input type="text"  name="mateOutgravidity" style="width: 100px;height: 100%" oninput="value=value.replace(/[^\d]/g,'')">次
                     </td>
                     <td>早产：</td>
                     <td>
-                        <input type="text"  name="matePredelivery" style="width: 100px;height: 100%">次
+                        <input type="text"  name="matePredelivery" style="width: 100px;height: 100%" oninput="value=value.replace(/[^\d]/g,'')">次
                     </td>
                 </tr>
                 <tr>
                     <td>自然流产：</td>
                     <td>
-                        <input type="text"  name="mateAbortion" style="width: 100px;height: 100%">次
+                        <input type="text"  name="mateAbortion" style="width: 100px;height: 100%" oninput="value=value.replace(/[^\d]/g,'')">次
                     </td>
                     <td>人流：</td>
                     <td>
-                        <input type="text"  name="matePeoabort" style="width: 100px;height: 100%">次
+                        <input type="text"  name="matePeoabort" style="width: 100px;height: 100%" oninput="value=value.replace(/[^\d]/g,'')">次
                     </td>
                     <td>引产：</td>
                     <td>
-                        <input type="text"  name="mateIndlabor" style="width: 100px;height: 100%">次
+                        <input type="text"  name="mateIndlabor" style="width: 100px;height: 100%" oninput="value=value.replace(/[^\d]/g,'')">次
                     </td>
                 </tr>
                 <tr>
@@ -419,7 +419,7 @@
                 <tr>
                     <td>结案日期</td>
                     <td>
-                        <input type="text" class="easyui-datebox" style="width: 150px"  name="wodisClotime">
+                        <input type="text" class="easyui-datebox" editable="fasle" style="width: 150px"  name="wodisClotime">
                     </td>
                     <td>结案原因</td>
                     <td colspan="3">

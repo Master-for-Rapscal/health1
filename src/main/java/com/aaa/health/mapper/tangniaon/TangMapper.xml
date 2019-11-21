@@ -60,9 +60,9 @@
         <if test="userIdnumber != null and userIdnumber != ''">
             AND userIdnumber LIKE '%${userIdnumber}%'
         </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
+        <!--<if test="offset != null and pageSize != null">-->
+            <!--limit #{offset},#{pageSize}-->
+        <!--</if>-->
     </select>
 
     <delete id="deleteById" parameterType="String">
@@ -72,6 +72,7 @@
     <select id="queryAllUser" parameterType="Map" resultType="Map">
         SELECT u.userId,u.recordName,u.userBirthday,u.recordAdress,u.userMyphone from userinfo u
         where u.userId not in (SELECT recordId from dmsmcard)
+        and u.recordUnit=#{recordUnit}
         <if test="userId != null and userId != 0">
             and userId LIKE '%${userId}%'
         </if>
@@ -92,6 +93,7 @@
     <select id="queryUserTotal" parameterType="Map" resultType="Integer">
         SELECT count(*) from userinfo u
         where u.userId not in (SELECT recordId from dmsmcard)
+        and u.recordUnit=#{recordUnit}
         <if test="userId != null and userId != 0">
             and userId LIKE '%${userId}%'
         </if>
@@ -104,9 +106,9 @@
         <if test="userMyphone  != null and userMyphone != ''">
             AND userMyphone LIKE '%${userMyphone}%'
         </if>
-        <if test="offset != null and pageSize != null">
-            limit #{offset},#{pageSize}
-        </if>
+        <!--<if test="offset != null and pageSize != null">-->
+            <!--limit #{offset},#{pageSize}-->
+        <!--</if>-->
     </select>
 
     <select id="queryUserById" parameterType="Integer" resultType="Map">

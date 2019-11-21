@@ -28,7 +28,7 @@
                 <input type="text" name="infdisId" hidden="hidden">
                 <tr>
                     <td style="width: 90px">卡片编号</td>
-                    <td><input type="text"  style="width: 100%;height: 100%"  name="infdisCardnum"></td>
+                    <td><input type="text" maxlength="11" oninput="value=value.replace(/[^\d]/g,'')" style="width: 100%;height: 100%"  name="infdisCardnum"></td>
                     <td>报卡类型</td>
                     <td>
                         <input type="radio" name="infdisCardtype" value="1">初次报告
@@ -63,7 +63,7 @@
                     <td>工作单位（学校）</td>
                     <td><input type="text" style="width: 100%;height: 100%"  name="userWorkunit" readonly></td>
                     <td>联系电话</td>
-                    <td><input type="text" style="width: 100%;height: 100%"  name="infdisPhone" oninput="value=value.replace(/[^\d]/g,'')"></td>
+                    <td><input type="text" style="width: 100%;height: 100%"  name="infdisPhone" maxlength="11" oninput="value=value.replace(/[^\d]/g,'')"></td>
                 </tr>
                 <tr>
                     <td>病人属于</td>
@@ -229,7 +229,7 @@
                     <td>报告单位</td>
                     <td><input type="text" style="width: 100%;height: 100%"  name="infdisReport"></td>
                     <td>联系电话</td>
-                    <td><input type="text" style="width: 100%;height: 100%" name="infdisTel"></td>
+                    <td><input type="text" style="width: 100%;height: 100%" name="infdisTel" maxlength="11" oninput="value=value.replace(/[^\d]/g,'')"></td>
                 </tr>
                 <tr>
                     <td>报告医生</td>

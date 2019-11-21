@@ -104,13 +104,15 @@ public class OutController {
                                         @RequestParam(name = "userSex", required = false, defaultValue = "-1")  Integer userSex
     ) {
 //       System.out.println("编号"+userId+"-姓名"+recordName+"-身份证"+userIdnumber+"-所属单位"+recordUnit+"-常住地址"+recordPlaceadress+"-性别"+userSex+"-");
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa"+userId);
+//        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa"+userId);
 
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("userId",userId);
+        queryMap.put("userSex",-1);
+        queryMap.put("recordUnit",-1);
         List<Userinfo> u = userinfoService.findList(queryMap);
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa"+u.size());
+//        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa"+u[0]);
         //糖尿病
         queryMap.put("recordUnit",-1);
         int tangniao  =  tangService.queryTotal(queryMap);
@@ -143,6 +145,7 @@ public class OutController {
         queryMap.put("areaId",410000);
         int funv = anteBusmanService.getTotal(queryMap);
 
+        ret.put("rows", u);
         ret.put("tangniao", tangniao);
         ret.put("gaoxue", gaoxue);
         ret.put("zhongliu", zhongliu);
@@ -194,16 +197,17 @@ public class OutController {
     @CrossOrigin(value = "*")
     @RequestMapping(value = "/queryCheck", method = RequestMethod.POST)
     @ResponseBody//根据用户名  身份证号查询用户体检情况
-    public Object queryCheck(String username,String IDnumber){
+    public Object queryCheck( String id,
+            @RequestParam(name = "date", required = false, defaultValue = "")  Date date){
 //        String username="王宇飞";
 //        String IDnumber="411082194612252245
-        System.out.println(username+"------------------------"+IDnumber);
+//        System.out.println("------------------------"+id);
         Map<String,Object> map=new HashMap<String,Object>();
-        map.put("recordName",username);
-        map.put("userIdnumber",IDnumber);
+        map.put("userId",id);
+        map.put("healthcheckDate",date);
         List<Healthcheck> list = hostService.queryCheck(map);
         int num=list.size();
-        return list.get(num-1);
+        return list;
     }
 
 

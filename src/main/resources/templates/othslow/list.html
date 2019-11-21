@@ -42,8 +42,8 @@
     <table id="othname" class="easyui-datagrid" style="width: 450px; height: 400px;"></table>
 </div>
 
-<div id="addoth" class="easyui-dialog" style="width: 740px;height: 650px; padding:10px;">
-    <div th:replace="common/othslow :: othslow"></div>
+<div id="addoth" class="easyui-dialog" style="width: 740px; padding:10px;">
+    <div th:replace="common/othslow :: othslow" style="width: 100%;margin: auto;"></div>
 </div>
 <!-- 修改窗口 -->
 <!--<div id="edit-dialog" class="easyui-dialog" style="width: 740px;height: 600px; padding:10px;">
@@ -112,7 +112,8 @@
 <script type="text/javascript" th:inline="none">
     var all;
     var sss;
-    var user;
+    var sbbbb;
+    var xiugai;
     function goCo(){
         $("#data-ins").dialog('close');
     }
@@ -200,6 +201,7 @@
                 iconCls: 'icon-cancel',
                 handler: function () {
                     $('#upState').dialog('close');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 }
             }],onBeforeOpen:function (){
             /*    alert(item.othslowId);*/
@@ -264,7 +266,6 @@
      *  添加记录
      */
     function add(uid){
-  /*      alert(uid);*/
         $('#add-dialog').dialog('close');
         $("#addoth").dialog({
             title : "其他慢病专项卡添加",
@@ -278,17 +279,17 @@
                 iconCls: 'icon-cancel',
                 handler: function () {
                     $('#addoth').dialog('close');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 }
             }],
 
             onBeforeOpen: function(){
-                /*  $('#form1').form('clear');*/
                 fuzhi(uid);
             }
         });
     }
     function fuzhi(uid){
-        $("#userId").val(uid);
+
         $('#add-dialog').dialog('close');
         $("#addoth").dialog({
             title : "其他慢病专项卡添加",
@@ -297,14 +298,14 @@
                 $.ajax({
                     url:'queryById',
                     type:'post',
-                    data:"uid="+uid,
+                    data:"usera="+uid,
                     dataType:'json',
                     success:function(data){
+                     /*   $("input[name='userId']").val(data.userId);*/
                         $("input[name='recordName']").val(data.recordName);
                         $("input[name='userBirthday']").val(data.userBirthday);
                         $("input[name='userId']").val(data.userId);
                         $("input[name='userWorKunit']").val(data.userWorKunit);
-                 /*       alert(data.userWorKunit);*/
                         $("input[name='recordAdress']").val(data.recordAdress);
                         $("input[name='userMyphone']").val(data.userMyphone);
                         $("input[name='recordPostalcode']").val(data.recordPostalcode);
@@ -328,7 +329,6 @@
                       }
 
                         $("input[name='userBloodtype']").val(blood);
-                    /*    $("#userBloodtype").val(blood);*/
                         var sex="未知";
                         if( data.userSex==1){
                             sex= "男";
@@ -343,7 +343,7 @@
                     type: "post",
                     url: "queryDis",
                     dataType: "json",
-                    success: function (date) {
+                    success: function (data) {
                         $(".othslowNameId").combobox({
                             mode: 'remote',
                             url: 'queryDis',
@@ -409,6 +409,7 @@
                 iconCls: 'icon-cancel',
                 handler: function () {
                     $('#add-dialog').dialog('close');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 }
             }],
             onBeforeOpen: function () {
@@ -423,11 +424,12 @@
                     multiSort: true,
                     idField: 'userId',
                     onDblClickRow: function (index, row) {
-                        add(row.userId);
+                        all=row.userId;
+                        add(all);
                     },
                     columns: [[
                         {field: 'userId', title: '个人编号', width: 100, align: 'center',formatter(value,row,index){
-                                all=value;
+
                                 return value;
                             }
                            },
@@ -466,22 +468,21 @@
         }
         var Dmsmdata=$("#othform").serialize();
 
-   /*     alert(Dmsmdata);
-        alert(Dmsmdata.othslowNameId);*/
-        var uid= all;
-/*        alert(all);*/
+        var addid= all;
         $.ajax({
             type : "post",
             url : "add",
-            data : "uid="+uid+"&"+Dmsmdata,
+            data : "addid="+addid+"&"+Dmsmdata,
             dataType :"json",
             success : function (date) {
                 if(date>0){
                     $.messager.alert('信息提示','添加成功！','info');
                     $('#data-datagrid').datagrid('reload');
                     $("#addoth").dialog("close");
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 }else{
                     $.messager.alert('信息提示',data.msg,'warning');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 }
             }
         });
@@ -490,6 +491,19 @@
      * 打开修改窗口
      */
     function openEdit(){
+        var item = $('#data-datagrid').datagrid('getSelections');
+
+        if (item == null || item.length == 0) {
+            $.messager.alert('信息提示', '请选择要修改的数据！', 'info');
+            return;
+        }
+        if (item.length > 1) {
+            $.messager.alert('信息提示', '请选择一条数据进行修改！', 'info');
+            return;
+        }
+        item = item[0];
+        var bbb=item.recordId;
+       sbbbb=  item.othslowId;
         $('#addoth').dialog({
             closed: false,
             modal:true,
@@ -503,15 +517,14 @@
                 iconCls: 'icon-cancel',
                 handler: function () {
                     $('#addoth').dialog('close');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 }
             }],
             onBeforeOpen:function(){
-/*                alert(sss);
-                alert(user);*/
                 $.ajax({
                     url:'queryById',
                     type:'post',
-                    data:"uid="+user,
+                    data:"usera="+bbb,
                     dataType:'json',
                     success:function(data){
                         $("input[name='recordName']").val(data.recordName);
@@ -552,25 +565,13 @@
                         $("input[name='userSex']").val(sex);
                     }
                 });
-                $.ajax({
-                    url: 'queryEdit',
-                    type: 'post',
-                    data: "othslowId=" + sss,
-                    dataType: 'json',
-                    success: function (d) {
-                        $("othslowId").val(sss);
 
-   /*                     $("input[name='othslowJkdate']").val(d.othslowJkdate);*/
-                        $('#othform').form('load', d);
-                    }
-
-                });
                 $.ajax({
                     type : "post",
                     url : "queryDoctor",
                     dataType : "json",
-                    success : function (date) {
-                        $(".othslowResdoc").combobox({
+                    success : function (da) {
+                        $("#othslowResdoc").combobox({
                             mode:'remote',
                             url:'queryDoctor',
                             valueField:'id',
@@ -583,7 +584,7 @@
                     type : "post",
                     url : "queryDis",
                     dataType : "json",
-                    success : function (date) {
+                    success : function (data) {
                         $(".othslowNameId").combobox({
                             mode:'remote',
                             url:'queryDis',
@@ -594,6 +595,46 @@
                     }
                 });
 
+                $.ajax({
+                    url: 'queryEdit',
+                    type: 'post',
+                    data: "othslowId=" + sbbbb,
+                    dataType: 'json',
+                    success: function (d) {
+                        $('#othform').form('load', d);
+                    }
+
+                });
+              /*  $.ajax({
+                    type : "post",
+                    url : "queryDoctor",
+                    dataType : "json",
+                    success : function (da) {
+                        $("#othslowResdoc").combobox({
+                            mode:'remote',
+                            url:'queryDoctor',
+                            valueField:'id',
+                            textField:'lastname',
+                            delay:100
+                        });
+                    }
+                });
+                $.ajax({
+                    type : "post",
+                    url : "queryDis",
+                    dataType : "json",
+                    success : function (data) {
+                        $(".othslowNameId").combobox({
+                            mode:'remote',
+                            url:'queryDis',
+                            valueField:'othslowNameId',
+                            textField:'othslowNameName',
+                            delay:100
+                        });
+                    }
+                });*/
+
+
             }
         });
     }
@@ -602,19 +643,18 @@
         if(!validate){
             return;
         }
+        alert(sbbbb);
         var date=$("#othform").serialize();
-   /*     alert(sss);*/
         $.ajax({
             url:'updateOth',
             dataType:'json',
             type:'post',
-            data: "othslowId="+sss+"&"+date,
+            data: "othslowId="+sbbbb+"&"+date,
             success:function(data){
                 if(data>0){
                     $.messager.alert('信息提示','修改成功！','info');
                     $('#addoth').dialog('close');
                     $('#data-datagrid').datagrid('reload');
-
                     $("#data-datagrid").datagrid('getSelections').length = 0;
                 }else{
                     $.messager.alert('信息提示',data.msg,'warning');
@@ -655,12 +695,16 @@
         fit:true,
         columns:[[
       /*      { field:'chk',checkbox:true},*/
-            { field:'othslowId',hidden:true,formatter(value,row,index){
+            { field:'othslowId',title:'编号',hidden:true,formatter(value,row,index){
                     sss=value;
+
                 }},
-            { field:'userId',width:80,title:'个人健康档案号',align:'center'},
+            { field:'userId',width:80,title:'个人健康档案号',align:'center',formatter(value,row,index){
+
+                return value;
+    }},
             { field:'recordId',hidden:true,formatter(value,row,index){
-                    user=value;
+                    xiugai=value;
                 }},
             { field:'userNumber',title:'个人健康档案号',hidden:true},
             { field:'recordName',title:'姓名',width:60,align:'center'},

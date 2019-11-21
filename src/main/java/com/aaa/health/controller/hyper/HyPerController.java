@@ -87,9 +87,11 @@ public class HyPerController {
                 areaId = recordUnit;
             }
         }
+//        System.out.println("-------------"+areaId);
         queryMap.put("recordUnit",areaId);
         ret.put("rows", hyPerService.queryHyAll(queryMap));// 页面加载数据使用
         ret.put("total", hyPerService.queryHyTotal(queryMap));// 分页使用
+        //System.out.println("高血压"+ret);
         return ret;
     }
 
@@ -124,7 +126,9 @@ public class HyPerController {
                             @RequestParam(name = "userName", required = false, defaultValue = "") String userName,
                             @RequestParam(name = "userAdress", required = false, defaultValue = "") String userAdress,
                             @RequestParam(name = "username", required = false, defaultValue = "") String userPhone,
-                            HttpSession session){
+                            HttpServletRequest request){
+        System.out.println("aaaaaaaaa"+ page.getOffset());
+        System.out.println( "bbbbbbbb"+ page.getRows());
         Map<String, Object> ret = new HashMap<String, Object>();
         Map<String, Object> queryMap = new HashMap<String, Object>();
         queryMap.put("offset", page.getOffset());
@@ -133,8 +137,11 @@ public class HyPerController {
         queryMap.put("recordName",userName);
         queryMap.put("recordAdress",userAdress);
         queryMap.put("userMyphone",userPhone);
+        int areaId= Integer.parseInt((String) request.getSession().getAttribute("areaId"));
+        queryMap.put("recordUnit",areaId);
         ret.put("rows", hyPerService.queryNotUser(queryMap));// 页面加载数据使用
         ret.put("total", hyPerService.queryNoUserTotal(queryMap));// 分页使用
+        System.out.println(ret);
         return ret;
     }
 
@@ -151,6 +158,7 @@ public class HyPerController {
             map.put("msg","error");
             map.put("info","添加失败,联系管理员");
         }
+       // System.out.println(map);
         return map;
     }
 
@@ -158,6 +166,8 @@ public class HyPerController {
     @ResponseBody
     public Object queryHyById(Integer userId){
         List<HyPer> list = hyPerService.queryHyById(userId);
+       // Map<String,Object> map=new HashMap<String,Object>();
+      //  map.put("hyper",hyPer);
         System.out.println("asdasdasdas"+list);
         return  list;
     }
@@ -199,6 +209,7 @@ public class HyPerController {
         Date date= new Date();
         SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd");
         String d=sim.format(date);
+        //System.out.println("获取当前时间"+d);
         tang.setRecordId(rid);//用户ID
         tang.setHypertenState(2);//高血压是2 糖尿病是1
         tang.setHypertenDe(d);
@@ -218,6 +229,8 @@ public class HyPerController {
         map.put("recordRecipeContent",recordRecipeContent);
         map.put("recordRecipePian",recordRecipePian);
         int num=hyPerService.insertHyperYao(map);
+//            Map<String,Object> ret = new HashMap<String,Object>();
+//            if(num>1){}
         return num;
     }
 
@@ -275,6 +288,7 @@ public class HyPerController {
         map.put("uid",uid);
         map.put("zhuancause",zhuancause);
         map.put("zhuandate",zhuandate);
+       // System.out.println("aaaaaaaa"+map);
         int num=hyPerService.updateZhuan(map);
         return num;
     }
@@ -290,6 +304,13 @@ public class HyPerController {
         map.put("recordRecipeContent",recordRecipeContent);
         map.put("recordRecipePian",recordRecipePian);
         int num=tangService.insertYao(map);
+        return num;
+    }
+
+    @RequestMapping("panduan")
+    @ResponseBody
+    public Object pandaun(Integer uid){
+       Integer num = hyPerService.panduan(uid);
         return num;
     }
 }

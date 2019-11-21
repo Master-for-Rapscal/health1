@@ -12,7 +12,7 @@
         </div>
         <div class="wu-toolbar-search">
             <label> 健康档案号:</label>&nbsp;
-            <input name="userId"/>&nbsp;&nbsp;
+            <input name="userId"  maxlength="11" oninput="value=value.replace(/[^\d]/g,'')"/>&nbsp;&nbsp;
             <label> 姓名:</label>&nbsp;
             <input name="recordName"/>&nbsp;&nbsp;
             <label> 所属地区:</label>&nbsp;
@@ -20,11 +20,11 @@
                 <option th:each="l:${list}" th:value="${l.areaId}" th:text="${l.areaName}"></option>
             </select>&nbsp;&nbsp;
             <label> 末次月经:</label>&nbsp;
-            <input type="text" class="easyui-datebox" editable="fasle" name="beginTime" style="width: 150px"/>
+            <input type="text" class="easyui-datebox" name="beginTime" style="width: 150px"/>
             &nbsp;&nbsp;至&nbsp;
-            <input type="text" class="easyui-datebox" editable="fasle" name="endTime" style="width: 150px"/>
+            <input type="text" class="easyui-datebox" name="endTime" style="width: 150px"/>
             &nbsp;&nbsp;
-            <a href="#" id="suppat-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
+            <a href="#" id="busman-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
 
         </div>
     </div>
@@ -273,7 +273,7 @@
         </table>
     </form>-->
 </div>
-<!-- 修改窗口 -->
+<!-- 修改孕产妇结案窗口 -->
 
 <div id="edit-dialog" class="easyui-dialog" data-options="closed:true" style="width:450px;height:350px; overflow:auto;">
     <form id="edit-form" method="post">
@@ -342,15 +342,13 @@
 <!--健康档案-->
 <div id="userinfo-dialog" class="easyui-dialog" data-options="closed:true" style="width:800px;height: 700px">
     <!--按条件查询-->
-    <label> 健康档案号:</label><input name="userId" id="userId" data-options="validType:['maxLength[9]']" style="width: 120px"/>
+    <label> 健康档案号:</label><input name="userId" id="userId" maxlength="9" oninput="value=value.replace(/[^\d]/g,'')" style="width: 120px"/>
     <label> 姓名:</label><input name="recordName" id="recordName" style="width: 100px"/>
     <a href="#" id="userinfo-Search" class="easyui-linkbutton" iconCls="icon-search">搜索</a>
 
     <table id="userAll" class="easyui-datagrid" style="width: 750px;height: 600px" ></table>
 </div>
-<div id="highriskFactor">
-   <!-- <table id="datahigh" class="easyui-datagrid" style="width: 750px;height: 600px" ></table>-->
-</div>
+
 <!--引入叫本页面<%@include file="../common/footer.jsp"%>-->
 <div th:replace="common/footer :: myfooter"  ></div>
 
@@ -369,437 +367,7 @@ $(function () {
 function  goBack() {
     $("#editanf").dialog('close');
 }
-/**
- * 设置末次月经只能是当前日期之前的日期
- */
-/*$('input[name="anfoLastmenage"]').calendar({
-    validator : function(date){
-        var now = new Date();
-        var d1 = new Date(now.getFullYear(),now.getMonth(),now.getDate());
-        return date <= d1;
-    }
-});*/
-/*
- * 设置填表日期默认为系统时间
- */
-$(function(){
-    $('input[name="fillformTime"]').datebox('setValue', getCurentDateStr());
-    //$('#input_dateTransaction').datebox('setValue', formatterDate(new Date()));
-})
-//$('input[name="fillformTime"]').datebox('setValue', getCurentDateStr());
 
-/*
- * 设置时间默认为系统时间
- */
-function getCurentDateStr()
-{
-    var now = new Date();
-    var year = now.getFullYear();       //年
-    var month = now.getMonth() + 1;     //月
-    var day = now.getDate();            //日
-    var clock = year + "-";
-    if(month < 10) clock += "0";
-    clock += month + "-";
-    if(day < 10) clock += "0";
-    clock += day;
-    return clock;
-}
-
-
-/*
-* 高危因素组合树
-* */
-$("#cc").click(function () {
-    $("#highriskFactor").dialog({
-        title : "数据选择窗口",
-        buttons: [{
-            text: '确定',
-            iconCls: 'icon-ok',
-            handler: add
-        }, {
-            text: '取消',
-            iconCls: 'icon-cancel',
-            handler: function () {
-                $('#highriskFactor').dialog('close');
-            }
-        }],
-        onBeforeOpen: function(){
-            $('#cc').combotree({
-                url:'loadData',
-                multiple: true,
-                editable:true,
-                cascadeCheck: true,
-                loadData:[{
-                   id: 1,
-                   text: '基本情况',
-                   children: [{
-                       id: 11,
-                       text: '精神疾病',
-                       children:[{
-                           id:14,
-                           text:'aa'
-                       }]
-                   },{
-                       id: 6,
-                       text: '智力障碍'
-                   },{
-                       id: 7,
-                       text: '体态异常'
-                   },{
-                       id: 8,
-                       text: '遗传病史'
-                   },{
-                       id: 9,
-                       text: '其他基本因素'
-                   },{
-                       id: 10,
-                       text: '外界因素'
-                   },{
-                       id: 11,
-                       text: '社会因素'
-                   },
-                   ]
-               },
-                   {
-                       id: 2,
-                       text: '环境及社会因素',
-                       children: [{
-                           id: 12,
-                           text: '被动或主动吸烟≥20支/日，滥用药物，酗酒 5分'
-                       },{
-                           id: 13,
-                           text: '孕早期接触禁忌食物，放射线或可疑致畸物 5分'
-                       },{
-                           id: 14,
-                           text: '临产前无产前检查、家庭经济困难、家庭暴力 5分'
-                       }]
-                   },
-                   {
-                       id: 3,
-                       text: '妊娠并发症',
-                       children: [{
-                           id: 15,
-                           text: '母儿血型不合'
-                       },{
-                           id: 16,
-                           text: '胎位不正'
-                       },{
-                           id: 17,
-                           text: '产前出血'
-                       },{
-                           id: 18,
-                           text: '胎动及胎心监护'
-                       },{
-                           id: 19,
-                           text: '妊娠期高血压疾病'
-                       },{
-                           id: 20,
-                           text: '羊水量异常'
-                       },{
-                           id: 21,
-                           text: 'ICP'
-                       },{
-                           id: 22,
-                           text: '胎膜早破'
-                       }]
-                   },
-                   {
-                       id: 4,
-                       text: '妊娠合并症',
-                       children: [{
-                           id: 23,
-                           text: '心血管病'
-                       },{
-                           id: 24,
-                           text: '呼吸道疾病'
-                       },{
-                           id: 25,
-                           text: '内分泌病'
-                       },{
-                           id: 26,
-                           text: '心脏病'
-                       },{
-                           id: 27,
-                           text: '肝病'
-                       },{
-                           id: 28,
-                           text: '糖尿病'
-                       },{
-                           id: 29,
-                           text: '肾病'
-                       }]
-                   },
-                   {
-                       id: 5,
-                       text: '不良孕产史',
-                       children: [{
-                           id: 30,
-                           text: '流产≥2次，宫外孕史 5分'
-                       },{
-                           id: 31,
-                           text: '三次自然流产史、围产儿死亡史、早产史、阴道难产史 10分'
-                       },{
-                           id: 32,
-                           text: 'ABO或RH溶血症 20分'
-                       }]
-                   }
-               ]
-                //onlyLeafCheck: true
-            });
-        }
-    });
-   /* $('#cc').combotree({
-        url:'loadData',
-        multiple: true,
-        editable:true,
-        cascadeCheck: true
-        //onlyLeafCheck: true
-    });*/
-   /* $('#cc').combotree('loadData', [{
-        id: 1,
-        text: '基本情况',
-        children: [{
-            id: 11,
-            text: '精神疾病',
-            children:[{
-                id:14,
-                text:'aa'
-            }]
-        },{
-            id: 6,
-            text: '智力障碍'
-        },{
-            id: 7,
-            text: '体态异常'
-        },{
-            id: 8,
-            text: '遗传病史'
-        },{
-            id: 9,
-            text: '其他基本因素'
-        },{
-            id: 10,
-            text: '外界因素'
-        },{
-            id: 11,
-            text: '社会因素'
-        },
-        ]
-    },
-        {
-            id: 2,
-            text: '环境及社会因素',
-            children: [{
-                id: 12,
-                text: '被动或主动吸烟≥20支/日，滥用药物，酗酒 5分'
-            },{
-                id: 13,
-                text: '孕早期接触禁忌食物，放射线或可疑致畸物 5分'
-            },{
-                id: 14,
-                text: '临产前无产前检查、家庭经济困难、家庭暴力 5分'
-            }]
-        },
-        {
-            id: 3,
-            text: '妊娠并发症',
-            children: [{
-                id: 15,
-                text: '母儿血型不合'
-            },{
-                id: 16,
-                text: '胎位不正'
-            },{
-                id: 17,
-                text: '产前出血'
-            },{
-                id: 18,
-                text: '胎动及胎心监护'
-            },{
-                id: 19,
-                text: '妊娠期高血压疾病'
-            },{
-                id: 20,
-                text: '羊水量异常'
-            },{
-                id: 21,
-                text: 'ICP'
-            },{
-                id: 22,
-                text: '胎膜早破'
-            }]
-        },
-        {
-            id: 4,
-            text: '妊娠合并症',
-            children: [{
-                id: 23,
-                text: '心血管病'
-            },{
-                id: 24,
-                text: '呼吸道疾病'
-            },{
-                id: 25,
-                text: '内分泌病'
-            },{
-                id: 26,
-                text: '心脏病'
-            },{
-                id: 27,
-                text: '肝病'
-            },{
-                id: 28,
-                text: '糖尿病'
-            },{
-                id: 29,
-                text: '肾病'
-            }]
-        },
-        {
-            id: 5,
-            text: '不良孕产史',
-            children: [{
-                id: 30,
-                text: '流产≥2次，宫外孕史 5分'
-            },{
-                id: 31,
-                text: '三次自然流产史、围产儿死亡史、早产史、阴道难产史 10分'
-            },{
-                id: 32,
-                text: 'ABO或RH溶血症 20分'
-            }]
-        }
-    ]);*/
-});
-/*function highriskFactor(){
-
-}*/
-/*$(function () {
-    $('#cc').combotree({
-        url:'loadData',
-        multiple: true,
-        editable:true,
-        cascadeCheck: true
-        //onlyLeafCheck: true
-    });
-
-});*/
-/*$(function () {
-    $('#cc').combotree('loadData', [{
-        id: 1,
-        text: '基本情况',
-        children: [{
-            id: 11,
-            text: '精神疾病',
-            children:[{
-                id:14,
-                text:'aa'
-            }]
-        },{
-            id: 6,
-            text: '智力障碍'
-        },{
-                id: 7,
-                text: '体态异常'
-            },{
-                id: 8,
-                text: '遗传病史'
-            },{
-            id: 9,
-            text: '其他基本因素'
-        },{
-            id: 10,
-            text: '外界因素'
-        },{
-            id: 11,
-            text: '社会因素'
-        },
-        ]
-    },
-        {
-            id: 2,
-            text: '环境及社会因素',
-            children: [{
-                id: 12,
-                text: '被动或主动吸烟≥20支/日，滥用药物，酗酒 5分'
-            },{
-                id: 13,
-                text: '孕早期接触禁忌食物，放射线或可疑致畸物 5分'
-            },{
-                id: 14,
-                text: '临产前无产前检查、家庭经济困难、家庭暴力 5分'
-            }]
-        },
-        {
-            id: 3,
-            text: '妊娠并发症',
-            children: [{
-                id: 15,
-                text: '母儿血型不合'
-            },{
-                id: 16,
-                text: '胎位不正'
-            },{
-                id: 17,
-                text: '产前出血'
-            },{
-                id: 18,
-                text: '胎动及胎心监护'
-            },{
-                id: 19,
-                text: '妊娠期高血压疾病'
-            },{
-                id: 20,
-                text: '羊水量异常'
-            },{
-                id: 21,
-                text: 'ICP'
-            },{
-                id: 22,
-                text: '胎膜早破'
-            }]
-        },
-        {
-            id: 4,
-            text: '妊娠合并症',
-            children: [{
-                id: 23,
-                text: '心血管病'
-            },{
-                id: 24,
-                text: '呼吸道疾病'
-            },{
-                id: 25,
-                text: '内分泌病'
-            },{
-                id: 26,
-                text: '心脏病'
-            },{
-                id: 27,
-                text: '肝病'
-            },{
-                id: 28,
-                text: '糖尿病'
-            },{
-                id: 29,
-                text: '肾病'
-            }]
-        },
-        {
-            id: 5,
-            text: '不良孕产史',
-            children: [{
-                id: 30,
-                text: '流产≥2次，宫外孕史 5分'
-            },{
-                id: 31,
-                text: '三次自然流产史、围产儿死亡史、早产史、阴道难产史 10分'
-            },{
-                id: 32,
-                text: 'ABO或RH溶血症 20分'
-            }]
-        }
-    ]);});*/
     /**
      *  添加记录
      */
@@ -848,6 +416,7 @@ $("#cc").click(function () {
                     $.messager.alert('信息提示','修改成功！','info');
                     $('#edit-dialog').dialog('close');
                     $('#data-datagrid').datagrid('reload');
+                    $("#data-datagrid").datagrid('getSelections').length = 0;
                 }else{
                     $.messager.alert('信息提示',data.msg,'warning');
                 }
@@ -1221,7 +790,7 @@ function openBusman(anfoId) {
         }
     });
     $(function () {
-        $("#suppat-Search").click(function () {
+        $("#busman-Search").click(function () {
             $("#data-datagrid").datagrid({
                 queryParams: {
                     userId: $("input[name=userId]").val(),
@@ -1252,4 +821,14 @@ function openBusman(anfoId) {
 
         });
     });
+$(function () {
+    $("#aa").click(function () {
+        alert(11);
+        var anfoLastmenage=$("input[name=anfoLastmenage]").val();
+        var anfoPretime=$("input[name=anfoPretime]").val();
+        if (anfoLastmenage>anfoPretime || anfoPretime==null ||anfoPretime==''){
+            $.messager.alert('提示',"预产期不能小于末次月经");
+        }
+    });
+});
 </script>
